@@ -1,0 +1,239 @@
+/**
+ * Copyright 2011 Google Inc.
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * Sets the icons background on all elements which will
+ * display illustration icons.
+ */
+#search-dropdown .illustration,
+#table-of-contents .illustration,
+#chapter-nav .illustration {
+	background: url('images/illustrations.png') no-repeat top left;
+	background-position: bottom right;
+}
+
+/**
+ * 60x60 icons
+ */
+#search-dropdown li.cloud-computing .illustration,
+#table-of-contents ul li.cloud-computing .medium-book .illustration {
+	background-position: 0 0;
+}
+#search-dropdown li.web-apps .illustration,
+#table-of-contents ul li.web-apps .medium-book .illustration {
+	background-position: -61px 0;
+}
+#search-dropdown li.html .illustration,
+#table-of-contents ul li.html .medium-book .illustration {
+	background-position: -122px 0;
+}
+#search-dropdown li.html5 .illustration,
+#table-of-contents ul li.html5 .medium-book .illustration {
+	background-position: -183px 0;
+}
+#search-dropdown li.old-vs-new-browsers .illustration,
+#table-of-contents ul li.old-vs-new-browsers .medium-book .illustration {
+	background-position: -244px 0;
+}
+#search-dropdown li.plugins .illustration,
+#table-of-contents ul li.plugins .medium-book .illustration {
+	background-position: -305px 0;
+}
+#search-dropdown li.browser-extensions .illustration,
+#table-of-contents ul li.browser-extensions .medium-book .illustration {
+	background-position: -366px 0;
+}
+#search-dropdown li.malware .illustration,
+#table-of-contents ul li.malware .medium-book .illustration {
+	background-position: -427px 0;
+}
+#search-dropdown li.browser-protection .illustration,
+#table-of-contents ul li.browser-protection .medium-book .illustration {
+	background-position: -488px 0;
+}
+#search-dropdown li.url .illustration,
+#table-of-contents ul li.url .medium-book .illustration {
+	background-position: -549px 0;
+}
+#search-dropdown li.identity .illustration,
+#table-of-contents ul li.identity .medium-book .illustration {
+	background-position: -610px 0;
+}
+#search-dropdown li.browser-cookies .illustration,
+#table-of-contents ul li.browser-cookies .medium-book .illustration {
+	background-position: -671px 0;
+}
+#search-dropdown li.browser-privacy .illustration,
+#table-of-contents ul li.browser-privacy .medium-book .illustration {
+	background-position: -732px 0;
+}
+#search-dropdown li.open-source .illustration,
+#table-of-contents ul li.open-source .medium-book .illustration {
+	background-position: -793px 0;
+}
+#search-dropdown li.page-load .illustration,
+#table-of-contents ul li.page-load .medium-book .illustration {
+	background-position: -854px 0;
+}
+#search-dropdown li.what-is-the-internet .illustration,
+#table-of-contents ul li.what-is-the-internet .medium-book .illustration {
+	background-position: -915px 0;
+}
+#search-dropdown li.dns .illustration,
+#table-of-contents ul li.dns .medium-book .illustration {
+	background-position: -976px 0;
+}
+#search-dropdown li.threed .illustration,
+#table-of-contents ul li.threed .medium-book .illustration {
+	background-position: -1037px 0;
+}
+#search-dropdown li.sync .illustration,
+#table-of-contents ul li.sync .medium-book .illustration {
+	background-position: -1098px 0;
+}
+#search-dropdown li.conclusion .illustration,
+#table-of-contents ul li.conclusion .medium-book .illustration {
+	background-position: -1159px 0;
+}
+
+/**
+ * 28x28 icons
+ */
+#chapter-nav ul li.cloud-computing .small-book .illustration {
+	background-position: 0 -62px;
+}
+#chapter-nav ul li.web-apps .small-book .illustration {
+	background-position: -61px -62px;
+}
+#chapter-nav ul li.html .small-book .illustration {
+	background-position: -122px -62px;
+}
+#chapter-nav ul li.html5 .small-book .illustration {
+	background-position: -183px -62px;
+}
+#chapter-nav ul li.old-vs-new-browsers .small-book .illustration {
+	background-position: -244px -62px;
+}
+#chapter-nav ul li.plugins .small-book .illustration {
+	background-position: -305px -62px;
+}
+#chapter-nav ul li.browser-extensions .small-book .illustration {
+	background-position: -366px -62px;
+}
+#chapter-nav ul li.malware .small-book .illustration {
+	background-position: -427px -62px;
+}
+#chapter-nav ul li.browser-protection .small-book .illustration {
+	background-position: -488px -62px;
+}
+#chapter-nav ul li.url .small-book .illustration {
+	background-position: -549px -62px;
+}
+#chapter-nav ul li.identity .small-book .illustration {
+	background-position: -610px -62px;
+}
+#chapter-nav ul li.browser-cookies .small-book .illustration {
+	background-position: -671px -62px;
+}
+#chapter-nav ul li.browser-privacy .small-book .illustration {
+	background-position: -732px -62px;
+}
+#chapter-nav ul li.open-source .small-book .illustration {
+	background-position: -793px -62px;
+}
+#chapter-nav ul li.page-load .small-book .illustration {
+	background-position: -854px -62px;
+}
+#chapter-nav ul li.what-is-the-internet .small-book .illustration {
+	background-position: -915px -62px;
+}
+#chapter-nav ul li.dns .small-book .illustration {
+	background-position: -976px -62px;
+}
+#chapter-nav ul li.threed .small-book .illustration {
+	background-position: -1037px -62px;
+}
+#chapter-nav ul li.sync .small-book .illustration {
+	background-position: -1098px -62px;
+}
+#chapter-nav ul li.conclusion .small-book .illustration {
+	background-position: -1159px -62px;
+}
+
+/**
+ * 16x16 icons
+ */
+#chapter-nav ul li.cloud-computing a .illustration {
+	background-position: 0 -91px;
+}
+#chapter-nav ul li.web-apps a .illustration {
+	background-position: -61px -91px;
+}
+#chapter-nav ul li.html a .illustration {
+	background-position: -122px -91px;
+}
+#chapter-nav ul li.html5 a .illustration {
+	background-position: -183px -91px;
+}
+#chapter-nav ul li.old-vs-new-browsers a .illustration {
+	background-position: -244px -91px;
+}
+#chapter-nav ul li.plugins a .illustration {
+	background-position: -305px -91px;
+}
+#chapter-nav ul li.browser-extensions a .illustration {
+	background-position: -366px -91px;
+}
+#chapter-nav ul li.malware a .illustration {
+	background-position: -427px -91px;
+}
+#chapter-nav ul li.browser-protection a .illustration {
+	background-position: -488px -91px;
+}
+#chapter-nav ul li.url a .illustration {
+	background-position: -549px -91px;
+}
+#chapter-nav ul li.identity a .illustration {
+	background-position: -610px -91px;
+}
+#chapter-nav ul li.browser-cookies a .illustration {
+	background-position: -671px -91px;
+}
+#chapter-nav ul li.browser-privacy a .illustration {
+	background-position: -732px -91px;
+}
+#chapter-nav ul li.open-source a .illustration {
+	background-position: -793px -91px;
+}
+#chapter-nav ul li.page-load a .illustration {
+	background-position: -854px -91px;
+}
+#chapter-nav ul li.what-is-the-internet a .illustration {
+	background-position: -915px -91px;
+}
+#chapter-nav ul li.dns a .illustration {
+	background-position: -976px -91px;
+}
+#chapter-nav ul li.threed a .illustration {
+	background-position: -1037px -91px;
+}
+#chapter-nav ul li.sync a .illustration {
+	background-position: -1098px -91px;
+}
+#chapter-nav ul li.conclusion a .illustration {
+	background-position: -1159px -91px;
+}

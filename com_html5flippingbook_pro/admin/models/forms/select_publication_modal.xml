@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset>
+		
+		<field name="publication_id"
+			type="_publication"
+			required="true"
+			label="COM_HTML5FLIPPINGBOOK_BE_INSERT_PUBLICATION_TAG_PUBLICATION"
+			description="COM_HTML5FLIPPINGBOOK_BE_INSERT_PUBLICATION_TAG_PUBLICATION_DESC" />
+		
+		<field name="insertion_type"
+			type="_advanced_radio"
+			default="direct"
+			required="false"
+			onclick="onInsertionTypeClick(this, event);"
+			class="btn-group"
+			label="COM_HTML5FLIPPINGBOOK_BE_INSERT_PUBLICATION_TAG_INSERTION_TYPE"
+			description="COM_HTML5FLIPPINGBOOK_BE_INSERT_PUBLICATION_TAG_INSERTION_TYPE_DESC">
+			<option value="direct">COM_HTML5FLIPPINGBOOK_BE_INSERT_PUBLICATION_TAG_INSERTION_TYPE_DIRECT</option>
+			<option value="link">COM_HTML5FLIPPINGBOOK_BE_INSERT_PUBLICATION_TAG_INSERTION_TYPE_LINK</option>
+		</field>
+		
+		<field name="link_text"
+			type="text"
+			class="inputbox"
+			size="20"
+			required="false"
+			label="COM_HTML5FLIPPINGBOOK_BE_INSERT_PUBLICATION_TAG_LINK_TEXT"
+			description="COM_HTML5FLIPPINGBOOK_BE_INSERT_PUBLICATION_TAG_LINK_TEXT_DESC" />
+		
+	</fieldset>
+</form>

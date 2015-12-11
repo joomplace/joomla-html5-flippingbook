@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="plugin" group="content" version="3.0" method="upgrade">
+	<name>plg_content_html5flippingbook_content</name>
+	<author>JoomPlace Team</author>
+	<authorEmail>support@joomplace.com</authorEmail>
+	<authorUrl>www.joomplace.com</authorUrl>
+	<copyright>(C) JoomPlace, www.joomplace.com</copyright>
+	<license>GNU/GPL http://www.gnu.org/copyleft/gpl.html</license>
+	<version>1.0.2 (build 001)</version>
+	<creationDate>January 2014</creationDate>
+	<description>Replaces {html5fb id=[pub_id] link=[link]} tag in an article with a publication.</description>
+
+    <languages folder="language/en-GB">
+        <language tag="en-GB">en-GB.plg_content_html5flippingbook_content.ini</language>
+        <language tag="en-GB">en-GB.plg_content_html5flippingbook_content.sys.ini</language>
+    </languages>
+
+	<files>
+		<filename plugin="html5flippingbook_content">html5flippingbook_content.php</filename>
+		<filename>index.html</filename>
+	</files>
+
+	
+</extension>

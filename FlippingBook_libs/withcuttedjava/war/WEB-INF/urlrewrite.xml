@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 3.2//EN"
+    "http://tuckey.org/res/dtds/urlrewrite3.2.dtd">
+
+<!-- Configuration file for UrlRewriteFilter http://tuckey.org/urlrewrite/ -->
+
+<urlrewrite>
+
+
+  <!-- Global rules. -->
+
+  <rule match-type="regex">
+    <note>Strip trailing slash.</note>
+    <from>^/(.*)/$</from>
+    <to type="redirect" last="true">/$1</to>
+  </rule>
+
+
+  <!-- Admin rules (CMS, authentication, etc). -->
+
+  <rule match-type="regex">
+    <note>Used to populate locale data from source files.</note>
+    <from>^/populateds$</from>
+    <to>/php/admin/populateds.php</to>
+  </rule>
+  
+  <rule match-type="regex">
+    <from>^/calculatepages$</from>
+    <to>/php/admin/calculatepages.php</to>
+  </rule>
+
+  <rule match-type="regex">
+    <note>CMS home view.</note>
+    <from>^/cmshome$</from>
+    <to>/php/admin/cmshome.php</to>
+  </rule>
+
+  <rule match-type="regex">
+    <note>CMS edit locale view.</note>
+    <from>^/cmseditlocale$</from>
+    <to>/php/admin/cmseditlocale.php</to>
+  </rule>
+
+  <rule match-type="regex">
+    <note>CMS edit article view.</note>
+    <from>^/cmseditarticle$</from>
+    <to>/php/admin/cmseditarticle.php</to>
+  </rule>
+
+  <rule match-type="regex">
+    <note>CMS edit page view.</note>
+    <from>^/cmseditpage$</from>
+    <to>/php/admin/cmseditpage.php</to>
+  </rule>
+
+  <rule match-type="regex">
+    <note>Admin login view.</note>
+    <from>^/login$</from>
+    <to>/php/admin/login.php</to>
+  </rule>
+
+
+  <!-- Book rules. -->
+
+  <rule match-type="regex">
+    <note>Clear cache manifest.</note>
+    <from>^/clear-cache$</from>
+    <to>/cache.clear</to>
+  </rule>
+
+  <rule match-type="regex">
+    <note>Cache manifest files.</note>
+    <from>^/([a-z-0-9]{2,3}\-[a-z-0-9]{2,3})/cache.manifest$</from>
+    <to>/php/includes/cache.manifest.php?language=$1</to>
+  </rule>
+
+  <rule match-type="regex">
+    <note>Root displays home view.</note>
+    <from>^/$</from>
+    <to>/index.php?view=home</to>
+  </rule>
+
+  <rule match-type="regex">
+    <note>Version number view.</note>
+    <from>^/([a-z-0-9]{2,3}\-[a-z-0-9]{2,3})/version$</from>
+    <to>/php/includes/version.php?language=$1</to>
+  </rule>
+
+  <rule match-type="regex">
+    <note>Not found (404) view.</note>
+    <from>^/([a-z-0-9]{2,3}\-[a-z-0-9]{1})/not-found$</from>
+    <to>/index.php?language=$1&amp;view=404</to>
+  </rule>
+
+  <rule match-type="regex">
+    <note>Home / Credits views.</note>
+    <from>^/([a-z-0-9]{2,3}\-[a-z-0-9]{2,3})/(home|credits)$</from>
+    <to>/index.php?language=$1&amp;view=$2</to>
+  </rule>
+
+  <rule match-type="regex">
+    <note>Table of things view.</note>
+    <from>^/([a-z-0-9]{2,3}\-[a-z-0-9]{2,3})/table-of-things$</from>
+    <to>/index.php?language=$1&amp;view=tot</to>
+  </rule>
+
+  <rule match-type="regex">
+    <note>Print all articles view.</note>
+    <from>^/([a-z-0-9]{2,3}\-[a-z-0-9]{2,3})/all/print$</from>
+    <to>/index.php?language=$1&amp;mode=printAll</to>
+  </rule>
+
+  <rule match-type="regex">
+    <note>All articles view.</note>
+    <from>^/([a-z-0-9]{2,3}\-[a-z-0-9]{2,3})/all$</from>
+    <to>/index.php?language=$1&amp;mode=all</to>
+  </rule>
+
+  <rule match-type="regex">
+    <note>Print single article view.</note>
+    <from>^/([a-z-0-9]{2,3}\-[a-z-0-9]{2,3})/([a-z-0-9]+)/print$</from>
+    <to>/index.php?language=$1&amp;article=$2&amp;mode=print</to>
+  </rule>
+
+  <rule match-type="regex">
+    <note>Lone query string displays home view.</note>
+    <from>^/([a-z-0-9]{2,3}\-[a-z-0-9]{2,3})/?$</from>
+    <to>/index.php?language=$1&amp;view=home</to>
+  </rule>
+
+  <rule match-type="regex">
+    <note>Article URLs without page numbers (show page 1).</note>
+    <from>^/([a-z-0-9]{2,3}\-[a-z-0-9]{2,3})/([a-z-0-9]+)$</from>
+    <to>/index.php?language=$1&amp;article=$2&amp;page=1</to>
+  </rule>
+
+  <rule match-type="regex">
+    <note>Article URLs with page numbers.</note>
+    <from>^/([a-z-0-9]{2,3}\-[a-z-0-9]{2,3})/([a-z-0-9]+)/([0-9]+)$</from>
+    <to>/index.php?language=$1&amp;article=$2&amp;page=$3</to>
+  </rule>
+
+  <rule match-type="regex">
+    <note>Article URLs without language code or page number</note>
+    <from>^/([a-z-0-9]+)$</from>
+    <to>/index.php?article=$1&amp;page=1</to>
+  </rule>
+
+  <rule match-type="regex">
+    <note>Article URLs without language code.</note>
+    <from>^/([a-z-0-9]+)/([0-9]+)$</from>
+    <to>/index.php?article=$1&amp;page=$2</to>
+  </rule>
+
+
+</urlrewrite>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+    <fieldset>
+
+        <field name="publication_id"
+               type="_advanced_list"
+               required="false"
+               label="COM_HTML5FLIPPINGBOOK_BE_PAGES_MULTIUPLOAD_PUBLICATION"
+               description="COM_HTML5FLIPPINGBOOK_BE_PAGES_MULTIUPLOAD_PUBLICATION_DESC" />
+
+        <field name="general_pages_title"
+               type="text"
+               class="inputbox"
+               size="20"
+               required="false"
+               label="COM_HTML5FLIPPINGBOOK_BE_PAGES_MULTIUPLOAD_GENERAL_PAGES_TITLE"
+               description="COM_HTML5FLIPPINGBOOK_BE_PAGES_MULTIUPLOAD_GENERAL_PAGES_TITLE_DESC" />
+
+        <field name="pdf_file"
+               type="text"
+               required="false"
+               label="COM_HTML5FLIPPINGBOOK_BE_PAGES_CONVERT_PDF_FILE"
+               description="COM_HTML5FLIPPINGBOOK_BE_PAGES_CONVERT_PDF_FILE_DESC" />
+
+        <field name="image_quality"
+               type="text"
+               class="inputbox"
+               size="20"
+               default="100"
+               required="false"
+               label="COM_HTML5FLIPPINGBOOK_BE_PAGES_CONVERT_IMAGE_QUALITY"
+               description="COM_HTML5FLIPPINGBOOK_BE_PAGES_CONVERT_IMAGE_QUALITY_DESC" />
+
+    </fieldset>
+</form>

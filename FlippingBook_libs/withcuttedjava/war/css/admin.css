@@ -1,0 +1,168 @@
+/**
+ * Copyright 2011 Google Inc.
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+html, body {
+	background-color: #eeeeee;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+	padding: 30px 40px 0 40px;
+	overflow-y: scroll;
+}
+
+h1 {
+	background: #484848;
+	margin: 0 0 25px;
+	color: #e4e4e4;
+	padding: 15px 25px;
+	text-shadow: -1px -1px 1px #262626, 1px 1px 1px #838383;
+	font-size: 18px;
+	text-transform: uppercase;
+}
+
+h3 {
+	font-size: 22px;
+}
+
+form,
+p#version {
+	width: 580px;
+	margin: 20px 0 30px;
+	padding: 0 0 10px;
+	background-color: #ffffff;
+	border: #999999 1px solid;
+	border-radius: 3px;
+	-webkit-box-shadow: 3px 3px 1px #bbbbbb;
+}
+
+p#version {
+	width: 540px;
+	padding: 15px 20px;
+}
+
+form p {
+	margin: 10px 20px;
+}
+
+form input[type="submit"] {
+	padding: 5px 10px;
+}
+
+form label {
+	margin-left: -10px;
+}
+
+section {
+	width: 580px;
+	margin: 0 auto;
+	padding: 25px;
+	position: relative;
+}
+
+ol ul {
+	padding: 8px 10px 5px 0;
+	margin: 10px 12px 15px;
+	font-weight: bold;
+	list-style: decimal outside;
+}
+
+ol ul li {
+	list-style: none;
+	font-weight: normal;
+	font-size: 12px;
+	margin: 0 6px 0 0px;
+	margin: 2px 0;
+}
+
+ol ul li em {
+	font-style: italic;
+	display: inline-block;
+	width: 80px;
+	margin-right: 6px;
+	padding: 5px 5px 6px;
+}
+	
+ol {
+	margin: 0 0 20px;
+}
+
+ol > li {
+	list-style-position: inside;
+	position: relative;
+	padding-bottom: 10px;
+	font-weight: normal;
+	font-weight: bold;
+	color: #484848;
+	border-bottom: 1px solid #eee;
+}
+
+.more {
+	font-size: 12px;
+	color: #fff;
+	font-style: italic;
+	font-weight: normal;
+	padding: 0 10px;
+}
+
+.more:hover {
+	color: #666;
+	cursor: pointer;
+}
+
+li:hover .more {
+	color: #aaa;
+}
+
+li input {
+	position: relative;
+	left: -44px;
+	top: -2px;
+}
+
+.confirm.success {
+	background: #fcffda;
+	border: 1px solid #808080;
+	padding: 15px 20px;
+	margin: 0 auto 25px;
+	width: 540px;
+}
+
+p#config {
+	padding: 0;
+	margin: 20px;
+	font-size: 13px;
+	color: #aaa;
+	font-style: italic;
+}
+
+p#expandAll {
+	position: absolute;
+	top: 0;
+	right: 0;
+	color: #e4e4e4;
+	padding: 9px 25px;
+	margin: 0;
+	text-shadow: -1px -1px 1px #262626, 1px 1px 1px #838383;
+	font-size: 30px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+p#expandAll:hover {
+	color: #fff;
+}

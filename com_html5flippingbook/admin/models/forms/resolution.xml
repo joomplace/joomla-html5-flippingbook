@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset>
+		
+		<field name="id"
+			type="text"
+			class="readonly"
+			default="0"
+			readonly="true"
+			label="JGLOBAL_FIELD_ID_LABEL"
+			description ="JGLOBAL_FIELD_ID_DESC" />
+		
+		<field name="resolution_name"
+			type="text"
+			class="inputbox"
+			size="40"
+			required="true"
+			label="COM_HTML5FLIPPINGBOOK_BE_RESOLUTIONS_NAME"
+			description="COM_HTML5FLIPPINGBOOK_BE_RESOLUTIONS_NAME_DESC" />
+		
+		<field name="width"
+			type="text"
+			class="inputbox"
+			default=""
+			size="10" 
+			required="true"
+			label="COM_HTML5FLIPPINGBOOK_BE_RESOLUTIONS_WIDTH"
+			description="COM_HTML5FLIPPINGBOOK_BE_RESOLUTIONS_WIDTH_DESC" />
+		
+		<field name="height"
+			type="text"
+			class="inputbox"
+			size="10"
+			required="true"
+			label="COM_HTML5FLIPPINGBOOK_BE_RESOLUTIONS_HEIGHT"
+			description="COM_HTML5FLIPPINGBOOK_BE_RESOLUTIONS_HEIGHT_DESC" />
+		
+	</fieldset>
+</form>

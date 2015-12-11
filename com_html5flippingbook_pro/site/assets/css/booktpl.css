@@ -1,0 +1,304 @@
+/* Steve jobs' book */
+
+@font-face {
+  font-family: 'Stempel-Garamond-W01-Roman';
+  font-style: normal;
+  font-weight: normal;
+  src: url('../fonts/Stempel-Garamond-W01-Roman.woff') format('woff');
+}
+
+#canvas{
+	width: 960px;
+	height: 600px;
+	margin: 100px auto;
+}
+
+.booktpl{
+	width:960px;
+	height:600px;
+}
+
+.booktpl h1{
+	font-family: "Stempel-Garamond-W01-Roman";
+	font-size: 38px;
+	font-weight: lighter;
+	margin: 20px 0;
+	color: #333;
+	-webkit-text-fill-color: #333;
+	-webkit-text-stroke-color: white;
+	-webkit-text-stroke-width: 0.005em;
+}
+
+.booktpl h2{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color:#444;
+    font-size:16px;
+	letter-spacing:2px;
+	font-weight: 400;
+}
+
+.booktpl .book-content{
+	font-family: "Stempel-Garamond-W01-Roman";
+	font-size:16px;
+	margin:70px 40px;
+}
+
+.booktpl blockquote{
+	color:#586078;
+	margin:10px 0;
+	font-style:italic;
+}
+
+.booktpl blockquote:before{
+	content: "\201C";
+	color:#333D53;
+	font-size:20px;
+}
+
+.booktpl blockquote:after{
+	content: "\201D";
+	color:#333D53;
+	font-size:20px;
+}
+
+.booktpl cite{
+	font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size:13px;
+	font-weight:200;
+	font-style:normal;
+	color:#666;
+}
+
+.booktpl .book-content p{
+	text-indent: 18px;
+	margin: 20px 0;
+	line-height: 22px;
+}
+
+.animated{
+	-webkit-transition:margin-left 0.2s ease-in-out;
+	-moz-transition:margin-left 0.2s ease-in-out;
+	-o-transition:margin-left 0.2s ease-in-out;
+	-ms-transition:margin-left 0.2s ease-in-out;
+	transition:margin-left 0.2s ease-in-out;
+}
+
+.booktpl .shadow{
+	-webkit-transition: -webkit-box-shadow 0.5s;
+	-moz-transition: -moz-box-shadow 0.5s;
+	-o-transition: -webkit-box-shadow 0.5s;
+	-ms-transition: -ms-box-shadow 0.5s;
+
+	-webkit-box-shadow:0 0 10px #999;
+	-moz-box-shadow:0 0 10px #999;
+	-ms-box-shadow:0 0 10px #999;
+	-o-box-shadow:0 0 10px #999;
+	box-shadow:0 0 10px #999;
+}
+
+.booktpl .page{
+	-webkit-box-shadow:0 0 20px rgba(0,0,0,0.2);
+	-moz-box-shadow:0 0 20px rgba(0,0,0,0.2);
+	-ms-box-shadow:0 0 20px rgba(0,0,0,0.2);
+	-o-box-shadow:0 0 20px rgba(0,0,0,0.2);
+	box-shadow:0 0 20px rgba(0,0,0,0.2);
+}
+
+.booktpl .p1 .side{
+	width:5px;
+	height:600px;
+	position:absolute;
+	top:0;
+	left:475px;
+
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #bbb), color-stop(0.5,  #ddd), color-stop(1,  #bbb));
+	background-image:-webkit-linear-gradient(left, #bbb, #ddd, #bbb);
+	background-image:-moz-linear-gradient(left, #bbb, #ddd, #bbb);
+	background-image:-ms-linear-gradient(left, #bbb, #ddd, #bbb);
+	background-image:-o-linear-gradient(left, #bbb, #ddd, #bbb);
+	background-image:linear-gradient(left, #bbb, #ddd, #bbb);
+	
+	-webkit-transform:rotateY(-90deg);
+	-moz-transform:rotateY(-90deg);
+	-o-transform:rotateY(-90deg);
+	-ms-transform:rotateY(-90deg);
+	transform:rotateY(-90deg);
+
+	-webkit-transform-origin:top right;
+	-moz-transform-origin:top right;
+	-o-transform-origin:top right;
+	-ms-transform-origin:top right;
+	transform-origin:top right;
+	z-index:100000;
+
+}
+
+.booktpl-transform div[page="1"] > div, .booktpl-transform div[page="2"] > div{
+	overflow:visible !important;
+}
+
+.booktpl .depth{
+	background-image:url(../images/pages-depth.png);
+	position:absolute;
+	top:7px;
+	width:16px;
+	height:590px;
+}
+
+.booktpl .front-side .depth{
+	left:4px;
+	background-position:0 0;
+}
+
+.booktpl .back-side .depth{
+	right:4px;
+	background-position:right 0;
+}
+
+
+.booktpl .p2{
+	background-position:-480px 0 !important;
+}
+
+.booktpl .p3{
+	background-position:-1920px 0 !important;
+}
+
+.booktpl .p111{
+	background-position:-960px 0 !important;
+}
+
+.booktpl .p112{
+	background-position:-1440px 0 !important;
+}
+
+.booktpl .hard{
+	width:480px;
+	height:600px;
+	background-color:white;
+	-webkit-box-shadow:none;
+	-moz-box-shadow:none;
+	-ms-box-shadow:none;
+	box-shadow:none;
+}
+
+.booktpl .page-wrapper{
+	-webkit-perspective:2000px;
+	-moz-perspective: 2000px;
+	-ms-perspective: 2000px;
+	perspective: 2000px;
+}
+
+.booktpl .own-size{
+	width:460px;
+	height:582px;
+	background-color:white;
+	overflow:hidden;
+}
+
+.booktpl .even{
+	background:-webkit-gradient(linear, left top, right top, color-stop(0.95, #fff), color-stop(1, #dadada));
+	background-image:-webkit-linear-gradient(left, #fff 95%, #dadada 100%);
+	background-image:-moz-linear-gradient(left, #fff 95%, #dadada 100%);
+	background-image:-ms-linear-gradient(left, #fff 95%, #dadada 100%);
+	background-image:-o-linear-gradient(left, #fff 95%, #dadada 100%);
+	background-image:linear-gradient(left, #fff 95%, #dadada 100%);
+}
+
+.booktpl .odd{
+	background:-webkit-gradient(linear, right top, left top, color-stop(0.95, #fff), color-stop(1, #cacaca));
+	background-image:-webkit-linear-gradient(right, #fff 95%, #cacaca 100%);
+	background-image:-moz-linear-gradient(right, #fff 95%, #cacaca 100%);
+	background-image:-ms-linear-gradient(right, #fff 95%, #cacaca 100%);
+	background-image:-o-linear-gradient(right, #fff 95%, #cacaca 100%);
+	background-image:linear-gradient(right, #fff 95%, #cacaca 100%);
+}
+
+.booktpl .loader{
+	background-image:url(../images/loader.gif);
+	width:22px;
+	height:22px;
+	position:absolute;
+	top:280px;
+	left:219px;
+}
+
+.booktpl .page-number{
+	color:#999;
+	width:100%;
+	bottom:25px;
+	position:absolute;
+	display:block;
+	text-align: center;
+	line-height:30px;
+	font-size:11px;
+}
+
+.booktpl .table-contents{
+	font-size:16px;
+	width:300px;
+	margin:80px auto;
+	color:#ccc;
+}
+
+.booktpl .table-contents li{
+	list-style:none;
+	line-height:25px;
+}
+
+.booktpl .table-contents span{
+	float:right;
+}
+
+.booktpl .table-contents a{
+	float:left;
+	width:100%;
+	clear:both;
+	text-decoration:none;
+	color:#333;
+	margin:2px 0;
+	padding:0 10px;
+}
+
+.booktpl .table-contents a:hover{
+	background:#CAD1EE;
+	float:left;
+	width:100%;
+	clear:both;
+	text-decoration:none;
+	-webkit-border-radius:10px;
+	-moz-border-radius:10px;
+	-o-border-radius:10px;
+	-ms-border-radius:10px;
+	border-radius:10px;
+}
+
+.booktpl .book-content .capital,
+.booktpl .book-content .no-indent{
+	text-indent: 0;
+}
+
+.booktpl .capital:first-letter {
+    display:block;
+    float:left;
+    font-size: 300%;
+    line-height: 70%;
+	margin-right: 6px;
+	margin-top: 7px;
+	margin-left:18px;
+}
+
+.ie8 .booktpl .even,
+.ie9 .booktpl .even{
+	background-image:url(../images/gradient-page-left.jpg);
+	background-position:right top;
+	background-repeat:repeat-y;
+}
+
+.ie8 .booktpl .odd,
+.ie9 .booktpl .odd{
+	background-image:url(../images/gradient-page-right.jpg);
+	background-position:left top;
+	background-repeat:repeat-y;
+}
+

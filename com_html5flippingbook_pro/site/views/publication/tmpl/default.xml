@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="COM_HTML5FLIPPINGBOOK_PUBLICATION_VIEW_DEFAULT_TITLE">
+		<message>COM_HTML5FLIPPINGBOOK_PUBLICATION_VIEW_DEFAULT_TITLE_DESC</message>
+	</layout>
+	<fields name="params">
+		<fieldset name="basic"
+			label="COM_HTML5FLIPPINGBOOK_BE_MENU_ITEM_TAB_DEFAULT"
+			addfieldpath="/administrator/components/com_html5flippingbook/models/fields">
+			
+			<field name="publication_id"
+				type="_publication"
+				required="true"
+				label="COM_HTML5FLIPPINGBOOK_BE_MENU_ITEM_PUBLICATION"
+				description="COM_HTML5FLIPPINGBOOK_BE_MENU_ITEM_PUBLICATION_DESC" />
+			
+			<field name="show_publication_descr_first"
+				type="radio"
+				required="false"
+				default="0"
+				class="btn-group"
+				labelclass="control-label"
+				label="COM_HTML5FLIPPINGBOOK_BE_MENU_ITEM_PUBLICATION_SHOW_DESCRIPTION_FIRST"
+				description="COM_HTML5FLIPPINGBOOK_BE_MENU_ITEM_PUBLICATION_SHOW_DESCRIPTION_FIRST_DESCR">
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			
+		</fieldset>
+	</fields>
+</metadata>

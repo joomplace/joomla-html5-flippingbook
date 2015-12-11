@@ -1,0 +1,19 @@
+AddType text/cache-manifest .manifest
+
+<IfModule mod_rewrite.c>
+
+RewriteEngine on
+
+# If url is /all
+RewriteRule ^all/?$ /index.php?mode=all [L]
+
+# If no page number provided, assume page=1
+RewriteRule ^([a-zA-Z-]+)/?$ /index.php?article=$1&page=1 [L]
+
+# If /stub is on end without a page number, assume page=1 and set mode=stub
+RewriteRule ^([a-zA-Z-]+)/stub/?$ /index.php?article=$1&page=1&mode=stub [L]
+
+# All other pages should match this expression
+RewriteRule ^([a-zA-Z-]+)/?([0-9]*)?/?(stub)?/?$ /index.php?article=$1&page=$2&mode=$3 [L]
+
+</IfModule>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="COM_HTML5FLIPPINGBOOK_VIEW_DEFAULT_TITLE">
+		<message>COM_HTML5FLIPPINGBOOK_VIEW_DEFAULT_DESC</message>
+	</layout>
+	<fields name="params">
+		<fieldset name="basic"
+			label="COM_HTML5FLIPPINGBOOK_BE_MENU_ITEM_TAB_DEFAULT"
+			addfieldpath="/administrator/components/com_html5flippingbook/models/fields">
+			
+			<field name=""
+				type="_css"
+				value='div[id="options"] div.accordion-group:nth-child(1) div.control-group:nth-child(1) { display: none; }
+					div[id="options"] div.accordion-group:nth-child(1) div.control-label { min-width: 200px; }' />
+			
+			<field name="c_category_id"
+				type="_category"
+				required="false"
+				label="COM_HTML5FLIPPINGBOOK_BE_MENU_ITEM_CATEGORY_CATEGORY_NAME"
+				description="COM_HTML5FLIPPINGBOOK_BE_MENU_ITEM_CATEGORY_CATEGORY_NAME_DESC" />
+			
+			<field name="showListTitle"
+				type="radio"
+				required="false"
+				default="1"
+				class="btn-group"
+				labelclass="control-label"
+				label="COM_HTML5FLIPPINGBOOK_BE_MENU_ITEM_CATEGORY_SHOW_LIST_TITLE"
+				description="COM_HTML5FLIPPINGBOOK_BE_MENU_ITEM_CATEGORY_SHOW_LIST_TITLE_DESCR">
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			
+			<field name="listTitle"
+				type="_advanced_text"
+				class="inputbox"
+				required="false"
+				default="COM_HTML5FLIPPINGBOOK_FE_PUBLICATIONS_LIST"
+				label="COM_HTML5FLIPPINGBOOK_BE_MENU_ITEM_CATEGORY_LIST_TITLE"
+				description="COM_HTML5FLIPPINGBOOK_BE_MENU_ITEM_CATEGORY_LIST_TITLE_DESCR" />
+			
+			<field name="viewPublicationButtonText"
+				type="_advanced_text"
+				class="inputbox"
+				required="false"
+				default="COM_HTML5FLIPPINGBOOK_FE_VIEW_PUBLICATION"
+				label="COM_HTML5FLIPPINGBOOK_BE_MENU_ITEM_CATEGORY_VIEW_PUBLICATION_BTN_TEXT"
+				description="COM_HTML5FLIPPINGBOOK_BE_MENU_ITEM_CATEGORY_VIEW_PUBLICATION_BTN_TEXT_DESCR" />
+
+		</fieldset>
+	</fields>
+</metadata>

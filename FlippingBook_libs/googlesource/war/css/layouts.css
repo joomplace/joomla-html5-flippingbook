@@ -1,0 +1,762 @@
+/**
+ * Copyright 2011 Google Inc.
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+/**
+ * Page styles
+ */
+	#pages section div.page {
+		width: 715px;
+		height: 440px;
+		position: absolute;
+		padding: 35px 45px 35px 45px;
+	}
+		#pages section h2, 
+		#pages section h3 {
+			font-family: MolengoRegular, Arial, Helvetica, sans-serif;
+			color: #1a1a1a;
+			text-align: center;
+			font-weight: 200;
+		}
+		
+      .cs-CZ #pages section h2,
+      .cs-CZ #pages section h3,		  
+		  .pl-PL #pages section h2,
+		  .pl-PL #pages section h3 {
+        font-family: 'Cantarell', Arial, sans-serif;
+        line-height: 1.1em;
+        margin-top: -6px;        
+		  }
+		
+			#pages section h2 {
+				font-size: 42px;
+				text-transform: uppercase;
+				line-height: 0.96em;
+			}
+			
+        .ru-RU #pages section h2 {
+          font-size: 34px;
+          line-height: 1.06em;
+        } 			
+			
+			#pages section h3 {
+				font-size: 18px;
+				padding: 3px 3px 20px 3px;
+				line-height: 1.1em;
+			}
+			
+			#pages section h4 {
+				font-size: 13px;
+				padding: 2px 0;
+				line-height: 20px;
+			}
+			
+        .ru-RU #pages section h4 {
+          font-family: Times, Georgia, serif;
+        } 			
+			
+        .cs-CZ #pages section h4,
+        .pl-PL #pages section h4 {
+          line-height: 16px;
+          font-size: 12px;
+        }			 
+			
+		#pages section p {
+			font-family: DroidSerif, Times, serif;
+			font-size: 13px;
+			line-height: 20px;
+			word-spacing: 3px;
+			text-align: justify;
+		}
+		
+      .cs-CZ #pages section p,
+      .pl-PL #pages section p {
+        font-family: 'Crimson Text', Georgia, serif;
+        font-size: 15px;
+      }
+      
+      .ru-RU #pages section p {
+        font-family: Times, Georgia, serif;
+      }      
+		  
+		  .ja-JP #pages section p,
+		  .zh-CN #pages section p {
+		    text-align: left;
+      }
+		
+		#pages section em {
+			font-style: normal;
+		}
+		
+		#pages section .page a {
+			color: #1c4c96;
+			border-bottom: dotted #aaa 1px;
+		}
+			#pages section .page a:hover {
+				color: #5e9dff;
+				border-bottom: dotted #5e9dff 1px;
+			}
+			
+		#pages section span {
+			font-family: DroidSerif, Times, serif;
+		}
+		
+      .cs-CZ #pages section span,
+      .pl-PL #pages section span {
+        font-family: 'Crimson Text', Georgia, serif;
+        font-size: 15px;
+      }
+      			
+		#pages section ul li {
+			font-family: DroidSerif, Times, serif;
+			list-style: circle;
+			font-size: 13px;
+			line-height: 20px;
+			word-spacing: 3px;
+			text-align: justify;
+			margin-bottom: 10px;
+		}
+    
+      .cs-CZ #pages section ul li,
+      .pl-PL #pages section ul li {
+        font-family: 'Crimson Text', Georgia, serif;
+        font-size: 15px;
+      }
+		
+		#pages section div.page span.pageNumber {
+			font-family: DroidSerif, Times, serif;
+			font-size: 11px;
+			float: right;
+			position: absolute;
+			bottom: 22px;
+			right: 20px;
+			color: #999999;
+		}
+    
+      .cs-CZ #pages section div.page span.pageNumber,
+      .pl-PL #pages section div.page span.pageNumber {
+        font-family: 'Crimson Text', Georgia, serif;
+        font-size: 15px;
+      }
+	
+	/**
+	 * Special treatment of "The End" page.
+	 */
+	#pages section.title-theend  {
+		background: none;
+	}
+	#pages section.title-theend .pageNumber {
+		display: none;
+	}
+	
+	/**
+	 * Resets paragrap indents for paragraphs that span
+	 * across multiple pages.
+	 */
+	#pages section p.continuation:first-letter {
+		margin: 0;
+	}
+	
+	/**
+	 * Adds drop cap style to a paragraphs.
+	 */
+	#pages section p.drop-cap:first-letter {
+		font-size: 45px;
+		float: left;
+		margin: 7px 5px 0 0;
+		vertical-align: text-top;
+	}
+	
+	/**
+	 * Styles for Editor's notes.
+	 */
+	#pages section p.note {
+		font-style: italic;
+		color: #555;
+		font-size: 12px;
+	}
+	
+	/**
+	 * Styles for Editor's notes.
+	 */
+	#pages section .image-description {
+		font-style: italic;
+		color: #555;
+		font-size: 12px;
+		text-align: center;
+		margin: 5px 0 0 0;
+		text-indent: 0;
+		display: block;
+	}
+	
+	/**
+	 * For citations and footnotes.
+	 */
+	#pages section cite {
+		color: #999999;
+		font-size: 11px;
+		position: absolute;
+		bottom: 24px;
+		left: 45px;
+		display: block;
+	}
+	
+	/**
+	 * 
+	 */
+	#pages section .ip-address {
+		font-weight: bold;
+		font-size: 13px;
+		display: block;
+		margin-bottom: 7px;
+	}
+	
+	/**
+	 * 
+	 */
+	#pages section span.highlight {
+		color: #960000;
+	}
+	
+	/**
+	 * TODO: Change this to #pages section p:first-letter.
+	 * (Can't change during dev since it causes the layouting
+	 * page to crash Chrome.)
+	 */
+	#pages .template-inner-1 p:first-letter,
+	#pages .template-inner-2 p:first-letter,
+	#pages .template-inner-3 p:first-letter,
+	#pages .template-inner-4 p:first-letter,
+	#pages .template-inner-5 p:first-letter,
+	#pages .template-inner-6 p:first-letter,
+	#pages .template-inner-7 p:first-letter,
+	#pages .template-inner-8 p:first-letter,
+	#pages .template-inner-9 p:first-letter,
+	#pages .template-start-1 p:first-letter,
+	#pages .template-start-2 p:first-letter,
+	#pages .template-start-3 p:first-letter,
+	/* #pages .template-start-4 p:first-letter, */
+	#pages .template-start-5 p:first-letter,
+	#pages .template-start-6 p:first-letter,
+	#pages .template-start-7 p:first-letter,
+	#pages .template-start-8 p:first-letter,
+	#pages .template-start-9 p:first-letter {
+		margin-left: 30px;
+	}
+	
+	.ja-JP #pages p:first-letter {
+    margin-left: 0;
+  }
+	
+	/**
+	 * Start #1
+	 */
+	#pages .template-start-1 h2,
+	#pages .template-start-1 h3 {
+		text-align: left;
+		margin-bottom: 5px;
+		width: 450px;
+	}
+	#pages .template-start-1 p {
+		width: 310px;
+		margin-top: 15px;
+	}
+	#pages .template-start-1 img {
+		position: absolute;
+		bottom: 40px;
+		right: 30px;
+	}
+	
+	/**
+	 * Start #2
+	 */
+	#pages .template-start-2 h2,
+	#pages .template-start-2 h3 {
+		text-align: center;
+		margin-bottom: 10px;
+	}
+	#pages .template-start-2 p {
+		width: 320px;
+		margin-top: 10px;
+	}
+	#pages .template-start-2 h4 {
+		width: 320px;
+		margin-top: 10px;
+	}
+	#pages .template-start-2 .image1 {
+		position: absolute;
+		bottom: 55px;
+		right: 50px;
+		width: 350px;
+		text-align: center;
+	}
+	
+	/**
+	 * Start #3
+	 */
+	#pages .template-start-3 h2,
+	#pages .template-start-3 h3 {
+		text-align: left;
+		margin-bottom: 10px;
+		position: relative;
+		top: 80px;
+		left: 260px;
+	}
+	#pages .template-start-3 h2 {
+		margin-bottom: 16px;
+	}
+	#pages .template-start-3 h3 {
+		margin-bottom: 145px;
+	}
+	#pages .template-start-3 .left {
+		float: left;
+	}
+	#pages .template-start-3 .right {
+		float: right;
+	}
+	#pages .template-start-3 p {
+		width: 320px;
+		margin-top: 20px;
+	}
+	#pages .template-start-3 .image1 {
+		position: absolute;
+		top: 20px;
+		left: 10px;
+		width: 320px;
+		text-align: right;
+	}
+	
+	/**
+	 * Start #4
+	 */
+	#pages .template-start-4 h2,
+	#pages .template-start-4 h3 {
+		text-align: center;
+	}
+	#pages .template-start-4 p {
+		margin-top: 10px;
+	}
+	#pages .template-start-4 .image1 {
+		text-align: center;
+	}
+	
+	
+	/**
+	 * Start #5
+	 */
+	#pages .template-start-5 .page-title {
+		float: left;
+	}
+	#pages .template-start-5 h2,
+	#pages .template-start-5 h3 {
+		text-align: left;
+		margin: 10px 0 0 0;
+	}
+	#pages .template-start-5 h2 {
+		margin-bottom: 16px;
+		width: 300px;
+	}
+	#pages .template-start-5 h3 {
+		margin-bottom: 0px;
+		width: 300px;
+	}
+	#pages .template-start-5 .left {
+		float: left;
+		clear: left;
+	}
+	#pages .template-start-5 .right {
+		overflow: hidden;
+		width: 310px;
+		margin-left: 405px;	
+	}
+	#pages .template-start-5 p {
+		width: 310px;
+		clear: both;
+	}
+	#pages .template-start-5 p {
+		margin-top: 10px;
+	}
+	#pages .template-start-5 .image1 {
+		text-align: center;
+	}
+	#pages .template-start-5 .image2 {
+		float: right;
+		margin-bottom: 35px;
+	}
+	
+	/**
+	 * Start #6
+	 */
+	#pages .template-start-6 h2,
+	#pages .template-start-6 h3 {
+		margin: 10px 0 0 15px;
+	}
+	#pages .template-start-6 h2 {
+		margin: 5 0 6px 0;
+	}
+	#pages .template-start-6 h3 {
+		margin: 0 0 15px 0;
+	}
+	#pages .template-start-6 .left {
+		float: left;
+		width: 312px;
+	}
+	#pages .template-start-6 .right {
+		float: right;
+		width: 312px;
+		margin-right: 10px;
+	}
+	
+	/**
+	 * Start #7
+	 */
+	#pages .template-start-7 h2,
+	#pages .template-start-7 h3 {
+		text-align: center;
+		margin-bottom: 5px;
+	}
+	#pages .template-start-7 h2 {
+	}
+	#pages .template-start-7 h3 {
+		margin-bottom: 0;
+	}
+	#pages .template-start-7 .left {
+		float: left;
+	}
+	#pages .template-start-7 .right {
+		float: right;
+	}
+	#pages .template-start-7 p {
+		width: 320px;
+		margin-bottom: 5px;
+	}
+	#pages .template-start-7 .image1 {
+		text-align: center;
+		margin: 0 0 10px 0;
+	}
+	
+	/**
+	 * Inner #1
+	 * 
+	 * Image in top left.
+	 * Paragraphs wrapped around.
+	 */
+	#pages .template-inner-1 p {
+		margin-bottom: 20px;
+		width: 300px;
+	}
+	#pages .template-inner-1 img {
+		margin: 0 0 15px 35px;
+		float: right;
+	}
+	
+	/**
+	 * Inner #2
+	 * 
+	 * Pure text.
+	 * Paragraph one in top left.
+	 * Paragraph two in bottom right.
+	 */
+	#pages .template-inner-2 p {
+		margin-bottom: 21px;
+	}
+	#pages .template-inner-2 .left {
+		float: left;
+		width: 310px;
+	}
+	#pages .template-inner-2 .right {
+		float: right;
+		width: 310px;
+	}
+	#pages .template-inner-2 .image1 {
+		text-align: center;
+	}
+	
+	/**
+	 * Inner #3
+	 */
+	#pages .template-inner-3 p {
+		margin-bottom: 15px;
+	}
+	#pages .template-inner-3 .image1 {
+		text-align: center;
+		margin-bottom: 20px;
+	}
+	
+	/**
+	 * Inner #4
+	 */
+	#pages .template-inner-4 p {
+		width: 320px;
+		margin-bottom: 15px;
+	}
+	#pages .template-inner-4 .left {
+		float: left;
+		width: 320px;
+	}
+	#pages .template-inner-4 .right {
+		float: right;
+		width: 320px;
+	}
+	#pages .template-inner-4 .image1,
+	#pages .template-inner-4 .image2 {
+		text-align: center;
+		margin: 0 10px 10px 0;
+	}
+	
+	/**
+	 * Inner #5
+	 */
+	#pages .template-inner-5 p {
+		margin-bottom: 15px;
+	}
+	#pages .template-inner-5 .left {
+		float: left;
+		width: 560px;
+	}
+	#pages .template-inner-5 .right {
+		float: right;
+		width: 560px;
+		position: absolute;
+		bottom: 40px;
+		right: 40px;
+	}
+	
+	/**
+	 * Inner #6
+	 */
+	#pages .template-inner-6 p {
+		margin-bottom: 22px;
+	}
+	#pages .template-inner-6 .left {
+		float: left;
+		width: 310px;
+	}
+	#pages .template-inner-6 .right {
+		float: right;
+		width: 310px;
+		position: absolute;
+		bottom: 28px;
+		right: 50px;
+	}
+	
+	/**
+	 * Inner #7
+	 */
+	#pages .template-inner-7 p {
+		text-align: justify;
+		width: 430px;
+		margin-left: 135px;
+		margin-top: 10px;
+	}
+	
+	#pages .template-2 {
+		/* background: url( 'images/cloud-computing-2-temp.jpg' ) no-repeat; */
+	}
+	#pages .template-3 {
+		/* background: url( 'images/cloud-computing-1-temp.jpg' ) no-repeat; */
+	}
+	#pages .template-4 {
+		/* background: url( 'images/cloud-computing-2-temp.jpg' ) no-repeat; */
+	}
+
+
+#pages section.title-cloud-computing.page-1 .right p {
+	margin-top: 0;
+}
+#pages section.title-cloud-computing.page-2 .image1 {
+	float: right;
+}
+#pages section.title-cloud-computing.page-4 p {
+	width: 300px;
+}
+#pages section.title-html.page-1 h2 {
+	padding: 0 100px;
+}
+#pages section.title-html.page-1 p {
+	width: 322px;
+}
+#pages section.title-html.page-3 p {
+	width: 322px;
+}
+#pages section.title-old-vs-new-browsers.page-1 p span {
+	display: block;
+	text-align: center;
+	font-style: italic;
+	font-size: 12px;
+}
+#pages section.title-old-vs-new-browsers.page-1 p span.reference {
+	font-size: 0.8em;
+	font-style: normal;
+}
+#pages section.title-old-vs-new-browsers.page-3 .image1 {
+	margin-bottom: 45px;
+}
+#pages section.title-old-vs-new-browsers.page-4 .image1 {
+	margin: 0 0 25px -10px;
+}
+#pages section.title-web-apps.page-1 .image1 {
+	margin-top: 50px;
+}
+#pages section.title-malware.page-1 p {
+	margin-top: 20px;
+	width: 310px;
+}
+#pages section.title-browser-privacy.page-1 .image1 {
+	margin: 20px;
+}
+
+#pages section.title-identity.page-1 .image1 {
+	margin-top: 25px;
+}
+#pages section.title-sync.page-1 .image1 {
+	margin: 30px 0 35px 0;
+}
+#pages section.title-sync.page-2 .left,
+#pages section.title-sync.page-2 .right {
+	width: 320px;
+}
+#pages section.title-plugins.page-1 .image1 {
+	margin: 10px 0;
+}
+#pages section.title-browser-protection.page-1 p {
+	width: 330px;
+}
+#pages section.title-browser-protection.page-1 h2 {
+	font-size: 36px;
+}
+#pages section.title-browser-protection.page-1 p {
+	margin-top: 0;
+}
+#pages section.title-browser-protection.page-2 .left,
+#pages section.title-browser-protection.page-2 .right {
+	width: 325px;
+}
+#pages section.title-dns.page-1 .image1 {
+	margin-bottom: 25px;
+}
+#pages section.title-page-load.page-1 .image1 {
+	margin: 15px 0 25px 0;
+}
+#pages section.title-page-load.page-1 p {
+	margin-bottom: 20px;
+}
+#pages section.title-url.page-1 .image1 {
+	margin: 15px 0 25px 0;
+}
+#pages section.title-url.page-1 .url-image,
+#pages section.title-url.page-2 .url-image {
+	margin: 24px 0 4px 0;
+}
+#pages section.title-url.page-3 .url-breakdown {
+	height: 120px;
+	position: relative;
+	background-image: url("../media/illustrations/url_b5.png");
+	background-repeat: no-repeat;
+	background-position: 0 20px;
+}
+	#pages section.title-url.page-3 .url-breakdown .url {
+		font-size: 20px;
+		position: relative;
+		top: 40px;
+	}
+	#pages section.title-url.page-3 .url-breakdown .figure-1,
+	#pages section.title-url.page-3 .url-breakdown .figure-2,
+	#pages section.title-url.page-3 .url-breakdown .figure-3,
+	#pages section.title-url.page-3 .url-breakdown .figure-4 {
+		font-size: 12px;
+	}
+	#pages section.title-url.page-3 .url-breakdown .figure-1 {
+		position: absolute;
+		left: 1px;
+		top: 85px;
+	}
+	#pages section.title-url.page-3 .url-breakdown .figure-2 {
+		position: absolute;
+		left: 115px;
+		top: 85px;
+	}
+	#pages section.title-url.page-3 .url-breakdown .figure-3 {
+		position: absolute;
+		right: 40px;
+		top: 85px;
+	}
+	#pages section.title-url.page-3 .url-breakdown .figure-4 {
+		position: absolute;
+		right: 55px;
+		top: 0px;
+	}
+#pages section.title-url.page-5 .image1 {
+	margin-bottom: 20px;
+}
+#pages section.title-conclusion.page-1 ul {
+	width: 310px;
+	margin-top: 10px;
+}
+#pages section.title-conclusion.page-1 .image1 {
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+#pages section.title-url.page-1 h2 {
+	font-size: 41px;
+}
+#pages section.title-url.page-2 .left {
+	width: 442px;
+}
+#pages section.title-foreword.page-1 .image1 {
+	margin-left: 20px;
+	margin-bottom: 12px;
+}
+#pages section.title-foreword.page-1 p {
+	margin-bottom: 20px;
+	width: 335px
+}
+#pages section.title-foreword.page-2 p {
+	margin-bottom: 22px;
+}
+#pages section.title-foreword.page-3 .spacer {
+	margin-bottom: 44px;
+}
+
+
+
+/*
+#pages .title-web-apps.page-2 p {
+	font-size: 13px;
+}
+#pages .title-web-apps.page-3 p {
+	font-size: 14px;
+	text-align: left;
+}
+#pages .title-html.page-2 p {
+	font-size: 13px;
+	text-align: left;
+}
+/*
+
+
+
+
+
+/*
+column-count: 2;
+column-gap: 20px;
+-moz-column-count: 2;
+-moz-column-gap: 20px;
+-webkit-column-count: 2;
+-webkit-column-gap: 20px;
+*/
+

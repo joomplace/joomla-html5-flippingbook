@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset>
+		
+		<field name="social_google_plus_use"
+			type="radio"
+			class="btn-group"
+			label="COM_HTML5FLIPPINGBOOK_BE_CONFIG_GOOGLEPLUS_USE"
+			description="COM_HTML5FLIPPINGBOOK_BE_CONFIG_GOOGLEPLUS_USE_DESC">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		
+		<field name="social_google_plus_size"
+			type="_advanced_radio"
+			onclick="onRadioGooglePlusSizeClick(this, event);"
+			class="btn-group"
+			label="COM_HTML5FLIPPINGBOOK_BE_CONFIG_GOOGLEPLUS_SIZE"
+			description="COM_HTML5FLIPPINGBOOK_BE_CONFIG_GOOGLEPLUS_SIZE_DESC">
+			<option value="small">COM_HTML5FLIPPINGBOOK_BE_CONFIG_GOOGLEPLUS_SIZE_SMALL</option>
+			<option value="medium">COM_HTML5FLIPPINGBOOK_BE_CONFIG_GOOGLEPLUS_SIZE_MEDIUM</option>
+			<option value="standart">COM_HTML5FLIPPINGBOOK_BE_CONFIG_GOOGLEPLUS_SIZE_STD</option>
+			<option value="tall">COM_HTML5FLIPPINGBOOK_BE_CONFIG_GOOGLEPLUS_SIZE_TALL</option>
+		</field>
+		
+		<field name="social_google_plus_annotation"
+			type="_advanced_radio"
+			onclick="onRadioGooglePlusAnnotationClick(this, event);"
+			class="btn-group"
+			label="COM_HTML5FLIPPINGBOOK_BE_CONFIG_GOOGLEPLUS_ANNOTATION"
+			description="COM_HTML5FLIPPINGBOOK_BE_CONFIG_GOOGLEPLUS_ANNOTATION_DESC">
+			<option value="none">COM_HTML5FLIPPINGBOOK_BE_CONFIG_GOOGLEPLUS_ANNOTATION_NONE</option>
+			<option value="inline">COM_HTML5FLIPPINGBOOK_BE_CONFIG_GOOGLEPLUS_ANNOTATION_INLINE</option>
+			<option value="bubble">COM_HTML5FLIPPINGBOOK_BE_CONFIG_GOOGLEPLUS_ANNOTATION_BUBBLE</option>
+		</field>
+		
+		<field name="social_google_plus_language"
+			type="_advanced_list"
+			label="COM_HTML5FLIPPINGBOOK_BE_CONFIG_GOOGLEPLUS_LANGUAGE"
+			description="COM_HTML5FLIPPINGBOOK_BE_CONFIG_GOOGLEPLUS_LANGUAGE_DESC" />
+		
+		<field name="social_twitter_use"
+			type="radio"
+			class="btn-group"
+			label="COM_HTML5FLIPPINGBOOK_BE_CONFIG_TWITTER_USE"
+			description="COM_HTML5FLIPPINGBOOK_BE_CONFIG_TWITTER_USE_DESC">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		
+		<field name="social_twitter_size"
+			type="_advanced_radio"
+			onclick="onRadioTwitterSizeClick(this, event);"
+			class="btn-group"
+			label="COM_HTML5FLIPPINGBOOK_BE_CONFIG_TWITTER_SIZE"
+			description="COM_HTML5FLIPPINGBOOK_BE_CONFIG_TWITTER_SIZE_DESC">
+			<option value="standart">COM_HTML5FLIPPINGBOOK_BE_CONFIG_TWITTER_SIZE_STANDART</option>
+			<option value="large">COM_HTML5FLIPPINGBOOK_BE_CONFIG_TWITTER_SIZE_LARGE</option>
+		</field>
+		
+		<field name="social_twitter_annotation"
+			type="_advanced_radio"
+			onclick="onRadioTwitterAnnotationClick(this, event);"
+			class="btn-group"
+			label="COM_HTML5FLIPPINGBOOK_BE_CONFIG_TWITTER_ANNOTATION"
+			description="COM_HTML5FLIPPINGBOOK_BE_CONFIG_TWITTER_ANNOTATION_DESC">
+			<option value="none">COM_HTML5FLIPPINGBOOK_BE_CONFIG_TWITTER_ANNOTATION_NONE</option>
+			<option value="horizontal">COM_HTML5FLIPPINGBOOK_BE_CONFIG_TWITTER_ANNOTATION_HORIZONTAL</option>
+			<option value="vertical">COM_HTML5FLIPPINGBOOK_BE_CONFIG_TWITTER_ANNOTATION_VERTICAL</option>
+		</field>
+		
+		<field name="social_twitter_language"
+			type="_advanced_list"
+			label="COM_HTML5FLIPPINGBOOK_BE_CONFIG_TWITTER_LANGUAGE"
+			description="COM_HTML5FLIPPINGBOOK_BE_CONFIG_TWITTER_LANGUAGE_DESC" />
+		
+		<field name="social_linkedin_use"
+			type="radio"
+			class="btn-group"
+			label="COM_HTML5FLIPPINGBOOK_BE_CONFIG_LINKEDIN_USE"
+			description="COM_HTML5FLIPPINGBOOK_BE_CONFIG_LINKEDIN_USE_DESC">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		
+		<field name="social_linkedin_annotation"
+			type="_advanced_radio"
+			onclick="onRadioLinkedinAnnotationClick(this, event);"
+			class="btn-group"
+			label="COM_HTML5FLIPPINGBOOK_BE_CONFIG_LINKEDIN_ANNOTATION"
+			description="COM_HTML5FLIPPINGBOOK_BE_CONFIG_LINKEDIN_ANNOTATION_DESC">
+			<option value="none">COM_HTML5FLIPPINGBOOK_BE_CONFIG_LINKEDIN_ANNOTATION_NONE</option>
+			<option value="right">COM_HTML5FLIPPINGBOOK_BE_CONFIG_LINKEDIN_ANNOTATION_RIGHT</option>
+			<option value="top">COM_HTML5FLIPPINGBOOK_BE_CONFIG_LINKEDIN_ANNOTATION_TOP</option>
+		</field>
+		
+		<field name="social_facebook_use"
+			type="radio"
+			class="btn-group"
+			label="COM_HTML5FLIPPINGBOOK_BE_CONFIG_FACEBOOK_USE"
+			description="COM_HTML5FLIPPINGBOOK_BE_CONFIG_FACEBOOK_USE_DESC">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		
+		<field name="social_facebook_verb"
+			type="_advanced_radio"
+			onclick="onRadioFacebookVerbClick(this, event);"
+			class="btn-group"
+			label="COM_HTML5FLIPPINGBOOK_BE_CONFIG_FACEBOOK_VERB"
+			description="COM_HTML5FLIPPINGBOOK_BE_CONFIG_FACEBOOK_VERB_DESC">
+			<option value="like">COM_HTML5FLIPPINGBOOK_BE_CONFIG_FACEBOOK_VERB_LIKE</option>
+			<option value="recommend">COM_HTML5FLIPPINGBOOK_BE_CONFIG_FACEBOOK_VERB_RECOMMEND</option>
+		</field>
+		
+		<field name="social_facebook_layout"
+			type="_advanced_radio"
+			onclick="onRadioFacebookLayoutClick(this, event);"
+			class="btn-group"
+			label="COM_HTML5FLIPPINGBOOK_BE_CONFIG_FACEBOOK_LAYOUT"
+			description="COM_HTML5FLIPPINGBOOK_BE_CONFIG_FACEBOOK_LAYOUT_DESC">
+			<option value="standart">COM_HTML5FLIPPINGBOOK_BE_CONFIG_FACEBOOK_LAYOUT_STANDART</option>
+			<option value="button_count">COM_HTML5FLIPPINGBOOK_BE_CONFIG_FACEBOOK_LAYOUT_BUTTONCOUNT</option>
+			<option value="box_count">COM_HTML5FLIPPINGBOOK_BE_CONFIG_FACEBOOK_LAYOUT_BOXCOUNT</option>
+		</field>
+		
+		<field name="social_facebook_font"
+			type="_advanced_list"
+			label="COM_HTML5FLIPPINGBOOK_BE_CONFIG_FACEBOOK_FONT"
+			description="COM_HTML5FLIPPINGBOOK_BE_CONFIG_FACEBOOK_FONT_DESC" />
+
+		<field name="rules"
+			type="rules"
+			component="com_html5flippingbook"
+			section="component"
+			filter="rules"
+			validate="rules"
+			label="JCONFIG_PERMISSIONS_LABEL" />
+		
+	</fieldset>
+</form>

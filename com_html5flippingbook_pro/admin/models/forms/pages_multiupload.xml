@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset>
+		
+		<field name="publication_id"
+			type="_advanced_list"
+			required="false"
+			label="COM_HTML5FLIPPINGBOOK_BE_PAGES_MULTIUPLOAD_PUBLICATION"
+			description="COM_HTML5FLIPPINGBOOK_BE_PAGES_MULTIUPLOAD_PUBLICATION_DESC" />
+		
+		<field name="general_pages_title"
+			type="text"
+			class="inputbox"
+			size="20"
+			required="false"
+			label="COM_HTML5FLIPPINGBOOK_BE_PAGES_MULTIUPLOAD_GENERAL_PAGES_TITLE"
+			description="COM_HTML5FLIPPINGBOOK_BE_PAGES_MULTIUPLOAD_GENERAL_PAGES_TITLE_DESC" />
+		
+		<field name="source_type"
+			type="_advanced_radio"
+			default="archive"
+			required="false"
+			onclick="onSourceTypeClick(this, event);"
+			class="btn-group"
+			label="COM_HTML5FLIPPINGBOOK_BE_PAGES_MULTIUPLOAD_SOURCE"
+			description="COM_HTML5FLIPPINGBOOK_BE_PAGES_MULTIUPLOAD_SOURCE_DESC">
+			<option value="archive">COM_HTML5FLIPPINGBOOK_BE_PAGES_MULTIUPLOAD_LOCAL_ZIP_ARCHIVE</option>
+			<option value="directory">COM_HTML5FLIPPINGBOOK_BE_PAGES_MULTIUPLOAD_SERVER_DIR</option>
+		</field>
+		
+		<field name="archive_file"
+			type="text"
+			required="false"
+			label="COM_HTML5FLIPPINGBOOK_BE_PAGES_MULTIUPLOAD_LOCAL_ZIP_ARCHIVE_FILE"
+			description="COM_HTML5FLIPPINGBOOK_BE_PAGES_MULTIUPLOAD_LOCAL_ZIP_ARCHIVE_FILE_DESC" />
+		
+		<field name="server_directory"
+			type="text"
+			required="false"
+			label="COM_HTML5FLIPPINGBOOK_BE_PAGES_MULTIUPLOAD_SERVER_DIRECTORY"
+			description="COM_HTML5FLIPPINGBOOK_BE_PAGES_MULTIUPLOAD_SERVER_DIRECTORY_DESC" />
+		
+	</fieldset>
+</form>

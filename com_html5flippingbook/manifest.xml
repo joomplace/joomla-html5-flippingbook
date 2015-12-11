@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="1.0" method="upgrade">
+	<name>com_html5flippingbook</name>
+	<author>JoomPlace Team</author>
+	<authorEmail>support@joomplace.com</authorEmail>
+	<authorUrl>www.joomplace.com</authorUrl>
+	<copyright>(C) JoomPlace, www.joomplace.com</copyright>
+	<license>GNU/GPL http://www.gnu.org/copyleft/gpl.html</license>
+	<version>1.0.6 (build 001)</version>
+	<creationDate>January 2014</creationDate>
+	<description>COM_HTML5FLIPPINGBOOK_SYS_DESC</description>
+	
+	<scriptfile>install.php</scriptfile>
+
+    <files folder="site">
+		<folder>assets</folder>
+        <folder>libs</folder>
+		<folder>models</folder>
+		<folder>views</folder>
+		<filename>controller.php</filename>
+		<filename>html5flippingbook.php</filename>
+		<filename>index.html</filename>
+		<filename>metadata.xml</filename>
+		<filename>router.php</filename>
+	</files>
+	
+	<administration>
+		
+		<menu img="components/com_html5flippingbook/assets/images/joomplace_logo_16.png">COM_HTML5FLIPPINGBOOK_SYS_ADMINMENU_ROOT</menu>
+		
+		<submenu>
+			<menu link="option=com_html5flippingbook" img="components/com_html5flippingbook/assets/images/icon_48_about.png"
+				>COM_HTML5FLIPPINGBOOK_SYS_ADMINMENU_CONTROL_PANEL</menu>
+			
+			<menu link="option=com_html5flippingbook&amp;view=categories" img="components/com_html5flippingbook/assets/images/icon_48_categories.png"
+				>COM_HTML5FLIPPINGBOOK_SYS_ADMINMENU_CATEGORIES</menu>
+			
+			<menu link="option=com_html5flippingbook&amp;view=publications" img="components/com_html5flippingbook/assets/images/icon_48_publications.png"
+				>COM_HTML5FLIPPINGBOOK_SYS_ADMINMENU_PUBLICATION</menu>
+			
+			<menu link="option=com_html5flippingbook&amp;view=pages" img="components/com_html5flippingbook/assets/images/icon_48_pages.png"
+				>COM_HTML5FLIPPINGBOOK_SYS_ADMINMENU_PAGES</menu>
+			
+			<menu link="option=com_html5flippingbook&amp;view=templates" img="components/com_html5flippingbook/assets/images/icon_48_templates.png"
+				>COM_HTML5FLIPPINGBOOK_SYS_ADMINMENU_TEMPLATES</menu>
+			
+			<menu link="option=com_html5flippingbook&amp;view=resolutions" img="components/com_html5flippingbook/assets/images/icon_48_resolutions.png"
+				>COM_HTML5FLIPPINGBOOK_SYS_ADMINMENU_RESOLUTION</menu>
+			
+			<menu link="option=com_html5flippingbook&amp;view=configuration" img="components/com_html5flippingbook/assets/images/icon_48_settings.png"
+				>COM_HTML5FLIPPINGBOOK_SYS_ADMINMENU_CONFIGURATION</menu>
+			
+			<menu link="option=com_html5flippingbook&amp;view=help" img="components/com_html5flippingbook/assets/images/icon_48_help.png"
+				>COM_HTML5FLIPPINGBOOK_SYS_ADMINMENU_HELP</menu>
+			
+		</submenu>
+		
+		<languages folder="admin/language/en-GB">
+			<language tag="en-GB">en-GB.com_html5flippingbook.ini</language>
+			<language tag="en-GB">en-GB.com_html5flippingbook.sys.ini</language>
+		</languages>
+		
+		<files folder="admin">
+			<folder>assets</folder>
+			<folder>controllers</folder>
+			<folder>libs</folder>
+			<folder>models</folder>
+			<folder>tables</folder>
+			<folder>views</folder>
+			<filename>access.xml</filename>
+			<filename>changelog.txt</filename>
+			<filename>config.xml</filename>
+			<filename>controller.php</filename>
+			<filename>html5flippingbook.php</filename>
+			<filename>index.html</filename>
+		</files>
+		
+	</administration>
+	
+	<media folder="media" destination="com_html5flippingbook">
+		<folder>audio</folder>
+		<folder>authors</folder>
+		<folder>html</folder>
+		<folder>logos</folder>
+		<folder>images</folder>
+		<folder>pdf</folder>
+		<folder>thumbs</folder>
+		<folder>video</folder>
+		<filename>index.html</filename>
+	</media>
+	
+	<updateservers>
+		<!-- Note: No spaces or linebreaks allowed between the server tags -->
+		<server type="extension" priority="1" name="HTML5 Flipping Book Update Site">http://www.joomplace.com/updates/updates.xml</server>
+	</updateservers>
+	
+</extension>

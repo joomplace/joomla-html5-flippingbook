@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_4.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+http://java.sun.com/xml/ns/javaee/web-app_2_4.xsd"
+	version="2.4">
+
+	<mime-mapping>
+		<extension>manifest</extension>
+		<mime-type>text/cache-manifest</mime-type>
+	</mime-mapping>
+
+	<mime-mapping>
+		<extension>ttf</extension>
+		<mime-type>font/ttf</mime-type>
+	</mime-mapping>
+
+	<filter>
+		<filter-name>UrlRewriteFilter</filter-name>
+		<filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter
+		</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>UrlRewriteFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+
+	<servlet>
+		<servlet-name>Quercus Servlet</servlet-name>
+		<servlet-class>com.caucho.quercus.servlet.GoogleQuercusServlet
+		</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Quercus Servlet</servlet-name>
+		<url-pattern>*.php</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>remote-api</servlet-name>
+		<servlet-class>com.google.apphosting.utils.remoteapi.RemoteApiServlet
+		</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>remote-api</servlet-name>
+		<url-pattern>/remote_api</url-pattern>
+	</servlet-mapping>
+
+	<security-constraint>
+
+		<web-resource-name>remote-api</web-resource-name>
+		<web-resource-collection>
+			<url-pattern>/remote_api</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>admin</role-name>
+		</auth-constraint>
+
+	</security-constraint>
+
+
+	<welcome-file-list>
+		<welcome-file>index.php</welcome-file>
+	</welcome-file-list>
+</web-app>

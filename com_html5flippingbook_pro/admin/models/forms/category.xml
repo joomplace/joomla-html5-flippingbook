@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset>
+		
+		<field name="c_id"
+			type="text"
+			class="readonly"
+			default="0"
+			readonly="true"
+			label="JGLOBAL_FIELD_ID_LABEL"
+			description ="JGLOBAL_FIELD_ID_DESC" />
+		
+		<field name="c_category"
+			type="text"
+			class="inputbox"
+			size="40"
+			required="true"
+			label="COM_HTML5FLIPPINGBOOK_BE_CATEGORIES_NAME"
+			description="COM_HTML5FLIPPINGBOOK_BE_CATEGORIES_NAME_DESC" />
+		
+		<field name="c_instruction"
+			type="editor"
+			class="html5fb_textarea"
+			rows="8"
+			label="COM_HTML5FLIPPINGBOOK_BE_CATEGORIES_DESCRIPTION"
+			description="COM_HTML5FLIPPINGBOOK_BE_CATEGORIES_DESCRIPTION_DESC" />
+
+
+        <field name="c_metadesc"
+               type="textarea"
+               class="html5fb_textarea_small"
+               rows="3"
+               label="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_METADATA_DESCRIPTION"
+               description="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_METADATA_DESCRIPTION_DESC" />
+
+        <field name="c_metakey"
+               type="textarea"
+               class="html5fb_textarea_small"
+               rows="3"
+               label="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_METADATA_KEY"
+               description="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_METADATA_KEY_DESC" />
+
+        <field name="opengraph_use"
+               type="radio"
+               default="0"
+               class="btn-group"
+               label="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_OPENGRAPH_USE"
+               description="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_OPENGRAPH_USE_DESC">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+
+        <field name="opengraph_title"
+               type="text"
+               class="inputbox"
+               size="20"
+               label="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_OPENGRAPH_TITLE"
+               description="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_OPENGRAPH_TITLE_DESC" />
+
+        <field name="opengraph_author"
+               type="text"
+               class="inputbox"
+               size="20"
+               label="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_OPENGRAPH_AUTHOR"
+               description="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_OPENGRAPH_AUTHOR_DESC" />
+
+        <field name="opengraph_image"
+               type="_upload_image"
+               dir="media/com_html5flippingbook/thumbs"
+               fileExtensions="png,jpg,gif"
+               uploadTask="magazines.show_upload"
+               class="html5fb_upload_image"
+               previewImgClass="html5fb_publication_author_preview_img"
+               label="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_OPENGRAPH_IMAGE"
+               description="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_OPENGRAPH_IMAGE_DESC" />
+
+        <field name="opengraph_description"
+               type="textarea"
+               class="html5fb_textarea_small"
+               rows="3"
+               label="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_OPENGRAPH_DESCRIPTION"
+               description="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_OPENGRAPH_DESCRIPTION_DESC" />
+
+        <field name="asset_id"
+               type="hidden"
+               filter="unset" />
+
+        <field name="rules" type="rules" label="COM_HTML5FLIPPINGBOOK_BE_CATEGORIES_PERMISSIONS"
+               translate_label="false" class="inputbox" filter="rules"
+               component="com_html5flippingbook" section="category" validate="rules"
+                />
+
+
+    </fieldset>
+</form>

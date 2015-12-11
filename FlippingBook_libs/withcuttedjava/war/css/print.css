@@ -1,0 +1,94 @@
+/**
+ * Copyright 2011 Google Inc.
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+header,
+#search-dropdown,
+#grey-mask,
+#chapter-nav,
+#overlay,
+#credits,
+#pagination-prev,
+#pagination-next,
+#table-of-contents,
+#sharer,
+#left-page,
+#right-page,
+canvas,
+.pageNumber,
+#pages section,
+.right-side,
+#currentPage,
+#articleId,
+#pageNumber
+{
+	display: none !important;
+}
+
+#pages section.current
+{
+	display: block !important;
+}
+
+body,
+html,
+#pages section,
+footer,
+footer span.curator
+{
+	background: none !important;
+	overflow: auto !important;
+	margin: 0 !important;
+}
+
+body {
+	font-family: "Times New Roman", Times, serif;
+	padding: 30px!important;
+}
+
+h2 {
+	padding: 0px;
+	margin: 0px;
+}
+
+h3 {
+	padding: 0px 0px 15px 0px;
+	margin: 0px;
+}
+
+
+#book,
+#pages,
+#pages section,
+#pages section div.page
+{
+	position: static !important;
+	width: auto !important;
+	height: auto !important;
+}
+
+footer {
+	position: static;
+}
+footer span.curator {
+	border-top: 1px solid #000;
+	margin-top: 40px;
+	padding-top: 10px;
+	font-size: 10px;
+	float: none;
+	display: block;
+	width: 100%;
+}

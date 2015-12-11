@@ -1,0 +1,203 @@
+/**
+ * Copyright 2011 Google Inc.
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+#pages {
+	z-index: 1000;
+}
+
+.basic #front-cover-bookmark,
+.basic #search-field,
+.tot #pagination-next,
+.tot #pagination-prev,
+.basic #table-of-contents a.go-back,
+.basic #back-cover,
+.basic #spine,
+.basic footer div.sharing ul li.url,
+#preloader
+{
+	display: none;
+}
+
+
+.basic.home #front-cover-bookmark,
+.basic.tot #table-of-contents
+{
+	display: block;
+}
+
+#chapter-nav {
+	bottom: 25px;
+	left: 50%;
+	margin-left: -385px;
+	margin-top: 155px;
+	position: relative;
+}
+
+	#chapter-nav ul li:hover a.over {
+		position: absolute;
+		bottom: 0px;
+	}
+	
+	.credits #chapter-nav {
+		position: absolute;
+		top: 588px;
+	}
+
+#book {
+	position: relative;
+	margin-top: 0;
+	top: 75px;
+}
+
+	.credits #book {
+		position: absolute;
+		top: 162px;
+	}
+
+#pagination-next,
+#pagination-prev {
+	top: 400px;
+	position: absolute;
+}
+
+footer {
+	position: fixed;
+	min-width: 0;
+}
+
+#credits {
+	margin-top: -620px;
+	top: 0;
+}
+
+	#credits .people ul, 
+	#credits .share {
+		overflow: hidden;
+	}
+	
+	.credits #credits {
+		margin-top: 180px;
+	}
+	
+#table-of-contents {
+	position: relative;
+	margin-top: 35px;
+	margin-bottom: 25px;
+	height: auto;
+	overflow: hidden;
+}
+
+	#table-of-contents ul {
+		overflow: hidden;
+	}
+	
+	#table-of-contents div.center {
+		top: 0;
+		margin-top: 0;
+	}
+	
+	.tot #book,
+	.tot #chapter-nav,
+	.tot #grey-mask {
+		display: none;
+	}
+
+header {
+	position: relative;
+}
+	
+#upgrade {
+	background: #feffd4;
+	padding: 14px;
+	border-bottom: 1px solid #aaa;
+}
+
+	#upgrade p {
+		font-size: 14px;
+		text-align: center;
+		line-height: 1.2em;
+	}
+	
+	#upgrade p strong {
+		font-weight: bold;
+	}
+
+	#upgrade p a {
+		color: blue;
+		text-decoration: underline;
+	}
+	
+#grey-mask {
+	height: 640px;
+}
+.touch-device #book {
+	top: 35px;
+}
+
+.touch-device #upgrade {
+	display: none;
+}
+
+.touch-device #pagination-next,
+.touch-device #pagination-prev {
+	top: 320px;
+	position: absolute;
+}
+
+.touch-device footer {
+	position: static;
+	top: auto;
+	margin-top: 10px;
+}
+
+.touch-device #chapter-nav {
+	margin-top: 105px;
+}
+
+.touch-device.tot #table-of-contents {
+	margin-top: 15px;
+}
+
+.touch-device.credits #credits {
+	margin-top: 90px;
+}
+
+.touch-device.credits #chapter-nav {
+	top: 550px;
+}
+
+.touch-device.credits #book {
+	top: 88px;
+}
+
+.touch-device.credits footer {
+	position: absolute;
+	top: 730px;
+}
+
+.touch-device.home #book {
+	margin-left: -1250px;
+}
+
+#credits div.people ul li {
+	float: left;
+	display: block;
+}
+
+footer div.sharing ul {
+	width: 132px;
+}

@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset>
+		
+		<field name="c_id"
+			type="text"
+			class="readonly"
+			readonly="true"
+			default="0"
+			label="JGLOBAL_FIELD_ID_LABEL"
+			description ="JGLOBAL_FIELD_ID_DESC" />
+		
+		<field name="c_title"
+			type="text"
+			class="inputbox"
+			size="40"
+			required="true"
+			label="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_NAME"
+			description="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_NAME_DESC" />
+		
+		<field name="c_author"
+			type="text"
+			class="inputbox"
+			size="20"
+			label="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_AUTHOR"
+			description="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_AUTHOR_DESC" />
+		
+		<field name="published"
+			type="radio"
+			default="0"
+			class="btn-group"
+			label="COM_HTML5FLIPPINGBOOK_BE_PUBLISHED"
+			description="COM_HTML5FLIPPINGBOOK_BE_PUBLISHED_DESC">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		
+		<field name="c_category_id"
+			type="_category"
+			class="inputbox"
+			size="1"
+			required="true"
+			label="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_CATEGORY"
+			description="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_CATEGORY_DESC" />
+		
+		 <field name="c_show_cdate"
+			type="radio"
+			default="1"
+			class="btn-group"
+			label="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_SHOW_CREATION_TIME"
+			description="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_SHOW_CREATION_TIME_DESC">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		
+		<field name="c_created_time"
+			type="calendar"
+			class="inputbox"
+			size="22"
+			format="%Y-%m-%d %H:%M:%S"
+			filter="user_utc"
+			label="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_CREATION_TIME"
+			description="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_CREATION_TIME_DESC" />
+
+		<field name="navi_settings"
+			type="radio"
+			default="1"
+			class="btn-group"
+			label="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_NAVI_SETTINGS"
+			description="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_NAVI_SETTINGS_DESC">
+			<option value="1">COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_NAVI_SETTINGS_OPT_1</option>
+			<option value="0">COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_NAVI_SETTINGS_OPT_2</option>
+		</field>
+		
+		<field name="c_resolution_id"
+			type="_resolution"
+			class="inputbox"
+			size="1"
+			required="true"
+			label="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_RESOLUTION"
+			description="COM_HTML5FLIPPINGBOOK_BE_RESOLUTIONS_TIP" />
+		
+		<field name="c_template_id"
+			type="_template"
+			class="inputbox html5fb_template_preview"
+			size="1"
+			required="true"
+			label="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_TEMPLATE"
+			description="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_TEMPLATE_DESC" />
+		
+		<field name="c_popup"
+			type="list"
+			class="inputbox"
+			default="3"
+			label="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_DISPLAY_MODE" 
+			description="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_DISPLAY_MODE_DESC">
+			<option value="0">COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_DISPLAY_MODE_OPTION1</option>
+			<option value="1">COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_DISPLAY_MODE_OPTION2</option>
+			<option value="3">COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_DISPLAY_MODE_OPTION4</option>
+		</field>
+		
+		<field name="c_imgsub"
+			type="_advanced_radio"
+			default="1"
+			onclick="onUseSubfolderClick(this, event);"
+			class="btn-group"
+			label="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_USE_SUBFOLDER"
+			description="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_USE_SUBFOLDER_DESC">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		
+		<field name="c_imgsubfolder"
+			type="text"
+			class="inputbox"
+			size="20"
+			label="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_SUBFOLDER"
+			description="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_SUBFOLDER_DESC" />
+		
+		<field name="right_to_left"
+			type="radio"
+			default="0"
+			class="btn-group"
+			label="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_RIGHT_TO_LEFT"
+			description="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_RIGHT_TO_LEFT_DESC">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+		 <field name="c_enable_fullscreen"
+			type="radio"
+			default="1"
+			class="btn-group"
+			label="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_FULLSCREEN_BTN"
+			description="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_FULLSCREEN_BTN_DESC">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		
+		<field name="fullscreen_mode"
+			type="list"
+			class="inputbox"
+			default="1"
+			label="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_FULLSCREEN_MODE" 
+			description="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_FULLSCREEN_MODE_DESC">
+			<option value="0">COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_FULLSCREEN_MODE_OPTION_0</option>
+			<option value="1">COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_FULLSCREEN_MODE_OPTION_1</option>
+		</field>
+
+		<field name="c_thumb"
+			type="_upload_image"
+			dir="media/com_html5flippingbook/thumbs"
+			fileExtensions="png,jpg,gif"
+			uploadTask="publications.show_upload"
+			class="html5fb_upload_image"
+			previewImgClass="html5fb_publication_thumb_preview_img"
+			label="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_THUMBNAIL" 
+			description="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_THUMBNAIL_DESC" />
+		
+		<field name="c_pub_descr"
+			type="editor"
+			class="editor"
+			filter="raw"
+			buttons="true"
+			label="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_DESCRIPTION"
+			description="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_DESCRIPTION_DESC" />
+
+		<field name="c_enable_pdf"
+			type="radio"
+			default="0"
+			class="btn-group"
+			label="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_PDF_ENABLE"
+			description="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_PDF_ENABLE_DESC">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		
+		<field name="c_background_pdf"
+			type="_upload_file"
+			dir="media/com_html5flippingbook/pdf"
+			fileExtensions="pdf"
+			uploadTask="publications.show_upload"
+			class="html5fb_upload_file"
+			label="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_PDF_FILE" 
+			description="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_PDF_FILE_DESC" />
+		
+		<field name="c_metadesc"
+			type="textarea"
+			class="html5fb_textarea_small"
+			rows="3"
+			label="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_METADATA_DESCRIPTION" 
+			description="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_METADATA_DESCRIPTION_DESC" />
+		
+		<field name="c_metakey"
+			type="textarea"
+			class="html5fb_textarea_small"
+			rows="3"
+			label="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_METADATA_KEY" 
+			description="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_METADATA_KEY_DESC" />
+
+        <field name="opengraph_use"
+               type="radio"
+               default="0"
+               class="btn-group"
+               label="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_OPENGRAPH_USE"
+               description="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_OPENGRAPH_USE_DESC">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+
+		<field name="opengraph_title"
+			type="text"
+			class="inputbox"
+			size="20"
+			label="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_OPENGRAPH_TITLE"
+			description="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_OPENGRAPH_TITLE_DESC" />
+
+		<field name="opengraph_author"
+			type="text"
+			class="inputbox"
+			size="20"
+			label="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_OPENGRAPH_AUTHOR"
+			description="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_OPENGRAPH_AUTHOR_DESC" />
+		
+		<field name="opengraph_image"
+			type="_upload_image"
+			dir="media/com_html5flippingbook/thumbs"
+			fileExtensions="png,jpg,gif"
+			uploadTask="publications.show_upload"
+			class="html5fb_upload_image"
+			previewImgClass="html5fb_publication_author_preview_img"
+			label="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_OPENGRAPH_IMAGE" 
+			description="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_OPENGRAPH_IMAGE_DESC" />
+		
+		<field name="opengraph_description"
+			type="textarea"
+			class="html5fb_textarea_small"
+			rows="3"
+			label="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_OPENGRAPH_DESCRIPTION" 
+			description="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_OPENGRAPH_DESCRIPTION_DESC" />
+		
+		<field name="asset_id"
+			type="hidden"
+			filter="unset" />
+		
+		<field name="rules"
+			type="rules"
+			component="com_html5flippingbook"
+			section="publication"
+			filter="rules"
+			validate="rules"
+			label="JCONFIG_PERMISSIONS_LABEL" />
+		
+	</fieldset>
+</form>

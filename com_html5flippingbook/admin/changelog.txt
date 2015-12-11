@@ -1,0 +1,69 @@
+//================================================================================
+// 1.0.6 [2014-11-14]
+//================================================================================
+
+Pro version:
+- Added Joomla 2.5 compatible version
+- Resizing publication on tablets
+- Saving original images and resizing when creating / editing publication pages
+- Minor bug fixing
+
+Standard version:
+- Resizing publication on tablets
+- Saving original images and resizing when creating / editing publication pages
+- Minor bug fixing
+  
+//================================================================================
+// 1.0.5 [2014-08-12]
+//================================================================================
+
+Pro version:
+- Added option to convert publication to txt, pdf, mobi, epub, fb2 formats
+- Added integration with CloudConvert service
+- Minor bug fixing
+
+Standard version:
+- Minor bug fixing
+
+//================================================================================
+// 1.0.4 [2014-07-11]
+//================================================================================
+
+Pro version:
+- Zoom and Fullscreen mode
+- Profile page (list and bookshelf view)
+- Option to save user settings and last open publication
+- Hardcover template
+- JomSocial integration
+- E-mail to a friend option
+- Joomla search plugin and search in publication
+- PDF converter
+
+Standard version:
+- Zoom and Fullscreen mode
+- Minor bug fixing
+
+//================================================================================
+// 1.0.3 [2014-06-16]
+//================================================================================
+
+- Added mobile reader
+- Added Go To page navigation settings
+- Added pagination for category page
+- Fixed minor bugs
+
+//================================================================================
+// 1.0.2 [2014-01-31]
+//================================================================================
+
+- Bugfix Insert Publication tag
+- Bugfix large size publications position
+- Bugfix popup display mode
+- Bugfix Content and Button plugins
+- Add addition page class - hard-cover
+
+//================================================================================
+// 1.0.0 [2013-10-22]
+//================================================================================
+
+- HTML5 Flipping Book dev start.

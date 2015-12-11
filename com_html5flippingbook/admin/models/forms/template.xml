@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset>
+		
+		<field name="id"
+			type="text"
+			class="readonly"
+			default="0"
+			readonly="true"
+			label="JGLOBAL_FIELD_ID_LABEL"
+			description ="JGLOBAL_FIELD_ID_DESC" />
+		
+		<field name="template_name"
+			type="text"
+			class="inputbox"
+			size="40"
+			required="true"
+			label="COM_HTML5FLIPPINGBOOK_BE_TEMPLATES_NAME"
+			description="COM_HTML5FLIPPINGBOOK_BE_TEMPLATES_NAME_DESC" />
+
+        <field name="fontfamily"
+               type="_fontfamily"
+               class="inputbox"
+               label="COM_HTML5FLIPPINGBOOK_BE_TEMPLATES_FONT_FAMILY"
+               onchange="updateTemplatePreview()"
+               description="COM_HTML5FLIPPINGBOOK_BE_TEMPLATES_FONT_FAMILY_DESC"/>
+
+        <field name="fontsize"
+               type="text"
+               class="inputbox"
+               onchange="updateTemplatePreview()"
+               label="COM_HTML5FLIPPINGBOOK_BE_TEMPLATES_FONT_SIZE"
+               description="COM_HTML5FLIPPINGBOOK_BE_TEMPLATES_FONT_SIZE_DESC" />
+
+        <field name="p_margin"
+               type="text"
+               class="inputbox"
+               label="COM_HTML5FLIPPINGBOOK_BE_TEMPLATES_P_MARGIN"
+               description="COM_HTML5FLIPPINGBOOK_BE_TEMPLATES_P_MARGIN_DESC" />
+
+        <field name="p_lineheight"
+               type="text"
+               class="inputbox"
+               label="COM_HTML5FLIPPINGBOOK_BE_TEMPLATES_P_LINEHEIGHT"
+               description="COM_HTML5FLIPPINGBOOK_BE_TEMPLATES_P_LINEHEIGHT_DESC" />
+
+        <field name="background_color"
+			type="_colorpicker"
+			class="html5fb_colorpicker"
+			label="COM_HTML5FLIPPINGBOOK_BE_TEMPLATES_BG_COLOR"
+			description="COM_HTML5FLIPPINGBOOK_BE_TEMPLATES_BG_COLOR_DESC" />
+		
+		<field name="page_background_color"
+			type="_colorpicker"
+			class="html5fb_colorpicker"
+			label="COM_HTML5FLIPPINGBOOK_BE_TEMPLATES_PAGEBG_COLOR"
+			description="COM_HTML5FLIPPINGBOOK_BE_TEMPLATES_PAGEBG_COLOR_DESC" />
+		
+		<field name="text_color"
+			type="_colorpicker"
+			class="html5fb_colorpicker"
+			label="COM_HTML5FLIPPINGBOOK_BE_TEMPLATES_TEXT_COLOR"
+            default="#000000"
+			description="COM_HTML5FLIPPINGBOOK_BE_TEMPLATES_TEXT_COLOR_DESC" />
+
+
+        <field name="display_slider"
+               type="radio"
+               default="0"
+               class="btn-group"
+               label="COM_HTML5FLIPPINGBOOK_BE_TEMPLATES_DISPLAY_SLIDER"
+               description="COM_HTML5FLIPPINGBOOK_BE_TEMPLATES_DISPLAY_SLIDER_DESC">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+
+        <field name="display_pagebox"
+               type="radio"
+               default="0"
+               class="btn-group"
+               label="COM_HTML5FLIPPINGBOOK_BE_TEMPLATES_DISPLAY_PAGEBOX"
+               description="COM_HTML5FLIPPINGBOOK_BE_TEMPLATES_DISPLAY_PAGEBOX_DESC">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+
+        <field name="display_title"
+               type="radio"
+               default="0"
+               class="btn-group"
+               label="COM_HTML5FLIPPINGBOOK_BE_TEMPLATES_DISPLAY_TITLE"
+               description="COM_HTML5FLIPPINGBOOK_BE_TEMPLATES_DISPLAY_TITLE_DESC">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+
+        <field name="display_topicons"
+               type="radio"
+               default="0"
+               class="btn-group"
+               label="COM_HTML5FLIPPINGBOOK_BE_TEMPLATES_DISPLAY_TOPICONS"
+               description="COM_HTML5FLIPPINGBOOK_BE_TEMPLATES_DISPLAY_TOPICONS_DESC">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+
+
+        <field name="display_nextprev"
+               type="radio"
+               default="0"
+               class="btn-group"
+               label="COM_HTML5FLIPPINGBOOK_BE_TEMPLATES_DISPLAY_NEXTPREV"
+               description="COM_HTML5FLIPPINGBOOK_BE_TEMPLATES_DISPLAY_NEXTPREV_DESC">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+
+
+        <field name="slider_thumbs"
+               type="radio"
+               default="0"
+               class="btn-group"
+               label="COM_HTML5FLIPPINGBOOK_BE_TEMPLATES_SLIDER_THUMBS"
+               description="COM_HTML5FLIPPINGBOOK_BE_TEMPLATES_SLIDER_THUMBS_DESC">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+
+        <field name="show_shadow"
+               type="radio"
+               default="0"
+               class="btn-group"
+               label="COM_HTML5FLIPPINGBOOK_BE_TEMPLATES_DISPLAY_SHADOW"
+               description="COM_HTML5FLIPPINGBOOK_BE_TEMPLATES_DISPLAY_SHADOW_DESC">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+
+	</fieldset>
+</form>

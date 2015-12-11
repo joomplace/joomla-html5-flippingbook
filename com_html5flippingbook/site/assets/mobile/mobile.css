@@ -1,0 +1,42 @@
+#page-content {
+    text-align: justify;
+    font-size: 12px;
+    padding: 10px;
+}
+#book-author {
+    text-align: center;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    display: block;
+    font-size: 12px;
+    color: #AAA;
+}
+.ui-body-a {
+    background-color: #f9f9f9;
+}
+
+.ui-field-contain label {
+    float: left;
+    min-width: 73%;
+}
+
+.minicolors {
+    border: 1px solid #CCC;
+}
+
+/*#book-settings {
+    margin-right: 35px;
+}*/
+
+#navi {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    left: 0;
+    height: 27px;
+    z-index: 100;
+}
+
+#page {
+    z-index: 99;
+}

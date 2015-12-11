@@ -1,0 +1,76 @@
+<?xml version="1.0"?> 
+<project basedir="." default="Minify CSS/JS" name="20 Things : Build"> 
+   <target name="Minify CSS/JS">
+       <property name="build.dir" value="../war/" />
+       <property name="temp.dir" value="temp" />
+   	
+       <property name="yui-compressor.jar" location="tools/yui-compressor-2.4.2/build/yuicompressor-2.4.2.jar" />
+       <property name="yui-compressor-ant-task.jar" location="tools/yui-compressor-ant-task-0.5/bin/yui-compressor-ant-task-0.5.jar" />
+ 
+       <path id="task.classpath">
+           <pathelement location="${yui-compressor.jar}" />
+           <pathelement location="${yui-compressor-ant-task.jar}" />
+       </path>
+ 		
+       <!-- yui-compressor task definition -->
+       <taskdef name="yui-compressor" classname="net.noha.tools.ant.yuicompressor.tasks.YuiCompressorTask">
+           <classpath refid="task.classpath" />
+       </taskdef>
+   	
+   	   <delete file="${build.dir}js/twentythings.min.js" />
+       <delete file="${build.dir}css/twentythings.min.css" />
+   	
+       <delete dir="${temp.dir}"/>
+   	   <mkdir dir="${temp.dir}"/>
+   	
+       <!-- concatenation of javascript -->
+       <echo message="Building global javascript" />
+       <concat destfile="${temp.dir}/twentythings.js" force="no">
+           <!-- explicitly order js concat because ordering matters here -->
+       		<fileset dir="${build.dir}/js/" includes="thirdparty/jquery.1.4.2.min.js"/> 
+       		<fileset dir="${build.dir}/js/" includes="thirdparty/jquery.json-2.2.min.js"/> 
+      	 	<fileset dir="${build.dir}/js/" includes="thirdparty/browserdetect.js"/>
+       		<fileset dir="${build.dir}/js/" includes="twentythings.js"/> 
+            <fileset dir="${build.dir}/js/" includes="twentythings.preloader.js"/> 
+            <fileset dir="${build.dir}/js/" includes="twentythings.history.js"/> 
+            <fileset dir="${build.dir}/js/" includes="twentythings.storage.js"/> 
+            <fileset dir="${build.dir}/js/" includes="twentythings.pageflip.js"/> 
+            <fileset dir="${build.dir}/js/" includes="twentythings.paperstack.js"/> 
+            <fileset dir="${build.dir}/js/" includes="twentythings.illustrations.js"/> 
+            <fileset dir="${build.dir}/js/" includes="twentythings.navigation.js"/> 
+            <fileset dir="${build.dir}/js/" includes="twentythings.cache.js"/> 
+            <fileset dir="${build.dir}/js/" includes="twentythings.search.js"/> 
+            <fileset dir="${build.dir}/js/" includes="twentythings.chapternav.js"/> 
+            <fileset dir="${build.dir}/js/" includes="twentythings.sharing.js"/> 
+            <fileset dir="${build.dir}/js/" includes="twentythings.overlay.js"/> 
+            <fileset dir="${build.dir}/js/" includes="twentythings.tableofthings.js"/> 
+            <fileset dir="${build.dir}/js/" includes="twentythings.flipintro.js"/> 
+            <fileset dir="${build.dir}/js/" includes="twentythings.locale.js"/> 
+       </concat>
+ 
+       <!-- concatenation of cascading stylesheets -->
+       <echo message="Building global cascading stylesheets" />
+       <concat destfile="${temp.dir}/twentythings.css" force="no">
+           <fileset dir="${build.dir}/css/" includes="reset.css" />
+           <fileset dir="${build.dir}/css/" includes="main.css" />
+           <fileset dir="${build.dir}/css/" includes="layouts.css" />
+           <fileset dir="${build.dir}/css/" includes="illustrations.css" />
+       </concat>
+   	
+       <!-- invoke compressor -->
+   	   <echo message="Compressing files" />
+       <yui-compressor warn="false" charset="UTF-8" fromdir="${temp.dir}/" todir="${temp.dir}/">
+           <include name="twentythings.js" />
+           <include name="twentythings.css" />
+       </yui-compressor>
+   		
+   	   <echo message="Moving files" />
+       <move file="${temp.dir}/twentythings-min.js" tofile="${build.dir}js/twentythings.min.js"/>
+       <move file="${temp.dir}/twentythings-min.css" tofile="${build.dir}css/twentythings.min.css"/>
+   	
+   	   <echo message="Clean up" />
+   	   <delete dir="${temp.dir}"/>
+   	
+   </target>
+ 
+</project>

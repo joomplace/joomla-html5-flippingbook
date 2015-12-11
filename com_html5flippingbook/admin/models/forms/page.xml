@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset>
+		
+		<field name="id"
+			type="text"
+			class="readonly"
+			default="0"
+			readonly="true"
+			label="JGLOBAL_FIELD_ID_LABEL"
+			description ="JGLOBAL_FIELD_ID_DESC" />
+		
+		<field name="publication_id"
+			type="_publication"
+			readonly="true"
+			label="COM_HTML5FLIPPINGBOOK_BE_PAGES_PUBLICATION"
+			description="COM_HTML5FLIPPINGBOOK_BE_PAGES_PUBLICATION_DESC" />
+		
+		<field name="page_title"
+			type="text"
+			class="inputbox"
+			default=""
+			size="10"
+			required="true"
+			label="COM_HTML5FLIPPINGBOOK_BE_PAGES_NAME" 
+			description="COM_HTML5FLIPPINGBOOK_BE_PAGES_NAME_DESC" />
+
+		<field name="page_type"
+			type="_advanced_radio"
+			default="image"
+			onclick="onPageTypeClick(this, event);"
+			class="btn-group"
+			label="COM_HTML5FLIPPINGBOOK_BE_PAGES_TYPE"
+			description="COM_HTML5FLIPPINGBOOK_BE_PAGES_TYPE_DESC">
+			<option value="image">COM_HTML5FLIPPINGBOOK_BE_PAGES_TYPE_IMAGE</option>
+			<option value="text">COM_HTML5FLIPPINGBOOK_BE_PAGES_TYPE_TEXT</option>
+		</field>
+		
+
+		<field name="page_hard"
+			type="radio"
+			default="0"
+			class="btn-group"
+			label="COM_HTML5FLIPPINGBOOK_BE_PAGES_HARDPAGE"
+			description="COM_HTML5FLIPPINGBOOK_BE_PAGES_HARDPAGE_DESC">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+		</field>
+
+		<field name="page_image"
+			type="_upload_image"
+			dir=""
+			pubid=""
+			fileExtensions="png,jpg,gif"
+			uploadTask="publications.show_upload"
+			class="html5fb_upload_image"
+			previewImgClass="html5fb_page_preview_img"
+			label="COM_HTML5FLIPPINGBOOK_BE_PAGES_PAGE_IMAGE"
+			description="COM_HTML5FLIPPINGBOOK_BE_PAGES_PAGE_IMAGE_DESC" />
+
+		<field name="c_text"
+               type="textarea"
+               class="jform_c_text"
+			label="COM_HTML5FLIPPINGBOOK_BE_PAGES_PAGE_TEXT"
+			description="COM_HTML5FLIPPINGBOOK_BE_PAGES_PAGE_TEXT_DESC" />
+
+	</fieldset>
+</form>
