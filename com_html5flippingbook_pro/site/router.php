@@ -29,7 +29,7 @@ function HTML5FlippingBookBuildRoute(&$query)
 				
 				$dbQuery = "SELECT *" .
 					" FROM `#__html5fb_publication`" .
-					" WHERE `c_id` = " . $publicationId;
+					" WHERE `c_id` = " . $db->quote($publicationId);
 				$db->setQuery($dbQuery);
 				$row = $db->loadObject();
 				
