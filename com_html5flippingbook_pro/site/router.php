@@ -23,23 +23,21 @@ function HTML5FlippingBookBuildRoute(&$query)
 			
 			if (isset($query['id']))
 			{
-				$publicationId = $query['id'];
-				
 				$db = JFactory::getDbo();
 				
 				$dbQuery = "SELECT *" .
 					" FROM `#__html5fb_publication`" .
-					" WHERE `c_id` = " . $db->quote($publicationId);
+					" WHERE `c_id` = " . $db->quote($query['id']);
 				$db->setQuery($dbQuery);
 				$row = $db->loadObject();
 				
-				$publicationTitle = (isset($row) ? $row->c_title : $publicationId);
+				$publicationTitle = (isset($row) ? $row->c_title : $query['id']);
 				
 				$titleSegment = JFilterOutput::stringURLSafe($publicationTitle);
 				$titleSegment = ($titleSegment != '' ? $titleSegment : '-');
 				$segments[] = $titleSegment;
 				
-				$segments[] = $publicationId;
+				$segments[] = $query['id'];
 				unset($query['id']);
 
 				if (isset($query['tmpl']))
