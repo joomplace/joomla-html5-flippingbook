@@ -569,7 +569,11 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
 		}
 
 		set_time_limit(0);
-
+		
+		putenv('TMPDIR='. JPATH_SITE .'/'.trim(JFactory::getApplication()->getCfg('tmp_path','tmp'),'/\\').'/');
+		putenv('MAGICK_TMPDIR='. JPATH_SITE .'/'.trim(JFactory::getApplication()->getCfg('tmp_path','tmp'),'/\\').'/');
+		putenv('MAGICK_TEMPORARY_PATH='. JPATH_SITE .'/'.trim(JFactory::getApplication()->getCfg('tmp_path','tmp'),'/\\').'/');
+		
 		$fName = MethodsForStrings::GenerateRandomString(5, 'lower');
 		if (class_exists('Imagick'))
 		{
