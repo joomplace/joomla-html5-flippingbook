@@ -575,7 +575,7 @@ class HTML5FlippingBookController extends JControllerLegacy
 		// Build the message to send
 		$msg	= JText::_('COM_HTML5FLIPPINGBOOK_FE_MAILTO_EMAIL_MSG');
 
-		$publLink = HTML5FlippingBookFrontHelper::htmlPublHelper(FALSE, FALSE, $publID, TRUE)->publicationLink;
+		$publLink = JURI::root().HTML5FlippingBookFrontHelper::htmlPublHelper(FALSE, FALSE, $publID, TRUE)->publicationLink;
 		$body	= sprintf($msg, $SiteName, $sender, $from, $publLink);
 
 		// Clean the email data
