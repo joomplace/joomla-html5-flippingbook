@@ -14,10 +14,9 @@
 
     <files folder="site">
 		<folder>assets</folder>
-        <folder>helpers</folder>
 		<folder>controllers</folder>
+        <folder>helpers</folder>
         <folder>layouts</folder>
-        <folder>libs</folder>
 		<folder>models</folder>
 		<folder>views</folder>
 		<filename>controller.php</filename>
@@ -63,7 +62,6 @@
 		<files folder="admin">
 			<folder>assets</folder>
 			<folder>controllers</folder>
-			<folder>libs</folder>
 			<folder>models</folder>
 			<folder>tables</folder>
 			<folder>views</folder>
