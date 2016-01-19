@@ -1,5 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
+	<fieldset name="imagick" label="Imagick">
+        <field 
+				name="density" 
+				type="text"
+				default="300"
+				size="30"
+				label="Density"
+				description="Resolution (pixels per inch)">
+        </field>
+        <!--<field 
+				name="max_width" 
+				type="text"
+				default="960"
+				size="30"
+				label="Max width of resourse"
+				description="Setting maximum width of resourse to prevent 'image bombing'">
+        </field>
+        <field 
+				name="max_height" 
+				type="text"
+				default="1080"
+				size="30"
+				label="Max height of resourse"
+				description="Setting maximum height of resourse to prevent 'image bombing'">
+        </field>-->
+		
+        <field name="reach_out_of_limits" type="radio" default="0"
+               class="btn-group"
+               label="Go without limits"
+               description="Switch only if you know what it may cause and you agree with it">
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+        <field 
+				name="limit_area" 
+				type="text"
+				default="30"
+				size="30"
+				label="Area"
+				description="Imagick::RESOURCETYPE_AREA">
+        </field>
+        <field 
+				name="limit_memory" 
+				type="text"
+				default="30"
+				size="30"
+				label="Memory"
+				description="Imagick::RESOURCETYPE_MEMORY">
+        </field>
+		
+	</fieldset>
 	<fieldset name="permissions" label="JCONFIG_PERMISSIONS_LABEL" description="JCONFIG_PERMISSIONS_DESC">
 		
 		<field name="rules"

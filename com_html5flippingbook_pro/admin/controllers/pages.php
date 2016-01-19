@@ -575,18 +575,38 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
 		putenv('MAGICK_TEMPORARY_PATH='. JPATH_SITE .'/'.trim(JFactory::getApplication()->getCfg('tmp_path','tmp'),'/\\').'/');
 		
 		$fName = MethodsForStrings::GenerateRandomString(5, 'lower');
+			
+		$params = JComponentHelper::getParams( 'com_html5flippingbook' );
+		
+		 // multiplier from bytes to mbytes
+		$mbytes = 1024 * 1024;
+			
+		// to reach good quality need "2" multiplier atleast
+		$density = (int)$params->get('density', 300);
+		$limit_area = (int)$params->get('limit_area', 30) * $mbytes;
+		$limit_memory = (int)$params->get('limit_memory', 30) * $mbytes;
+			
 		if (class_exists('Imagick'))
 		{
+			// ** setting width and height causes "Invalid IHDR data" with density(192 or 300)
+			// Assume that everage user monitor is 1920x1080 so setting up max image sizes
+			//Set max image width of 960 (1960/2)
+			//Imagick::setResourceLimit(9, (int)$params->get('max_width', 960) * 2);
+			//Set max image height of 1080
+			//Imagick::setResourceLimit(10, (int)$params->get('max_height', 1080) * 2);
+			if(!$params->get('reach_out_of_limits',0)){
+				Imagick::setResourceLimit(Imagick::RESOURCETYPE_AREA, $limit_area);
+				Imagick::setResourceLimit(Imagick::RESOURCETYPE_MEMORY, $limit_memory);
+			}
+			// commented as causes errors on some systems "Too many IDAT's found"
+			//Imagick::setResourceLimit(Imagick::RESOURCETYPE_DISK, 10*$mbytes);
+			
 			// Convert PDF document
 			// Each page to single image
 			$img = new Imagick();
 
-			$img->setResourceLimit(Imagick::RESOURCETYPE_AREA, 512);
-			$img->setResourceLimit(Imagick::RESOURCETYPE_MEMORY, 512);
-
-			// Set image resolution
-			$img->setResolution(300, 300);
-
+			// Set image resolution (dpi - 96 is standard for 1920x1080 for 23" displays)
+			$img->setResolution($density, $density);
 			$img->readImage($tempPDFFileFullName);
 			
 			// Determine num of pages
@@ -667,8 +687,8 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
 				$output_thumb = $tempDirName . "/th_" . $fName . "-" . $i . ".jpg";
 
 				//ImageMagic console command for convert pdf page into image file
-				exec("convert -limit area 512 -limit memory 512 -density 300 -colorspace sRGB " . $input . " " . $quality . " -background white -alpha remove " . $output);
-				exec("convert -limit area 512 -limit memory 512 -density 300 -colorspace sRGB " . $input . " " . $size . " " . $quality . " -background white -alpha remove " . $output_thumb, $a, $b);
+				exec("convert -limit area $limit_area -limit memory $limit_memory -density $density -colorspace sRGB " . $input . " " . $quality . " -background white -alpha remove " . $output);
+				exec("convert -limit area $limit_area -limit memory $limit_memory -density $density -colorspace sRGB " . $input . " " . $size . " " . $quality . " -background white -alpha remove " . $output_thumb, $a, $b);
 
 				//Create thumb for first page
 				if ($i == 0 && $b == 0)
