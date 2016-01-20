@@ -88,3 +88,10 @@
 .flipbook .zoom-in .previous-button{
     display:none;
 }
+
+#mainFlipBookDiv,
+:-ms-full-screen,
+:-moz-full-screen,
+:-webkit-full-screen {
+    background-color: rgb(255, 255, 255);
+}

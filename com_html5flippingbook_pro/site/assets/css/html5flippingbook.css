@@ -1880,3 +1880,10 @@ input::-webkit-inner-spin-button {
 .notvisible {
     visibility: hidden;
 }
+
+#mainFlipBookDiv,
+:-ms-full-screen,
+:-moz-full-screen,
+:-webkit-full-screen {
+    background-color: rgb(255, 255, 255);
+}

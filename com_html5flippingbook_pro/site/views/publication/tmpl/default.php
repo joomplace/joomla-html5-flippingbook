@@ -563,7 +563,7 @@ function addFlipDiv($config, $item, $isSearch)
 									<?php endif;?>
 
 									<?php if (!empty($item->contents_page)):?>
-										<i class="fa fa-list fa-lg" onclick="location.href='<?php echo $item->rawPublicationLink.'#page/'.$item->contents_page; ?>'" title="<?php echo JText::_('COM_HTML5FLIPPINGBOOK_FE_TOOLBAR_CONTENTS');?>" rel="<?php echo $item->contents_page; ?>"></i>
+										<i class="fa fa-list fa-lg" onclick="$('.flipbook').turn('page',<?php echo $item->contents_page; ?>);" title="<?php echo JText::_('COM_HTML5FLIPPINGBOOK_FE_TOOLBAR_CONTENTS');?>" rel="<?php echo $item->contents_page; ?>"></i>
 									<?php endif;?>
 
 									<i class="fa fa-expand fa-lg" id="fullscreen" title="<?php echo JText::_('COM_HTML5FLIPPINGBOOK_FE_TOOLBAR_FULLSCREEN'); ?>"></i>
@@ -654,7 +654,7 @@ function addFlipDiv($config, $item, $isSearch)
 									<?php else: ?>
 										<input type="text" id="goto_page_input" value="" autocomplete="" placeholder="<?php echo JText::_('COM_HTML5FLIPPINGBOOK_FE_GOTO_PAGE'); ?>" />
 									<?php endif; ?>
-									<span id="goto_page_input_button" onclick="location.href='<?php echo $item->rawPublicationLink; ?>#page/'+document.getElementById('goto_page_input').value;"></span>
+									<span id="goto_page_input_button" onclick="$('.flipbook').turn('page',$('#goto_page_input').val());"></span>
 								</div>
 							<?php endif; ?>
 
@@ -760,8 +760,6 @@ $doc->addStyleSheet(JUri::root() . 'index.php?option='.COMPONENT_OPTION.'&task=t
 $doc->addStyleSheet(COMPONENT_CSS_URL . 'modal.css');
 
 addAdditionStylesDeclaration( $FlipWidth, $FlipHeight, $this->item);
-
-JText::script('COM_HTML5FLIPPINGBOOK_FE_FULLSCREEN_ALERT');
 
 if ($this->tmplIsComponent)
 {

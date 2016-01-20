@@ -500,3 +500,10 @@ input::-webkit-inner-spin-button {
 h2#fb_bookname, #page-bar label{
     color:#787878;
 }
+
+#mainFlipBookDiv,
+:-ms-full-screen,
+:-moz-full-screen,
+:-webkit-full-screen
+    background-color: rgb(255, 255, 255);
+}

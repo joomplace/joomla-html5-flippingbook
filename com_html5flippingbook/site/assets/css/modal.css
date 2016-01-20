@@ -209,3 +209,10 @@
 .form-horizontal .input-append + .help-block {
     margin-top: 9px;
 }
+
+#mainFlipBookDiv,
+:-ms-full-screen,
+:-moz-full-screen,
+:-webkit-full-screen {
+    background-color: rgb(255, 255, 255);
+}
