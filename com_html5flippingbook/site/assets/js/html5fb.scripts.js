@@ -16,23 +16,23 @@ function navigation(where) {
         case 'table-contents' :
             $('.flipbook').turn('page', $('.table-contents').attr('rel'));
             break;
-        case 'fa fa-facebook fa-lg' :
+        case 'tbicon share-facebook' :
             window.open('https://www.facebook.com/sharer.php?' +
                 'u=' + encodeURIComponent(rawPublicationLink) +
                 '&t=' + encodeURIComponent(rawPublicationTitle));
             break;
-        case 'fa fa-twitter fa-lg' :
+        case 'tbicon share-twitter' :
             window.open('https://twitter.com/intent/tweet?' +
                 'original_referer=' + encodeURIComponent(rawPublicationLink) +
                 '&url=' + encodeURIComponent(rawPublicationLink) +
                 '&text=' + encodeURIComponent(rawPublicationTitle));
             break;
-        case 'fa fa-pinterest fa-lg' :
+        case 'tbicon share-pinterest' :
             window.open('http://pinterest.com/pin/create/button/?url=' +
                 'url=' + encodeURIComponent(rawPublicationLink) +
                 '&media=' + encodeURIComponent(rawPublicationTitle));
             break;
-        case 'fa fa-google-plus fa-lg' :
+        case 'tbicon share-google-plus' :
             window.open('https://plusone.google.com/_/+1/confirm?' +
                 'url=' + encodeURIComponent(rawPublicationLink));
             break;
@@ -139,7 +139,7 @@ function resizeViewport() {
 $(document).ready(function () {
     screenfull.request( document.getElementById('mainFlipBookDiv') );
 
-    $('.fa-search-plus').on('click', function(event) {
+    $('.fa-search-plus,.zoom-in-ico').on('click', function(event) {
         var currPage = $('.flipbook').turn('page');
         var cntPages = $('.flipbook').turn('pages');
         if (typeof imgLink=='object' && ((imgLink.hasOwnProperty(currPage) && imgLink[currPage].hasOwnProperty('large') && imgLink[currPage].hasOwnProperty('small')) &&
@@ -157,7 +157,7 @@ $(document).ready(function () {
         }
     });
 
-    $('.fa-expand').click(function() {
+    $('.fa-expand,#fullscreen.tbicon').click(function() {
         if (isModal == 3 && $.getQuery('fullscreen') != 1) {
             var newWin = window.open(window.location.href + '&fullscreen=1');
             window.opener = null;
@@ -184,7 +184,7 @@ $(document).ready(function () {
         });
     }
 
-    if (user) {
+    if (typeof user !== 'undefined') {
         var examTimer = new Countdown({
             seconds: 90,  // number of seconds to count down
             onCounterEnd: function(){
@@ -218,7 +218,7 @@ $(document).ready(function () {
         }
     });
 
-    clickElement($('.fa'), function (e) {
+    clickElement($('.tbicon'), function (e) {
         navigation($.trim($(this).attr('class')));
     });
 

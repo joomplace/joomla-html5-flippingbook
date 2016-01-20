@@ -191,6 +191,7 @@ function addFlipRunningScripts($width, $height, $item, $isTmplComp)
         var isModal = <?php echo $item->c_popup;?>;
         var isTablet = <?php echo ($detectMobile->isTablet() ? 1 : 0);?>;
         var clickGoTo = false;
+        var isHard = false;
         var $mainContainer = $('#mainFlipBookDiv');
         <?php if (count($img)): ?>
         var imgLink = <?php echo json_encode($img);?>;
@@ -250,7 +251,7 @@ function addFlipRunningScripts($width, $height, $item, $isTmplComp)
                     turning: function(e, page, view) {
                         <?php echo $rightLeftDeff['turningSection']; ?>
 
-                        fbTurningPage(page, $(this).turn('pages'), <?php echo $rightLeftDeff['slider_one_page_left']; ?>, <?php echo $rightLeftDeff['slider_tho_page_left']; ?>, isTablet);
+                        fbTurningPage($flipbook, page, $(this).turn('pages'), <?php echo $rightLeftDeff['slider_one_page_left']; ?>, <?php echo $rightLeftDeff['slider_tho_page_left']; ?>, isTablet);
 
                         if (naviSettings == 0) {
                             page = parseInt(page) - 2;
@@ -351,7 +352,7 @@ function addFlipRunningScripts($width, $height, $item, $isTmplComp)
 	        $mainContainer.bind('zoom.doubleTap', zoomTo);
 
 			<?php if ( $item->template->display_slider ) { ?>
-            	setSliderMaxViews();
+            	setSliderMaxViews($flipbook);
             <?php } ?>
             $flipbook.addClass('animated');
 
@@ -501,7 +502,7 @@ function addFlipDiv($config, $item)
                     <div ignore="1" id="page-bar">
 						<label><?php echo JText::_('COM_HTML5FLIPPINGBOOK_FE_GOTO_PAGE_TITLE'); ?></label>
 						<input type="text" id="goto_page_input" value="" autocomplete="" placeholder="<?php echo JText::_('COM_HTML5FLIPPINGBOOK_FE_GOTO_PAGE'); ?>" />
-						<span id="goto_page_input_button" onclick="location.href='<?php echo $item->rawPublicationLink; ?>#page/' + document.getElementById('goto_page_input').value;"></span>
+						<span id="goto_page_input_button" onclick="$('.flipbook').turn('page',$('#goto_page_input').val());"></span>
                     </div>
 		<?php } ?>
 
@@ -590,6 +591,7 @@ JHtml::_('jquery.framework', false);
 
 // addd viewpoint tag for mobile
 JFactory::getDocument()->addCustomTag('<meta name="viewport" content="width = 1050, user-scalable = no" />');
+JFactory::getDocument()->addScript(COMPONENT_JS_URL .'jquery-ui-1.10.4.custom.min.js');
 JFactory::getDocument()->addScript(COMPONENT_JS_URL .'jquery.mousewheel.min.js');
 JFactory::getDocument()->addScript(COMPONENT_JS_URL .'jquery-zoom.min.js');
 JFactory::getDocument()->addScript(COMPONENT_JS_URL .'screenfull.min.js');
