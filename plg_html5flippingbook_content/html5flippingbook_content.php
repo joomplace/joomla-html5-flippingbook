@@ -127,7 +127,7 @@ class plgContentHtml5flippingbook_Content extends JPlugin
 				}
 				else if ($row->c_popup == 3) // Modal window.
 				{	
-					JFactory::getDocument()->addScriptDeclaration( "jQuery(function($) {SqueezeBox.initialize({});SqueezeBox.assign($('a.flip-modal').get(), {parse: 'rel'});});");
+					JHTML::_('behavior.modal', 'a.flip-modal');
 					$lnk = JRoute::_($publicationRawLink.'&tmpl=component', false, $uri->isSSL());
 					$linkContent ='<a class="flip-modal readmore" rel="{handler: \'iframe\', size: {x: ' . $popupWidth . ', y:' . $popupHeight . '}}" href="' . $lnk . '">';
 				}
