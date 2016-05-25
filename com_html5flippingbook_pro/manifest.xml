@@ -19,6 +19,7 @@
         <folder>layouts</folder>
 		<folder>models</folder>
 		<folder>views</folder>
+		<folder>libs</folder>
 		<filename>controller.php</filename>
 		<filename>html5flippingbook.php</filename>
 		<filename>index.html</filename>
