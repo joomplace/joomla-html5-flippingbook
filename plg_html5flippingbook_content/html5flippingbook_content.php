@@ -126,9 +126,10 @@ class plgContentHtml5flippingbook_Content extends JPlugin
 					$linkContent = '<a class="readmore" href="' . $lnk . '">';
 				}
 				else if ($row->c_popup == 3) // Modal window.
-				{
+				{	
+					JHTML::_('behavior.modal', 'a.flip-modal');
 					$lnk = JRoute::_($publicationRawLink.'&tmpl=component', false, $uri->isSSL());
-					$linkContent ='<a class="modal readmore" rel="{handler: \'iframe\', size: {x: ' . $popupWidth . ', y:' . $popupHeight . '}}" href="' . $lnk . '">';
+					$linkContent ='<a class="flip-modal readmore" rel="{handler: \'iframe\', size: {x: ' . $popupWidth . ', y:' . $popupHeight . '}}" href="' . $lnk . '">';
 				}
 				
 				$html .= $linkContent . stripslashes($link) . '</a>';

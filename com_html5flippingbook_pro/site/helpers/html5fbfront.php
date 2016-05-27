@@ -286,7 +286,7 @@ abstract class HTML5FlippingBookFrontHelper
 				if($download->c_enable_pdf){
 					$content .= '
 								<li>
-									<a href="' . JRoute::_('index.php?option='.COMPONENT_OPTION .'&task=getpdf' . '&id='.$id .'&filename='.preg_replace('/[<>:"\/\\\|\?\*]/is', '', $download->c_background_pdf) .'&id=' . $id, FALSE, $uri->isSSL()) . '">
+									<a href="' . JRoute::_('index.php?option='.COMPONENT_OPTION .'&task=convert.getpdf' . '&id='.$id .'&filename='.preg_replace('/[<>:"\/\\\|\?\*]/is', '', $download->c_background_pdf) .'&id=' . $id, FALSE, $uri->isSSL()) . '">
 										<i class="fa fa-file-text-o"></i> ' . JText::_('COM_HTML5FLIPPINGBOOK_BE_DOWNLOAD_PDF') . '
 									</a>
 								</li>';

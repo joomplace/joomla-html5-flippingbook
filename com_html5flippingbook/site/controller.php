@@ -68,6 +68,7 @@ class HTML5FlippingBookController extends JControllerLegacy
                         }
                     }
                     @fclose($file);
+					jexit();
                 }
 
 				readfile($pdfFileFullName);
