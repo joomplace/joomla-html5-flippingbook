@@ -16,23 +16,23 @@ function navigation(where) {
         case 'table-contents' :
             $('.flipbook').turn('page', $('.table-contents').attr('rel'));
             break;
-        case 'tbicon share-facebook' :
+        case 'fa fa-facebook fa-lg' :
             window.open('https://www.facebook.com/sharer.php?' +
                 'u=' + encodeURIComponent(rawPublicationLink) +
                 '&t=' + encodeURIComponent(rawPublicationTitle));
             break;
-        case 'tbicon share-twitter' :
+        case 'fa fa-twitter fa-lg' :
             window.open('https://twitter.com/intent/tweet?' +
                 'original_referer=' + encodeURIComponent(rawPublicationLink) +
                 '&url=' + encodeURIComponent(rawPublicationLink) +
                 '&text=' + encodeURIComponent(rawPublicationTitle));
             break;
-        case 'tbicon share-pinterest' :
+        case 'fa fa-pinterest fa-lg' :
             window.open('http://pinterest.com/pin/create/button/?url=' +
                 'url=' + encodeURIComponent(rawPublicationLink) +
                 '&media=' + encodeURIComponent(rawPublicationTitle));
             break;
-        case 'tbicon share-google-plus' :
+        case 'fa fa-google-plus fa-lg' :
             window.open('https://plusone.google.com/_/+1/confirm?' +
                 'url=' + encodeURIComponent(rawPublicationLink));
             break;
@@ -139,12 +139,12 @@ function resizeViewport() {
 $(document).ready(function () {
     screenfull.request( document.getElementById('mainFlipBookDiv') );
 
-    $('.fa-search-plus,.zoom-in-ico').on('click', function(event) {
+    $('.fa-search-plus').on('click', function(event) {
         var currPage = $('.flipbook').turn('page');
         var cntPages = $('.flipbook').turn('pages');
-        if (typeof imgLink=='object' && ((imgLink.hasOwnProperty(currPage) && imgLink[currPage].hasOwnProperty('large') && imgLink[currPage].hasOwnProperty('small')) &&
+        if ((imgLink.hasOwnProperty(currPage) && imgLink[currPage].hasOwnProperty('large') && imgLink[currPage].hasOwnProperty('small')) &&
             (currPage == cntPages || (imgLink.hasOwnProperty(currPage+1) && imgLink[currPage+1].hasOwnProperty('large') && imgLink[currPage+1].hasOwnProperty('small')))
-            )) {
+            ) {
             $('#mainFlipBookDiv').zoom('zoomIn');
         }
         else {
@@ -157,9 +157,9 @@ $(document).ready(function () {
         }
     });
 
-    $('.fa-expand,#fullscreen.tbicon').click(function() {
+    $('.fa-expand').click(function() {
         if (isModal == 3 && $.getQuery('fullscreen') != 1) {
-            var newWin = window.open(window.location.href + '&fullscreen=1');
+        	if(window.location.href.indexOf("?") != "-1"){var newWin=window.open(window.location.href+"&fullscreen=1");} else {var newWin=window.open(window.location.href+"?fullscreen=1");}
             window.opener = null;
             newWin.focus();
             return;
@@ -184,7 +184,7 @@ $(document).ready(function () {
         });
     }
 
-    if (typeof user !== 'undefined') {
+    if (user) {
         var examTimer = new Countdown({
             seconds: 90,  // number of seconds to count down
             onCounterEnd: function(){
@@ -218,21 +218,14 @@ $(document).ready(function () {
         }
     });
 
-    clickElement($('.tbicon'), function (e) {
+    clickElement($('.fa'), function (e) {
         navigation($.trim($(this).attr('class')));
     });
 
     if ($('#search-inp input[name="search"]').length) {
         var seacrStr = $('#search-inp input[name="search"]').val();
-		
-		submitUrl = '?option=com_html5flippingbook&task=search&tmpl=component' + '&id=' + publicationID + (isHard ? '&hard=1' : '&hard=0') + '&text=' + seacrStr;
-		
-		if(window.location.href.indexOf('index.php') == -1) {
-			submitUrl = 'index.php'+submitUrl;
-		}
-		
         $('#search-inp input[name="search"]').liveSearch({
-            url: submitUrl
+            url: 'index.php?option=com_html5flippingbook&task=search&tmpl=component' + '&id=' + publicationID + (isHard ? '&hard=1' : '&hard=0') + '&text=' + seacrStr
         });
     }
 
@@ -366,8 +359,8 @@ function zoomOutButton(show) {
             .click(function() {
                 var currPage = $('.flipbook').turn('page');
                 var cntPages = $('.flipbook').turn('pages');
-                if (typeof imgLink=='object' && ((imgLink.hasOwnProperty(currPage) && imgLink[currPage].hasOwnProperty('large') && imgLink[currPage].hasOwnProperty('small')) &&
-                    (currPage == cntPages || (imgLink.hasOwnProperty(currPage+1) && imgLink[currPage+1].hasOwnProperty('large') && imgLink[currPage+1].hasOwnProperty('small'))))) {
+                if ((imgLink.hasOwnProperty(currPage) && imgLink[currPage].hasOwnProperty('large') && imgLink[currPage].hasOwnProperty('small')) &&
+                    (currPage == cntPages || (imgLink.hasOwnProperty(currPage+1) && imgLink[currPage+1].hasOwnProperty('large') && imgLink[currPage+1].hasOwnProperty('small')))) {
                     $('#mainFlipBookDiv').zoom('zoomOut');
                 }
                 else {
@@ -406,8 +399,8 @@ function loadSmallPage(page, pageElement, imgSRC) {
 function zoomTo(event) {
     var currPage = $('.flipbook').turn('page');
     var cntPages = $('.flipbook').turn('pages');
-    if (typeof imgLink=='object' && ((imgLink.hasOwnProperty(currPage) && imgLink[currPage].hasOwnProperty('large') && imgLink[currPage].hasOwnProperty('small')) &&
-        (currPage == cntPages || (imgLink.hasOwnProperty(currPage+1) && imgLink[currPage+1].hasOwnProperty('large') && imgLink[currPage+1].hasOwnProperty('small')))) && !isHard) {
+    if ((imgLink.hasOwnProperty(currPage) && imgLink[currPage].hasOwnProperty('large') && imgLink[currPage].hasOwnProperty('small')) &&
+        (currPage == cntPages || (imgLink.hasOwnProperty(currPage+1) && imgLink[currPage+1].hasOwnProperty('large') && imgLink[currPage+1].hasOwnProperty('small'))) && !isHard) {
         if ($(this).zoom('value') == 1) {
             $(this).zoom('zoomIn', event);
         }

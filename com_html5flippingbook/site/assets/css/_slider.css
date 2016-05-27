@@ -2,8 +2,7 @@
 /* SLIDER */
 .fb_slider{
     height:8px;
-    /*background:rgba(0,0,0, 0.2);*/
-    background:#979797;
+    background:rgba(0,0,0, 0.2);
     -webkit-border-radius:5px;
     -moz-border-radius:5px;
     -o-border-radius:5px;
@@ -145,9 +144,3 @@
     opacity:1;
 }
 
-#mainFlipBookDiv,
-:-ms-full-screen,
-:-moz-full-screen,
-:-webkit-full-screen {
-    background-color: rgb(255, 255, 255);
-}

@@ -3,10 +3,40 @@ var settings = '', storedPage = '';
 var defBackgr = '#f9f9f9', defFontColor = '#000';
 var changeBackgr = '', changeFontColor = '';
 
-//Get stored settings from cookie
-$.cookie.json = true;
-settings = $.cookie('_reader-settings:guest');
-storedPage = $.cookie('_pub-page:guest');
+if (!user) {
+    //Get stored settings from cookie
+    $.cookie.json = true;
+    settings = $.cookie('_reader-settings:guest');
+    storedPage = $.cookie('_pub-page:guest');
+}
+
+function Countdown(options) {
+    var timer,
+        instance = this,
+        seconds = options.seconds || 10,
+        updateStatus = options.onUpdateStatus || function () {},
+        counterEnd = options.onCounterEnd || function () {};
+
+    function decrementCounter() {
+        updateStatus(seconds);
+        if (seconds === 0) {
+            counterEnd();
+            instance.stop();
+        }
+        seconds--;
+    }
+
+    this.start = function () {
+        clearInterval(timer);
+        timer = 0;
+        seconds = options.seconds;
+        timer = setInterval(decrementCounter, 1000);
+    };
+
+    this.stop = function () {
+        clearInterval(timer);
+    };
+}
 
 $(window).on("orientationchange", function () {
     var $pageContent = $('#page');
@@ -27,7 +57,18 @@ $(document).on("pageinit", "#settings", function () {
             fontSize: parseInt($('input[name="fontsize"]').val())
         };
 
-        $.cookie('_reader-settings:guest', settings, {expires: 365, path: '/'});
+        if (!user) {
+            $.cookie('_reader-settings:guest', settings, {expires: 365, path: '/'});
+        }
+        else {
+            //Save user settings
+            $.ajax({
+                type: "POST",
+                url: realUrl + "index.php?option=com_html5flippingbook&task=userSettings&tmpl=component",
+                data: 'pubID=' + pubID + '&settings=' + JSON.stringify(settings),
+                dataType: 'JSON'
+            });
+        }
     });
 
     var $fontSizeEl = $('input[name="fontsize"]');
@@ -49,8 +90,49 @@ $(document).ready(function () {
     var $fontSizeEl     = $('input[name="fontsize"]');
     var $pageContent    = $('#page');
 
+    if (user) {
+        //Get user settings for reader
+        $.ajax({
+            type: "GET",
+            url: realUrl + "index.php?option=com_html5flippingbook&task=userSettings&tmpl=component",
+            data: 'pubID=' + pubID,
+            dataType: 'JSON',
+            async: false,
+            success: function (data) {
+                settings = JSON.parse(data.settings);
+                storedPage = data.storedPage;
+                page = storedPage.openPage;
+                maxPage = storedPage.lastPage;
+            }
+        });
+
+        var examTimer = new Countdown({
+            seconds: 90,  // number of seconds to count down
+            onCounterEnd: function(){
+                $.ajax({
+                    type: "POST",
+                    url: realUrl + "index.php?option=com_html5flippingbook&task=userPublAction&tmpl=component",
+                    data: 'pubID=' + pubID + '&action=updateSpendTime&sec=90',
+                    dataType: 'JSON',
+                    success: function() {
+                        examTimer.start();
+                    }
+                });
+            } // final action
+        });
+        examTimer.start();
+
+        //Update date of the last open publication for current user
+        $.ajax({
+            type: "POST",
+            url: realUrl + "index.php?option=com_html5flippingbook&task=userPublAction&tmpl=component",
+            data: 'pubID=' + pubID + '&action=lastopen',
+            dataType: 'JSON'
+        });
+    }
+
     //Open the book on the last page, where the user read
-    if (typeof storedPage != 'undefined' && storedPage.publication == pubID) {
+    if (typeof storedPage != 'undefined' && storedPage.publication == pubID && !user) {
         page = storedPage.openPage;
         maxPage = storedPage.lastPage;
     }
@@ -182,14 +264,24 @@ getPage = function (pageN) {
         success: function (data) {
             maxPage = data.lastPage;
 
-            storedPage = {
-                publication: pubID,
-                openPage: page,
-                lastPage: maxPage
-            };
+            if (!user) {
+                storedPage = {
+                    publication: pubID,
+                    openPage: page,
+                    lastPage: maxPage
+                };
 
-            $.cookie('_pub-page:guest', storedPage, {expires: 365, path: '/'});
-
+                $.cookie('_pub-page:guest', storedPage, {expires: 365, path: '/'});
+            }
+            else {
+                //Update last open page
+                $.ajax({
+                    type: "POST",
+                    url: realUrl + "index.php?option=com_html5flippingbook&task=userPublAction&tmpl=component",
+                    data: 'pubID=' + pubID + '&action=updatePage&page=' + page,
+                    dataType: 'JSON'
+                });
+            }
 
             $slider.attr('max', maxPage);
 
