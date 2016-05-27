@@ -290,7 +290,7 @@ class HtmlHelper
 				trim_span_elements: false,
 				cleanup: false,
 
-				extended_valid_elements : "a[name|href|target|title|onclick],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],video[src|controls|width|height],audio[src|controls|width|height],iframe[width|height|src|frameborder|allowfullscreen]",
+				extended_valid_elements : "a[name|href|target|title|onclick],img[style|class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],video[src|controls|width|height],audio[src|controls|width|height],iframe[width|height|src|frameborder|allowfullscreen]",
 				setup : function(ed) {
 					ed.onPostProcess.add(function(ed, o) { onTinyMcePostProcess(ed, o); });
 				}

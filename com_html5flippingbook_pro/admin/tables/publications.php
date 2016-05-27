@@ -20,6 +20,8 @@ class HTML5FlippingBookTablePublications extends JTable
 	{
 		jimport('joomla.filesystem.folder');
 		
+		if (!$this->c_id) $this->c_id = 0;
+		
 		require_once(JPATH_COMPONENT_ADMINISTRATOR.'/libs/HtmlHelper.php');
 		
 		$db = $this->_db;
@@ -45,7 +47,7 @@ class HTML5FlippingBookTablePublications extends JTable
 		{
 			$this->cloudconvert_formats = '';
 		}
-
+			
 		if (!$this->c_id)
 		{
 			$this->c_user_id = JFactory::getUser()->id;

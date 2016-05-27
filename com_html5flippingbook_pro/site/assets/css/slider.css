@@ -144,9 +144,3 @@
     opacity:1;
 }
 
-#mainFlipBookDiv,
-:-ms-full-screen,
-:-moz-full-screen,
-:-webkit-full-screen {
-    background-color: rgb(255, 255, 255);
-}

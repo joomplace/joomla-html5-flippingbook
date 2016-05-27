@@ -498,10 +498,8 @@ class HTML5FlippingBookController extends JControllerLegacy
 		$user = JFactory::getUser();
 		$uri  = JUri::getInstance();
 		$app  = JFactory::$application;
-		$publID = $this->input->post->getInt('publID', 0);
-		
-		$link = HTML5FlippingBookFrontHelper::htmlPublHelper(FALSE, FALSE, $publID, TRUE)->publicationLink;
-				
+
+		$link = JRoute::_('index.php?option=com_html5flippingbook&view=html5flippingbook', FALSE, $uri->isSSL());
 		if ($user->get('id'))
 		{
 			$link = JRoute::_('index.php?option=com_html5flippingbook&view=profile', FALSE, $uri->isSSL());
@@ -549,7 +547,7 @@ class HTML5FlippingBookController extends JControllerLegacy
 		$from            = $app->input->post->getString('from', '');
 		$subject_default = JText::sprintf('COM_HTML5FLIPPINGBOOK_FE_SENT_BY', $sender);
 		$subject         = $app->input->post->getString('subject', $subject_default);
-		
+		$publID          = $app->input->post->getInt('publID', 0);
 
 		$SiteName       = $app->get('sitename');
 
@@ -577,8 +575,7 @@ class HTML5FlippingBookController extends JControllerLegacy
 		// Build the message to send
 		$msg	= JText::_('COM_HTML5FLIPPINGBOOK_FE_MAILTO_EMAIL_MSG');
 
-		$publLink = JURI::root().HTML5FlippingBookFrontHelper::htmlPublHelper(FALSE, FALSE, $publID, TRUE)->publicationLink;
-		$publLink =  preg_replace("#(?<!^http:)/{2,}#i","/",$link);
+		$publLink = HTML5FlippingBookFrontHelper::htmlPublHelper(FALSE, FALSE, $publID, TRUE)->publicationLink;
 		$body	= sprintf($msg, $SiteName, $sender, $from, $publLink);
 
 		// Clean the email data
