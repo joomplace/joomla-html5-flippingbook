@@ -33,6 +33,10 @@ class HTML5FlippingBookViewPublication extends JViewLegacy
 
 		$this->item = $item;
 
+		require_once(JPATH_COMPONENT_ADMINISTRATOR.'/models/configuration.php');
+		$configurationModel = JModelLegacy::getInstance('Configuration', COMPONENT_MODEL_PREFIX);
+		$this->config = $configurationModel->GetConfig();
+
 		$this->setLayout('iframe');
 
 		parent::display($tpl);
