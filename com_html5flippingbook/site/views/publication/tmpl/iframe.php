@@ -662,7 +662,7 @@ foreach($template_css as $rule => $style){
                 this.el.style.height = '';
                 var width = this.el.clientWidth,
                     height = Math.round(width / this.ratio),
-                    padded = Math.round(document.body.clientHeight * 0.9);
+                    padded = Math.round(document.documentElement.clientHeight * 0.9);
                 // if the height is too big for the window, constrain it
                 if (height > padded) {
                     height = padded;
