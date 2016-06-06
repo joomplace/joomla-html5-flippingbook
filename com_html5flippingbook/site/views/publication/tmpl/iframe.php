@@ -523,7 +523,7 @@ foreach($template_css as $rule => $style){
                                         case $bc+1:
                                         case $bc+2:
                                             if($page['page_image']){
-                                                $page_class .='" style="background: url('.$page['page_image'].'); background-size: 100% 100%;';
+                                                $page_class .='" style="background: url(\''.$page['page_image'].'\'); background-size: 100% 100%;';
                                                 $page_content = '';
                                             }else{
                                                 $page_class .='" style="background: #FFF; background-size: 100% 100%;';
@@ -617,6 +617,8 @@ foreach($template_css as $rule => $style){
         function zoomOut(book){
             $('.tbicon.zoom-out').hide();
             book.turn('zoom',1);
+            var size = module.resize();
+            book.turn('size',size.width,size.height);
             $(book).css({"font-size": 0.016*Math.pow($(book).turn('size').width,1.0145) + "px"});
             //book.turn('disable', false);
         }
