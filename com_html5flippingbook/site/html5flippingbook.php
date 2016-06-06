@@ -25,6 +25,9 @@ define('COMPONENT_ITEM_ID', $jinput->get('Itemid', ''));
 
 $lang = JFactory::getLanguage();
 
+// Load component helper
+JLoader::register('HTML5FlippingBookFrontHelper', JPATH_SITE . '/components/com_html5flippingbook/helpers/html5fbfront.php');
+
 $lang->load(COMPONENT_OPTION, JPATH_ADMINISTRATOR, '');
 $controller = JControllerLegacy::getInstance('HTML5FlippingBook');
 $controller->execute(JFactory::getApplication()->input->get('task'));
