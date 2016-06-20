@@ -113,7 +113,7 @@ if($this->item->template->p_margin)
 if($this->item->template->p_lineheight)
     $template_css['html body .flipbook p'][] = 'line-height: '.$this->item->template->p_lineheight.';';
 if($this->item->template->page_background_color)
-    $template_css['html body .flipbook .page'][] = 'background-color: '.$this->item->template->page_background_color.';';
+    $template_css['html body .flipbook .page.even .html-content'][] = 'background: '.$this->item->template->page_background_color.';';
 
 foreach($template_css as $rule => $style){
     $document->addStyleDeclaration($rule.'{'.implode("\r\n",$style).'}');

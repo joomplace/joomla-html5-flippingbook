@@ -64,6 +64,8 @@ class HTML5FlippingBookModelPublication extends JModelItem
 
 				$this->_item->contents_page = 0;
 
+				$this->_item->pages_count = count($this->_item->pages);
+
 				foreach ( $this->_item->pages as $kp => $page )
 				{
 					if ( $page['is_contents'] ) {
