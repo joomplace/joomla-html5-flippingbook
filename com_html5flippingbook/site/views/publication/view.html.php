@@ -66,6 +66,7 @@ class HTML5FlippingBookViewPublication extends JViewLegacy
 		$this->config = $configurationModel->getConfig();
 
 		// Defines paths.
+		if (!$this->item) $this->item = new stdClass();
         $this->item->rawPublicationLink= str_replace(str_replace('index.php','',$_SERVER['PHP_SELF']),'',JUri::root()).JRoute::_('index.php?option='.COMPONENT_OPTION.'&view=publication&id='.$this->item->c_id.'&Itemid='.COMPONENT_ITEM_ID, false, $uri->isSSL());
         $this->item->direction = ( $this->item->right_to_left ? 'rtl' : 'ltr' );
 		$this->basePath = JURI::root();
