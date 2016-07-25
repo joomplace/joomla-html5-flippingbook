@@ -523,7 +523,7 @@ html body .next-button:hover {
 											case $bc+1:
 											case $bc+2:
 												if($page['page_image']){
-													$page_class .='" style="background: url('.$page['page_image'].'); background-size: 100% 100%;';
+													$page_class .='" style="background: url(\''.$page['page_image'].'\'); background-size: 100% 100%;';
 													$page_content = '';
 												}else{
 													$page_class .='" style="background: #FFF; background-size: 100% 100%;';
