@@ -629,6 +629,18 @@ var flipbook = jQuery('.flipbook');
 		}
 	}
 
+	var onfullscreenchange =  function(e){
+
+		var fullscreenElement =
+			document.fullscreenElement ||
+			document.mozFullscreenElement ||
+			document.webkitFullscreenElement ||
+			document.mozFullScreen ||
+			document.msFullscreenElement;
+
+		return fullscreenElement;
+	}
+
 	'use strict';
 	var module = {
 		ratio: <?php echo $item->resolutions->width*2/$item->resolutions->height; ?>,
@@ -658,14 +670,32 @@ var flipbook = jQuery('.flipbook');
 			// reset the width and height to the css defaults
 			this.el.style.width = '';
 			this.el.style.height = '';
+			this.el.style.top = '';
+
 			var width = this.el.clientWidth,
 				height = Math.round(width / this.ratio),
-				padded = Math.round(document.body.clientHeight * 0.9);
+				padded = Math.round(document.body.clientHeight * 0.9),
+			    screenHeight = Math.round(document.documentElement.clientHeight),
+				fullscreen = onfullscreenchange(this.el),
+				padTop = (screenHeight - height)/2;
+
+			if (fullscreen) {
+				if (height < screenHeight) {
+					this.el.style.top = padTop+'px';
+				}
+				else {
+					height = screenHeight * 0.9;
+					width = Math.round(height * this.ratio);
+				}
+			}
+
 			// if the height is too big for the window, constrain it
+			<?php if(JFactory::getApplication()->input->get('tmpl','')=='component'){ ?>
 			if (height > padded) {
 				height = padded;
 				width = Math.round(height * this.ratio);
 			}
+			<?php } ?>
 			// set the width and height matching the aspect ratio
 			this.el.style.width = width + 'px';
 			
