@@ -496,6 +496,7 @@ class com_html5flippingbookInstallerScript
 				  `id` int(11) NOT NULL AUTO_INCREMENT,
 				  `template_name` varchar(255) NOT NULL DEFAULT '',
 				  `hard_cover` tinyint(1) NOT NULL DEFAULT '0',
+				  `doublepages` BOOLEAN NOT NULL DEFAULT '0',
 				  `page_background_color` varchar(10) NOT NULL DEFAULT '',
 				  `background_color` varchar(10) NOT NULL DEFAULT '',
 				  `text_color` varchar(10) NOT NULL DEFAULT '',

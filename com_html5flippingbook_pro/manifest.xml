@@ -6,11 +6,25 @@
 	<authorUrl>www.joomplace.com</authorUrl>
 	<copyright>(C) JoomPlace, www.joomplace.com</copyright>
 	<license>GNU/GPL http://www.gnu.org/copyleft/gpl.html</license>
-	<version>1.0.6.002</version>
+	<version>1.0.6.005</version>
 	<creationDate>July 2014</creationDate>
 	<description>COM_HTML5FLIPPINGBOOK_SYS_DESC</description>
-	
 	<scriptfile>install.php</scriptfile>
+    <install>
+        <sql>
+            <file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+        </sql>
+    </install>
+    <uninstall>
+        <sql>
+            <file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+        </sql>
+    </uninstall>
+    <update>
+        <schemas>
+            <schemapath type="mysql">sql/updates/mysql</schemapath>
+        </schemas>
+    </update>
 
     <files folder="site">
 		<folder>assets</folder>
@@ -65,6 +79,7 @@
 			<folder>controllers</folder>
 			<folder>models</folder>
 			<folder>tables</folder>
+			<folder>sql</folder>
 			<folder>views</folder>
 			<folder>libs</folder>
 			<filename>access.xml</filename>
