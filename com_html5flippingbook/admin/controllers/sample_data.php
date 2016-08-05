@@ -29,7 +29,7 @@ class HTML5FlippingBookControllerSample_Data extends JControllerLegacy
 		// Updating files.
 		//==================================================
 		
-		$archiveName = "html5fb_sampledata_30_001.zip";
+		$archiveName = "html5fb_sampledata_30_002.zip";
 		
 		// Changing PHP settings.
 		
