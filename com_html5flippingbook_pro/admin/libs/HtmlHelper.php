@@ -108,7 +108,7 @@ class HtmlHelper
 		$html[] = 							'</li>';
 		$html[] = 							'<li role="presentation" class="divider"></li>';
 		$html[] =							'<li role="presentation">';
-		$html[] = 								'<a role="menuitem" tabindex="-1" href="index.php?option='.COMPONENT_OPTION.'&view=import"><i class="icon-download"></i> ';
+		$html[] = 								'<a onclick="return confirm(\''.JText::_('COM_HTML5FLIPPINGBOOK_BE_SUBMENU_SUBMIT_SETUP_SIMPLE_DATA').'\')" role="menuitem" tabindex="-1" href="index.php?option='.COMPONENT_OPTION.'&task=sample_data.install"><i class="icon-download"></i> ';
 		$html[] = 									JText::_('COM_HTML5FLIPPINGBOOK_BE_SUBMENU_IMPORT');
 		$html[] = 								'</a>';
 		$html[] = 							'</li>';
