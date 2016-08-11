@@ -379,7 +379,7 @@ if ($numPublicationDisplayed == 0)
 
 $html[] = '</div>';
 
-$html[] = '<div class="pagination">';
+$html[] = '<div class="html5fb pagination">';
 $html[] =     '<div class="btn-group pull-right">';
 $html[] =         '<label for="limit" class="element-invisible">';
 $html[] =             JText::_('JGLOBAL_DISPLAY_NUM');
