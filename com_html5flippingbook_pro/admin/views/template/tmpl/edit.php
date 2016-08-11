@@ -119,6 +119,14 @@ if ( !empty($this->item->text_color) )
 				</div>
 				<div class="control-group">
 					<div class="control-label">
+						<?php echo $this->form->getLabel('doublepages'); ?>
+					</div>
+					<div class="controls">
+						<?php echo $this->form->getInput('doublepages'); ?>
+					</div>
+				</div>
+				<div class="control-group">
+					<div class="control-label">
 						<?php echo $this->form->getLabel('fontfamily'); ?>
 					</div>
 					<div class="controls">

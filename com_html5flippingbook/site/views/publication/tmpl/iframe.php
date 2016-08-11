@@ -115,6 +115,8 @@ if($this->item->template->p_lineheight)
 if($this->item->template->page_background_color)
     $template_css['html body .flipbook .page.even .html-content'][] = 'background: '.$this->item->template->page_background_color.';';
 
+$double_page = $this->item->template->doublepages;
+
 foreach($template_css as $rule => $style){
     $document->addStyleDeclaration($rule.'{'.implode("\r\n",$style).'}');
 }
@@ -216,7 +218,10 @@ foreach($template_css as $rule => $style){
         -ms-user-select: none;
         user-select: none;
     }
-    html body .flipbook .even .double,
+    html body .flipbook .even .double{
+        background-size: 200% 100%;
+        background-position: 0px;
+    }
     html body .flipbook .even .page {
         background-size: 200%;
         background-position: 0%;
@@ -228,7 +233,10 @@ foreach($template_css as $rule => $style){
         background-repeat: no-repeat;
         background-position: 100%;
     }
-    html body .flipbook .double img,
+    html body .flipbook .double img{
+        max-width: 200%;
+        max-height: 100%;
+    }
     html body .flipbook .page img {
         max-width: 100%;
         max-height: 100%;
@@ -488,7 +496,7 @@ foreach($template_css as $rule => $style){
                             <?php } ?>
                             <?php
                             $pages = array_merge($wrap_up['before'],$pages,$wrap_up['after']);
-                            $bc = count($pages)-3;
+                            $bc = count($pages)-2-1;
                             unset($page);
                             foreach($pages as $i => $page){
                                 /* only to wrap, so can be moved uptop to cover creation */
@@ -497,30 +505,61 @@ foreach($template_css as $rule => $style){
                                     /* cover styles-classes */
                                     case 0 :
                                         $page_class .= ' cover-front';
-                                        $page_class .= ' p1';
+                                        /*
+                                         * we don't support page loading and double page in same time for now
+                                         */
+                                        if($double_page){
+
+                                        }else{
+                                            $page_class .= ' p1';
+                                        }
                                         break;
                                     case 1:
                                         $page_class .= ' front-side';
-                                        $page_class .= ' p2';
+                                        if($double_page){
+                                            $page_class .= ' double';
+                                        }else{
+                                            $page_class .= ' p2';
+                                        }
                                         break;
                                     case $bc+1 :
                                         $page_class .= ' back-side';
-                                        $page_class .= ' fixed';
-                                        $page_class .= ' p'.($pages_count-1);
+                                        if($double_page){
+                                            $page_class .= ' double';
+                                        }else{
+                                            $page_class .= ' fixed';
+                                        }
+                                        if($double_page){
+
+                                        }else{
+                                            $page_class .= ' p'.($pages_count-1);
+                                        }
                                         break;
                                     case $bc+2 :
                                         $page_class .= ' cover-back';
-                                        $page_class .= ' p'.($pages_count);
+                                        if($double_page){
+
+                                        }else{
+                                            $page_class .= ' p'.($pages_count);
+                                        }
                                         break;
 
                                     /* pages styles-classes */
                                     case $bc :
                                         $page_class = 'page';
-                                        $page_class .= ' p'.($pages_count-2);
+                                        if($double_page){
+                                            $page_class .= ' double';
+                                        }else{
+                                            $page_class .= ' p'.($pages_count-2);
+                                        }
                                         break;
                                     default:
                                         $page_class = 'page';
-                                        $page_class .= ' p'.($i+1);
+                                        if($double_page){
+                                            $page_class .= ' double';
+                                        }else{
+                                            $page_class .= ' p'.($i+1);
+                                        }
                                 }
 
                                 if(!$this->item->template->hard_cover){
@@ -561,9 +600,15 @@ foreach($template_css as $rule => $style){
                                             $page_number = 0;
                                     }
                                 }
-                                ?>
-                                <div class="<?php echo $page_class; ?>" data-id="<?php echo $page['id']; ?>"><?php echo $page_content; ?></div>
-                                <?php
+                                if($page['page_image'] && strpos($page_class,'double')!==false){
+                                    ?>
+                                    <div class="<?php echo $page_class; ?>" data-id="<?php echo $page['id']; ?>" style="background-image:url('<?php echo $page['page_image']; ?>')"></div>
+                                    <?php
+                                }else{
+                                    ?>
+                                    <div class="<?php echo $page_class; ?>" data-id="<?php echo $page['id']; ?>"><?php echo $page_content; ?></div>
+                                    <?php
+                                }
                             }
                             ?>
                         </div>

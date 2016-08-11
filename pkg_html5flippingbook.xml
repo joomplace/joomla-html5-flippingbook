@@ -3,12 +3,12 @@
   <name>HTML5 Flipping Book Standart Package</name>
   <author>Joomplace Team</author>
   <creationDate>July 2014</creationDate>
-  <packagename>html5flippingbook_106</packagename>
+  <packagename>html5flippingbook</packagename>
   <authorEmail>support@joomplace.com</authorEmail>
   <authorUrl>www.joomplace.com</authorUrl>
   <copyright>(C) JoomPlace, www.joomplace.com</copyright>
   <license>GNU/GPL http://www.gnu.org/copyleft/gpl.html</license>
-  <version>1.0.6.002</version>
+  <version>1.0.6.005</version>
   <files folder="packages">
     <file type="component" id="com_html5flippingbook">com_html5flippingbook.zip</file>
     <file type="plugin" id="html5flippingbook_content" group="content">plg_html5flippingbook_content.zip</file>
