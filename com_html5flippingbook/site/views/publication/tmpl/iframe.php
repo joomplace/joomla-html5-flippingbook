@@ -223,7 +223,7 @@ foreach($template_css as $rule => $style){
         background-position: 0px;
     }
     html body .flipbook .even .page {
-        background-size: 200%;
+        background-size: 200% 100%;
         background-position: 0%;
     }
     html body .flipbook .double,
