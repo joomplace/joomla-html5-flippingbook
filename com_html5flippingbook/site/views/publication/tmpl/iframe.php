@@ -195,9 +195,9 @@ foreach($template_css as $rule => $style){
     html body body.flip-hide-overflow {
         overflow: hidden;
     }
-    html body .flipbook-viewport {
+    /*html body .flipbook-viewport {
         max-width: 1200px;
-    }
+    }*/
     html body .flipbook-viewport {
         display: table;
         width: 100%;
