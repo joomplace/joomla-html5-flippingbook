@@ -8,7 +8,7 @@
   <authorUrl>www.joomplace.com</authorUrl>
   <copyright>(C) JoomPlace, www.joomplace.com</copyright>
   <license>GNU/GPL http://www.gnu.org/copyleft/gpl.html</license>
-  <version>1.0.6.005</version>
+  <version>2.0.0.000</version>
   <files folder="packages">
     <file type="component" id="com_html5flippingbook">com_html5flippingbook.zip</file>
     <file type="plugin" id="html5flippingbook_content" group="content">plg_html5flippingbook_content.zip</file>
