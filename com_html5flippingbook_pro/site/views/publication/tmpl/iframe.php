@@ -10,6 +10,7 @@ defined('_JEXEC') or die('Restricted access');
 $document = JFactory::getDocument();
 JHtml::_('jquery.framework');
 JHtml::_('jquery.ui');
+
 $document->addScript(JUri::root(true).'/components/com_html5flippingbook/assets/extras/jquery-ui-1.8.20.custom.min.js');
 $document->addScript(JUri::root(true).'/components/com_html5flippingbook/assets/extras/modernizr.2.5.3.min.js');
 $document->addScript(JUri::root(true).'/components/com_html5flippingbook/assets/extras/jquery.mousewheel.min.js');
@@ -18,8 +19,9 @@ $document->addScript(JUri::root(true).'/components/com_html5flippingbook/assets/
 
 $item = $this->item;
 $pages = $item->pages;
+?>
 
-foreach($pages as &$page){
+<?php foreach($pages as &$page){
 	if($page['page_image'])
 		$page['page_image'] = COMPONENT_MEDIA_URL. 'images/'. ( $item->c_imgsub ? $item->c_imgsubfolder.'/' : '') . 'original/'.str_replace(array('th_', 'thumb_'), '', $page['page_image']);
 }
@@ -29,6 +31,9 @@ foreach($pages as &$page){
 
 $wrap_up = array('before'=>array(),'after'=>array());
 
+if(count($pages)%2==1){
+	$wrap_up['after'][]['c_text']='<div class="page"></div>';
+}
 $this->item->template->hard_wrapp_blanked = $this->item->template->hard_wrapp = $this->item->template->hard_cover;
 if($this->item->template->hard_wrapp){
 	if($this->item->contents_page){
@@ -40,8 +45,8 @@ if($this->item->template->hard_wrapp){
 		$wrap_up['after'][]['page_image']=JUri::root(true).'/components/com_html5flippingbook/assets/images/back-in.jpg';
 	}
 	$wrap_up['after'][]['page_image']=JUri::root(true).'/components/com_html5flippingbook/assets/images/back-side.jpg';
-	/*
 	$document->addStyleDeclaration('	
+	/*
 	.hard .paddifier{
 		left:0px!important;
 		right:0px!important;
@@ -61,8 +66,8 @@ if($this->item->template->hard_wrapp){
 	.page.odd .paddifier{
 		right: -0.0%;
 	}
-	');
 	*/
+	');
 }else{
 	$document->addStyleDeclaration('	
 	.paddifier{
@@ -71,51 +76,31 @@ if($this->item->template->hard_wrapp){
 		top:0px!important;
 		height:100%!important;
 		width:100%!important;
-		background: #FFF;
-		position: relative;
 	}
 	');
 }
 
-$pages_count = count($wrap_up['before']) + $this->item->pages_count + count($wrap_up['after']);
-$pages_count_adjust = count($wrap_up['before']) + count($wrap_up['after']);
 
 if(0){
 	echo "<pre>";
-	print_r($this->item->template);
+	print_r($this->item);
 	echo "</pre>";
 }
-
-$font_type["0"] = '"Times New Roman", Times, serif';
-$font_type["1"] = 'Georgia, serif';
-$font_type["2"] = '"Palatino Linotype", "Book Antiqua", Palatino, serif';
-$font_type["3"] = 'Arial, Helvetica, sans-serif';
-$font_type["4"] = '"Arial Black", Gadget, sans-serif';
-$font_type["5"] = '"Comic Sans MS", cursive, sans-serif';
-$font_type["6"] = 'Impact, Charcoal, sans-serif';
-$font_type["7"] = '"Lucida Sans Unicode", "Lucida Grande", sans-serif';
-$font_type["8"] = 'Tahoma, Geneva, sans-serif';
-$font_type["9"] = '"Trebuchet MS", Helvetica, sans-serif';
-$font_type["10"] = 'Verdana, Geneva, sans-serif';
-$font_type["11"] = '"Courier New", Courier, monospace';
-$font_type["12"] = '"Lucida Console", Monaco, monospace';
 $template_css = array('.flipbook'=>array(),'.flipbook p'=> array(),'.flipbook .page'=>array());
-if($this->item->template->fontsize)
-	$template_css['html body .flipbook'][] = 'font-size: '.$this->item->template->fontsize.';';
-if($this->item->template->fontfamily)
-	$template_css['html body .flipbook'][] = 'font-family: '.$font_type[$this->item->template->fontfamily].';';
+if($this->item->template->fontsize && 0)
+	$template_css['.flipbook'][] = 'font-size: '.$this->item->template->fontsize.';';
+if($this->item->template->fontfamily && 0)
+	$template_css['.flipbook'][] = 'font-family: '.$this->item->template->fontfamily.';';
 if($this->item->template->text_color)
-	$template_css['html body .flipbook'][] = 'color: '.$this->item->template->text_color.';';
+	$template_css['.flipbook'][] = 'color: '.$this->item->template->text_color.';';
 if($this->item->template->background_color)
-	$template_css['html body .flipbook'][] = 'background-color: '.$this->item->template->background_color.';';
-if($this->item->template->p_margin)
-	$template_css['html body .flipbook p'][] = 'margin-bottom: '.$this->item->template->p_margin.';';
-if($this->item->template->p_lineheight)
-	$template_css['html body .flipbook p'][] = 'line-height: '.$this->item->template->p_lineheight.';';
+	$template_css['.flipbook'][] = 'background-color: '.$this->item->template->background_color.';';
+if($this->item->template->p_margin && 0)
+	$template_css['.flipbook p'][] = 'margin-bottom: '.$this->item->template->p_margin.';';
+if($this->item->template->p_lineheight && 0)
+	$template_css['.flipbook p'][] = 'line-height: '.$this->item->template->p_lineheight.';';
 if($this->item->template->page_background_color)
-	$template_css['html body .flipbook .page'][] = 'background-color: '.$this->item->template->page_background_color.';';
-
-$double_page = $this->item->template->doublepages;
+	$template_css['.flipbook .page'][] = 'background-color: '.$this->item->template->page_background_color.';';
 
 foreach($template_css as $rule => $style){
 	$document->addStyleDeclaration($rule.'{'.implode("\r\n",$style).'}');
@@ -195,9 +180,9 @@ html body .odd .html-content {
 html body body.flip-hide-overflow {
   overflow: hidden;
 }
-/*html body .flipbook-viewport {
+html body .flipbook-viewport {
   max-width: 1200px;
-}*/
+}
 html body .flipbook-viewport {
   display: table;
   width: 100%;
@@ -218,12 +203,9 @@ html body .flipbook {
   -ms-user-select: none;
   user-select: none;
 }
-html body .flipbook .even .double{
-	background-size: 200% 100%;
-	background-position: 0px;
-}
+html body .flipbook .even .double,
 html body .flipbook .even .page {
-  background-size: 200% 100%;
+  background-size: 200%;
   background-position: 0%;
 }
 html body .flipbook .double,
@@ -233,10 +215,7 @@ html body .flipbook .page {
   background-repeat: no-repeat;
   background-position: 100%;
 }
-html body .flipbook .double img{
-	max-width: 200%;
-	max-height: 100%;
-}
+html body .flipbook .double img,
 html body .flipbook .page img {
   max-width: 100%;
   max-height: 100%;
@@ -423,6 +402,9 @@ html body .previous-button:hover,
 html body .next-button:hover {
   background-color: rgba(0, 0, 0, 0.4);
 }
+a:hover, a:visited{
+	color:unset !important;
+}
 <?php if($isMobile){ ?>
 #search-inp{
 	display:none!important;
@@ -435,10 +417,19 @@ html body .next-button:hover {
 </style>
 <div class="html5flippingbook">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+
+	<link rel="stylesheet" href="<?php echo JUri::root(true).'/components/com_html5flippingbook/assets/css/modal.css'; ?>">
+
+
 	<?php if(file_exists(JPATH_SITE.JUri::root(true).'/components/com_html5flippingbook/assets/css/'.$this->item->c_id.'-publication.css')){ ?>
 	<link rel="stylesheet" href="<?php echo JUri::root(true).'/components/com_html5flippingbook/assets/css/'.$this->item->c_id.'-publication.css'; ?>">
 	<?php } ?>
 	<div class="rel">
+		<?php if ($this->config->social_email_use){
+			echo $this->emaillayout->render(NULL);
+		}
+		?>
 		<div class="flip-hide-overflow">
 			<div class="flipbook-viewport<?php echo ($this->item->template->hard_wrapp)?' hardcover':''; ?>"<?php echo ($this->item->template->hard_wrapp)?' style="opacity: 0;" ':' style="opacity: 0;" '; ?>>
 				<div class="rel" id="flipbook-rel">
@@ -453,8 +444,10 @@ html body .next-button:hover {
 						<?php } ?>
 						<?php if($this->item->template->display_topicons){ ?>
 						<div class="tb_social" style="float: right; margin-left: 0px;">
-							<?php /* need recoding */ ?>
-							<?php // <i class="fa fa-envelope fa-lg modalLlink" title="Email to a friend"></i> ?>
+							<?php if ($this->config->social_email_use):?>
+								<a href="#emailModal" data-toggle="modal"><i class="fa fa-envelope fa-lg" title="<?php echo JText::_('COM_HTML5FLIPPINGBOOK_FE_TOOLBAR_EMAIL');?>"></i></a>
+							<?php endif;?>
+
 							<?php if($this->item->contents_page){ ?>
 								<i class="fa fa-list fa-lg" title="Table of contents" rel="<?php echo $this->item->contents_page; ?>"></i>
 							<?php } ?>
@@ -462,15 +455,25 @@ html body .next-button:hover {
 								<i class="fa fa-expand fa-lg" id="fullscreen" onclick="fullscreenIt('flipbook');" title="Fullscreen"></i>
 							<?php } ?>
 							<i class="fa fa-search-plus fa-lg" title="Zoom in"></i>
-							<a style="color: #47639E;" target="_blank" href="https://www.facebook.com/sharer.php?src=sp&u=<?php echo urlencode(JUri::current());?>&utm_source=share2">
-								<i class="fa fa-facebook fa-lg" title="Share on facebook"></i>
-							</a>
-							<a style="color: #41ABE1;" target="_blank" href="https://twitter.com/intent/tweet?status=<?php echo urlencode($item->c_title);?>%20<?php echo urlencode(JUri::current());?>&utm_source=share2">
-								<i class="fa fa-twitter fa-lg" title="Share on Twitter"></i>
-							</a>
-							<a style="color: #ED5448;"target="_blank" href="https://plus.google.com/share?url=<?php echo urlencode(JUri::current());?>&utm_source=share2">
-								<i class="fa fa-google-plus fa-lg" title="Share on G+"></i>
-							</a>
+
+							<?php if ($this->config->social_facebook_use == 1) : ?>
+								<a style="color: #47639E;" target="_blank" href="https://www.facebook.com/sharer.php?src=sp&u=<?php echo urlencode(JUri::current());?>&utm_source=share2">
+									<i class="fa fa-facebook fa-lg" title="Share on facebook"></i>
+								</a>
+							<?php endif; ?>
+
+							<?php if ($this->config->social_twitter_use == 1) : ?>
+								<a style="color: #41ABE1;" target="_blank" href="https://twitter.com/intent/tweet?status=<?php echo urlencode($item->c_title);?>%20<?php echo urlencode(JUri::current());?>&utm_source=share2">
+									<i class="fa fa-twitter fa-lg" title="Share on Twitter"></i>
+								</a>
+							<?php endif; ?>
+
+							<?php if ($this->config->social_google_plus_use == 1) : ?>
+								<a style="color: #ED5448;"target="_blank" href="https://plus.google.com/share?url=<?php echo urlencode(JUri::current());?>&utm_source=share2">
+									<i class="fa fa-google-plus fa-lg" title="Share on G+"></i>
+								</a>
+							<?php endif; ?>
+
 						</div>
 						<?php } ?>
 					</div>
@@ -482,120 +485,59 @@ html body .next-button:hover {
 							<?php } ?>
 							<?php 
 								$pages = array_merge($wrap_up['before'],$pages,$wrap_up['after']);
-								$bc = count($pages)-2-1;
+								$bc = count($pages)-2;
 								unset($page);
 								foreach($pages as $i => $page){
-									/* only to wrap, so can be moved uptop to cover creation */
 									$page_class = ($this->item->template->hard_cover)?'hard':'';
+									//$item->bookwrap = 1;
 									switch($i){
-										/* cover styles-classes */
-										case 0 :
+										case 0 /* +$begin_modifier*/ :
 											$page_class .= ' cover-front';
-											/*
-											 * we don't support page loading and double page in same time for now
-											 */
-											if($double_page){
-
-											}else{
-												$page_class .= ' p1';
-											}
 											break;
-										case 1:
+										case 1 /*+$begin_modifier*/ :
 											$page_class .= ' front-side';
-											if($double_page){
-												$page_class .= ' double';
-											}else{
-												$page_class .= ' p2';
-											}
+											//$page_class .= ' fixed';
+											/* breaks pages */
+											//if($item->bookwrap) $page_class .= ' fixed';
 											break;
-										case $bc+1 :
+										case $bc /*+$begin_modifier+$end_modifier*/ :
 											$page_class .= ' back-side';
-											if($double_page){
-												$page_class .= ' double';
-											}else{
-												$page_class .= ' fixed';
-											}
-											if($double_page){
-
-											}else{
-												$page_class .= ' p'.($pages_count-1);
-											}
+											$page_class .= ' fixed';
+											/* breaks pages */
+											//if($item->bookwrap) $page_class .= ' fixed';
 											break;
-										case $bc+2 :
+										case $bc+1 /* +$begin_modifier+$end_modifier*/ :
 											$page_class .= ' cover-back';
-											if($double_page){
-
-											}else{
-												$page_class .= ' p'.($pages_count);
-											}
-											break;
-
-										/* pages styles-classes */
-										case $bc :
-											$page_class = 'page';
-											if($double_page){
-												$page_class .= ' double';
-											}else{
-												$page_class .= ' p'.($pages_count-2);
-											}
 											break;
 										default:
 											$page_class = 'page';
-											if($double_page){
-												$page_class .= ' double';
+									}
+									
+									$page_class .= ' p'.($i+1);
+									
+									switch($i){
+										case 0:
+										case 1:
+										case $bc:
+										case $bc+1:
+											if($page['page_image']){
+												$page_class .='" style="background: url('.$page['page_image'].'); background-size: 100% 100%;';
+												$page_content = '';
 											}else{
-												$page_class .= ' p'.($i+1);
+												$page_class .='" style="background: #FFF; background-size: 100% 100%;';
+												if($page['c_text']){
+													$page_content = '<div class="paddifier"><div class="html-content"><div>'.$page['c_text'].((1)?'<span class="page-number">'.(($this->item->navi_settings)?$i:$i-1).'</span></div></div>':'').'</div>';
+												}
 											}
+											$page_content = '<div class="coverer-html-wrap" style="width:100%;height:100%;">'.$page_content.'</div>';
+											break;
+										default:
+											$page_content = ($page['page_image'])?'<div class="paddifier"><img src="'.$page['page_image'].'" /></div>':'<div class="paddifier"><div class="html-content"><div>'.$page['c_text'].((1)?'<span class="page-number">'.(($this->item->navi_settings)?$i:$i-1).'</span></div></div>':'').'</div>';
 									}
-
-									if(!$this->item->template->hard_cover){
-										if(!$page_number){
-											$page_number  = (($this->item->navi_settings)?($i?$i:''):(($i>1)?$i-1:''));
-										}
-										$page_content = ($page['page_image'])?'<div class="paddifier"><img src="'.$page['page_image'].'" /></div>':'<div class="paddifier"><div class="html-content"><div>'.$page['c_text'].((1)?'<span class="page-number">'.$page_number.'</span></div></div>':'').'</div>';
-										$page_number = 0;
-									}else{
-										switch($i){
-											/* content of cover */
-											case 0:
-											case 1:
-											case $bc+1:
-											case $bc+2:
-												if($page['page_image']){
-													$page_class .='" style="background: url(\''.$page['page_image'].'\'); background-size: 100% 100%;';
-													$page_content = '';
-												}else{
-													$page_class .='" style="background: #FFF; background-size: 100% 100%;';
-													if($page['c_text']){
-														$page_content = '<div class="paddifier"><div class="html-content"><div>'.$page['c_text'].'</div>';
-														/* $page['c_text'].((1)?'<span class="page-number">'.(($this->item->navi_settings)?$i:$i-1).'</span></div></div>':'') */
-													}
-												}
-												$page_content = '<div class="coverer-html-wrap" style="width:100%;height:100%;">'.$page_content.'</div>';
-												break;
-
-											/* content of pages */
-											case $bc:
-												$page_number = $pages_count-2;
-												$page_number = (($this->item->navi_settings)?$page_number-1:$page_number-2);
-											default:
-												if(!$page_number){
-													$page_number  = (($this->item->navi_settings)?($i?$i:''):(($i>1)?$i-1:''));
-												}
-												$page_content = ($page['page_image'])?'<div class="paddifier"><img src="'.$page['page_image'].'" /></div>':'<div class="paddifier"><div class="html-content"><div>'.$page['c_text'].((1)?'<span class="page-number">'.$page_number.'</span></div></div>':'').'</div>';
-												$page_number = 0;
-										}
-									}
-									if($page['page_image'] && strpos($page_class,'double')!==false){
-										?>
-										<div class="<?php echo $page_class; ?>" data-id="<?php echo $page['id']; ?>" style="background-image:url('<?php echo $page['page_image']; ?>')"></div>
-										<?php
-									}else{
-										?>
-										<div class="<?php echo $page_class; ?>" data-id="<?php echo $page['id']; ?>"><?php echo $page_content; ?></div>
-										<?php
-									}
-								}
+							?>
+								<div class="<?php echo $page_class; ?>"><?php echo $page_content; ?></div>
+							<?php 
+								} 
 							?>
 						</div>
 					</div>
@@ -603,8 +545,8 @@ html body .next-button:hover {
 						<div class="span4 text-center">
 							<?php if($this->item->template->display_pagebox){ ?>
 							<div ignore="1" id="page-bar">
-								<label>Go to</label>
-								<input type="text" id="goto_page_input" value="" autocomplete="" placeholder="page">
+								<label><?php echo JText::_('COM_HTML5FLIPPINGBOOK_FE_GOTO_PAGE_TITLE') ?></label>
+								<input type="text" id="goto_page_input" value="" autocomplete="" placeholder="<?php echo JText::_('COM_HTML5FLIPPINGBOOK_FE_GOTO_PAGE') ?>">
 								<span id="goto_page_input_button"><i class="fa fa-share"></i></span>
 							</div>
 							<?php } ?>
@@ -623,6 +565,7 @@ html body .next-button:hover {
 		<i class="tbicon zoom-out" style="display: none;"></i>
 	</div>
 </div>
+
 <script type="text/javascript">
 function fullscreenIt(id){
 	var elem = jQuery('#'+id).parent()[0];
@@ -637,16 +580,8 @@ function fullscreenIt(id){
 	}
 }
 
-function loadPage(page,adj) {
-	<?php $addPageRoute = JRoute::_('index.php?option=com_html5flippingbook&publication='.$this->item->c_id.'&task=publication.loadSpecPage'); ?>
-	jQuery.ajax({url: "<?php echo JUri::root(true).$addPageRoute.(strpos($addPageRoute,'?')?'&':'?') ?>number="+ (page-(adj-1))}).
-	done(function(pageHtml) {
-		jQuery('.flipbook .p' + page).html(pageHtml);
-	});
-}
-
 var flipbook = jQuery('.flipbook');
-	
+
 (function ($) {
 	function zoomIn(book){
 		$('.tbicon.zoom-out').show();
@@ -662,6 +597,8 @@ var flipbook = jQuery('.flipbook');
 	function zoomOut(book){
 		$('.tbicon.zoom-out').hide();
 		book.turn('zoom',1);
+		var size = module.resize();
+		book.turn('size',size.width,size.height);
 		$(book).css({"font-size": 0.016*Math.pow($(book).turn('size').width,1.0145) + "px"});
 		//book.turn('disable', false);
 	}
@@ -705,12 +642,14 @@ var flipbook = jQuery('.flipbook');
 			this.el.style.height = '';
 			var width = this.el.clientWidth,
 				height = Math.round(width / this.ratio),
-				padded = Math.round(document.documentElement.clientHeight * 0.9);
+				padded = Math.round(document.body.clientHeight * 0.9);
 			// if the height is too big for the window, constrain it
+			<?php if(JFactory::getApplication()->input->get('tmpl','')=='component'){ ?>
 			if (height > padded) {
 				height = padded;
 				width = Math.round(height * this.ratio);
 			}
+			<?php } ?>
 			// set the width and height matching the aspect ratio
 			this.el.style.width = width + 'px';
 			
@@ -846,7 +785,7 @@ var flipbook = jQuery('.flipbook');
 				autoCenter: true,
 				gradients: true,
 				duration: 1000,
-				pages: <?php echo $pages_count; ?>,
+				//pages: 13,
 				when: {
 					turning: function(e, page, view) {
 						
@@ -970,8 +909,9 @@ var flipbook = jQuery('.flipbook');
 					},
 
 					missing: function (e, pages) {
+
 						for (var i = 0; i < pages.length; i++) {
-							addPage(pages[i], $(this),<?php echo $pages_count_adjust; ?>);
+							addPage(pages[i], $(this));
 						}
 
 					}
@@ -991,6 +931,23 @@ var flipbook = jQuery('.flipbook');
 	function loadApp() {
 		// Check if the CSS was already loaded
 		module.init('flipbook');
+
+		/*	$('.modalLink').modal({
+				trigger: '.modalLink',
+				olay:'div.html5fb-overlay',
+				modals:'div#emailModal',
+				animationEffect: 'slidedown',
+				animationSpeed: 400,
+				moveModalSpeed: 'slow',
+				opacity: 0.8,
+				openOnLoad: false,
+				docClose: true,
+				closeByEscape: true,
+				moveOnScroll: true,
+				resizeWindow: true,
+				close:'#closeBtn, .close'
+			});
+*/
 		if (flipbook.width()==0 || flipbook.height()==0) {
 			setTimeout(loadApp, 10);
 			return;
@@ -1005,10 +962,16 @@ var flipbook = jQuery('.flipbook');
 		both: ['<?php echo JUri::root(true).'/components/com_html5flippingbook/assets/'; ?>js/cust.js', '<?php echo JUri::root(true).'/components/com_html5flippingbook/assets/'; ?>lib/scissor.min.js', '<?php echo JUri::root(true).'/components/com_html5flippingbook/assets/'; ?>css/jquery.ui.css', '<?php echo JUri::root(true).'/components/com_html5flippingbook/assets/'; ?>css/double-page.css'],
 		complete: loadApp
 	});
+	$('document').ready(function(){
+		$('#emailmodal').modal();
+	});
 }(jQuery));
 
 </script>
 <?php
+/* need to count pages in publication, not in this array. it`s just for dev version*/
+$pages_count = count($pages);
+
 if($this->item->template->hard_wrapp){
 ?>
 <style>
@@ -1102,8 +1065,8 @@ if($this->item->template->hard_wrapp){
 		top:0px!important;
 		height:100%!important;
 		width:100%!important;
-		background: #FFF;
 	}
 </style>
 <?php } ?>
+
 <script src="<?php echo JUri::root(true).'/components/com_html5flippingbook/assets/extras/jquery.ui.touch-punch.min.js'; ?>" type="text/javascript"></script>

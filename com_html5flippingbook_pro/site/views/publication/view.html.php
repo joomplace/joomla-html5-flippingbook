@@ -16,6 +16,7 @@ class HTML5FlippingBookViewPublication extends JViewLegacy
 	protected $item = null;
 	protected $state = null;
 	protected $layout;
+    protected $emaillayout;
 	protected $tmplIsComponent = false;
 	protected $basePath = '';
 	protected $menuItemParams = null;
@@ -30,13 +31,19 @@ class HTML5FlippingBookViewPublication extends JViewLegacy
 		
 		$item = $this->get('Item');
 		$item->resolutions = $this->get('Resolutions');
+
+    	require_once(JPATH_COMPONENT_ADMINISTRATOR.'/models/configuration.php');
+		$configurationModel = JModelLegacy::getInstance('Configuration', COMPONENT_MODEL_PREFIX);
+		$this->config = $configurationModel->GetConfig();
 		
 		$this->item = $item;
 		
 		$this->setLayout('iframe');
-		
+        $this->emaillayout = new JLayoutFile('email', JPATH_COMPONENT .'/layouts');
+
 		parent::display($tpl);
 		
 	}
+
 
 }

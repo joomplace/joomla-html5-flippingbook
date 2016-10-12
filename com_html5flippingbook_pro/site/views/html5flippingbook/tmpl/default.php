@@ -331,12 +331,13 @@ foreach ($this->items as $i => $item)
 			if ($this->config->social_twitter_use == 1)
 			{
 				$html[] = '<div class="html5fb-social-btn">' .
-						'<a href="http://twitter.com/share" class="twitter-share-button"' .
-						' data-url="' . $pageLink . '"'.
-						' data-size="' . $this->config->social_twitter_size . '"' .
-						' data-count="' . $this->config->social_twitter_annotation . '"' .
-						' data-lang="' . $this->config->social_twitter_language . '"' .
-						'>Tweet</a>' .
+					'<a href="http://twitter.com/share" class="twitter-share-button"' .
+					' data-url="' . substr(JURI::base(), 0, -1) . $pageLink . '"' .
+					' data-size="' . $this->config->social_twitter_size . '"' .
+					' data-count="' . $this->config->social_twitter_annotation . '"' .
+					' data-lang="' . $this->config->social_twitter_language . '"' .
+					' data-text="' . $item->c_title . "\r\n" . '"' .
+					'>Tweet</a>' .
 					'</div>';
 			}
 			
@@ -379,7 +380,7 @@ if ($numPublicationDisplayed == 0)
 
 $html[] = '</div>';
 
-$html[] = '<div class="html5fb pagination">';
+$html[] = '<div class="pagination">';
 $html[] =     '<div class="btn-group pull-right">';
 $html[] =         '<label for="limit" class="element-invisible">';
 $html[] =             JText::_('JGLOBAL_DISPLAY_NUM');
