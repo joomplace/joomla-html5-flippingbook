@@ -439,7 +439,10 @@ html body .next-button:hover {
 	<link rel="stylesheet" href="<?php echo JUri::root(true).'/components/com_html5flippingbook/assets/css/'.$this->item->c_id.'-publication.css'; ?>">
 	<?php } ?>
 	<div class="rel">
-		<?php echo $this->emaillayout->render($this->mailLayoutData); ?>
+		<?php if ($this->config->social_email_use){
+			echo $this->emaillayout->render($this->mailLayoutData);
+		}
+		?>
 		<div class="flip-hide-overflow">
 			<div class="flipbook-viewport<?php echo ($this->item->template->hard_wrapp)?' hardcover':''; ?>"<?php echo ($this->item->template->hard_wrapp)?' style="opacity: 0;" ':' style="opacity: 0;" '; ?>>
 				<div class="rel" id="flipbook-rel">
