@@ -548,6 +548,7 @@ class HTML5FlippingBookController extends JControllerLegacy
 		$subject_default = JText::sprintf('COM_HTML5FLIPPINGBOOK_FE_SENT_BY', $sender);
 		$subject         = $app->input->post->getString('subject', $subject_default);
 		$publID          = $app->input->post->getInt('publID', 0);
+		$url			 = $app->input->post->getString('url', 0);
 
 		$SiteName       = $app->get('sitename');
 
@@ -595,7 +596,7 @@ class HTML5FlippingBookController extends JControllerLegacy
 		}
 
 		$this->setMessage(JText::_('COM_HTML5FLIPPINGBOOK_FE_MAILTO_EMAIL_SENT'));
-		$this->setRedirect(JRoute::_('index.php?option=com_html5flippingbook&view=publication&id='.$publID.'&tmpl=component', FALSE, $uri->isSSL()));
+		$this->setRedirect($url);
 	}
 
 	public function jomShare()

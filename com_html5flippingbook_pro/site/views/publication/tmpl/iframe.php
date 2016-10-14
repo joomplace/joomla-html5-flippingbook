@@ -439,6 +439,7 @@ html body .next-button:hover {
 	<link rel="stylesheet" href="<?php echo JUri::root(true).'/components/com_html5flippingbook/assets/css/'.$this->item->c_id.'-publication.css'; ?>">
 	<?php } ?>
 	<div class="rel">
+		<?php echo $this->emaillayout->render($this->mailLayoutData); ?>
 		<div class="flip-hide-overflow">
 			<div class="flipbook-viewport<?php echo ($this->item->template->hard_wrapp)?' hardcover':''; ?>"<?php echo ($this->item->template->hard_wrapp)?' style="opacity: 0;" ':' style="opacity: 0;" '; ?>>
 				<div class="rel" id="flipbook-rel">
@@ -453,8 +454,10 @@ html body .next-button:hover {
 						<?php } ?>
 						<?php if($this->item->template->display_topicons){ ?>
 						<div class="tb_social" style="float: right; margin-left: 0px;">
-							<?php /* need recoding */ ?>
-							<?php // <i class="fa fa-envelope fa-lg modalLlink" title="Email to a friend"></i> ?>
+
+							<?php if ($this->config->social_email_use):?>
+								<a href="#emailModal" data-toggle="modal"><i class="fa fa-envelope fa-lg" title="<?php echo JText::_('COM_HTML5FLIPPINGBOOK_FE_TOOLBAR_EMAIL');?>"></i></a>
+							<?php endif;?>
 							<?php if($this->item->contents_page){ ?>
 								<i class="fa fa-list fa-lg" title="Table of contents" rel="<?php echo $this->item->contents_page; ?>"></i>
 							<?php } ?>

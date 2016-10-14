@@ -71,7 +71,8 @@ $user = JFactory::getUser();
 			</div>
 			<input type="hidden" name="option" value="com_html5flippingbook" />
 			<input type="hidden" name="task" value="sendEmail" />
-			<input type="hidden" name="publID" value="" />
+			<input type="hidden" name="publID" value="<?php echo $displayData['item']->c_id ?>" />
+			<input type="hidden" name="url" value="<?php echo $displayData['url'] ?>" />
 			<?php echo JHtml::_('form.token'); ?>
 		</form>
 	</div>

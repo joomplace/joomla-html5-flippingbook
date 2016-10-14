@@ -30,11 +30,19 @@ class HTML5FlippingBookViewPublication extends JViewLegacy
 		
 		$item = $this->get('Item');
 		$item->resolutions = $this->get('Resolutions');
-		
 		$this->item = $item;
-		
+
+		require_once(JPATH_COMPONENT_ADMINISTRATOR.'/models/configuration.php');
+		$configurationModel = JModelLegacy::getInstance('Configuration', COMPONENT_MODEL_PREFIX);
+		$this->config = $configurationModel->GetConfig();
 		$this->setLayout('iframe');
-		
+		$this->emaillayout = new JLayoutFile('email', JPATH_COMPONENT .'/layouts');
+
+		$uri = JUri::getInstance();
+		$this->mailLayoutData = array(
+			'item' => $item,
+			'url' => $uri->toString()
+		);
 		parent::display($tpl);
 		
 	}
