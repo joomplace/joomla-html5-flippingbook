@@ -39,10 +39,11 @@ function addPage(page, book, adj) {
 			{'class': 'page p'+page,
 				css: {width: (size.width/2), height: size.height}
 			}).
-			html('<div class="paddifier"><div class="loader"><i class="fa fa-spinner fa-spin fa-pulse"></i></div></div>');
+			html('<div class="paddifier" data-ajax="1"><div class="loader"><i class="fa fa-spinner fa-spin fa-pulse"></i></div></div>');
 			
 		if (book.turn('addPage', element, page)) {
-			loadPage(page,adj);
+			//loadPage(page,adj);
+			checkPage(page, 0);
 		}
 
 	}

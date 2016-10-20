@@ -18,6 +18,7 @@ $document->addScript(JUri::root(true).'/components/com_html5flippingbook/assets/
 
 $item = $this->item;
 $pages = $item->pages;
+$preload_pages = 6;
 
 foreach($pages as &$page){
 	if($page['page_image'])
@@ -485,6 +486,17 @@ html body .next-button:hover {
 								$bc = count($pages)-2-1;
 								unset($page);
 								foreach($pages as $i => $page){
+
+									/* Cut pages for ajax */
+									if ($i > $preload_pages && $i < (count($pages) - $preload_pages)) {
+										//$page['page_image'] = '<div class="paddifier" data-ajax="1"><div class="loader"><i class="fa fa-spinner fa-spin fa-pulse"></i></div></div>';
+                                        $page['page_image'] = 0;
+										$page['c_text'] = '<div class="loader"><i class="fa fa-spinner fa-spin fa-pulse"></i></div>';
+										$page['data-ajax'] = 1;
+									}
+									else $page['data-ajax'] = 0;
+
+
 									/* only to wrap, so can be moved uptop to cover creation */
 									$page_class = ($this->item->template->hard_cover)?'hard':'';
 									switch($i){
@@ -552,7 +564,7 @@ html body .next-button:hover {
 										if(!$page_number){
 											$page_number  = (($this->item->navi_settings)?($i?$i:''):(($i>1)?$i-1:''));
 										}
-										$page_content = ($page['page_image'])?'<div class="paddifier"><img src="'.$page['page_image'].'" /></div>':'<div class="paddifier"><div class="html-content"><div>'.$page['c_text'].((1)?'<span class="page-number">'.$page_number.'</span></div></div>':'').'</div>';
+										$page_content = ($page['page_image'])?'<div class="paddifier" data-ajax="'.$page['data-ajax'].'"><img src="'.$page['page_image'].'" /></div>':'<div class="paddifier"  data-ajax="'.$page['data-ajax'].'"><div class="html-content"><div>'.$page['c_text'].((1)?'<span class="page-number">'.$page_number.'</span></div></div>':'').'</div>';
 										$page_number = 0;
 									}else{
 										switch($i){
@@ -638,11 +650,35 @@ function fullscreenIt(id){
 }
 
 function loadPage(page,adj) {
-	<?php $addPageRoute = JRoute::_('index.php?option=com_html5flippingbook&publication='.$this->item->c_id.'&task=publication.loadSpecPage'); ?>
-	jQuery.ajax({url: "<?php echo JUri::root(true).$addPageRoute.(strpos($addPageRoute,'?')?'&':'?') ?>number="+ (page-(adj-1))}).
-	done(function(pageHtml) {
-		jQuery('.flipbook .p' + page).html(pageHtml);
-	});
+	checkAjax = jQuery('.page.p'+page+' .paddifier').data('ajax');
+
+	if (checkAjax) {
+		<?php $addPageRoute = JRoute::_('index.php?option=com_html5flippingbook&publication=' . $this->item->c_id . '&task=publication.loadSpecPage'); ?>
+		jQuery.ajax({url: "<?php echo JUri::root(true) . $addPageRoute . (strpos($addPageRoute, '?') ? '&' : '?') ?>number=" + (page - (adj - 1))}).done(function (pageHtml) {
+			jQuery('.flipbook .p' + page).html(pageHtml);
+		});
+	}
+    return true;
+}
+
+function checkPage(page, offset) {
+
+	currentPage = flipbook.turn('page');
+	pages = flipbook.turn('pages');
+
+	//Trying correct current page
+	if (currentPage < page) page = currentPage + offset;
+	else page = currentPage - offset;
+
+
+	preload_pages = parseInt(<?php echo $preload_pages ?>) - 1;
+	page = parseInt(page);
+	//Load neighbor pages
+	if (page > preload_pages && page < (pages - preload_pages)) {
+		loadPage(page-1, 2);
+		loadPage(page, 2);
+		loadPage(page+1, 2);
+	}
 }
 
 var flipbook = jQuery('.flipbook');
@@ -697,6 +733,9 @@ var flipbook = jQuery('.flipbook');
 				var src = $(this).attr('src');
 				$('body').append("<div style=\"width: 10px; height: 10px; background: url("+src+") no-repeat -9999px -9999px; position: fixed; top: -9999px; left: -9999px;\"></div>");
 			});
+
+			//console.log(flipbook.turn('page'));
+			checkPage(flipbook.turn('page'));
 		},
 		resize: function () {
 
@@ -851,8 +890,8 @@ var flipbook = jQuery('.flipbook');
 					turning: function(e, page, view) {
 						
 						var book = $(this),
-							currentPage = book.turn('page'),
-							pages = book.turn('pages');
+                            pages = book.turn('pages');
+							checkPage(page, 2);
 						/*
 						if (currentPage>3 && currentPage<pages-3) {
 						
@@ -935,6 +974,7 @@ var flipbook = jQuery('.flipbook');
 
 					start: function(e, pageObj) {
 						moveBar(true);
+                        checkPage(pageObj.next, 0);
 					},
 
 					end: function(e, pageObj) {

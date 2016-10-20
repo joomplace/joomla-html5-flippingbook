@@ -31,7 +31,7 @@ class HTML5FlippingBookControllerPublication extends JControllerLegacy
 				$number+=2;
 			}
 			$page_number  = (($pub->navi_settings)?$number:$number-1);
-			$page_content = ($page->page_image)?'<div class="paddifier"><img src="'.$page->page_image.'" /></div>':'<div class="paddifier"><div class="html-content"><div>'.$page->c_text.((1)?'<span class="page-number">'.$page_number.'</span></div></div>':'').'</div>';
+			$page_content = ($page->page_image)?'<div class="paddifier" data-ajax="0"><img src="'.$page->page_image.'" /></div>':'<div class="paddifier" data-ajax="0"><div class="html-content"><div>'.$page->c_text.((1)?'<span class="page-number">'.$page_number.'</span></div></div>':'').'</div>';
 			echo str_replace(array('="image','="media'),array('="/image','="/media'),$page_content);
 		}
 		die();
