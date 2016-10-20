@@ -81,6 +81,7 @@ function HTML5FlippingBookParseRoute($segments)
 			$numSegments = count($segments);
 			
 			$vars['view'] = $segments[0];
+			$vars['Itemid'] = '';
 			$data = explode(":", $segments[1]);
 
 			$vars['id'] = $data[0];
