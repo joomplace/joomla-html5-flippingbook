@@ -140,7 +140,7 @@ class HTML5FlippingBookModelPublication extends JModelItem
 			$count = $this->_db->loadResult();
 			if( $count > 16){
 				$query = array();
-				$query = "SELECT * FROM #__html5fb_pages WHERE publication_id = ".(int)$id." ORDER BY `ordering` ASC LIMIT 0, 7";
+				$query = "SELECT * FROM #__html5fb_pages WHERE publication_id = ".(int)$id." ORDER BY `ordering` ASC";
 				//$query[1] = "(SELECT * FROM #__html5fb_pages WHERE publication_id = ".(int)$id." ORDER BY `ordering` DESC LIMIT 0, 4)";
 				//$query = implode(' UNION ',$query);
 				//$query = $query." ORDER BY `ordering` ASC";
