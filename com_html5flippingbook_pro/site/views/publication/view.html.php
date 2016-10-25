@@ -30,8 +30,21 @@ class HTML5FlippingBookViewPublication extends JViewLegacy
 		
 		$item = $this->get('Item');
 		$item->resolutions = $this->get('Resolutions');
+		$doc = JFactory::getDocument();
 		
 		$this->item = $item;
+
+		if ($this->item->opengraph_title) {
+			$doc->setMetaData( 'og:title', $this->item->opengraph_title );
+		}
+
+		if ($this->item->opengraph_image) {
+			$doc->setMetaData( 'og:image', JURI::root().'media/com_html5flippingbook/thumbs/'.$this->item->opengraph_image );
+		}
+
+		if ($this->item->opengraph_description) {
+			$doc->setMetaData( 'og:description', $this->item->opengraph_description );
+		}
 		
 		$this->setLayout('iframe');
 		
