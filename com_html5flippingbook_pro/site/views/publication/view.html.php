@@ -34,6 +34,7 @@ class HTML5FlippingBookViewPublication extends JViewLegacy
 		
 		$this->item = $item;
 
+		$doc->setMetaData( 'og:url', JURI::current() );
 		if ($this->item->opengraph_title) {
 			$doc->setMetaData( 'og:title', $this->item->opengraph_title );
 		}
