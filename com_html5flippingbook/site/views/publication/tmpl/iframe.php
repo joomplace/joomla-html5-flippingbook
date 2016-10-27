@@ -102,7 +102,7 @@ $font_type["12"] = '"Lucida Console", Monaco, monospace';
 $template_css = array('.flipbook'=>array(),'.flipbook p'=> array(),'.flipbook .page'=>array());
 if($this->item->template->fontsize)
     $template_css['html body .flipbook'][] = 'font-size: '.$this->item->template->fontsize.';';
-if($this->item->template->fontfamily)
+if($this->item->template->fontfamily !== null)
     $template_css['html body .flipbook'][] = 'font-family: '.$font_type[$this->item->template->fontfamily].';';
 if($this->item->template->text_color)
     $template_css['html body .flipbook'][] = 'color: '.$this->item->template->text_color.';';
