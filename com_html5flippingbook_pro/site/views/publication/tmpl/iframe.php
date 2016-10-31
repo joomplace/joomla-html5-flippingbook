@@ -680,6 +680,15 @@ var flipbook = jQuery('.flipbook');
 		}
 	}
 
+	var onfullscreenchange =  function(e){
+		var fullscreenElement =
+			document.fullscreenElement ||
+			document.mozFullscreenElement ||
+			document.webkitFullscreenElement;
+
+		return fullscreenElement;
+	};
+
 	'use strict';
 	var module = {
 		ratio: <?php echo $item->resolutions->width*2/$item->resolutions->height; ?>,
@@ -711,11 +720,20 @@ var flipbook = jQuery('.flipbook');
 			this.el.style.height = '';
 			var width = this.el.clientWidth,
 				height = Math.round(width / this.ratio),
-				padded = Math.round(document.documentElement.clientHeight * 0.9);
+				padded = Math.round(document.documentElement.clientHeight * 0.9),
+				screenHeight = Math.round(document.documentElement.clientHeight),
+				fullscreen = onfullscreenchange(this.el);
 			// if the height is too big for the window, constrain it
 			if (height > padded) {
 				height = padded;
 				width = Math.round(height * this.ratio);
+			}
+
+			if (fullscreen) {
+				if (height > screenHeight) {
+					height = screenHeight * 0.9;
+					width = Math.round(height * this.ratio);
+				}
 			}
 			// set the width and height matching the aspect ratio
 			this.el.style.width = width + 'px';
