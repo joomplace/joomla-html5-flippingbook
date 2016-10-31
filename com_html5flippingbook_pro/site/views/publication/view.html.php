@@ -30,6 +30,10 @@ class HTML5FlippingBookViewPublication extends JViewLegacy
 		
 		$item = $this->get('Item');
 		$item->resolutions = $this->get('Resolutions');
+        require_once(JPATH_COMPONENT_ADMINISTRATOR.'/models/configuration.php');
+        $configurationModel = JModelLegacy::getInstance('Configuration', COMPONENT_MODEL_PREFIX);
+        $this->config = $configurationModel->GetConfig();
+
 		$doc = JFactory::getDocument();
 		
 		$this->item = $item;
@@ -46,9 +50,15 @@ class HTML5FlippingBookViewPublication extends JViewLegacy
 		if ($this->item->opengraph_description) {
 			$doc->setMetaData( 'og:description', $this->item->opengraph_description );
 		}
-		
+
 		$this->setLayout('iframe');
-		
+		$this->emaillayout = new JLayoutFile('email', JPATH_COMPONENT .'/layouts');
+
+		$uri = JUri::getInstance();
+		$this->mailLayoutData = array(
+			'item' => $item,
+			'url' => $uri->toString()
+		);
 		parent::display($tpl);
 		
 	}

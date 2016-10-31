@@ -102,7 +102,7 @@ $font_type["12"] = '"Lucida Console", Monaco, monospace';
 $template_css = array('.flipbook'=>array(),'.flipbook p'=> array(),'.flipbook .page'=>array());
 if($this->item->template->fontsize)
 	$template_css['html body .flipbook'][] = 'font-size: '.$this->item->template->fontsize.';';
-if($this->item->template->fontfamily)
+if($this->item->template->fontfamily !== null)
 	$template_css['html body .flipbook'][] = 'font-family: '.$font_type[$this->item->template->fontfamily].';';
 if($this->item->template->text_color)
 	$template_css['html body .flipbook'][] = 'color: '.$this->item->template->text_color.';';
@@ -439,6 +439,10 @@ html body .next-button:hover {
 	<link rel="stylesheet" href="<?php echo JUri::root(true).'/components/com_html5flippingbook/assets/css/'.$this->item->c_id.'-publication.css'; ?>">
 	<?php } ?>
 	<div class="rel">
+		<?php if ($this->config->social_email_use){
+			echo $this->emaillayout->render($this->mailLayoutData);
+		}
+		?>
 		<div class="flip-hide-overflow">
 			<div class="flipbook-viewport<?php echo ($this->item->template->hard_wrapp)?' hardcover':''; ?>"<?php echo ($this->item->template->hard_wrapp)?' style="opacity: 0;" ':' style="opacity: 0;" '; ?>>
 				<div class="rel" id="flipbook-rel">
@@ -453,8 +457,10 @@ html body .next-button:hover {
 						<?php } ?>
 						<?php if($this->item->template->display_topicons){ ?>
 						<div class="tb_social" style="float: right; margin-left: 0px;">
-							<?php /* need recoding */ ?>
-							<?php // <i class="fa fa-envelope fa-lg modalLlink" title="Email to a friend"></i> ?>
+
+							<?php if ($this->config->social_email_use):?>
+								<a href="#emailModal" data-toggle="modal"><i class="fa fa-envelope fa-lg" title="<?php echo JText::_('COM_HTML5FLIPPINGBOOK_FE_TOOLBAR_EMAIL');?>"></i></a>
+							<?php endif;?>
 							<?php if($this->item->contents_page){ ?>
 								<i class="fa fa-list fa-lg" title="Table of contents" rel="<?php echo $this->item->contents_page; ?>"></i>
 							<?php } ?>
@@ -674,6 +680,15 @@ var flipbook = jQuery('.flipbook');
 		}
 	}
 
+	var onfullscreenchange =  function(e){
+		var fullscreenElement =
+			document.fullscreenElement ||
+			document.mozFullscreenElement ||
+			document.webkitFullscreenElement;
+
+		return fullscreenElement;
+	};
+
 	'use strict';
 	var module = {
 		ratio: <?php echo $item->resolutions->width*2/$item->resolutions->height; ?>,
@@ -705,11 +720,20 @@ var flipbook = jQuery('.flipbook');
 			this.el.style.height = '';
 			var width = this.el.clientWidth,
 				height = Math.round(width / this.ratio),
-				padded = Math.round(document.documentElement.clientHeight * 0.9);
+				padded = Math.round(document.documentElement.clientHeight * 0.9),
+				screenHeight = Math.round(document.documentElement.clientHeight),
+				fullscreen = onfullscreenchange(this.el);
 			// if the height is too big for the window, constrain it
 			if (height > padded) {
 				height = padded;
 				width = Math.round(height * this.ratio);
+			}
+
+			if (fullscreen) {
+				if (height > screenHeight) {
+					height = screenHeight * 0.9;
+					width = Math.round(height * this.ratio);
+				}
 			}
 			// set the width and height matching the aspect ratio
 			this.el.style.width = width + 'px';

@@ -102,7 +102,7 @@ $font_type["12"] = '"Lucida Console", Monaco, monospace';
 $template_css = array('.flipbook'=>array(),'.flipbook p'=> array(),'.flipbook .page'=>array());
 if($this->item->template->fontsize)
     $template_css['html body .flipbook'][] = 'font-size: '.$this->item->template->fontsize.';';
-if($this->item->template->fontfamily)
+if($this->item->template->fontfamily !== null)
     $template_css['html body .flipbook'][] = 'font-family: '.$font_type[$this->item->template->fontfamily].';';
 if($this->item->template->text_color)
     $template_css['html body .flipbook'][] = 'color: '.$this->item->template->text_color.';';
@@ -690,6 +690,15 @@ foreach($template_css as $rule => $style){
             }
         }
 
+        var onfullscreenchange =  function(e){
+            var fullscreenElement =
+                document.fullscreenElement ||
+                document.mozFullscreenElement ||
+                document.webkitFullscreenElement;
+
+            return fullscreenElement;
+        };
+
         'use strict';
         var module = {
             ratio: <?php echo $item->resolutions->width*2/$item->resolutions->height; ?>,
@@ -721,11 +730,20 @@ foreach($template_css as $rule => $style){
                 this.el.style.height = '';
                 var width = this.el.clientWidth,
                     height = Math.round(width / this.ratio),
-                    padded = Math.round(document.documentElement.clientHeight * 0.9);
+                    padded = Math.round(document.documentElement.clientHeight * 0.9),
+                    screenHeight = Math.round(document.documentElement.clientHeight),
+                    fullscreen = onfullscreenchange(this.el);
                 // if the height is too big for the window, constrain it
                 if (height > padded) {
                     height = padded;
                     width = Math.round(height * this.ratio);
+                }
+
+                if (fullscreen) {
+                    if (height > screenHeight) {
+                        height = screenHeight * 0.9;
+                        width = Math.round(height * this.ratio);
+                    }
                 }
                 // set the width and height matching the aspect ratio
                 this.el.style.width = width + 'px';

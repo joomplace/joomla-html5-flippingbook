@@ -21,7 +21,7 @@ abstract class HTML5FlippingBookFrontHelper
 	 *
 	 * @return stdClass
 	 */
-	public static function htmlPublHelper($mobile = FALSE, $tablet = FALSE, $item, $link = FALSE)
+	public static function htmlPublHelper($mobile = FALSE, $tablet = FALSE, $item, $link = FALSE, $fullPath = FALSE)
 	{
 		$uri  = JUri::getInstance();
 		$user = JFactory::getUser();
@@ -29,8 +29,13 @@ abstract class HTML5FlippingBookFrontHelper
 
 		if ($link)
 		{
-			$data->rawPublicationLink= 'index.php?option='.COMPONENT_OPTION.'&view=publication&id='.$item;
-			$data->publicationLink = JRoute::_($data->rawPublicationLink.'&tmpl=component', FALSE, $uri->isSSL());
+			if ($fullPath) {
+				$data->rawPublicationLink= JUri::root().'index.php?option='.COMPONENT_OPTION.'&view=publication&id='.$item;
+				$data->publicationLink = JRoute::_($data->rawPublicationLink.'&tmpl=component', FALSE, $uri->isSSL());
+			} else {
+				$data->rawPublicationLink= 'index.php?option='.COMPONENT_OPTION.'&view=publication&id='.$item;
+				$data->publicationLink = JRoute::_($data->rawPublicationLink.'&tmpl=component', FALSE, $uri->isSSL());
+			}
 			return $data;
 		}
 
