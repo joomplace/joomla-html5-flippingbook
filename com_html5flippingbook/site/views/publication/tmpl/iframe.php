@@ -481,7 +481,7 @@ foreach($template_css as $rule => $style){
                                 <?php endif; ?>
 
                                 <?php if ($this->config->social_linkedin_use == 1) : ?>
-                                    <a target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&url=<?php echo urlencode(JUri::current());?>&title=<?php echo $item->c_title; ?>;&source=http://<? echo $_SERVER['SERVER_NAME'] ?>">
+                                    <a style="color: #0077b5;" target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&url=<?php echo urlencode(JUri::current());?>&title=<?php echo $item->c_title; ?>;&source=share2">
                                         <i class="fa fa-linkedin fa-lg" title="Share on LinkedIn"></i>
                                     </a>
                                 <?php endif; ?>
@@ -541,6 +541,12 @@ foreach($template_css as $rule => $style){
 
                                         }else{
                                             $page_class .= ' p'.($pages_count);
+
+                                            //Set clear last page for marazine template
+                                            if (count($pages) % 2 == 0 && !$this->item->template->hard_cover) {
+                                                $pages[$i]['c_enable_text'] = 1;
+                                                $pages[$i]['c_enable_image'] = 0;
+                                            }
                                         }
                                         break;
 
