@@ -17,6 +17,16 @@ class HTML5FlippingBookControllerPublication extends JControllerForm
 	//----------------------------------------------------------------------------------------------------
 	public function save($key = null, $urlVar = null)
 	{
+		jimport('joomla.filesystem.file');
+        $data  = $this->input->post->get('jform', array(), 'array');
+        $filename = str_replace(' ', '_', $data['c_title']);
+        $path = JPATH_ROOT . DIRECTORY_SEPARATOR . 'media' .
+                             DIRECTORY_SEPARATOR . 'com_html5flippingbook' .
+                             DIRECTORY_SEPARATOR . 'converted_publications' .
+                             DIRECTORY_SEPARATOR . $filename . '.pdf';
+
+        JFile::delete($path);
+        
 		parent::save($key, $urlVar);
 	}
 	//----------------------------------------------------------------------------------------------------
