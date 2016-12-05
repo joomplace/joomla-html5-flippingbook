@@ -212,6 +212,16 @@ class com_html5flippingbookInstallerScript
 		$db->setQuery($query);
 		$db->execute();
 
+		$insertSql = array (
+			"DELETE FROM `#__html5fb_category` WHERE `id` = 1;",
+			"INSERT INTO `#__html5fb_category` (c_id, c_category) VALUES (1, 'Uncategorised');",
+		);
+		foreach ( $insertSql as $sql)
+		{
+			$db->setQuery($sql);
+			$db->execute();
+		}
+		
 		//==================================================
 		// Publication table.
 		//==================================================
