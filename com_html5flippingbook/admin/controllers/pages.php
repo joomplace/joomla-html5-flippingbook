@@ -257,7 +257,7 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
             }
 		}
 		
-		@JFolder::delete($tempDirName);
+		JFolder::delete($tempDirName);
 
 		// Updating database.
 		$pagesInfoCreated = $this->registerPagesInDB($fileNames, $publicationId, $pagesTitle, $htmlFilesContent, $outputFileName);
@@ -412,7 +412,7 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
 	//----------------------------------------------------------------------------------------------------
 	private function showErrorOnPagesMultiupload($error, $tempDirName = null)
 	{
-		if ($tempDirName != null) @JFolder::delete($tempDirName);
+		if ($tempDirName != null) JFolder::delete($tempDirName);
 		
 		$jinput = JFactory::getApplication()->input;
 		
