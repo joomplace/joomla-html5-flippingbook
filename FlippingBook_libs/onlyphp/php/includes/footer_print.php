@@ -1,4 +1,4 @@
-﻿		
+		
 		<footer>
 			<p class="curator">Published by Google 2010</p>
 		</footer>

@@ -34,7 +34,17 @@ class HTML5FlippingBookViewHTML5FlippingBook extends JViewLegacy
 		$document->addStyleSheet(COMPONENT_CSS_URL.'font-awesome.min.css');
 		
 		$this->state = $this->get('State');
-		$this->items = $this->get('Items');
+		$this->items = array_map(function($item){
+            $pattern = '#<hr\s+id=("|\')system-readmore("|\')\s*\/*>#i';
+            $tagPos = preg_match($pattern, $item->c_pub_descr);
+            if ($tagPos == 0){
+                $item->introtext = $item->c_pub_descr;
+                $item->fulltext = '';
+            }else{
+                list ($item->introtext, $item->fulltext) = preg_split($pattern, $item->c_pub_descr, 2);
+            }
+		    return $item;
+        },$this->get('Items'));
 		$this->item = $this->get('Item');
 
 		$this->pagination = $this->get('Pagination');

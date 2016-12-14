@@ -82,11 +82,14 @@ class HTML5FlippingBookModelPublication extends JModelItem
 					}
 				}
 
-					
-					
-					
-					
-					
+                $pattern = '#<hr\s+id=("|\')system-readmore("|\')\s*\/*>#i';
+                $tagPos = preg_match($pattern, $this->_item->c_pub_descr);
+                if ($tagPos == 0){
+                    $this->_item->introtext = $this->_item->c_pub_descr;
+                    $this->_item->fulltext = '';
+                }else{
+                    list ($this->_item->introtext, $this->_item->fulltext) = preg_split($pattern, $this->_item->c_pub_descr, 2);
+                }
 					
 			}
 			else if ($error = $table->getError())

@@ -622,6 +622,9 @@ html body .next-button:hover {
 							</div>
 							<?php } ?>
 						</div>
+						<div class="span12">
+							<?php echo $this->item->fulltext; ?>
+						</div>
 					</div>
 				</div>
 			</div>
