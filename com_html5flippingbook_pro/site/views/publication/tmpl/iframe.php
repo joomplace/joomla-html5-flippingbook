@@ -40,6 +40,10 @@ if($this->item->template->hard_wrapp){
 		$wrap_up['after'][]['page_image']=JUri::root(true).'/components/com_html5flippingbook/assets/images/back-in.jpg';
 	}
 	$wrap_up['after'][]['page_image']=JUri::root(true).'/components/com_html5flippingbook/assets/images/back-side.jpg';
+
+	$pages_count = count($wrap_up['before']) + $this->item->pages_count + count($wrap_up['after']);
+	$pages_count_adjust = count($wrap_up['before']) + count($wrap_up['after']);
+
 	/*
 	$document->addStyleDeclaration('	
 	.hard .paddifier{
@@ -75,15 +79,9 @@ if($this->item->template->hard_wrapp){
 		position: relative;
 	}
 	');
-}
 
-$pages_count = count($wrap_up['before']) + $this->item->pages_count + count($wrap_up['after']);
-$pages_count_adjust = count($wrap_up['before']) + count($wrap_up['after']);
-
-if(0){
-	echo "<pre>";
-	print_r($this->item->template);
-	echo "</pre>";
+	$pages_count_adjust = 2;
+	$pages_count = $this->item->pages_count;
 }
 
 $font_type["0"] = '"Times New Roman", Times, serif';
@@ -488,7 +486,7 @@ html body .next-button:hover {
 							<?php } ?>
 							<?php 
 								$pages = array_merge($wrap_up['before'],$pages,$wrap_up['after']);
-								$bc = count($pages)-2-1;
+                $this->item->template->hard_cover?$bc = count($pages)-2-1:$bc = count($pages)-1;
 								unset($page);
 								foreach($pages as $i => $page){
 									/* only to wrap, so can be moved uptop to cover creation */
@@ -542,7 +540,7 @@ html body .next-button:hover {
 											if($double_page){
 												$page_class .= ' double';
 											}else{
-												$page_class .= ' p'.($pages_count-2);
+												$page_class .= ' p'.(($this->item->template->hard_cover?$pages_count-2:$pages_count));
 											}
 											break;
 										default:
@@ -1000,7 +998,6 @@ var flipbook = jQuery('.flipbook');
 						for (var i = 0; i < pages.length; i++) {
 							addPage(pages[i], $(this),<?php echo $pages_count_adjust; ?>);
 						}
-
 					}
 				}
 			});
