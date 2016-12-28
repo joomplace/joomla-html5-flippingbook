@@ -621,7 +621,7 @@ html body .next-button:hover {
 							<?php } ?>
 						</div>
 						<div class="span12">
-							<?php echo $this->item->fulltext; ?>
+							<?php echo JHtml::_('content.prepare', $this->item->fulltext); ?>
 						</div>
 					</div>
 				</div>
