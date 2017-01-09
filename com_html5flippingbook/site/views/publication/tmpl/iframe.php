@@ -453,7 +453,6 @@ foreach($template_css as $rule => $style){
                         <?php } ?>
                         <?php if($this->item->template->display_topicons){ ?>
                             <div class="tb_social" style="float: right; margin-left: 0px;">
-                                <i class="fa fa-step-backward fa-lg" aria-hidden="true" title="First page"></i>
                                 <?php /* need recoding */ ?>
                                 <?php // <i class="fa fa-envelope fa-lg modalLlink" title="Email to a friend"></i> ?>
                                 <?php if($this->item->contents_page){ ?>
@@ -870,11 +869,6 @@ foreach($template_css as $rule => $style){
                     var val = parseInt(input.val(),10) + <?php echo ($this->item->navi_settings)?0:1; ?>;
                     flipbook.turn('page', val);
                     input.val('').prop('placeholder',(val-<?php echo ($this->item->navi_settings)?0:1; ?>)+' page is opened');
-                    return false;
-                });
-
-                $('.fa-step-backward').on('click', function (event) {
-                    flipbook.turn('page', 1);
                     return false;
                 });
 
