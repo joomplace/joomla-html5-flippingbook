@@ -20,7 +20,7 @@ class com_html5flippingbookInstallerScript
 	public function __construct()
 	{
 		jimport('joomla.filesystem.file');
-		preg_match('/<version>([^<]+)/is', file_get_contents(dirname(__FILE__).'/manifest.xml'), $this->newVersion);
+		preg_match('/<version>([^<]+)/is', file_get_contents(dirname(__FILE__).'/html5flippingbook.xml'), $this->newVersion);
 
 		$this->newVersion = $this->newVersion[1];
 
