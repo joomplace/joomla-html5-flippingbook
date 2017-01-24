@@ -455,7 +455,7 @@ html body .next-button:hover {
 						<?php } ?>
 						<?php if($this->item->template->display_topicons){ ?>
 						<div class="tb_social" style="float: right; margin-left: 0px;">
-
+                            <i class="fa fa-step-backward fa-lg" aria-hidden="true" title="First page"></i>
 							<?php if ($this->config->social_email_use):?>
 								<a href="#emailModal" data-toggle="modal"><i class="fa fa-envelope fa-lg" title="<?php echo JText::_('COM_HTML5FLIPPINGBOOK_FE_TOOLBAR_EMAIL');?>"></i></a>
 							<?php endif;?>
@@ -621,7 +621,7 @@ html body .next-button:hover {
 							<?php } ?>
 						</div>
 						<div class="span12">
-							<?php echo $this->item->fulltext; ?>
+							<?php echo JHtml::_('content.prepare', $this->item->fulltext); ?>
 						</div>
 					</div>
 				</div>
@@ -862,8 +862,13 @@ var flipbook = jQuery('.flipbook');
 				input.val('').prop('placeholder',(val-<?php echo ($this->item->navi_settings)?0:1; ?>)+' page is opened');
 				return false;
 			});
-			
-			flipbook.find('.double').scissor();
+
+            $('.fa-step-backward').on('click', function (event) {
+                flipbook.turn('page', 1);
+                return false;
+            });
+
+            flipbook.find('.double').scissor();
 			
 			flipbook.turn({
 				elevation: 50,

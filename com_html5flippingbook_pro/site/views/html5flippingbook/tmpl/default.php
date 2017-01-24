@@ -240,7 +240,7 @@ foreach ($this->items as $i => $item)
 	$html[] =       '<br clear="all" />';
 	
 	if($item->introtext){
-        $html[] = '<p>'.$item->introtext.'</p>';
+        $html[] = '<p>'.JHtml::_('content.prepare', $item->introtext)'</p>';
     }
 	
 	if ($viewAccessGranted)
