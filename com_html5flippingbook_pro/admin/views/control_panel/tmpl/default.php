@@ -48,12 +48,30 @@ JHtml::_('behavior.modal');
 		var version = MethodsForXml.getNodeValue(rootNode.childNodes[2]);
 		var changelog = MethodsForXml.getNodeValue(rootNode.childNodes[3]);
 		var link = MethodsForXml.getNodeValue(rootNode.childNodes[4]);
+		var actual_version = "<?php echo $this->config->component_version; ?>";
+		var is_actual = true;
+
+		version_arr = version.split('.');
+		version_arr.pop();
+
+		actual_version_arr = actual_version.split('.');
+		actual_version_arr.pop();
+
+		for (var i in version_arr) {
+			if (parseInt(version_arr[i]) > parseInt(actual_version_arr[i])) {
+				break;
+			}
+			else if (parseInt(version_arr[i]) < parseInt(actual_version_arr[i])) {
+				is_actual = false;
+				break;
+			}
+		}
 
 		// Handling data.
 		
 		if (error == "" && status == 200)
 		{
-			if (version == "<?php echo $this->config->component_version; ?>")
+			if (is_actual)
 			{
 				resultDiv.innerHTML = '<font color="green">' + version + '</font>';
 			}
