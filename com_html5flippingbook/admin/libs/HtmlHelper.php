@@ -106,12 +106,12 @@ class HtmlHelper
 		$html[] = 									JText::_('COM_HTML5FLIPPINGBOOK_BE_SUBMENU_PAGES');
 		$html[] = 								'</a>';
 		$html[] = 							'</li>';
-		$html[] = 							'<li role="presentation" class="divider"></li>';
-		$html[] =							'<li role="presentation">';
-		$html[] = 								'<a role="menuitem" tabindex="-1" href="index.php?option='.COMPONENT_OPTION.'&view=import"><i class="icon-download"></i> ';
-		$html[] = 									JText::_('COM_HTML5FLIPPINGBOOK_BE_SUBMENU_IMPORT');
-		$html[] = 								'</a>';
-		$html[] = 							'</li>';
+		//$html[] = 							'<li role="presentation" class="divider"></li>';
+		//$html[] =							'<li role="presentation">';
+		//$html[] = 								'<a role="menuitem" tabindex="-1" href="index.php?option='.COMPONENT_OPTION.'&view=import"><i class="icon-download"></i> ';
+		//$html[] = 									JText::_('COM_HTML5FLIPPINGBOOK_BE_SUBMENU_IMPORT');
+		//$html[] = 								'</a>';
+		//$html[] = 							'</li>';
 		$html[] = 						'</ul>';
 		$html[] = 					'</li>';
 

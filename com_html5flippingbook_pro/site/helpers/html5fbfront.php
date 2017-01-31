@@ -21,7 +21,7 @@ abstract class HTML5FlippingBookFrontHelper
 	 *
 	 * @return stdClass
 	 */
-	public static function htmlPublHelper($mobile = FALSE, $tablet = FALSE, $item, $link = FALSE)
+	public static function htmlPublHelper($mobile = FALSE, $tablet = FALSE, $item, $link = FALSE, $fullPath = FALSE)
 	{
 		$uri  = JUri::getInstance();
 		$user = JFactory::getUser();
@@ -29,8 +29,13 @@ abstract class HTML5FlippingBookFrontHelper
 
 		if ($link)
 		{
-			$data->rawPublicationLink= 'index.php?option='.COMPONENT_OPTION.'&view=publication&id='.$item;
-			$data->publicationLink = JRoute::_($data->rawPublicationLink.'&tmpl=component', FALSE, $uri->isSSL());
+			if ($fullPath) {
+				$data->rawPublicationLink= JUri::root().'index.php?option='.COMPONENT_OPTION.'&view=publication&id='.$item;
+				$data->publicationLink = JRoute::_($data->rawPublicationLink.'&tmpl=component', FALSE, $uri->isSSL());
+			} else {
+				$data->rawPublicationLink= 'index.php?option='.COMPONENT_OPTION.'&view=publication&id='.$item;
+				$data->publicationLink = JRoute::_($data->rawPublicationLink.'&tmpl=component', FALSE, $uri->isSSL());
+			}
 			return $data;
 		}
 
@@ -54,7 +59,7 @@ abstract class HTML5FlippingBookFrontHelper
 		}
 		elseif($item->c_popup == PublicationDisplayMode::DirectLink)
 		{
-			$data->publicationLink = JRoute::_($data->rawPublicationLink.'&tmpl=direct' . ($item->uid == $user->get('id') && ($item->page) ? '#page/' . $item->page : ''), FALSE, $uri->isSSL());
+			$data->publicationLink = JRoute::_($data->rawPublicationLink. ($item->uid == $user->get('id') && ($item->page) ? '#page/' . $item->page : ''), FALSE, $uri->isSSL());
 			$data->viewPublicationLink= '<a href="'.$data->publicationLink.'" target="_blank" target="_self">';
 			$data->viewPublicationLinkWithTitle = '<a class="thumbnail" href="'.$data->publicationLink.'" target="_blank" target="_self" title="'.$linkTitle .'">';
 		}
@@ -73,8 +78,8 @@ abstract class HTML5FlippingBookFrontHelper
 		else if ($item->c_popup == PublicationDisplayMode::ModalWindow)
 		{
 			$data->publicationLink = JRoute::_($data->rawPublicationLink."&tmpl=component" . ($item->uid == $user->get('id') && isset($item->page) ? '#page/' . $item->page : ''), FALSE, $uri->isSSL());
-			$data->viewPublicationLink= '<a class="html5-modal" rel="{handler: \'iframe\', size: {x: '.$popupWidth.', y:'.$popupHeight.'}}" href="'.$data->publicationLink.'">';
-			$data->viewPublicationLinkWithTitle = '<a class="thumbnail html5-modal" rel="{handler: \'iframe\', size: {x: '.$popupWidth.', y:'.$popupHeight.'}}" href="'.$data->publicationLink.'" title="'.$linkTitle .'">';
+			$data->viewPublicationLink= '<a class="html5-modal" rel="{handler: \'iframe\', size: {x:jQuery(window).width()*0.8, y:jQuery(window).height()*0.8}}" href="'.$data->publicationLink.'">';
+			$data->viewPublicationLinkWithTitle = '<a class="thumbnail html5-modal" rel="{handler: \'iframe\', size: {x:jQuery(window).width()*0.8, y:jQuery(window).height()*0.8}}" href="'.$data->publicationLink.'" title="'.$linkTitle .'">';
 		}
 
 		// Preparing Publication's thumbnail.

@@ -1166,6 +1166,11 @@ html > /**/ body #html5flippingbook .html5fb-descr {
     outline: 5px auto -webkit-focus-ring-color;
     outline-offset: -2px;
 }
+.html5fb.pagination:after {
+    content:"";
+    display:block;
+    clear:both;
+}
 .html5fb input:-moz-placeholder,
 .html5fb textarea:-moz-placeholder {
     color: #999;
@@ -1879,11 +1884,4 @@ input::-webkit-inner-spin-button {
 
 .notvisible {
     visibility: hidden;
-}
-
-#mainFlipBookDiv,
-:-ms-full-screen,
-:-moz-full-screen,
-:-webkit-full-screen {
-    background-color: rgb(255, 255, 255);
 }

@@ -108,7 +108,7 @@ class HtmlHelper
 		$html[] = 							'</li>';
 		$html[] = 							'<li role="presentation" class="divider"></li>';
 		$html[] =							'<li role="presentation">';
-		$html[] = 								'<a role="menuitem" tabindex="-1" href="index.php?option='.COMPONENT_OPTION.'&view=import"><i class="icon-download"></i> ';
+		$html[] = 								'<a onclick="return confirm(\''.JText::_('COM_HTML5FLIPPINGBOOK_BE_SUBMENU_SUBMIT_SETUP_SIMPLE_DATA').'\')" role="menuitem" tabindex="-1" href="index.php?option='.COMPONENT_OPTION.'&task=sample_data.install"><i class="icon-download"></i> ';
 		$html[] = 									JText::_('COM_HTML5FLIPPINGBOOK_BE_SUBMENU_IMPORT');
 		$html[] = 								'</a>';
 		$html[] = 							'</li>';
@@ -290,7 +290,7 @@ class HtmlHelper
 				trim_span_elements: false,
 				cleanup: false,
 
-				extended_valid_elements : "a[name|href|target|title|onclick],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],video[src|controls|width|height],audio[src|controls|width|height],iframe[width|height|src|frameborder|allowfullscreen]",
+				extended_valid_elements : "a[name|href|target|title|onclick],img[style|class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],video[src|controls|width|height],audio[src|controls|width|height],iframe[width|height|src|frameborder|allowfullscreen]",
 				setup : function(ed) {
 					ed.onPostProcess.add(function(ed, o) { onTinyMcePostProcess(ed, o); });
 				}

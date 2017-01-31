@@ -97,7 +97,7 @@ $tag = str_replace("-", "_", $tag);
 			js = d.createElement(s); js.id = id;
 			js.src = "//connect.facebook.net/<?php echo $tag;?>/all.js#xfbml=1";
 			fjs.parentNode.insertBefore(js, fjs);
-		}(document, 'script', 'facebook-jssdk'));</script>
+		}(document, 'script', 'facebook-jssdk-joomplace'));</script>
 
 <?php  }
 
@@ -239,21 +239,9 @@ foreach ($this->items as $i => $item)
 
 	$html[] =       '<br clear="all" />';
 	
-	if (strlen($item->c_pub_descr) != "")
-	{
-		$html[] = '<p>';
-		
-		if (strlen($item->c_pub_descr) <= 990)
-		{
-			$html[] = $item->c_pub_descr;
-		}
-		else
-		{
-			$html[] = substr($item->c_pub_descr, 0, strpos($item->c_pub_descr, ' ', 990)).' ...';
-		}
-		
-		$html[] = '</p>';
-	}
+	if($item->introtext){
+        $html[] = '<p>' . JHtml::_('content.prepare', $item->introtext) . '</p>';
+    }
 	
 	if ($viewAccessGranted)
 	{
@@ -379,7 +367,7 @@ if ($numPublicationDisplayed == 0)
 
 $html[] = '</div>';
 
-$html[] = '<div class="pagination">';
+$html[] = '<div class="html5fb pagination">';
 $html[] =     '<div class="btn-group pull-right">';
 $html[] =         '<label for="limit" class="element-invisible">';
 $html[] =             JText::_('JGLOBAL_DISPLAY_NUM');

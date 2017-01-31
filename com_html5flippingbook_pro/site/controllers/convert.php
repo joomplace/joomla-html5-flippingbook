@@ -56,7 +56,7 @@ class HTML5FlippingBookControllerConvert extends JControllerLegacy
 		$db     = JFactory::getDBO();
 		$app    = JFactory::getApplication();
 		$uri    = JUri::getInstance();
-		$app = JApplicationWeb::getInstance();
+		$webapp = JApplicationWeb::getInstance();
 
 		$publicationId = $this->input->get('id', 0, 'INT');
 
@@ -84,8 +84,7 @@ class HTML5FlippingBookControllerConvert extends JControllerLegacy
 		$query = $db->getQuery(true)
 			->select('`page_title`, `c_enable_image`, `page_image`, `c_enable_text`, `c_text`')
 			->from('`#__html5fb_pages`')
-			->where('`publication_id` = ' . $publicationId)
-			->order('`ordering` ASC');
+			->where('`publication_id` = ' . $publicationId);
 		$db->setQuery($query);
 		$pages = $db->loadObjectList();
 
@@ -112,11 +111,11 @@ class HTML5FlippingBookControllerConvert extends JControllerLegacy
 				fwrite($file, $result);
 				fclose($file);
 
-				$app->setHeader("Content-Type", $this->_contentTypes[str_replace("_", "", $this->_type)]);
-				$app->setHeader("Content-Length", strlen($result));
-				$app->setHeader("Content-Disposition", "attachment; filename=" . str_replace(',','',$newFileName));
-				$app->setHeader("Content-Description", "Publication converted with HTML5 Flipping Book Component");
-				$app->sendHeaders();
+				$webapp->setHeader("Content-Type", $this->_contentTypes[str_replace("_", "", $this->_type)]);
+				$webapp->setHeader("Content-Length", strlen($result));
+				$webapp->setHeader("Content-Disposition", "attachment; filename=" . $newFileName);
+				$webapp->setHeader("Content-Description", "Publication converted with HTML5 Flipping Book Component");
+				$webapp->sendHeaders();
 
 				print $result;
 			}
@@ -541,7 +540,7 @@ class HTML5FlippingBookControllerConvert extends JControllerLegacy
 		$db     = JFactory::getDBO();
 		$app    = JFactory::getApplication();
 		$uri    = JUri::getInstance();
-		$app = JApplicationWeb::getInstance();
+		$webapp = JApplicationWeb::getInstance();
 
 		$publicationId = $this->input->get('id', 0, 'INT');
 
@@ -579,11 +578,11 @@ class HTML5FlippingBookControllerConvert extends JControllerLegacy
 				@fclose($file);
 			}
 
-			$app->setHeader("Content-Type", $this->_contentTypes[$this->_type]);
-			$app->setHeader("Content-Length", strlen($output));
-			$app->setHeader("Content-Disposition", "attachment; filename=" . str_replace(',','',$newFileName) . '.' . $this->_type);
-			$app->setHeader("Content-Description", "Publication converted with HTML5 Flipping Book Component");
-			$app->sendHeaders();
+			$webapp->setHeader("Content-Type", $this->_contentTypes[$this->_type]);
+			$webapp->setHeader("Content-Length", strlen($output));
+			$webapp->setHeader("Content-Disposition", "attachment; filename=" . $newFileName . '.' . $this->_type);
+			$webapp->setHeader("Content-Description", "Publication converted with HTML5 Flipping Book Component");
+			$webapp->sendHeaders();
 
 			print $output;
 			$app->close();
@@ -653,11 +652,11 @@ class HTML5FlippingBookControllerConvert extends JControllerLegacy
 				@fclose($file);
 			}
 
-			$app->setHeader("Content-Type", $this->_contentTypes[$this->_type]);
-			$app->setHeader("Content-Length", strlen($output));
-			$app->setHeader("Content-Disposition", "attachment; filename=" . str_replace(',','',$newFileName) . '.' . $this->_type);
-			$app->setHeader("Content-Description", "Publication converted with HTML5 Flipping Book Component");
-			$app->sendHeaders();
+			$webapp->setHeader("Content-Type", $this->_contentTypes[$this->_type]);
+			$webapp->setHeader("Content-Length", strlen($output));
+			$webapp->setHeader("Content-Disposition", "attachment; filename=" . $newFileName . '.' . $this->_type);
+			$webapp->setHeader("Content-Description", "Publication converted with HTML5 Flipping Book Component");
+			$webapp->sendHeaders();
 
 			print $output;
 		}
@@ -696,12 +695,12 @@ class HTML5FlippingBookControllerConvert extends JControllerLegacy
 			}
 
 			$app = JFactory::getApplication();
-			$app = JApplicationWeb::getInstance();
-			$app->setHeader("Content-Type", $this->_contentTypes[str_replace("_", "", $this->_type)]);
-			$app->setHeader("Content-Length", strlen($output));
-			$app->setHeader("Content-Disposition", "attachment; filename=" . str_replace(',','',$newFileName));
-			$app->setHeader("Content-Description", "Publication converted with HTML5 Flipping Book Component");
-			$app->sendHeaders();
+			$webapp = JApplicationWeb::getInstance();
+			$webapp->setHeader("Content-Type", $this->_contentTypes[str_replace("_", "", $this->_type)]);
+			$webapp->setHeader("Content-Length", strlen($output));
+			$webapp->setHeader("Content-Disposition", "attachment; filename=" . $newFileName);
+			$webapp->setHeader("Content-Description", "Publication converted with HTML5 Flipping Book Component");
+			$webapp->sendHeaders();
 
 			print $output;
 			$app->close();

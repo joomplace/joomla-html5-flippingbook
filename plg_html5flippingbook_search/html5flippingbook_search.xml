@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension type="plugin" group="search" version="3.0">
+<extension type="plugin" group="search" version="3.x" method="upgrade">
 	<name>PLG_SEARCH_HTML5FLIPPINGBOOK</name>
 	<author>JoomPlace Team</author>
-	<creationDate>May 2014</creationDate>
-	<copyright>Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.</copyright>
+	<creationDate>February 2017</creationDate>
+	<copyright>Copyright (C) 2005 - 2017 JoomPlace, www.joomplace.com. All rights reserved.</copyright>
 	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
 	<authorEmail>support@jomplace.com</authorEmail>
 	<authorUrl>www.jomplace.com</authorUrl>
-	<version>1.0.0 (build 001)</version>
+	<version>2.0.0.000</version>
 	<description>PLG_SEARCH_HTML5FLIPPINGBOOK_XML_DESCRIPTION</description>
 	<languages folder="language">
 		<language tag="en-GB">/en-GB/en-GB.plg_search_html5flippingbook_search.ini</language>
@@ -20,12 +20,7 @@
 	<config>
 		<fields name="params">
 			<fieldset name="basic">
-				<field name="search_limit" type="text"
-					default="50"
-					description="JFIELD_PLG_SEARCH_SEARCHLIMIT_DESC"
-					label="JFIELD_PLG_SEARCH_SEARCHLIMIT_LABEL"
-					size="5"
-				/>
+				<field name="search_limit" type="text" default="50" description="JFIELD_PLG_SEARCH_SEARCHLIMIT_DESC" label="JFIELD_PLG_SEARCH_SEARCHLIMIT_LABEL" size="5"/>
 			</fieldset>
 		</fields>
 	</config>

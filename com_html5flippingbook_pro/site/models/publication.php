@@ -58,8 +58,19 @@ class HTML5FlippingBookModelPublication extends JModelItem
 				$row = $db->loadObject();
 
 				$this->_item->template = $row;
-				$this->_item->pages = $this->getPages();
+				list($this->_item->pages_count, $this->_item->pages) = $this->getPages();
 
+				if ( $this->_item->template->slider_thumbs )
+					$this->generatePreview($this->_item);
+
+				if ( !empty($this->_item->custom_metatags) )
+					$this->_item->custom_metatags = unserialize( $this->_item->custom_metatags );
+
+				
+				
+				
+				/* seems not needed */
+				
 				$this->_item->justImages = 1;
 
 				$this->_item->contents_page = 0;
@@ -71,17 +82,20 @@ class HTML5FlippingBookModelPublication extends JModelItem
 					}
 				}
 
-				if ( $this->_item->template->slider_thumbs )
-					$this->generatePreview($this->_item);
-
-				if ( !empty($this->_item->custom_metatags) )
-					$this->_item->custom_metatags = unserialize( $this->_item->custom_metatags );
-
+                $pattern = '#<hr\s+id=("|\')system-readmore("|\')\s*\/*>#i';
+                $tagPos = preg_match($pattern, $this->_item->c_pub_descr);
+                if ($tagPos == 0){
+                    $this->_item->introtext = $this->_item->c_pub_descr;
+                    $this->_item->fulltext = '';
+                }else{
+                    list ($this->_item->introtext, $this->_item->fulltext) = preg_split($pattern, $this->_item->c_pub_descr, 2);
+                }
+					
 			}
 			else if ($error = $table->getError())
 			{
 				$this->setError($error);
-
+				
 				return null;
 			}
 		}
@@ -90,9 +104,7 @@ class HTML5FlippingBookModelPublication extends JModelItem
 	//----------------------------------------------------------------------------------------------------
 	public function getResolutions()
 	{
-		$jinput = JFactory::getApplication()->input;
-
-		$id	= $jinput->get('id', 0, 'INT');
+		$id	= $this->getState('publication.id');
 		$resolution = null;
 
 		if (empty($id))
@@ -127,11 +139,50 @@ class HTML5FlippingBookModelPublication extends JModelItem
 
 		if ( $id )
 		{
-			$this->_db->setQuery("SELECT * FROM #__html5fb_pages WHERE publication_id = ".(int)$id." ORDER BY `ordering`");
-			return $this->_db->loadAssocList();
+			$this->_db->setQuery("SELECT COUNT(*) FROM #__html5fb_pages WHERE publication_id = ".(int)$id."");
+			$count = $this->_db->loadResult();
+			if( $count > 16){
+				$query = array();
+				$query = "SELECT * FROM #__html5fb_pages WHERE publication_id = ".(int)$id." ORDER BY `ordering` ASC LIMIT 0, 7";
+				//$query[1] = "(SELECT * FROM #__html5fb_pages WHERE publication_id = ".(int)$id." ORDER BY `ordering` DESC LIMIT 0, 4)";
+				//$query = implode(' UNION ',$query);
+				//$query = $query." ORDER BY `ordering` ASC";
+			}else{
+				$query = "SELECT * FROM #__html5fb_pages WHERE publication_id = ".(int)$id." ORDER BY `ordering` ASC";
+			}
+			
+			$this->_db->setQuery($query);
+			$result = $this->_db->loadAssocList();
+			
+			if($count%2==1){
+				$result[] = array('c_text'=>'<div class="page"></div>');
+				$count++;
+			}else{
+				$query = "SELECT * FROM #__html5fb_pages WHERE publication_id = ".(int)$id." ORDER BY `ordering` DESC LIMIT 0, 1";
+				$this->_db->setQuery($query);
+				$result[] = $this->_db->loadAssoc();
+			}
+
+			return array($count,$result);
 		}
 		else
-			return false;
+			return array(0,false);
+	}
+
+	public function getPageFromPub($pub, $num)
+	{
+		$table = JTable::getInstance('Publications', 'HTML5FlippingBookTable');
+		$table->load($pub);
+		
+		$query = "SELECT * FROM `#__html5fb_templates`" .
+			" WHERE `id` = " . $table->c_template_id;
+		$this->_db->setQuery($query);
+		$table->template = $this->_db->loadObject();
+				
+		$query = "SELECT * FROM #__html5fb_pages WHERE publication_id = ".(int)$pub." ORDER BY `ordering` ASC";
+		$this->_db->setQuery($query,$num,1);
+		$page = $this->_db->loadObject();
+		return array($table,$page);
 	}
 
 	private function generatePreview( $item )
@@ -139,10 +190,8 @@ class HTML5FlippingBookModelPublication extends JModelItem
 		jimport('joomla.image.image');
 		jimport('joomla.filesystem.file');
 
-		function imgCreate($file)
+		function imgCreate($file,$cropWidth = 57, $cropHeight = 73)
 		{
-			$cropWidth = 57;
-			$cropHeight = 73;
 
 			try
 			{
@@ -290,6 +339,24 @@ class HTML5FlippingBookModelPublication extends JModelItem
 
 			@chmod(COMPONENT_MEDIA_PATH.'/thumbs', 0757);
 			imagegif($dest, COMPONENT_MEDIA_PATH.'/thumbs/preview_'.$item->c_id.'.gif');
+		}
+		foreach($item->pages as $page){
+			//c_enable_text is "table of content"
+			if(!$page['page_image'] && $page['c_text']){
+				$page_num += 1;
+				if ($item->navi_settings == 0 && ($page_num <= 2 || $page_num == $countPages || $page_num == ($countPages - 1)))
+				{
+					$page_num = 0;
+				}
+				elseif ($item->navi_settings == 0)
+				{
+					$page_num = $k;
+					$k++;
+				}
+
+				$imagedata = textImgCreate( $page_num );
+			
+			}
 		}
 	}
 

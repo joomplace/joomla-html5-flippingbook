@@ -160,7 +160,7 @@ foreach ($this->items as $i => $item)
 	elseif ($item->c_popup == PublicationDisplayMode::DirectLink)
 	{
 		//$publicationLink = JRoute::_($rawPublicationLink, false, -1);
-        $publicationLink = JRoute::_($rawPublicationLink.'&tmpl=direct', false, $uri->isSSL());
+        $publicationLink = JRoute::_($rawPublicationLink, false, $uri->isSSL());
 		$viewPublicationLink= '<a href="'.$publicationLink.'" target="_blank" target="_self">';
 		$viewPublicationLinkWithTitle = '<a href="'.$publicationLink.'" target="_blank" target="_self" title="'.$linkTitle .'">';
 	}

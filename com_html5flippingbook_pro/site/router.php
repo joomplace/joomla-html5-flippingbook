@@ -14,6 +14,12 @@ function HTML5FlippingBookBuildRoute(&$query)
 {
 	$segments = array();
 	/* check menu item and build route */
+	if (isset($query['tmpl']))
+	{
+		if($query['tmpl'] == 'direct'){
+			unset($query['tmpl']);
+		}
+	}
 	if (isset($query['view']))
 	{
 		if ($query['view'] == 'publication')
@@ -23,30 +29,24 @@ function HTML5FlippingBookBuildRoute(&$query)
 			
 			if (isset($query['id']))
 			{
+				$publicationId = $query['id'];
+				
 				$db = JFactory::getDbo();
 				
 				$dbQuery = "SELECT *" .
 					" FROM `#__html5fb_publication`" .
-					" WHERE `c_id` = " . $db->quote($query['id']);
+					" WHERE `c_id` = " . $publicationId;
 				$db->setQuery($dbQuery);
 				$row = $db->loadObject();
 				
-				$publicationTitle = (isset($row) ? $row->c_title : $query['id']);
+				$publicationTitle = (isset($row) ? $row->c_title : $publicationId);
 				
 				$titleSegment = JFilterOutput::stringURLSafe($publicationTitle);
 				$titleSegment = ($titleSegment != '' ? $titleSegment : '-');
 				$segments[] = $titleSegment;
 				
-				$segments[] = $query['id'];
+				$segments[] = $publicationId;
 				unset($query['id']);
-
-				if (isset($query['tmpl']))
-				{
-					if ( $query['tmpl'] != 'component' )
-						$segments[] = $query['tmpl'];
-
-					unset($query['tmpl']);
-				}
 
 			}
 		}
@@ -77,10 +77,6 @@ function HTML5FlippingBookParseRoute($segments)
 			$numSegments = count($segments);
 			$vars['view'] = $segments[0];
 			if ($numSegments > 2) $vars['id'] = $segments[2];
-			if ($numSegments > 3) $vars['tmpl'] = ( empty($segments[3]) ? 'component' : ($segments[3]=='direct')?'':$segments[3]);
-				else
-					$vars['tmpl'] = 'component';
-			if(!$vars['tmpl']) unset($vars['tmpl']);
 			
 			if(!$vars['Itemid']){
 				$lang = JFactory::getLanguage();

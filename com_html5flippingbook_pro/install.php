@@ -20,7 +20,7 @@ class com_html5flippingbookInstallerScript
 	public function __construct()
 	{
 		jimport('joomla.filesystem.file');
-		preg_match('/<version>([^<]+)/is', file_get_contents(dirname(__FILE__).'/manifest.xml'), $this->newVersion);
+		preg_match('/<version>([^<]+)/is', file_get_contents(dirname(__FILE__).'/html5flippingbook.xml'), $this->newVersion);
 
 		$this->newVersion = $this->newVersion[1];
 
@@ -211,6 +211,16 @@ class com_html5flippingbookInstallerScript
 				) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
 		$db->setQuery($query);
 		$db->execute();
+		
+		$insertSql = array (
+			"DELETE FROM `#__html5fb_category` WHERE `c_id` = 1;",
+			"INSERT INTO `#__html5fb_category` (c_id, c_category) VALUES (1, 'Uncategorised');",
+		);
+		foreach ( $insertSql as $sql)
+		{
+			$db->setQuery($sql);
+			$db->execute();
+		}
 		
 		//==================================================
 		// Publication table.
@@ -496,6 +506,7 @@ class com_html5flippingbookInstallerScript
 				  `id` int(11) NOT NULL AUTO_INCREMENT,
 				  `template_name` varchar(255) NOT NULL DEFAULT '',
 				  `hard_cover` tinyint(1) NOT NULL DEFAULT '0',
+				  `doublepages` BOOLEAN NOT NULL DEFAULT '0',
 				  `page_background_color` varchar(10) NOT NULL DEFAULT '',
 				  `background_color` varchar(10) NOT NULL DEFAULT '',
 				  `text_color` varchar(10) NOT NULL DEFAULT '',
