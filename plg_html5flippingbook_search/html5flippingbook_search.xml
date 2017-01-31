@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension type="plugin" group="search" version="3.0" method="upgrade">
+<extension type="plugin" group="search" version="3.x" method="upgrade">
 	<name>PLG_SEARCH_HTML5FLIPPINGBOOK</name>
 	<author>JoomPlace Team</author>
 	<creationDate>February 2017</creationDate>

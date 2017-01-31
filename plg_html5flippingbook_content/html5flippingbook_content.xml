@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension type="plugin" group="content" version="3.0" method="upgrade">
+<extension type="plugin" group="content" version="3.x" method="upgrade">
 	<name>plg_content_html5flippingbook_content</name>
 	<author>JoomPlace Team</author>
 	<authorEmail>support@joomplace.com</authorEmail>

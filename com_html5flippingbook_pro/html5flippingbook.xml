@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<extension type="component" version="1.0" method="upgrade">
+<extension type="component" version="3.x" method="upgrade">
   <name>com_html5flippingbook</name>
   <author>JoomPlace Team</author>
   <authorEmail>support@joomplace.com</authorEmail>
