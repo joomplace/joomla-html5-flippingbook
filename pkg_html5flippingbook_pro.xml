@@ -2,11 +2,11 @@
 <extension type="package" version="3.x" method="upgrade">
   <name>HTML5 Flipping Book Professional Package</name>
   <author>Joomplace Team</author>
-  <creationDate>July 2014</creationDate>
+  <creationDate>February 2017</creationDate>
   <packagename>html5flippingbook_pro</packagename>
   <authorEmail>support@joomplace.com</authorEmail>
   <authorUrl>www.joomplace.com</authorUrl>
-  <copyright>(C) JoomPlace, www.joomplace.com</copyright>
+  <copyright>Copyright (C) 2005 - 2017 JoomPlace, www.joomplace.com. All rights reserved.</copyright>
   <license>GNU/GPL http://www.gnu.org/copyleft/gpl.html</license>
   <version>2.0.0.000</version>
   <files folder="packages">

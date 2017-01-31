@@ -2,8 +2,8 @@
 <extension type="plugin" group="search" version="3.0" method="upgrade">
 	<name>PLG_SEARCH_HTML5FLIPPINGBOOK</name>
 	<author>JoomPlace Team</author>
-	<creationDate>May 2014</creationDate>
-	<copyright>Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.</copyright>
+	<creationDate>February 2017</creationDate>
+	<copyright>Copyright (C) 2005 - 2017 JoomPlace, www.joomplace.com. All rights reserved.</copyright>
 	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
 	<authorEmail>support@jomplace.com</authorEmail>
 	<authorUrl>www.jomplace.com</authorUrl>
