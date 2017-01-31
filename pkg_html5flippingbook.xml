@@ -16,6 +16,7 @@
     <file type="plugin" id="html5flippingbook_button" group="editors-xtd">plg_html5flippingbook_button.zip</file>
   </files>
   <updateservers>
-    <server type="extension" priority="1" name="HTML5 Flipping Book Update Site">http://www.joomplace.com/updates/html5flippingbook.xml</server>
+    <server type="package" priority="1" name="HTML5 Flipping Book Update Site">http://www.joomplace.com/updates/html5flippingbook.xml</server>
+    <server type="extension" priority="2" name="HTML5 Flipping Book Update Site">http://www.joomplace.com/updates/html5flippingbook.xml</server>
   </updateservers>
 </extension>
