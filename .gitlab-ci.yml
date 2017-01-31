@@ -3,9 +3,8 @@ stages:
 
 build:regular:
   stage: build
-  image: php:7.0-apache
+  image: alex7r/lamp:ccp
   before_script:
-    - apt-get update -qq && apt-get install -y -qq zip
     - zip -v
   script:
     - if grep -rn './' -e "\xEF\xBB\xBF"; then exit 1; fi
@@ -25,9 +24,8 @@ build:regular:
 
 build:pro:
   stage: build
-  image: php:7.0-apache
+  image: alex7r/lamp:ccp
   before_script:
-    - apt-get update -qq && apt-get install -y -qq zip
     - zip -v
   script:
     - if grep -rn './' -e "\xEF\xBB\xBF"; then exit 1; fi
