@@ -70,7 +70,4 @@
     <folder>video</folder>
     <filename>index.html</filename>
   </media>
-  <updateservers>
-    <server type="extension" priority="1" name="HTML5 Flipping Book Update Site">http://www.joomplace.com/updates/html5flippingbook.xml</server>
-  </updateservers>
 </extension>
