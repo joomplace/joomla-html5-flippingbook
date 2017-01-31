@@ -1,4 +1,13 @@
-<?php defined('_JEXEC') or die('Restricted access');
+<?php
+/*
+* HTML5FlippingBook component for Joomla
+* @package HTML5FlippingBook
+* @author JoomPlace Team
+* @copyright (C) JoomPlace, www.joomplace.com
+* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU/GPL version 2
+*/
+
+defined('_JEXEC') or die('Restricted access');
 
 class MethodsForXml
 {

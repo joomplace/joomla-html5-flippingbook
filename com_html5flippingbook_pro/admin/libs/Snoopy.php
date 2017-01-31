@@ -1,5 +1,7 @@
 <?php
 
+defined("_JEXEC") or die("Restricted access");
+
 /*************************************************
  * $Id: Snoopy.class.php 361 2006-08-07 09:30:31Z beat $
 
@@ -720,13 +722,13 @@ class Snoopy
 							chr(176),
 							chr(39),
 							chr(128),
-							"ä",
-							"ö",
-							"ü",
-							"Ä",
-							"Ö",
-							"Ü",
-							"ß",
+							"ï¿½",
+							"ï¿½",
+							"ï¿½",
+							"ï¿½",
+							"ï¿½",
+							"ï¿½",
+							"ï¿½",
 						);
 					
 		$text = preg_replace($search,$replace,$document);
