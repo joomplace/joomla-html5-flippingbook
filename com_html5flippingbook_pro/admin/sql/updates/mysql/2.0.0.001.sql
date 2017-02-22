@@ -1,0 +1,1 @@
+ALTER TABLE `#__html5fb_publication` ADD `c_audio` VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL AFTER `c_background_pdf`;

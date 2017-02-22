@@ -652,6 +652,11 @@ function loadPage(page,adj) {
 	});
 }
 
+jQuery('.previous-button, .next-button').click(function() {
+	var audio = new Audio();
+	audio.src = '<?php  echo COMPONENT_MEDIA_URL . "audio/" . $item->c_audio; ?>';
+	audio.autoplay = true;
+});
 var flipbook = jQuery('.flipbook');
 	
 (function ($) {
