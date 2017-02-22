@@ -660,6 +660,14 @@ foreach($template_css as $rule => $style){
         });
     }
 
+    <?php if($item->c_audio) { ?>
+    jQuery('.previous-button, .next-button').click(function() {
+        var audio = new Audio();
+        audio.src = '<?php  echo COMPONENT_MEDIA_URL . "audio/" . $item->c_audio; ?>';
+        audio.autoplay = true;
+    });
+    <?php } ?>
+    
     var flipbook = jQuery('.flipbook');
 
     (function ($) {

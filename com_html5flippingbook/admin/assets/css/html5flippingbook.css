@@ -497,10 +497,17 @@ select.html5fb_template_preview + div {
 .html5fb_upload_image_select_wrapper {
 	float: left;
 }
+.html5fb_upload_audio_select_wrapper {
+	float: left;
+}
 select.html5fb_upload_image + div {
 	float: left;
 }
 .html5fb_upload_image_btn {
+	float: left;
+	margin: 3px 0 0 10px;
+}
+.html5fb_upload_audio_btn {
 	float: left;
 	margin: 3px 0 0 10px;
 }
