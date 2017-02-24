@@ -12,7 +12,8 @@ jimport('joomla.utilities.date');
 
 JHTML::_('behavior.modal', 'a.html5-modal');
 JHtml::_('bootstrap.framework');
-
+JHtml::_('bootstrap.loadCss');
+$colNumb = JFactory::getApplication()->getMenu()->getActive()->params->get('c_colnumb');
 $uri = JUri::getInstance();
 $jinput = JFactory::$application->input;
 
@@ -120,233 +121,238 @@ if ($this->showListTitle)
 
 $numPublicationDisplayed = 0;
 
-$html[] = '<ul class="html5fb-list">';
+$html[] = '<div class="html5fb-list container-fluid">';
 
-foreach ($this->items as $i => $item)
+for ($i = 0; $i < count($this->items);)
 {
+	$html[] = '<div class="row-fluid">';
 
-	if (empty($item->c_id)) continue;
-	
-	// Checking access.
-
-	$previewAccessGranted = $this->user->authorise('core.preview', COMPONENT_OPTION.'.publication.'.$item->c_id);
-	$viewAccessGranted = $this->user->authorise('core.view', COMPONENT_OPTION.'.publication.'.$item->c_id);
-
-	if (!$previewAccessGranted) continue;
-
-	$numPublicationDisplayed += 1;
-
-	// Preparing links and popups properties.
-	
-	$popupWidth = $item->width * 2+66;
-	$popupHeight = $item->height+100;
-
-	$linkTitle = JText::_('COM_HTML5FLIPPINGBOOK_FE_VIEW_PUBLICATION');
-	
-	$rawPublicationLink= 'index.php?option='.COMPONENT_OPTION.'&view=publication&id='.$item->c_id;
-
-	if ($isMobile)
-	{
-		$publicationLink = JRoute::_($rawPublicationLink.'&layout=mobile&tmpl=component', false, $uri->isSSL());
-		$viewPublicationLink= '<a href="'.$publicationLink.'" target="_blank" target="_self">';
-		$viewPublicationLinkWithTitle = '<a href="'.$publicationLink.'" target="_blank" target="_self" title="'.$linkTitle .'">';
-	}
-	elseif ($isTablet)
-	{
-		$publicationLink = JRoute::_($rawPublicationLink.'&tmpl=component', false, $uri->isSSL());
-		$viewPublicationLink= '<a href="'.$publicationLink.'" target="_blank">';
-		$viewPublicationLinkWithTitle = '<a class="thumbnail" href="'.$publicationLink.'" target="_blank" title="'.$linkTitle .'">';
-	}
-	elseif ($item->c_popup == PublicationDisplayMode::DirectLink)
-	{
-		//$publicationLink = JRoute::_($rawPublicationLink, false, -1);
-        $publicationLink = JRoute::_($rawPublicationLink, false, $uri->isSSL());
-		$viewPublicationLink= '<a href="'.$publicationLink.'" target="_blank" target="_self">';
-		$viewPublicationLinkWithTitle = '<a href="'.$publicationLink.'" target="_blank" target="_self" title="'.$linkTitle .'">';
-	}
-	else if ($item->c_popup == PublicationDisplayMode::DirectLinkNoTmpl)
-	{
-		$publicationLink = JRoute::_($rawPublicationLink.'&tmpl=component', false, $uri->isSSL());
-		$viewPublicationLink= '<a href="'.$publicationLink.'" target="_blank">';
-		$viewPublicationLinkWithTitle = '<a href="'.$publicationLink.'" target="_blank" title="'.$linkTitle .'">';
-	}
-	else if ($item->c_popup == PublicationDisplayMode::PopupWindow)
-	{
-		$publicationLink = JRoute::_($rawPublicationLink.'&tmpl=component', false, $uri->isSSL());
-		$viewPublicationLink= '<a href="javascript: ht5popupWindow(\''.$publicationLink.'\', \'fm_'.$item->c_id.'\', '.$popupWidth.', '.$popupHeight.', \'no\');">';
-		$viewPublicationLinkWithTitle = '<a href="javascript: ht5popupWindow(\''.$publicationLink.'\', \''.$item->c_id.'\', '.$popupWidth.', '.$popupHeight.', \'no\');" title="'.$linkTitle .'">';
-	}
-	else if ($item->c_popup == PublicationDisplayMode::ModalWindow)
-	{
-		$publicationLink = JRoute::_($rawPublicationLink."&tmpl=component", false, $uri->isSSL());
-		$viewPublicationLink= '<a class="html5-modal" rel="{handler: \'iframe\', size: {x: '.$popupWidth.', y:'.$popupHeight.'}}" href="'.$publicationLink.'">';
-		$viewPublicationLinkWithTitle = '<a class="html5-modal" rel="{handler: \'iframe\', size: {x: '.$popupWidth.', y:'.$popupHeight.'}}" href="'.$publicationLink.'" title="'.$linkTitle .'">';
-	}
-
-	// Preparing Publication's thumbnail.
-	
-	$thumbnailPath = COMPONENT_MEDIA_PATH.'/thumbs/'.$item->c_thumb;
-	
-	if ($item->c_thumb == "" || !is_file($thumbnailPath))
-	{
-		$thumbnailUrl = COMPONENT_IMAGES_URL."no_image.png";
-	}
-	else
-	{
-		$thumbnailUrl = COMPONENT_MEDIA_URL."thumbs/".$item->c_thumb;
-	}
-	
-	// Output.
-	
-	$html[] = '<li class="html5fb-list-item">';
-	
-	$html[] = 	'<div class="html5fb-pict">';
-	if ($viewAccessGranted) $html[] = $viewPublicationLinkWithTitle;
-	$html[] = 			'<img class="html5fb-img" src="' . $thumbnailUrl . '" alt="' . htmlspecialchars($item->c_title) . '" />';
-	if ($viewAccessGranted) $html[] = '</a>';
-	$html[] = 	'</div>';
-	
-	$html[] = 	'<div class="html5fb-descr">';
-	
-	$html[] = 		'<h2 class="html5fb-name">';
-	if ($viewAccessGranted) $html[] = $viewPublicationLinkWithTitle;
-	$html[] = 			htmlspecialchars($item->c_title);
-	if ($viewAccessGranted) $html[] = '</a>';
-	$html[] = 		'</h2>';
-	
-	if (strlen($item->c_pub_descr) != "")
-	{
-		$html[] = '<p>';
+	for ($j = $i; $j - $i < $colNumb; $j++) {
+		$item = $this->items[$j];
+		if (empty($item->c_id)) continue;
 		
-		if (strlen($item->c_pub_descr) <= 990)
+		// Checking access.
+
+		$previewAccessGranted = $this->user->authorise('core.preview', COMPONENT_OPTION.'.publication.'.$item->c_id);
+		$viewAccessGranted = $this->user->authorise('core.view', COMPONENT_OPTION.'.publication.'.$item->c_id);
+
+		if (!$previewAccessGranted) continue;
+
+		$numPublicationDisplayed += 1;
+
+		// Preparing links and popups properties.
+		
+		$popupWidth = $item->width * 2+66;
+		$popupHeight = $item->height+100;
+
+		$linkTitle = JText::_('COM_HTML5FLIPPINGBOOK_FE_VIEW_PUBLICATION');
+		
+		$rawPublicationLink= 'index.php?option='.COMPONENT_OPTION.'&view=publication&id='.$item->c_id;
+
+		if ($isMobile)
 		{
-			$html[] = $item->c_pub_descr;
+			$publicationLink = JRoute::_($rawPublicationLink.'&layout=mobile&tmpl=component', false, $uri->isSSL());
+			$viewPublicationLink= '<a href="'.$publicationLink.'" target="_blank" target="_self">';
+			$viewPublicationLinkWithTitle = '<a href="'.$publicationLink.'" target="_blank" target="_self" title="'.$linkTitle .'">';
+		}
+		elseif ($isTablet)
+		{
+			$publicationLink = JRoute::_($rawPublicationLink.'&tmpl=component', false, $uri->isSSL());
+			$viewPublicationLink= '<a href="'.$publicationLink.'" target="_blank">';
+			$viewPublicationLinkWithTitle = '<a class="thumbnail" href="'.$publicationLink.'" target="_blank" title="'.$linkTitle .'">';
+		}
+		elseif ($item->c_popup == PublicationDisplayMode::DirectLink)
+		{
+			//$publicationLink = JRoute::_($rawPublicationLink, false, -1);
+	        $publicationLink = JRoute::_($rawPublicationLink, false, $uri->isSSL());
+			$viewPublicationLink= '<a href="'.$publicationLink.'" target="_blank" target="_self">';
+			$viewPublicationLinkWithTitle = '<a href="'.$publicationLink.'" target="_blank" target="_self" title="'.$linkTitle .'">';
+		}
+		else if ($item->c_popup == PublicationDisplayMode::DirectLinkNoTmpl)
+		{
+			$publicationLink = JRoute::_($rawPublicationLink.'&tmpl=component', false, $uri->isSSL());
+			$viewPublicationLink= '<a href="'.$publicationLink.'" target="_blank">';
+			$viewPublicationLinkWithTitle = '<a href="'.$publicationLink.'" target="_blank" title="'.$linkTitle .'">';
+		}
+		else if ($item->c_popup == PublicationDisplayMode::PopupWindow)
+		{
+			$publicationLink = JRoute::_($rawPublicationLink.'&tmpl=component', false, $uri->isSSL());
+			$viewPublicationLink= '<a href="javascript: ht5popupWindow(\''.$publicationLink.'\', \'fm_'.$item->c_id.'\', '.$popupWidth.', '.$popupHeight.', \'no\');">';
+			$viewPublicationLinkWithTitle = '<a href="javascript: ht5popupWindow(\''.$publicationLink.'\', \''.$item->c_id.'\', '.$popupWidth.', '.$popupHeight.', \'no\');" title="'.$linkTitle .'">';
+		}
+		else if ($item->c_popup == PublicationDisplayMode::ModalWindow)
+		{
+			$publicationLink = JRoute::_($rawPublicationLink."&tmpl=component", false, $uri->isSSL());
+			$viewPublicationLink= '<a class="html5-modal" rel="{handler: \'iframe\', size: {x: '.$popupWidth.', y:'.$popupHeight.'}}" href="'.$publicationLink.'">';
+			$viewPublicationLinkWithTitle = '<a class="html5-modal" rel="{handler: \'iframe\', size: {x: '.$popupWidth.', y:'.$popupHeight.'}}" href="'.$publicationLink.'" title="'.$linkTitle .'">';
+		}
+
+		// Preparing Publication's thumbnail.
+		
+		$thumbnailPath = COMPONENT_MEDIA_PATH.'/thumbs/'.$item->c_thumb;
+		
+		if ($item->c_thumb == "" || !is_file($thumbnailPath))
+		{
+			$thumbnailUrl = COMPONENT_IMAGES_URL."no_image.png";
 		}
 		else
 		{
-			$html[] = substr($item->c_pub_descr, 0, strpos($item->c_pub_descr, ' ', 990)).' ...';
+			$thumbnailUrl = COMPONENT_MEDIA_URL."thumbs/".$item->c_thumb;
 		}
 		
-		$html[] = '</p>';
-	}
-	
-	if ($viewAccessGranted)
-	{
-		$html[] = 		'<div class="html5fb-links">';
-		$html[] = 			$viewPublicationLink;
-		$html[] = 				htmlspecialchars( (empty($this->viewPublicationButtonText) ? JText::_('COM_HTML5FLIPPINGBOOK_FE_VIEW_PUBLICATION') : $this->viewPublicationButtonText) );
-		$html[] = 			'</a>';
-	}
-	else
-	{
-		$html[] = '<div class="html5fb-noaccess">';
+		// Output.
 		
-		if ($this->user->id == 0)
+		$html[] = '<div class="html5fb-list-item span' . 12/$colNumb . '">';
+		
+		$html[] = 	'<div class="html5fb-pict">';
+		if ($viewAccessGranted) $html[] = $viewPublicationLinkWithTitle;
+		$html[] = 			'<img class="html5fb-img" src="' . $thumbnailUrl . '" alt="' . htmlspecialchars($item->c_title) . '" />';
+		if ($viewAccessGranted) $html[] = '</a>';
+		$html[] = 	'</div>';
+		
+		$html[] = 	'<div class="html5fb-descr">';
+		
+		$html[] = 		'<h2 class="html5fb-name">';
+		if ($viewAccessGranted) $html[] = $viewPublicationLinkWithTitle;
+		$html[] = 			htmlspecialchars($item->c_title);
+		if ($viewAccessGranted) $html[] = '</a>';
+		$html[] = 		'</h2>';
+		
+		if (strlen($item->c_pub_descr) != "")
 		{
-			$returnUrl = $_SERVER["REQUEST_URI"];
+			$html[] = '<p>';
 			
-			$html[] = 	JText::_('COM_HTML5FLIPPINGBOOK_FE_SHOULD_LOGIN') . '.' . '&nbsp;';
-			$html[] = 	'<a href="' . JRoute::_('index.php?option=com_users&view=login&Itemid='.COMPONENT_ITEM_ID.'&return=' . base64_encode($returnUrl), false, $uri->isSSL()) . '">';
-			$html[] = 		JText::_('COM_HTML5FLIPPINGBOOK_FE_LOGIN_NOW');
-			$html[] = 	'</a>';
+			if (strlen($item->c_pub_descr) <= 990)
+			{
+				$html[] = $item->c_pub_descr;
+			}
+			else
+			{
+				$html[] = substr($item->c_pub_descr, 0, strpos($item->c_pub_descr, ' ', 990)).' ...';
+			}
+			
+			$html[] = '</p>';
+		}
+		
+		if ($viewAccessGranted)
+		{
+			$html[] = 		'<div class="html5fb-links">';
+			$html[] = 			$viewPublicationLink;
+			$html[] = 				htmlspecialchars( (empty($this->viewPublicationButtonText) ? JText::_('COM_HTML5FLIPPINGBOOK_FE_VIEW_PUBLICATION') : $this->viewPublicationButtonText) );
+			$html[] = 			'</a>';
 		}
 		else
 		{
-			$html[] = 	JText::_('COM_HTML5FLIPPINGBOOK_FE_NO_RIGHTS') . '.';
+			$html[] = '<div class="html5fb-noaccess">';
+			
+			if ($this->user->id == 0)
+			{
+				$returnUrl = $_SERVER["REQUEST_URI"];
+				
+				$html[] = 	JText::_('COM_HTML5FLIPPINGBOOK_FE_SHOULD_LOGIN') . '.' . '&nbsp;';
+				$html[] = 	'<a href="' . JRoute::_('index.php?option=com_users&view=login&Itemid='.COMPONENT_ITEM_ID.'&return=' . base64_encode($returnUrl), false, $uri->isSSL()) . '">';
+				$html[] = 		JText::_('COM_HTML5FLIPPINGBOOK_FE_LOGIN_NOW');
+				$html[] = 	'</a>';
+			}
+			else
+			{
+				$html[] = 	JText::_('COM_HTML5FLIPPINGBOOK_FE_NO_RIGHTS') . '.';
+			}
 		}
-	}
 
-    if ($item->c_enable_pdf) {
+	    if ($item->c_enable_pdf) {
 
-        $pdfLink = JURI::root().'index.php?option='.COMPONENT_OPTION
-            .'&task=getpdf'
-            .'&id='.$item->c_id
-            .'&filename='.preg_replace('/[<>:"\/\\\|\?\*]/is', '', $item->c_background_pdf);
+	        $pdfLink = JURI::root().'index.php?option='.COMPONENT_OPTION
+	            .'&task=getpdf'
+	            .'&id='.$item->c_id
+	            .'&filename='.preg_replace('/[<>:"\/\\\|\?\*]/is', '', $item->c_background_pdf);
 
-        $html[] =   '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;';
-        $html[] =   '<a href="'.$pdfLink.'" class="icon_pdf">'.JText::_('COM_HTML5FLIPPINGBOOK_BE_DOWNLOAD_PDF').'</a>';
-        }
-	
-	$html[] = 		'</div>';
-	
-	if ($item->c_show_cdate)
-	{
-		$date = new JDate($item->c_created_time);
-		$date = $date->toUnix();
-		$dateString = gmdate("Y-m-d", $date);
+	        $html[] =   '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;';
+	        $html[] =   '<a href="'.$pdfLink.'" class="icon_pdf">'.JText::_('COM_HTML5FLIPPINGBOOK_BE_DOWNLOAD_PDF').'</a>';
+	        }
 		
-		$html[] = 	'<div class="html5fb-date">' . $dateString . '</div>';
-	}
-
-    if ($viewAccessGranted)
-	{
-		//==================================================
-		// Social intergation.
-		//==================================================
-
-		if ($this->config->social_google_plus_use == 1 ||
-			$this->config->social_twitter_use == 1 ||
-			$this->config->social_linkedin_use == 1 ||
-			$this->config->social_facebook_use == 1)
+		$html[] = 		'</div>';
+		
+		if ($item->c_show_cdate)
 		{
-			$html[] = '<div class="html5fb-social">';
+			$date = new JDate($item->c_created_time);
+			$date = $date->toUnix();
+			$dateString = gmdate("Y-m-d", $date);
 			
-			$pageLink = JUri::base().JRoute::_('index.php?option='.COMPONENT_OPTION.'&view=publication&id='.$item->c_id.'&Itemid='.COMPONENT_ITEM_ID, false, $uri->isSSL());
-
-			if ($this->config->social_google_plus_use == 1)
-			{
-				$html[] = '<div class="html5fb-social-btn">' .
-						'<div class="g-plusone" data-width="70"' .
-						' data-size="' . $this->config->social_google_plus_size . '"' .
-						' data-annotation="' . $this->config->social_google_plus_annotation . '"' .
-						' href="' . $pageLink . '"' .
-						'></div>' .
-					'</div>';
-			}
-			
-			if ($this->config->social_twitter_use == 1)
-			{
-				$html[] = '<div class="html5fb-social-btn">' .
-						'<a href="http://twitter.com/share" class="twitter-share-button"' .
-						' data-url="' . $pageLink . '"'.
-						' data-size="' . $this->config->social_twitter_size . '"' .
-						' data-count="' . $this->config->social_twitter_annotation . '"' .
-						' data-lang="' . $this->config->social_twitter_language . '"' .
-						'>Tweet</a>' .
-					'</div>';
-			}
-			
-			if ($this->config->social_linkedin_use == 1)
-			{
-				$html[] = '<div class="html5fb-social-btn">' .
-						'<script type="IN/Share"' .
-						' data-url="' . $pageLink . '"' .
-						' data-counter="' . $this->config->social_linkedin_annotation . '"' .
-						'></script>' .
-					'</div>';
-			}
-
-			if ($this->config->social_facebook_use == 1)
-			{
-				$html[] = '<div class="html5fb-social-btn">' .
-						'<div class="fb-like" data-show-faces="false" data-width="50" data-colorscheme="light" data-share="false" ' .
-						' data-action="' . $this->config->social_facebook_verb . '"' .
-						' data-layout="' . $this->config->social_facebook_layout . '"' .
-						' data-href="' . $pageLink . '"' .
-						'></div>' .
-					'</div>';
-			}
-			
-			$html[] = '</div><div style="clear: both;"><br clear="all"></div>';
+			$html[] = 	'<div class="html5fb-date">' . $dateString . '</div>';
 		}
+
+	    if ($viewAccessGranted)
+		{
+			//==================================================
+			// Social intergation.
+			//==================================================
+
+			if ($this->config->social_google_plus_use == 1 ||
+				$this->config->social_twitter_use == 1 ||
+				$this->config->social_linkedin_use == 1 ||
+				$this->config->social_facebook_use == 1)
+			{
+				$html[] = '<div class="html5fb-social">';
+				
+				$pageLink = JUri::base().JRoute::_('index.php?option='.COMPONENT_OPTION.'&view=publication&id='.$item->c_id.'&Itemid='.COMPONENT_ITEM_ID, false, $uri->isSSL());
+
+				if ($this->config->social_google_plus_use == 1)
+				{
+					$html[] = '<div class="html5fb-social-btn">' .
+							'<div class="g-plusone" data-width="70"' .
+							' data-size="' . $this->config->social_google_plus_size . '"' .
+							' data-annotation="' . $this->config->social_google_plus_annotation . '"' .
+							' href="' . $pageLink . '"' .
+							'></div>' .
+						'</div>';
+				}
+				
+				if ($this->config->social_twitter_use == 1)
+				{
+					$html[] = '<div class="html5fb-social-btn">' .
+							'<a href="http://twitter.com/share" class="twitter-share-button"' .
+							' data-url="' . $pageLink . '"'.
+							' data-size="' . $this->config->social_twitter_size . '"' .
+							' data-count="' . $this->config->social_twitter_annotation . '"' .
+							' data-lang="' . $this->config->social_twitter_language . '"' .
+							'>Tweet</a>' .
+						'</div>';
+				}
+				
+				if ($this->config->social_linkedin_use == 1)
+				{
+					$html[] = '<div class="html5fb-social-btn">' .
+							'<script type="IN/Share"' .
+							' data-url="' . $pageLink . '"' .
+							' data-counter="' . $this->config->social_linkedin_annotation . '"' .
+							'></script>' .
+						'</div>';
+				}
+
+				if ($this->config->social_facebook_use == 1)
+				{
+					$html[] = '<div class="html5fb-social-btn">' .
+							'<div class="fb-like" data-show-faces="false" data-width="50" data-colorscheme="light" data-share="false" ' .
+							' data-action="' . $this->config->social_facebook_verb . '"' .
+							' data-layout="' . $this->config->social_facebook_layout . '"' .
+							' data-href="' . $pageLink . '"' .
+							'></div>' .
+						'</div>';
+				}
+				
+				$html[] = '</div><div style="clear: both;"><br clear="all"></div>';
+			}
+		}
+		
+		$html[] = 	'</div>';
+		$html[] = '</div>';
 	}
-	
-	$html[] = 	'</div>';
-	
-	$html[] = '</li>';
+	$html[] = '</div>';
+	$i = $j;
 }
 
-$html[] = '</ul>';
+$html[] = '</div>';
 
 if ($numPublicationDisplayed == 0)
 {
