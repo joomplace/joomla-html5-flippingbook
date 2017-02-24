@@ -11,8 +11,8 @@ jimport('joomla.utilities.date');
 
 JHTML::_('behavior.modal', 'a.html5-modal');
 JHtml::_('bootstrap.framework');
-//JHtml::_('bootstrap.loadCss');
-
+JHtml::_('bootstrap.loadCss');
+$colNumb = JFactory::getApplication()->getMenu()->getActive()->params->get('c_colnumb');
 $uri = JUri::getInstance();
 $jinput = JFactory::$application->input;
 
@@ -134,231 +134,211 @@ if ($this->showListTitle)
 
 $numPublicationDisplayed = 0;
 
-$html[] = '<ul class="html5fb-list">';
+$html[] = '<div class="html5fb-list container-fluid">';
 
 $downloadOptionAccess = $this->user->authorise('core.download', COMPONENT_OPTION);
-
-foreach ($this->items as $i => $item)
+for ($i = 0; $i < count($this->items);)
 {
+	$html[] = '<div class="row-fluid">';
 
-	if (empty($item->c_id)) continue;
-	
-	// Checking access.
-	$previewAccessGranted = $this->user->authorise('core.preview', COMPONENT_OPTION.'.publication.'.$item->c_id);
-	$viewAccessGranted = $this->user->authorise('core.view', COMPONENT_OPTION.'.publication.'.$item->c_id);
-	$downloadOptionAccessGranted = $this->user->authorise('core.download', COMPONENT_OPTION.'.publication.'.$item->c_id);
+	for ($j = $i; $j - $i < $colNumb; $j++) {
+		$item = $this->items[$j];
+		if (empty($item->c_id)) continue;
 
-	if (!$previewAccessGranted) continue;
+		// Checking access.
+		$previewAccessGranted = $this->user->authorise('core.preview', COMPONENT_OPTION . '.publication.' . $item->c_id);
+		$viewAccessGranted = $this->user->authorise('core.view', COMPONENT_OPTION . '.publication.' . $item->c_id);
+		$downloadOptionAccessGranted = $this->user->authorise('core.download', COMPONENT_OPTION . '.publication.' . $item->c_id);
 
-	$numPublicationDisplayed += 1;
+		if (!$previewAccessGranted) continue;
 
-	// Preparing links and popups properties.
-	$data = HTML5FlippingBookFrontHelper::htmlPublHelper($isMobile, $isTablet, $item);
+		$numPublicationDisplayed += 1;
 
-	// Output.
-	$html[] = '<li class="html5fb-list-item">';
-	
-	$html[] = 	'<div class="html5fb-pict">';
-	$html[] =       '<div class="loader" id="loader-' . $item->c_id . '" style="display: none;">';
-	$html[] =           '<img src="' . COMPONENT_IMAGES_URL . 'progress.gif" alt="loading animation"/>';
-	$html[] =       '</div>';
+		// Preparing links and popups properties.
+		$data = HTML5FlippingBookFrontHelper::htmlPublHelper($isMobile, $isTablet, $item);
 
-	if ($viewAccessGranted) $html[] = $data->viewPublicationLinkWithTitle;
-	$html[] = 			'<img class="html5fb-img" src="' . $data->thumbnailUrl . '" alt="' . htmlspecialchars($item->c_title) . '" />';
-	if ($viewAccessGranted) $html[] = '</a>';
-	$html[] = 	'</div>';
-	
-	$html[] = 	'<div class="html5fb-descr">';
-	$html[] =       '<div class="pull-left">';
-	$html[] = 		    '<h2 class="html5fb-name">';
-	if ($viewAccessGranted) $html[] = str_replace("thumbnail", "", $data->viewPublicationLinkWithTitle);
-	$html[] = 			htmlspecialchars($item->c_title);
-	if ($viewAccessGranted) $html[] = '</a>';
-	$html[] = 		    '</h2>';
-	$html[] =       '</div>';
+		// Output.
 
-	if ($user->get('id'))
-	{
-		$html[] = '<div class="btn-group pull-right">';
-		$html[] =   '<a class="btn btn-mini dropdown-toggle" data-toggle="dropdown" href="#">';
-		$html[] =       '<span class="fa fa-gear"></span>';
-		$html[] =       '<span class="caret"></span>';
-		$html[] =   '</a>';
-		$html[] =   '<ul class="dropdown-menu">';
-		$html[] =       '<li>';
+		$html[] = '<div class="html5fb-list-item span' . 12/$colNumb . '">';
 
-		if (isset($item->uid) && $user->get('id') == $item->uid && $item->read_list == 1)
-		{
-			$html[] =           '<a href="javascript: void(0);" id="reading_' . $item->c_id . '" onclick="userPublAction(' . $item->c_id . ', \'reading_remove\'); return false;">';
-			$html[] =               '<i class="fa fa-trash-o"></i> <span id="reading_text_' . $item->c_id . '">' . JText::_('COM_HTML5FLIPPINGBOOK_FE_ACTION_REMOVE_READING') . '</span>';
-			$html[] =           '</a>';
-		}
-		else
-		{
-			$html[] =           '<a href="javascript: void(0);" id="reading_' . $item->c_id . '" onclick="userPublAction(' . $item->c_id . ', \'reading\'); return false;">';
-			$html[] =               '<i class="fa fa-list"></i> <span id="reading_text_' . $item->c_id . '">' . JText::_('COM_HTML5FLIPPINGBOOK_FE_ACTION_READING_TIP') . '</span>';
-			$html[] =           '</a>';
-		}
-
-		$html[] =       '</li>';
-		$html[] =       '<li>';
-
-		if (isset($item->uid) && $user->get('id') == $item->uid && $item->fav_list == 1)
-		{
-			$html[] =           '<a href="javascript: void(0);" id="favorite_' . $item->c_id . '" onclick="userPublAction(' . $item->c_id . ', \'favorite_remove\'); return false;">';
-			$html[] =               '<i class="fa fa-trash-o"></i> <span id="favorite_text_' . $item->c_id . '">' . JText::_('COM_HTML5FLIPPINGBOOK_FE_ACTION_REMOVE_FAVORITE') . '</span>';
-			$html[] =           '</a>';
-		}
-		else
-		{
-			$html[] =           '<a href="javascript: void(0);" id="favorite_' . $item->c_id . '" onclick="userPublAction(' . $item->c_id . ', \'favorite\'); return false;">';
-			$html[] =               '<i class="fa fa-star"></i> <span id="favorite_text_' . $item->c_id . '">' . JText::_('COM_HTML5FLIPPINGBOOK_FE_ACTION_FAVORITE_TIP') . '</span>';
-			$html[] =           '</a>';
-		}
-
-		$html[] =       '</li>';
-		$html[] =       '<li>';
-
-		if (isset($item->uid) && $user->get('id') == $item->uid && $item->read == 1)
-		{
-			$html[] =           '<a href="javascript: void(0);" id="read_' . $item->c_id . '" onclick="userPublAction(' . $item->c_id . ', \'read_remove\'); return false;">';
-			$html[] =               '<i class="fa fa-eye"></i> <span id="read_text_' . $item->c_id . '">' . JText::_('COM_HTML5FLIPPINGBOOK_FE_ACTION_REMOVE_READ') . '</span>';
-			$html[] =           '</a>';
-		}
-		else
-		{
-			$html[] =           '<a href="javascript: void(0);" id="read_' . $item->c_id . '" onclick="userPublAction(' . $item->c_id . ', \'read\'); return false;">';
-			$html[] =               '<i class="fa fa-eye-slash"></i> <span id="read_text_' . $item->c_id . '">' . JText::_('COM_HTML5FLIPPINGBOOK_FE_ACTION_READ_TIP') . '</span>';
-			$html[] =           '</a>';
-		}
-
-		$html[] =       '</li>';
-		$html[] =   '</ul>';
+		$html[] = '<div class="html5fb-pict">';
+		$html[] = '<div class="loader" id="loader-' . $item->c_id . '" style="display: none;">';
+		$html[] = '<img src="' . COMPONENT_IMAGES_URL . 'progress.gif" alt="loading animation"/>';
 		$html[] = '</div>';
-	}
 
-	$html[] =       '<br clear="all" />';
-	
-	if($item->introtext){
-        $html[] = '<p>' . JHtml::_('content.prepare', $item->introtext) . '</p>';
-    }
-	
-	if ($viewAccessGranted)
-	{
-		$html[] = 		'<div class="html5fb-links">';
-		$html[] = 			$data->viewPublicationLink;
-		$html[] = 				htmlspecialchars( (empty($this->viewPublicationButtonText) ? JText::_('COM_HTML5FLIPPINGBOOK_FE_VIEW_PUBLICATION') : $this->viewPublicationButtonText) );
-		$html[] = 			'</a>';
-	}
-	else
-	{
-		$html[] = '<div class="html5fb-noaccess">';
-		
-		if ($this->user->id == 0)
-		{
-			$returnUrl = $_SERVER["REQUEST_URI"];
-			
-			$html[] = 	JText::_('COM_HTML5FLIPPINGBOOK_FE_SHOULD_LOGIN') . '.' . '&nbsp;';
-			$html[] = 	'<a href="' . JRoute::_('index.php?option=com_users&view=login&Itemid='.COMPONENT_ITEM_ID.'&return=' . base64_encode($returnUrl), FALSE, $uri->isSSL()) . '">';
-			$html[] = 		JText::_('COM_HTML5FLIPPINGBOOK_FE_LOGIN_NOW');
-			$html[] = 	'</a>';
+		if ($viewAccessGranted) $html[] = $data->viewPublicationLinkWithTitle;
+		$html[] = '<img class="html5fb-img" src="' . $data->thumbnailUrl . '" alt="' . htmlspecialchars($item->c_title) . '" />';
+		if ($viewAccessGranted) $html[] = '</a>';
+		$html[] = '</div>';
+
+		$html[] = '<div class="html5fb-descr">';
+		$html[] = '<div class="pull-left">';
+		$html[] = '<h2 class="html5fb-name">';
+		if ($viewAccessGranted) $html[] = str_replace("thumbnail", "", $data->viewPublicationLinkWithTitle);
+		$html[] = htmlspecialchars($item->c_title);
+		if ($viewAccessGranted) $html[] = '</a>';
+		$html[] = '</h2>';
+		$html[] = '</div>';
+
+		if ($user->get('id')) {
+			$html[] = '<div class="btn-group pull-right">';
+			$html[] = '<a class="btn btn-mini dropdown-toggle" data-toggle="dropdown" href="#">';
+			$html[] = '<span class="fa fa-gear"></span>';
+			$html[] = '<span class="caret"></span>';
+			$html[] = '</a>';
+			$html[] = '<ul class="dropdown-menu">';
+			$html[] = '<li>';
+
+			if (isset($item->uid) && $user->get('id') == $item->uid && $item->read_list == 1) {
+				$html[] = '<a href="javascript: void(0);" id="reading_' . $item->c_id . '" onclick="userPublAction(' . $item->c_id . ', \'reading_remove\'); return false;">';
+				$html[] = '<i class="fa fa-trash-o"></i> <span id="reading_text_' . $item->c_id . '">' . JText::_('COM_HTML5FLIPPINGBOOK_FE_ACTION_REMOVE_READING') . '</span>';
+				$html[] = '</a>';
+			} else {
+				$html[] = '<a href="javascript: void(0);" id="reading_' . $item->c_id . '" onclick="userPublAction(' . $item->c_id . ', \'reading\'); return false;">';
+				$html[] = '<i class="fa fa-list"></i> <span id="reading_text_' . $item->c_id . '">' . JText::_('COM_HTML5FLIPPINGBOOK_FE_ACTION_READING_TIP') . '</span>';
+				$html[] = '</a>';
+			}
+
+			$html[] = '</li>';
+			$html[] = '<li>';
+
+			if (isset($item->uid) && $user->get('id') == $item->uid && $item->fav_list == 1) {
+				$html[] = '<a href="javascript: void(0);" id="favorite_' . $item->c_id . '" onclick="userPublAction(' . $item->c_id . ', \'favorite_remove\'); return false;">';
+				$html[] = '<i class="fa fa-trash-o"></i> <span id="favorite_text_' . $item->c_id . '">' . JText::_('COM_HTML5FLIPPINGBOOK_FE_ACTION_REMOVE_FAVORITE') . '</span>';
+				$html[] = '</a>';
+			} else {
+				$html[] = '<a href="javascript: void(0);" id="favorite_' . $item->c_id . '" onclick="userPublAction(' . $item->c_id . ', \'favorite\'); return false;">';
+				$html[] = '<i class="fa fa-star"></i> <span id="favorite_text_' . $item->c_id . '">' . JText::_('COM_HTML5FLIPPINGBOOK_FE_ACTION_FAVORITE_TIP') . '</span>';
+				$html[] = '</a>';
+			}
+
+			$html[] = '</li>';
+			$html[] = '<li>';
+
+			if (isset($item->uid) && $user->get('id') == $item->uid && $item->read == 1) {
+				$html[] = '<a href="javascript: void(0);" id="read_' . $item->c_id . '" onclick="userPublAction(' . $item->c_id . ', \'read_remove\'); return false;">';
+				$html[] = '<i class="fa fa-eye"></i> <span id="read_text_' . $item->c_id . '">' . JText::_('COM_HTML5FLIPPINGBOOK_FE_ACTION_REMOVE_READ') . '</span>';
+				$html[] = '</a>';
+			} else {
+				$html[] = '<a href="javascript: void(0);" id="read_' . $item->c_id . '" onclick="userPublAction(' . $item->c_id . ', \'read\'); return false;">';
+				$html[] = '<i class="fa fa-eye-slash"></i> <span id="read_text_' . $item->c_id . '">' . JText::_('COM_HTML5FLIPPINGBOOK_FE_ACTION_READ_TIP') . '</span>';
+				$html[] = '</a>';
+			}
+
+			$html[] = '</li>';
+			$html[] = '</ul>';
+			$html[] = '</div>';
 		}
-		else
-		{
-			$html[] = 	JText::_('COM_HTML5FLIPPINGBOOK_FE_NO_RIGHTS') . '.';
+
+		$html[] = '<br clear="all" />';
+
+		if ($item->introtext) {
+			$html[] = '<p>' . JHtml::_('content.prepare', $item->introtext) . '</p>';
 		}
-	}
 
-	if ($downloadOptionAccess && $downloadOptionAccessGranted)
-	{
-		$downloadList = HTML5FlippingBookFrontHelper::generateDownloadOptions($item->c_id);
-		if ($downloadList)
-		{
-			$html[] =   '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;';
-			$html[] =   JText::_('COM_HTML5FLIPPINGBOOK_BE_DOWNLOAD_OPTIONS') . $downloadList;
+		if ($viewAccessGranted) {
+			$html[] = '<div class="html5fb-links">';
+			$html[] = $data->viewPublicationLink;
+			$html[] = htmlspecialchars((empty($this->viewPublicationButtonText) ? JText::_('COM_HTML5FLIPPINGBOOK_FE_VIEW_PUBLICATION') : $this->viewPublicationButtonText));
+			$html[] = '</a>';
+		} else {
+			$html[] = '<div class="html5fb-noaccess">';
+
+			if ($this->user->id == 0) {
+				$returnUrl = $_SERVER["REQUEST_URI"];
+
+				$html[] = JText::_('COM_HTML5FLIPPINGBOOK_FE_SHOULD_LOGIN') . '.' . '&nbsp;';
+				$html[] = '<a href="' . JRoute::_('index.php?option=com_users&view=login&Itemid=' . COMPONENT_ITEM_ID . '&return=' . base64_encode($returnUrl), FALSE, $uri->isSSL()) . '">';
+				$html[] = JText::_('COM_HTML5FLIPPINGBOOK_FE_LOGIN_NOW');
+				$html[] = '</a>';
+			} else {
+				$html[] = JText::_('COM_HTML5FLIPPINGBOOK_FE_NO_RIGHTS') . '.';
+			}
 		}
-	}
 
-	$html[] = 		'</div>';
-	
-	if ($item->c_show_cdate)
-	{
-		$date = new JDate($item->c_created_time);
-		$date = $date->toUnix();
-		$dateString = gmdate("Y-m-d", $date);
-		
-		$html[] = 	'<div class="html5fb-date">' . $dateString . '</div>';
-	}
+		if ($downloadOptionAccess && $downloadOptionAccessGranted) {
+			$downloadList = HTML5FlippingBookFrontHelper::generateDownloadOptions($item->c_id);
+			if ($downloadList) {
+	//			$html[] =   '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;';
+				$html[] = '</br>';
+				$html[] = JText::_('COM_HTML5FLIPPINGBOOK_BE_DOWNLOAD_OPTIONS') . $downloadList;
+			}
+		}
 
-    if ($viewAccessGranted)
-	{
-		//==================================================
-		// Social intergation.
-		//==================================================
+		$html[] = '</div>';
 
-		if ($this->config->social_google_plus_use == 1 ||
-			$this->config->social_twitter_use == 1 ||
-			$this->config->social_linkedin_use == 1 ||
-			$this->config->social_facebook_use == 1)
-		{
-			$html[] = '<div class="html5fb-social">';
-			
-			$pageLink = JRoute::_('index.php?option='.COMPONENT_OPTION.'&view=publication&id='.$item->c_id.'&Itemid='.COMPONENT_ITEM_ID, FALSE, $uri->isSSL());
+		if ($item->c_show_cdate) {
+			$date = new JDate($item->c_created_time);
+			$date = $date->toUnix();
+			$dateString = gmdate("Y-m-d", $date);
 
-			if ($this->config->social_google_plus_use == 1)
-			{
-				$html[] = '<div class="html5fb-social-btn">' .
+			$html[] = '<div class="html5fb-date">' . $dateString . '</div>';
+		}
+
+		if ($viewAccessGranted) {
+			//==================================================
+			// Social intergation.
+			//==================================================
+
+			if ($this->config->social_google_plus_use == 1 ||
+				$this->config->social_twitter_use == 1 ||
+				$this->config->social_linkedin_use == 1 ||
+				$this->config->social_facebook_use == 1
+			) {
+				$html[] = '<div class="html5fb-social">';
+
+				$pageLink = JRoute::_('index.php?option=' . COMPONENT_OPTION . '&view=publication&id=' . $item->c_id . '&Itemid=' . COMPONENT_ITEM_ID, FALSE, $uri->isSSL());
+
+				if ($this->config->social_google_plus_use == 1) {
+					$html[] = '<div class="html5fb-social-btn">' .
 						'<div class="g-plusone" data-width="70"' .
 						' data-size="' . $this->config->social_google_plus_size . '"' .
 						' data-annotation="' . $this->config->social_google_plus_annotation . '"' .
 						' href="' . $pageLink . '"' .
 						'></div>' .
-					'</div>';
-			}
-			
-			if ($this->config->social_twitter_use == 1)
-			{
-				$html[] = '<div class="html5fb-social-btn">' .
+						'</div>';
+				}
+
+				if ($this->config->social_twitter_use == 1) {
+					$html[] = '<div class="html5fb-social-btn">' .
 						'<a href="http://twitter.com/share" class="twitter-share-button"' .
-						' data-url="' . $pageLink . '"'.
+						' data-url="' . $pageLink . '"' .
 						' data-size="' . $this->config->social_twitter_size . '"' .
 						' data-count="' . $this->config->social_twitter_annotation . '"' .
 						' data-lang="' . $this->config->social_twitter_language . '"' .
 						'>Tweet</a>' .
-					'</div>';
-			}
-			
-			if ($this->config->social_linkedin_use == 1)
-			{
-				$html[] = '<div class="html5fb-social-btn">' .
+						'</div>';
+				}
+
+				if ($this->config->social_linkedin_use == 1) {
+					$html[] = '<div class="html5fb-social-btn">' .
 						'<script type="IN/Share"' .
 						' data-url="' . $pageLink . '"' .
 						' data-counter="' . $this->config->social_linkedin_annotation . '"' .
 						'></script>' .
-					'</div>';
-			}
+						'</div>';
+				}
 
-			if ($this->config->social_facebook_use == 1)
-			{
-				$html[] = '<div class="html5fb-social-btn">' .
+				if ($this->config->social_facebook_use == 1) {
+					$html[] = '<div class="html5fb-social-btn">' .
 						'<div class="fb-like" data-show-faces="false" data-width="50" data-colorscheme="light" data-share="false" ' .
 						' data-action="' . $this->config->social_facebook_verb . '"' .
 						' data-layout="' . $this->config->social_facebook_layout . '"' .
 						' data-href="' . $pageLink . '"' .
 						'></div>' .
-					'</div>';
-			}
-			
-			$html[] = '</div><div style="clear: both;"><br clear="all"></div>';
-		}
-	}
-	
-	$html[] = 	'</div>';
-	
-	$html[] = '</li>';
-}
+						'</div>';
+				}
 
-$html[] = '</ul>';
+				$html[] = '</div><div style="clear: both;"><br clear="all"></div>';
+			}
+		}
+		$html[] = 	'</div>';
+		$html[] = '</div>';
+	}
+	$html[] = 	'</div>';
+	$i = $j;
+}
+$html[] = '</div>';
 
 if ($numPublicationDisplayed == 0)
 {
