@@ -553,7 +553,7 @@ html body .next-button:hover {
 									}
 
 									if(!$this->item->template->hard_cover){
-										if(!$page_number){
+										if(!isset($page_number)){
 											$page_number  = (($this->item->navi_settings)?($i?$i:''):(($i>1)?$i-1:''));
 										}
 										$page_content = ($page['page_image'])?'<div class="paddifier"><img src="'.$page['page_image'].'" /></div>':'<div class="paddifier"><div class="html-content"><div>'.$page['c_text'].((1)?'<span class="page-number">'.$page_number.'</span></div></div>':'').'</div>';
