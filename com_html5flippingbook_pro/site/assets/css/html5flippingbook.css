@@ -680,7 +680,7 @@ html > /**/ body #html5flippingbook .html5fb-descr {
     cursor: default;
 }
 
-#html5flippingbook .html5fb-list-item {
+#html5flippingbook .html5fb-list .row-fluid {
     border-bottom: 1px #bebebe solid;
 }
 

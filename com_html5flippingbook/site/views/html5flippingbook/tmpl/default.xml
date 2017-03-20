@@ -38,6 +38,20 @@
 				default="COM_HTML5FLIPPINGBOOK_FE_PUBLICATIONS_LIST"
 				label="COM_HTML5FLIPPINGBOOK_BE_MENU_ITEM_CATEGORY_LIST_TITLE"
 				description="COM_HTML5FLIPPINGBOOK_BE_MENU_ITEM_CATEGORY_LIST_TITLE_DESCR" />
+
+			<field name="c_colnumb"
+				   type="list"
+				   default="1"
+				   class="inputbox"
+				   required="true"
+				   label="COM_HTML5FLIPPINGBOOK_BE_MENU_ITEM_CATEGORY_LIST_COLNUMB"
+				   description="COM_HTML5FLIPPINGBOOK_BE_MENU_ITEM_CATEGORY_LIST_COLNUMB_DESC">
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="6">6</option>
+			</field>
 			
 			<field name="viewPublicationButtonText"
 				type="_advanced_text"
