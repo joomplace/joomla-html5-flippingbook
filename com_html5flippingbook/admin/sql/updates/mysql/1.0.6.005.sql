@@ -1,1 +1,1 @@
-ALTER TABLE `#__html5fb_templates` ADD `doublepages` BOOLEAN NOT NULL AFTER `hard_cover`;
+ALTER TABLE `#__html5fb_templates` ADD `doublepages` BOOLEAN NOT NULL;
