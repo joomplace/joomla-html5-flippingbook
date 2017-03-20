@@ -180,27 +180,28 @@ JHtml::_('behavior.modal');
 <div id="j-main-container" class="span6 form-horizontal html5fb_control_panel_container well" style="margin-right: 0px;">
 	
 	<table class="table">
-		<tr>
-			<th colspan="100%" class="html5fb_control_panel_title">
-				<?php echo JText::_('COM_HTML5FLIPPINGBOOK'); ?>&nbsp;<?php echo JText::_('COM_HTML5FLIPPINGBOOK_BE_CONTROL_PANEL_COMPONENT_DESC') .
-					" 3.x+. " . JText::_('COM_HTML5FLIPPINGBOOK_BE_CONTROL_PANEL_DEVELOPED_BY'); ?> <a href="http://www.joomplace.com/" target="_blank">JoomPlace</a>.
-			</th>
-		</tr>
-		<tr>
-			<td width="120"><?php echo JText::_('COM_HTML5FLIPPINGBOOK_BE_CONTROL_PANEL_INSTALLED_VERSION') . ':'; ?></td>
-			<td class="html5fb_control_panel_current_version"><?php echo $this->config->component_version; ?></td>
-		</tr>
-		<tr>
-			<td><?php echo JText::_('COM_HTML5FLIPPINGBOOK_BE_CONTROL_PANEL_LATEST_VERSION') . ':'; ?></td>
-			<td>
-				<div id="html5fbLatestVersion">
-					<button class="btn btn-small" onclick="onBtnCheckLatestVersionClick(this, event);">
-						<i class="icon-health"></i>
-						<?php echo JText::_('COM_HTML5FLIPPINGBOOK_BE_CONTROL_PANEL_CHECK_NOW'); ?>
-					</button>
-				</div>
-			</td>
-		 </tr>
+		<!-- Hide current and latest version since integrate Joomla update system -->
+<!--		<tr>-->
+<!--			<th colspan="100%" class="html5fb_control_panel_title">-->
+<!--				--><?php //echo JText::_('COM_HTML5FLIPPINGBOOK'); ?><!--&nbsp;--><?php //echo JText::_('COM_HTML5FLIPPINGBOOK_BE_CONTROL_PANEL_COMPONENT_DESC') .
+//					" 3.x+. " . JText::_('COM_HTML5FLIPPINGBOOK_BE_CONTROL_PANEL_DEVELOPED_BY'); ?><!-- <a href="http://www.joomplace.com/" target="_blank">JoomPlace</a>.-->
+<!--			</th>-->
+<!--		</tr>-->
+<!--		<tr>-->
+<!--			<td width="120">--><?php //echo JText::_('COM_HTML5FLIPPINGBOOK_BE_CONTROL_PANEL_INSTALLED_VERSION') . ':'; ?><!--</td>-->
+<!--			<td class="html5fb_control_panel_current_version">--><?php //echo $this->config->component_version; ?><!--</td>-->
+<!--		</tr>-->
+<!--		<tr>-->
+<!--			<td>--><?php //echo JText::_('COM_HTML5FLIPPINGBOOK_BE_CONTROL_PANEL_LATEST_VERSION') . ':'; ?><!--</td>-->
+<!--			<td>-->
+<!--				<div id="html5fbLatestVersion">-->
+<!--					<button class="btn btn-small" onclick="onBtnCheckLatestVersionClick(this, event);">-->
+<!--						<i class="icon-health"></i>-->
+<!--						--><?php //echo JText::_('COM_HTML5FLIPPINGBOOK_BE_CONTROL_PANEL_CHECK_NOW'); ?>
+<!--					</button>-->
+<!--				</div>-->
+<!--			</td>-->
+<!--		 </tr>-->
 		 <tr>
 			<td><?php echo JText::_('COM_HTML5FLIPPINGBOOK_BE_CONTROL_PANEL_ABOUT') . ':'; ?></td>
 			<td>
