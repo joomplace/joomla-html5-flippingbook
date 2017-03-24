@@ -652,13 +652,6 @@ function loadPage(page,adj) {
 	});
 }
 
-<?php if($item->c_audio) { ?>
-jQuery('.previous-button, .next-button').click(function() {
-	var audio = new Audio();
-	audio.src = '<?php  echo COMPONENT_MEDIA_URL . "audio/" . $item->c_audio; ?>';
-	audio.autoplay = true;
-});
-<?php } ?>
 var flipbook = jQuery('.flipbook');
 	
 (function ($) {
@@ -917,7 +910,12 @@ var flipbook = jQuery('.flipbook');
 						}
 						*/
 
-						
+						<?php if($item->c_audio) { ?>
+                        var audio = new Audio();
+                        audio.src = '<?php  echo COMPONENT_MEDIA_URL . "audio/" . $item->c_audio; ?>';
+                        audio.autoplay = true;
+                        <?php } ?>
+
 						slider.slider('value', getViewNumber(book, page));
 
 						book.parent().next().find('#goto_page_input').prop('placeholder',(page-<?php echo ($this->item->navi_settings)?0:1; ?>)+' page is opened');
