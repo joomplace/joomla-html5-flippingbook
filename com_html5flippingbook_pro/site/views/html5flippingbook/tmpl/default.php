@@ -13,6 +13,9 @@ JHTML::_('behavior.modal', 'a.html5-modal');
 JHtml::_('bootstrap.framework');
 JHtml::_('bootstrap.loadCss');
 $colNumb = JFactory::getApplication()->getMenu()->getActive()->params->get('c_colnumb');
+if (!isset($colNumb)) {
+	$colNumb = 1;
+}
 $uri = JUri::getInstance();
 $jinput = JFactory::$application->input;
 
