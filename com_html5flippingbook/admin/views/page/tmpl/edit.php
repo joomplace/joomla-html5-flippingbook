@@ -254,6 +254,9 @@ JHtml::_('behavior.modal');
                                     <a rel="{handler: 'iframe', size: {x: 370, y: 215}}" id="additonInsertVideo" onclick="IeCursorFix(); return false;" href="<?='index.php?option='.COMPONENT_OPTION.'&tmpl=component&view=upload_file_dialog&type=video&e_name=jform_c_text';?>" class="btn modal btn-inverse"><i class="icon-play"></i> <?php echo JText::_('COM_HTML5FLIPPINGBOOK_BE_INSERT_BUTTON_VIDEO'); ?></a>
 									<span onclick="return YoutubeInsert();" href="" title="YouTube Video" class="btn modal btn-danger"><i class="icon-play"></i> YouTube</span>
                                     <span onclick="return VimeoInsert();" href="" title="vimeo Video" class="btn modal btn-info"><i class="icon-play"></i> VIMEO</span>
+                                    <a class="btn modal" title="Image" href="/administrator/index.php?option=com_media&view=images&tmpl=component&e_name=jform_c_text&asset=com_html5flippingbook&author=" rel="{handler: 'iframe', size: {x: 800, y: 500}}">
+										<i class="icon-picture"></i> Image
+									</a>
                                 </div>
                             </div>
 						</div>
