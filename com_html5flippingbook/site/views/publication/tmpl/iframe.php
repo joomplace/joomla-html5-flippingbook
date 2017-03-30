@@ -889,6 +889,9 @@ foreach($template_css as $rule => $style){
                 flipbook.find('.double').scissor();
 
                 flipbook.turn({
+                    <?php if($item->right_to_left): ?>
+                    direction: 'rtl',
+                    <?php endif; ?>
                     elevation: 50,
                     acceleration: !isChrome(),
                     autoCenter: true,
