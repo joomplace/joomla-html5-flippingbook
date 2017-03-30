@@ -646,7 +646,7 @@ function fullscreenIt(id){
 
 function loadPage(page,adj) {
 	<?php $addPageRoute = JRoute::_('index.php?option=com_html5flippingbook&publication='.$this->item->c_id.'&task=publication.loadSpecPage'); ?>
-	jQuery.ajax({url: "<?php echo JUri::root(true).$addPageRoute.(strpos($addPageRoute,'?')?'&':'?') ?>number="+ (page-(adj-1))}).
+	jQuery.ajax({url: "<?php echo $addPageRoute.(strpos($addPageRoute,'?')?'&':'?') ?>number="+ (page-(adj-1))}).
 	done(function(pageHtml) {
 		jQuery('.flipbook .p' + page).html(pageHtml);
 	});
