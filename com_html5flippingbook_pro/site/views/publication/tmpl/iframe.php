@@ -676,6 +676,8 @@ var flipbook = jQuery('.flipbook');
 	function zoomOut(book){
 		$('.tbicon.zoom-out').hide();
 		book.turn('zoom',1);
+        var size = module.resize();
+        book.turn('size',size.width,size.height);
 		$(book).css({"font-size": 0.016*Math.pow($(book).turn('size').width,1.0145) + "px"});
 		//book.turn('disable', false);
 	}
