@@ -486,7 +486,7 @@ html body .next-button:hover {
 							<?php } ?>
 							<?php 
 								$pages = array_merge($wrap_up['before'],$pages,$wrap_up['after']);
-                $this->item->template->hard_cover?$bc = count($pages)-2-1:$bc = count($pages)-1;
+                                $bc = count($pages)-2-1;
 								unset($page);
 								foreach($pages as $i => $page){
 									/* only to wrap, so can be moved uptop to cover creation */
