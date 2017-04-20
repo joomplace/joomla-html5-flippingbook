@@ -154,7 +154,7 @@ class HTML5FlippingBookModelPublication extends JModelItem
 			$this->_db->setQuery($query);
 			$result = $this->_db->loadAssocList();
 			
-			if($count%2==1){
+			if($count%2==1 && !$this->_item->template->doublepages){
 				$result[] = array('c_text'=>'<div class="page"></div>');
 				$count++;
 			}else{
