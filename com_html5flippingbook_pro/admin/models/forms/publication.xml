@@ -147,6 +147,15 @@
 			<option value="1">COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_FULLSCREEN_MODE_OPTION_1</option>
 		</field>
 
+		<field name="c_audio"
+			   type="_upload_audio"
+			   dir="media/com_html5flippingbook/audio"
+			   fileExtensions="mp3,wav,wma"
+			   uploadTask="publications.show_upload"
+			   class="html5fb_upload_audio"
+			   label="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_AUDIOFLIP_FILE"
+			   description="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_AUDIOFLIP_FILE_DESC" />
+
 		<field name="c_thumb"
 			type="_upload_image"
 			dir="media/com_html5flippingbook/thumbs"

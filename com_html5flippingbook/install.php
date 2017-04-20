@@ -753,6 +753,56 @@ class com_html5flippingbookInstallerScript
 	//----------------------------------------------------------------------------------------------------
 	public function update($parent)
 	{
+		jimport('joomla.filesystem.file');
+        jimport('joomla.filesystem.folder');
+
+        // for subfolders
+        if ($old_original_paths = glob(JPATH_SITE . '/media/com_html5flippingbook/images/*/original-*' )) {
+            for ($i = 0; $i < count($old_original_paths); $i++) {
+                $old_original_path = $old_original_paths[$i];
+                $old_original_files = JFolder::files($old_original_path);
+
+                $path_parts = explode('/', $old_original_path);
+
+                $publication_images_folder = $path_parts[count($path_parts) - 2];
+
+                $new_original_path = JPATH_SITE . '/media/com_html5flippingbook/images/' . $publication_images_folder . '/original';
+
+                JFolder::create($new_original_path);
+
+                for($j = 0; $j < count($old_original_files); $j++) {
+                    JFile::move($old_original_path . DIRECTORY_SEPARATOR . $old_original_files[$j], $new_original_path . DIRECTORY_SEPARATOR . str_replace(array('th_', 'thumb_'), '', $old_original_files[$j]));
+                }
+                JFolder::delete($old_original_path);
+            }
+        }
+
+        if ($folders = JFolder::folders(JPATH_SITE . '/media/com_html5flippingbook/images/', '.', false, false, array(), array('original') )) {
+            for ($i = 0; $i < count($folders); $i++ ) {
+                $path = JPATH_SITE . '/media/com_html5flippingbook/images/' . $folders[$i];
+                if (!JFolder::exists($path . '/original') && !glob($path . '/original-*' )) {
+                    JFolder::create($path . '/original');
+                    $files = JFolder::files($path);
+                    for ($j = 0; $j < count($files); $j++) {
+                        JFile::copy($path . DIRECTORY_SEPARATOR . $files[$j],$path . DIRECTORY_SEPARATOR . 'original' . DIRECTORY_SEPARATOR . str_replace(array('th_', 'thumb_'), '', $files[$j]));
+                    }
+                }
+            }
+        }
+
+        // for non-subfolder
+        if (!(JFolder::exists(JPATH_SITE . '/media/com_html5flippingbook/images/original'))) {
+            $old_path = JPATH_SITE . '/media/com_html5flippingbook/images';
+            $new_path = JPATH_SITE . '/media/com_html5flippingbook/images/original';
+            $old_files = JFolder::files($old_path);
+
+            JFolder::create($new_path);
+
+            for($j = 0; $j < count($old_files); $j++) {
+                JFile::copy($old_path . DIRECTORY_SEPARATOR .$old_files[$j], $new_path . DIRECTORY_SEPARATOR . str_replace(array('th_', 'thumb_'), '', $old_files[$j]));
+            }
+        }
+        
 		echo '<div class="well">
 			<div style="background-color: #0088CC;padding:5px 15px;border-radius: 5px;color: #FFFFFF;cursor: default;font: bold 16px/1.4em helvetica;">' . JText::_("COM_HTML5FLIPPINGBOOK_UPDATE_SUCCESS") . '</div>
 			<div style="padding-top: 10px; margin: 0px;text-align:center;" class="lead">' . JText::_("COM_HTML5FLIPPINGBOOK_INSTALL_VERSION") . '&nbsp;' . $this->newVersion . '</div>

@@ -6,7 +6,7 @@
     <authorUrl>www.joomplace.com</authorUrl>
     <copyright>Copyright (C) 2005 - 2017 JoomPlace, www.joomplace.com. All rights reserved.</copyright>
     <license>GNU/GPL http://www.gnu.org/copyleft/gpl.html</license>
-    <version>2.0.0.000</version>
+    <version>2.0.0</version>
     <creationDate>February 2017</creationDate>
     <description>COM_HTML5FLIPPINGBOOK_SYS_DESC</description>
     <scriptfile>install.php</scriptfile>
@@ -76,6 +76,7 @@
             <folder>views</folder>
             <folder>sql</folder>
             <folder>libs</folder>
+            <folder>sql</folder>
             <filename>access.xml</filename>
             <filename>changelog.txt</filename>
             <filename>config.xml</filename>
@@ -93,6 +94,7 @@
         <folder>logos</folder>
         <folder>images</folder>
         <folder>pdf</folder>
+        <folder>audio</folder>
         <folder>thumbs</folder>
         <folder>video</folder>
         <filename>index.html</filename>

@@ -553,7 +553,7 @@ html body .next-button:hover {
 									}
 
 									if(!$this->item->template->hard_cover){
-										if(!$page_number){
+										if(!isset($page_number)){
 											$page_number  = (($this->item->navi_settings)?($i?$i:''):(($i>1)?$i-1:''));
 										}
 										$page_content = ($page['page_image'])?'<div class="paddifier"><img src="'.$page['page_image'].'" /></div>':'<div class="paddifier"><div class="html-content"><div>'.$page['c_text'].((1)?'<span class="page-number">'.$page_number.'</span></div></div>':'').'</div>';
@@ -652,6 +652,13 @@ function loadPage(page,adj) {
 	});
 }
 
+<?php if($item->c_audio) { ?>
+jQuery('.previous-button, .next-button').click(function() {
+	var audio = new Audio();
+	audio.src = '<?php  echo COMPONENT_MEDIA_URL . "audio/" . $item->c_audio; ?>';
+	audio.autoplay = true;
+});
+<?php } ?>
 var flipbook = jQuery('.flipbook');
 	
 (function ($) {
@@ -669,6 +676,8 @@ var flipbook = jQuery('.flipbook');
 	function zoomOut(book){
 		$('.tbicon.zoom-out').hide();
 		book.turn('zoom',1);
+        var size = module.resize();
+        book.turn('size',size.width,size.height);
 		$(book).css({"font-size": 0.016*Math.pow($(book).turn('size').width,1.0145) + "px"});
 		//book.turn('disable', false);
 	}
