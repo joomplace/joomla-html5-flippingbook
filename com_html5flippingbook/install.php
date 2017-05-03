@@ -570,7 +570,7 @@ class com_html5flippingbookInstallerScript
 
 		$templates = array(
 			(object) array("name" => "Magazine"),
-			(object) array("name" => "Hardbook"),
+			/*(object) array("name" => "Hardbook"),*/
 		);
 
 		for ($i = 0; $i < count($templates); $i++)
