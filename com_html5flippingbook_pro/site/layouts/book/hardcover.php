@@ -459,15 +459,21 @@ foreach($template_css as $rule => $style){
                                     <i class="fa fa-expand fa-lg" id="fullscreen" onclick="fullscreenIt('flipbook');" title="Fullscreen"></i>
                                 <?php } ?>
                                 <i class="fa fa-search-plus fa-lg" title="Zoom in"></i>
-                                <a style="color: #47639E;" target="_blank" href="https://www.facebook.com/sharer.php?src=sp&u=<?php echo urlencode(JUri::current());?>&utm_source=share2">
-                                    <i class="fa fa-facebook fa-lg" title="Share on facebook"></i>
-                                </a>
+                                <?php if ($config->social_facebook_use == 1) { ?>
+                                    <a style="color: #47639E;" target="_blank" href="https://www.facebook.com/sharer.php?src=sp&u=<?php echo urlencode(JUri::current());?>&utm_source=share2">
+                                        <i class="fa fa-facebook fa-lg" title="Share on facebook"></i>
+                                    </a>
+                                <?php } ?>
+                                <?php if ($config->social_twitter_use == 1) { ?>
                                 <a style="color: #41ABE1;" target="_blank" href="https://twitter.com/intent/tweet?status=<?php echo urlencode($item->c_title);?>%20<?php echo urlencode(JUri::current());?>&utm_source=share2">
                                     <i class="fa fa-twitter fa-lg" title="Share on Twitter"></i>
                                 </a>
-                                <a style="color: #ED5448;" target="_blank" href="https://plus.google.com/share?url=<?php echo urlencode(JUri::current());?>&utm_source=share2">
+                                <?php } ?>
+                                <?php if ($config->social_google_plus_use == 1) { ?>
+                                <a style="color: #ED5448;"target="_blank" href="https://plus.google.com/share?url=<?php echo urlencode(JUri::current());?>&utm_source=share2">
                                     <i class="fa fa-google-plus fa-lg" title="Share on G+"></i>
                                 </a>
+                                <?php } ?>
                             </div>
                         <?php } ?>
                     </div>
