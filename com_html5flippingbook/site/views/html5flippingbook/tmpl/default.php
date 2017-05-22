@@ -13,10 +13,7 @@ jimport('joomla.utilities.date');
 JHTML::_('behavior.modal', 'a.html5-modal');
 JHtml::_('bootstrap.framework');
 JHtml::_('bootstrap.loadCss');
-$colNumb = JFactory::getApplication()->getMenu()->getActive()->params->get('c_colnumb');
-if (!$colNumb) {
-	$colNumb = 1;
-}
+$colNumb = JFactory::getApplication()->getMenu()->getActive()->params->get('c_colnumb', 1);
 $uri = JUri::getInstance();
 $jinput = JFactory::$application->input;
 
