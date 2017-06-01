@@ -537,7 +537,7 @@ foreach($template_css as $rule => $style){
                                         if($double_page){
                                             $page_class .= ' double';
                                         }else{
-                                            $page_class .= ' p'.(($item->template->hard_cover?$pages_count-2:$pages_count));
+                                            $page_class .= ' p'.($pages_count-2);
                                         }
                                         $page_number  = (($item->navi_settings)?($pages_count-2):'');
                                         break;
