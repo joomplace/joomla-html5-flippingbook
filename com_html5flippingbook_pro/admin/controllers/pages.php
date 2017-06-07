@@ -627,7 +627,7 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
         		$img->setImageFormat('jpeg');
 
 				//Remove opacity
-				$img->setImageOpacity(1.0);
+                $img->setImageAlpha(1.0);
 
 				$img->setImageCompression(Imagick::COMPRESSION_JPEG);
 
