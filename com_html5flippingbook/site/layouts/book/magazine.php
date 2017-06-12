@@ -608,8 +608,8 @@ foreach($template_css as $rule => $style){
                         <div class="span4 text-center">
                             <?php if($item->template->display_pagebox){ ?>
                                 <div ignore="1" id="page-bar">
-                                    <label>Go to</label>
-                                    <input type="text" id="goto_page_input" value="" autocomplete="" placeholder="page">
+                                    <label><?php echo JText::_('COM_QUIZ_NEXT_PREV_MESSAGE'); ?></label>
+                                    <input type="text" id="goto_page_input" value="" autocomplete="" placeholder="<?php echo JText::_('COM_QUIZ_NEXT_PREV_PLACEHOLDER'); ?>">
                                     <span id="goto_page_input_button"><i class="fa fa-share"></i></span>
                                 </div>
                             <?php } ?>
