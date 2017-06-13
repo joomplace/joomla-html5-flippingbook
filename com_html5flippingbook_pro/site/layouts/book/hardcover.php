@@ -862,7 +862,7 @@ foreach($template_css as $rule => $style){
                     var input = $(this).parent().find('#goto_page_input');
                     var val = parseInt(input.val(),10) + <?php echo ($item->navi_settings)?0:1; ?>;
                     flipbook.turn('page', val);
-                    input.val('').prop('placeholder',(val-<?php echo ($item->navi_settings)?0:1; ?>)+' page is opened');
+                    input.val('').prop('placeholder',(val-<?php echo ($item->navi_settings)?0:1; ?>)+' <?php echo JText::_('COM_QUIZ_NEXT_PREV_PLACEHOLDER2'); ?>');
                     return false;
                 });
 
@@ -916,7 +916,7 @@ foreach($template_css as $rule => $style){
 
                             slider.slider('value', getViewNumber(book, page));
 
-                            book.parent().next().find('#goto_page_input').prop('placeholder',(page-<?php echo ($item->navi_settings)?0:1; ?>)+' page is opened');
+                            book.parent().next().find('#goto_page_input').prop('placeholder',(page-<?php echo ($item->navi_settings)?0:1; ?>)+' <?php echo JText::_('COM_QUIZ_NEXT_PREV_PLACEHOLDER2'); ?>');
 
                             updateDepth(book, page+1);
                             if (page>1){
