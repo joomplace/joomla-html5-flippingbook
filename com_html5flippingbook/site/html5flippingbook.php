@@ -20,7 +20,7 @@ define('COMPONENT_MOBILE_LIB_URL', '/'. JURI::root(true).'components/' . COMPONE
 define('COMPONENT_MOBILE_THEME_URL', COMPONENT_MOBILE_LIB_URL . 'themes/');
 define('COMPONENT_LIBS_PATH', JPATH_SITE.'/components/'.COMPONENT_OPTION.'/libs/');
 define('COMPONENT_MEDIA_PATH', JPATH_SITE.'/media/'.COMPONENT_OPTION);
-define('COMPONENT_MEDIA_URL', '/'. JURI::root(true).'media/'.COMPONENT_OPTION.'/');
+define('COMPONENT_MEDIA_URL', JURI::root(true).'/media/'.COMPONENT_OPTION.'/');
 define('COMPONENT_ITEM_ID', $jinput->get('Itemid', ''));
 
 $lang = JFactory::getLanguage();
