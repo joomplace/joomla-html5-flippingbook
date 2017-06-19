@@ -16,9 +16,10 @@ build:regular:
       |
       while read in;
       do
+        echo "$in";
         rootdir=`pwd`;
-        source=$(echo $in | cut -f1 -d^);
-        dest=$(echo $in | cut -f2 -d^);
+        source=$(echo "$in" | cut -f1 -d^);
+        dest=$(echo "$in" | cut -f2 -d^);
         echo $source;
         echo $dest;
       done
