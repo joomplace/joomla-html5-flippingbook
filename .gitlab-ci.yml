@@ -10,26 +10,25 @@ build:regular:
 # delete updater temporary
     - sed -E -i 's/<file.*?_joomplaceupdater.zip<\/file>//g' ./pkg_html5flippingbook.xml
     - mkdir packages
-    - | \
-      grep -E -o '<file.*>(.*?)</file>' ./pkg_html5flippingbook.xml \
+    - "grep -E -o '<file.*>(.*?)</file>' ./pkg_html5flippingbook.xml \
       | \
-      sed -r 's/<file.*?src="([^"]*?)".*?>.*.zip<\/file>|<file.*?>(.*).zip<\/file>/\1\2/' \
+      sed -r 's/<file.*?src=\"([^\"]*?)\".*?>.*.zip<\/file>|<file.*?>(.*).zip<\/file>/\1\2/' \
       | \
       while read in; \
       do \
-        if \[ "$in" != 'plg_installer_joomplaceupdater' \]; \
+        if [ \"$in\" != 'plg_installer_joomplaceupdater' ]; \
           then \
-            if \[\[ $in =~ ^https?: \]\]; \
+            if [[ $in =~ ^https?: ]]; \
               then \
                 cd ./../packages/; \
-                wget "$in"; \
+                wget \"$in\"; \
               else \
-                cd ./"$in"; \
-                zip -r ./../packages/"$in".zip ./*; \
+                cd ./\"$in\"; \
+                zip -r ./../packages/\"$in\".zip ./*; \
                 cd ./../; \
             fi; \
         fi; \
-      done
+      done"
   artifacts:
     paths:
     - packages/
