@@ -19,21 +19,23 @@ build:regular:
         rootdir=`pwd`;
         source=$(echo $in | cut -f1 -d^);
         dest=$(echo $in | cut -f2 -d^);
-        if [ "$dest" != 'plg_installer_joomplaceupdater' ];
-          then
-            if [[ $source =~ ^https? ]];
-              then
-                cd $rootdir/packages/;
-                pwd;
-                echo "wget --output-document=${dest}.zip ${source}";
-                cd $rootdir;
-              else
-                cd $rootdir/$source;
-                pwd;
-                echo $rootdir/$source;
-                cd $rootdir/;
-            fi;
-        fi;
+        echo $source;
+        echo $dest;
+#        if [ "$dest" != 'plg_installer_joomplaceupdater' ];
+#          then
+#            if [[ $source =~ ^https? ]];
+#              then
+#                cd $rootdir/packages/;
+#                pwd;
+#                echo "wget --output-document=${dest}.zip ${source}";
+#                cd $rootdir;
+#              else
+#                cd $rootdir/$source;
+#                pwd;
+#                echo $rootdir/$source;
+#                cd $rootdir/;
+#            fi;
+#        fi;
       done
   artifacts:
     paths:
