@@ -24,11 +24,11 @@ build:regular:
             if [[ $source =~ ^https? ]];
               then
                 cd $rootdir/packages/;
-                pwd;
+                wget --output-document=$dest.zip $source;
                 cd $rootdir;
               else
                 cd $rootdir/"$source";
-                pwd;
+                echo $rootdir/"$source";
                 cd $rootdir/;
             fi;
         fi;
