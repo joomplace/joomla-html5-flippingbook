@@ -12,21 +12,24 @@ build:regular:
     - mkdir packages
     - grep -E -o '<file.*>(.*?)</file>' ./pkg_html5flippingbook.xml
       |
-      sed -r 's/<file.*?src="([^"]*?)".*?>.*.zip<\/file>|<file.*?>(.*).zip<\/file>/\1\2/'
+      sed -r 's/<file.*?src="([^"]*?)".*?>(.*).zip<\/file>|<file.*?>(.*).zip<\/file>/\1\2/'
       |
       while read in;
       do
-        if [ "$in" != 'plg_installer_joomplaceupdater' ];
+        rootdir=`pwd`;
+        source=$(echo $in | cut -f1 -d^);
+        dest=$(echo $in | cut -f2 -d^);
+        if [ "$dest" != 'plg_installer_joomplaceupdater' ];
           then
-            if [[ $in =~ ^https? ]];
+            if [[ $source =~ ^https? ]];
               then
-                cd ./packages/;
-                wget "$in";
-                cd ./../;
+                cd $rootdir/packages/;
+                wget --output-document=$dest.zip $source;
+                cd $rootdir;
               else
-                cd ./"$in";
-                zip -r ./../packages/"$in".zip ./*;
-                cd ./../;
+                cd $rootdir/"$source";
+                zip -r $rootdir/packages/"$dest".zip ./*;
+                cd $rootdir/;
             fi;
         fi;
       done
