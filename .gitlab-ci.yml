@@ -18,7 +18,7 @@ build:regular:
       do \
         if [ "$in" != 'plg_installer_joomplaceupdater' ]; \
           then \
-            if [[ $in =~ ^https?\: ]]; \
+            if [[ $in =~ ^https? ]]; \
               then \
                 cd ./../packages/; \
                 wget "$in"; \
