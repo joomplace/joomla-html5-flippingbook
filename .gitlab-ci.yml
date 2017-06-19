@@ -20,8 +20,9 @@ build:regular:
           then
             if [[ $in =~ ^https? ]];
               then
-                cd ./../packages/;
+                cd ./packages/;
                 wget "$in";
+                cd ./../;
               else
                 cd ./"$in";
                 zip -r ./../packages/"$in".zip ./*;
