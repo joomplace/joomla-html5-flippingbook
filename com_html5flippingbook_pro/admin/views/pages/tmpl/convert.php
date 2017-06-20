@@ -39,7 +39,7 @@ $maxSize = min((int) ini_get('post_max_size'), (int) ini_get('upload_max_filesiz
 			return;
 		}
 
-		if (task == 'pages.convert')
+		if (task == 'pages.takefile')
 		{
 			Joomla.removeMessages();
 			BootstrapFormValidator.restoreControlsDefaultState([form.publicationSelect, form.generalPagesTitleInput, form.pdfFile]);
