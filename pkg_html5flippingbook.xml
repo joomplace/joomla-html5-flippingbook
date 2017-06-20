@@ -14,6 +14,7 @@
     <file type="plugin" id="html5flippingbook_content" group="content">plg_html5flippingbook_content.zip</file>
     <file type="plugin" id="html5flippingbook_search" group="search">plg_html5flippingbook_search.zip</file>
     <file type="plugin" id="html5flippingbook_button" group="editors-xtd">plg_html5flippingbook_button.zip</file>
+    <file type="plugin" src="https://github.com/joomplace/thumbler/archive/master.zip" id="thumbler" group="system">plg_thumbler.zip</file>
   </files>
   <updateservers>
     <server type="collection" priority="1" name="Joomplace Update Site">http://www.joomplace.com/updates/collections.xml</server>
