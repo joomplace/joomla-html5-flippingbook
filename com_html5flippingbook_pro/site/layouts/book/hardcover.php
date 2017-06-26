@@ -217,6 +217,10 @@ foreach($template_css as $rule => $style){
         background-size: 200% 100%;
         background-position: 0%;
     }
+    html body .flipbook .page.odd .double {
+        background-size: 100% 100%;
+        margin-left: -100%;
+    }
     html body .flipbook .double,
     html body .flipbook .page {
         height: 100%;
@@ -414,6 +418,20 @@ foreach($template_css as $rule => $style){
     html body .next-button:hover {
         background-color: rgba(0, 0, 0, 0.4);
     }
+    .page-wrapper:nth-child(odd) .loaded-landscape-page {
+        margin-left: -100%;
+        height: 100%;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-position: 100%;
+    }
+    .page-wrapper:nth-child(even) .loaded-landscape-page {
+        margin-left: 0px;
+        background-size: 200% 100%;
+        background-position: 0%;
+        height: 100%;
+        background-repeat: no-repeat;
+    }
     <?php if($isMobile){ ?>
     #search-inp{
         display:none!important;
@@ -465,14 +483,14 @@ foreach($template_css as $rule => $style){
                                     </a>
                                 <?php } ?>
                                 <?php if ($config->social_twitter_use == 1) { ?>
-                                <a style="color: #41ABE1;" target="_blank" href="https://twitter.com/intent/tweet?status=<?php echo urlencode($item->c_title);?>%20<?php echo urlencode(JUri::current());?>&utm_source=share2">
-                                    <i class="fa fa-twitter fa-lg" title="Share on Twitter"></i>
-                                </a>
+                                    <a style="color: #41ABE1;" target="_blank" href="https://twitter.com/intent/tweet?status=<?php echo urlencode($item->c_title);?>%20<?php echo urlencode(JUri::current());?>&utm_source=share2">
+                                        <i class="fa fa-twitter fa-lg" title="Share on Twitter"></i>
+                                    </a>
                                 <?php } ?>
                                 <?php if ($config->social_google_plus_use == 1) { ?>
-                                <a style="color: #ED5448;"target="_blank" href="https://plus.google.com/share?url=<?php echo urlencode(JUri::current());?>&utm_source=share2">
-                                    <i class="fa fa-google-plus fa-lg" title="Share on G+"></i>
-                                </a>
+                                    <a style="color: #ED5448;"target="_blank" href="https://plus.google.com/share?url=<?php echo urlencode(JUri::current());?>&utm_source=share2">
+                                        <i class="fa fa-google-plus fa-lg" title="Share on G+"></i>
+                                    </a>
                                 <?php } ?>
                             </div>
                         <?php } ?>
@@ -486,7 +504,7 @@ foreach($template_css as $rule => $style){
                             <?php
                             if($double_page){
                                 $item->pages_count -= 4;
-                                if(!end($pages)->id){
+                                if(!end($pages)["id"]){
                                     array_pop($pages);
                                 }
                             }
@@ -550,7 +568,7 @@ foreach($template_css as $rule => $style){
                                 }
 
                                 if(!$item->template->hard_cover){
-                                    $page_content = ($page['page_image'])?'<div class="paddifier"><img src="'.$page['page_image'].'" /></div>':'<div class="paddifier"><div class="html-content"><div>'.$page['c_text'].((1)?'<span class="page-number">'.$page_number.'</span></div></div>':'').'</div>';
+                                    $page_content = ($page['page_image'])?'<div class="paddifier"><img src="'.str_replace("\\", "/", JHtml::_('thumbler.generate', $page['page_image'], json_encode(array('width' => $item->resolutions->width, 'height'=> $item->resolutions->height)), false)).'" /></div>':'<div class="paddifier"><div class="html-content"><div>'.$page['c_text'].((1)?'<span class="page-number">'.$page_number.'</span></div></div>':'').'</div>';
                                 }else{
                                     switch($i){
                                         /* content of cover */
@@ -559,7 +577,7 @@ foreach($template_css as $rule => $style){
                                         case $bc+1:
                                         case $bc+2:
                                             if($page['page_image']){
-                                                $page_class .='" style="background: url(\''.$page['page_image'].'\'); background-size: 100% 100%;';
+                                                $page_class .='" style="background: url(\''.str_replace("\\", "/", JHtml::_('thumbler.generate', $page['page_image'], json_encode(array('width' => $item->resolutions->width, 'height'=> $item->resolutions->height)), false)).'\'); background-size: 100% 100%;';
                                                 $page_content = '';
                                             }else{
                                                 $page_class .='" style="background: #FFF; background-size: 100% 100%;';
@@ -579,13 +597,13 @@ foreach($template_css as $rule => $style){
                                             if(!$page_number){
                                                 $page_number  = (($item->navi_settings)?($i?$i:''):(($i>1)?$i-1:''));
                                             }
-                                            $page_content = ($page['page_image'])?'<div class="paddifier"><img src="'.$page['page_image'].'" /></div>':'<div class="paddifier"><div class="html-content"><div>'.$page['c_text'].((1)?'<span class="page-number">'.$page_number.'</span></div></div>':'').'</div>';
+                                            $page_content = ($page['page_image'])?'<div class="paddifier"><img src="'.str_replace("\\", "/", JHtml::_('thumbler.generate', $page['page_image'], json_encode(array('width' => $item->resolutions->width, 'height'=> $item->resolutions->height)), false)).'" /></div>':'<div class="paddifier"><div class="html-content"><div>'.$page['c_text'].((1)?'<span class="page-number">'.$page_number.'</span></div></div>':'').'</div>';
                                             $page_number = 0;
                                     }
                                 }
                                 if($page['page_image'] && strpos($page_class,'double')!==false){
                                     ?>
-                                    <div class="<?php echo $page_class; ?>" data-id="<?php echo $page['id']; ?>" style="background-image:url('<?php echo $page['page_image']; ?>')"></div>
+                                    <div class="<?php echo $page_class; ?>" data-id="<?php echo $page['id']; ?>" style="background-image:url('<?php echo str_replace("\\", "/", JHtml::_('thumbler.generate', $page['page_image'], json_encode(array('width' => $item->resolutions->width, 'height'=> $item->resolutions->height)), false)); ?>')"></div>
                                     <?php
                                 }else{
                                     ?>
@@ -639,20 +657,13 @@ foreach($template_css as $rule => $style){
 
     function loadPage(page,adj) {
         <?php $addPageRoute = JRoute::_('index.php?option=com_html5flippingbook&publication='.$item->c_id.'&task=publication.loadSpecPage', false); ?>
-        jQuery.ajax({url: "<?php echo $addPageRoute.(strpos($addPageRoute,'?')?'&':'?') ?>number="+ (page-(adj-1))}).
+        jQuery.ajax({url: "<?php echo $addPageRoute.(strpos($addPageRoute,'?')?'&':'?') ?>number="+ (page-(adj-1)) + "&doublepages="+ <?php echo $double_page?"1":"0" ?>}).
         done(function(pageHtml) {
 //		jQuery('.flipbook .p' + page).addClass('double').html(pageHtml).scissor();
             jQuery('.flipbook .p' + page).html(pageHtml);
         });
     }
 
-    <?php if($item->c_audio) { ?>
-    jQuery('.previous-button, .next-button').click(function() {
-        var audio = new Audio();
-        audio.src = '<?php  echo COMPONENT_MEDIA_URL . "audio/" . $item->c_audio; ?>';
-        audio.autoplay = true;
-    });
-    <?php } ?>
     var flipbook = jQuery('.flipbook');
 
     (function ($) {
@@ -886,6 +897,13 @@ foreach($template_css as $rule => $style){
                             var book = $(this),
                                 currentPage = book.turn('page'),
                                 pages = book.turn('pages');
+
+                            <?php if($item->c_audio) { ?>
+                            var audio = new Audio();
+                            audio.src = '<?php  echo COMPONENT_MEDIA_URL . "audio/" . $item->c_audio; ?>';
+                            audio.autoplay = true;
+                            <?php } ?>
+
                             /*
                              if (currentPage>3 && currentPage<pages-3) {
 

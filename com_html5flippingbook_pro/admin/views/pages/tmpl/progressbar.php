@@ -38,51 +38,53 @@ $doc->addStyleDeclaration("
 	}
 ");
 ?>
-<!--<script src="/administrator/components/com_html5flippingbook/assets/js/options.js"></script>-->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 
-jQuery(document).ready(function ()
-{
-    jQuery(".progress-bar-container").show();
-    var params = getUrlVars();
-    console.log(params);
-    function getUrlVars() {
-        var vars = {};
-        var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-            vars[key] = value;
-        });
-        return vars;
-    }
-    delete params["view"];
-    delete params["layout"];
-    params["task"] = "pages.convert";
-    var i = 1;
-    var count = params["count"];
+    jQuery(document).ready(function ()
+    {
+        jQuery(".progress-bar-container").show();
+        var params = getUrlVars();
+        function getUrlVars() {
+            var vars = {};
+            var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+                vars[key] = value;
+            });
+            return vars;
+        }
+        delete params["view"];
+        delete params["layout"];
+        params["task"] = "pages.convert";
+        params["islast"] = 0;
+        var i = 1;
+        var count = params["count"];
 
-    sendRequest();
-
-    function sendRequest() {
-        params["pageNumb"] = i;
-        jQuery.ajax({
-            type: "POST",
-            url: "/administrator/index.php",
-            data: params,
-            success: function () {
-                if(i <= count) {
+        sendRequest();
+        function sendRequest() {
+            params["pageNumb"] = i;
+            if (i == count) {
+                params["islast"] = 1;
+            }
+            jQuery.ajax({
+                type: "POST",
+                url: "/administrator/index.php",
+                data: params,
+                success: function (data) {
+                    if (data == 1) {
+                        window.location.href = "index.php?option=com_html5flippingbook&view=pages";
+                    }
                     jQuery(".progress-bar").css("width", 100*(i/count) + "%");
                     i++;
-                    sendRequest();
-                } else{
-                    jQuery(".result").show();
+                    if (i<=count) {
+                        sendRequest();
+                    }
+                },
+                error: function () {
+                    alert('ERROR REQUEST!');
                 }
-            },
-            error: function () {
-                alert('ERROR REQUEST!');
-            }
-        });
-    }
-})
+            });
+        }
+    })
 
 </script>
 <?php echo HtmlHelper::getMenuPanel(); ?>
