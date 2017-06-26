@@ -1,4 +1,5 @@
 <?php defined('_JEXEC') or die('Restricted access');
+
 /*
 * HTML5FlippingBook Component
 * @package HTML5FlippingBook
@@ -14,6 +15,7 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
     {
         return parent::getModel($name, $prefix, array('ignore_request' => true));
     }
+
     //----------------------------------------------------------------------------------------------------
     public function save_order_ajax()
     {
@@ -34,10 +36,11 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
 
         $return = $model->saveorder($pks, $order);
 
-        echo ($return ? '1' : '0');
+        echo($return ? '1' : '0');
 
         jexit();
     }
+
     //----------------------------------------------------------------------------------------------------
     public function redirect_from_publications()
     {
@@ -45,10 +48,11 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
 
         $publicationId = $jinput->get('pubId', 0, 'INT');
 
-        JFactory::getApplication()->setUserState(COMPONENT_OPTION.'.pages.filter.publication_id', $publicationId);
+        JFactory::getApplication()->setUserState(COMPONENT_OPTION . '.pages.filter.publication_id', $publicationId);
 
-        JFactory::getApplication()->redirect('index.php?option='.COMPONENT_OPTION.'&view=pages', '', '');
+        JFactory::getApplication()->redirect('index.php?option=' . COMPONENT_OPTION . '&view=pages', '', '');
     }
+
     //----------------------------------------------------------------------------------------------------
     public function show_multiupload()
     {
@@ -56,32 +60,33 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
 
         $publicationId = $jinput->get('filter_publication_id', 0, 'INT');
 
-        $url = 'index.php?option='.COMPONENT_OPTION.'&view=pages&layout=multiupload'.($publicationId == 0 ? '' : '&pubId='.$publicationId);
+        $url = 'index.php?option=' . COMPONENT_OPTION . '&view=pages&layout=multiupload' . ($publicationId == 0 ? '' : '&pubId=' . $publicationId);
 
         JFactory::getApplication()->redirect($url, '', '');
     }
+
     public function show_convert()
     {
         $jinput = JFactory::getApplication()->input;
 
         $publicationId = $jinput->get('filter_publication_id', 0, 'INT');
 
-        if( !class_exists("Imagick") )
-        {
+        if (!class_exists("Imagick")) {
             $this->setMessage(JText::_('ImageMagick is not available on your server. Please contact your server administrator!'), 'warning');
         }
 
-        $url = 'index.php?option='.COMPONENT_OPTION.'&view=pages&layout=convert'.($publicationId == 0 ? '' : '&pubId='.$publicationId);
+        $url = 'index.php?option=' . COMPONENT_OPTION . '&view=pages&layout=convert' . ($publicationId == 0 ? '' : '&pubId=' . $publicationId);
 
         $this->setRedirect($url);
     }
+
     //----------------------------------------------------------------------------------------------------
     public function multiupload()
     {
-        require_once(JPATH_COMPONENT_ADMINISTRATOR.'/libs/MethodsForStrings.php');
+        require_once(JPATH_COMPONENT_ADMINISTRATOR . '/libs/MethodsForStrings.php');
 
-        if ((int) ini_get('memory_limit') < 128) ini_set('memory_limit', '128M');
-        if ((int) ini_get('max_execution_time') < 300) ini_set('max_execution_time', '300');
+        if ((int)ini_get('memory_limit') < 128) ini_set('memory_limit', '128M');
+        if ((int)ini_get('max_execution_time') < 300) ini_set('max_execution_time', '300');
 
         $jinput = JFactory::getApplication()->input;
 
@@ -89,12 +94,16 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
         $publicationId = $jinput->get('publication_id');
         $pagesTitle = $jinput->get('general_pages_title');
 
-        switch ($sourceType)
-        {
-            case 'archive': $this->multiuploadPagesFromArchive($publicationId, $pagesTitle); break;
-            case 'directory': $this->multiuploadPagesFromDirectory($publicationId, $pagesTitle); break;
+        switch ($sourceType) {
+            case 'archive':
+                $this->multiuploadPagesFromArchive($publicationId, $pagesTitle);
+                break;
+            case 'directory':
+                $this->multiuploadPagesFromDirectory($publicationId, $pagesTitle);
+                break;
         }
     }
+
     //----------------------------------------------------------------------------------------------------
     private function multiuploadPagesFromArchive($publicationId, $pagesTitle)
     {
@@ -114,38 +123,34 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
         $publication = $db->loadObject();
 
         // Defining target directory.
-        $targetDirFullName = JPATH_SITE.'/media/'.COMPONENT_OPTION.'/images'.($publication->c_imgsubfolder == '' ? '' : '/'.$publication->c_imgsubfolder);
+        $targetDirFullName = JPATH_SITE . '/media/' . COMPONENT_OPTION . '/images' . ($publication->c_imgsubfolder == '' ? '' : '/' . $publication->c_imgsubfolder);
 
         // Defining target directory for big image
         $targetDirFullOriginalIMG = JPATH_SITE . '/media/' . COMPONENT_OPTION . '/images' . ($publication->c_imgsubfolder == '' ? '' : '/' . $publication->c_imgsubfolder) . '/original';
 
         // Creating temporary directory for archive unpacking and images resizing.
-        $tempDirName = JPATH_SITE.'/tmp/'.COMPONENT_OPTION.'_tmp_'.MethodsForStrings::GenerateRandomString(16, 'lower');
+        $tempDirName = JPATH_SITE . '/tmp/' . COMPONENT_OPTION . '_tmp_' . MethodsForStrings::GenerateRandomString(16, 'lower');
 
         $folderCreated = JFolder::create($tempDirName, 0757);
 
-        if (!$folderCreated)
-        {
+        if (!$folderCreated) {
             $this->showErrorOnPagesMultiupload(JText::sprintf('COM_HTML5FLIPPINGBOOK_BE_PAGES_CANNOT_CREATE_TEMP_DIR', $tempDirName), $tempDirName);
             return;
         }
 
-        if (!JFolder::create($targetDirFullOriginalIMG, 0757))
-        {
+        if (!JFolder::create($targetDirFullOriginalIMG, 0757)) {
             $this->showErrorOnPagesMultiupload(JText::sprintf('COM_HTML5FLIPPINGBOOK_BE_PAGES_CANNOT_CREATE_DIR_BIG_IMG', $targetDirFullOriginalIMG), null);
             return;
         }
 
         // Downloading and checking archive.
-        if ($archiveFileObj['name'] == '' || $archiveFileObj['error'] == 1)
-        {
+        if ($archiveFileObj['name'] == '' || $archiveFileObj['error'] == 1) {
             $this->showErrorOnPagesMultiupload(JText::_('COM_HTML5FLIPPINGBOOK_BE_PAGES_CANNOT_UPLOAD_ARCHIVE_FILE'), $tempDirName);
             return;
         }
 
-        if (!$archiveFileObj['size'])
-        {
-            $maxSize = min((int) ini_get('post_max_size'), (int) ini_get('upload_max_filesize'));
+        if (!$archiveFileObj['size']) {
+            $maxSize = min((int)ini_get('post_max_size'), (int)ini_get('upload_max_filesize'));
 
             $this->showErrorOnPagesMultiupload(JText::sprintf('COM_HTML5FLIPPINGBOOK_BE_PAGES_TOO_LARGE_FILE', $maxSize), $tempDirName);
             return;
@@ -166,18 +171,16 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
             'application/x-download',
         );
 
-        if (!in_array($fileMimeType, $zipMimeTypes))
-        {
+        if (!in_array($fileMimeType, $zipMimeTypes)) {
             $this->showErrorOnPagesMultiupload(JText::sprintf('COM_HTML5FLIPPINGBOOK_BE_PAGES_WRONG_ARCHIVE_TYPE', $fileMimeType), $tempDirName);
             return;
         }
 
         // Moving archive to temporary directory.
         $archiveFileName = $archiveFileObj['name'];
-        $movedArchiveFileFullName = $tempDirName.'/'.$archiveFileName;
+        $movedArchiveFileFullName = $tempDirName . '/' . $archiveFileName;
 
-        if (!move_uploaded_file($archiveFileObj['tmp_name'], $movedArchiveFileFullName) || !JPath::setPermissions($movedArchiveFileFullName))
-        {
+        if (!move_uploaded_file($archiveFileObj['tmp_name'], $movedArchiveFileFullName) || !JPath::setPermissions($movedArchiveFileFullName)) {
             $this->showErrorOnPagesMultiupload(JText::sprintf('COM_HTML5FLIPPINGBOOK_BE_PAGES_CANNOT_MOVE_ARCHIVE', $archiveFileName), $tempDirName);
             return;
         }
@@ -185,8 +188,7 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
         // Unpacking and deleting archive.
         $archiveUnpacked = JArchive::extract($movedArchiveFileFullName, $tempDirName);
 
-        if (!$archiveUnpacked)
-        {
+        if (!$archiveUnpacked) {
             $this->showErrorOnPagesMultiupload(JText::sprintf('COM_HTML5FLIPPINGBOOK_BE_PAGES_CANNOT_EXTRACT_ARCHIVE', $archiveFileName), $tempDirName);
             return;
         }
@@ -209,8 +211,7 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
 
         $fileNames = JFolder::files($tempDirName, $extensions, false);
 
-        if (!$fileNames || count($fileNames) == 0)
-        {
+        if (!$fileNames || count($fileNames) == 0) {
             $this->showErrorOnPagesMultiupload(JText::_('COM_HTML5FLIPPINGBOOK_BE_PAGES_NO_CORRECT_IMAGES_IN_ARCHIVE'), $tempDirName);
             return;
         }
@@ -219,11 +220,9 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
         $fileNames = array_values($fileNames);
 
         // Creating thumbnails.
-        try
-        {
+        try {
             //Create thumb for first page
-            if (isset($fileNames[0]))
-            {
+            if (isset($fileNames[0])) {
                 $outputFileName = 'thumb_' . $fileNames[0] . "-" . 0 . ".jpg";
                 $outputFilePath = JPATH_SITE . '/media/' . COMPONENT_OPTION . '/thumbs/' . $outputFileName;
 
@@ -235,9 +234,7 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
             }
 
             $this->_resize($fileNames, $tempDirName, $publicationId);
-        }
-        catch (Exception $ex)
-        {
+        } catch (Exception $ex) {
             $this->showErrorOnPagesMultiupload(JText::sprintf('COM_HTML5FLIPPINGBOOK_BE_PAGES_CANNOT_RESIZE_IMAGES', $ex->getMessage()), $tempDirName);
             return;
         }
@@ -246,26 +243,18 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
         $fileNamesToCopy = JFolder::files($tempDirName, $extensions, false);
         $htmlFilesContent = array();
 
-        foreach ($fileNamesToCopy as $fileName)
-        {
-            if ( in_array(JFile::getExt($fileName), $allowedHtmlFiles) )
-            {
-                $htmlFilesContent[ basename($fileName) ] = $this->_getStrippedHTML($tempDirName.'/'.$fileName);
-            }
-            else
-            {
+        foreach ($fileNamesToCopy as $fileName) {
+            if (in_array(JFile::getExt($fileName), $allowedHtmlFiles)) {
+                $htmlFilesContent[basename($fileName)] = $this->_getStrippedHTML($tempDirName . '/' . $fileName);
+            } else {
                 $fileCopied = false;
-                if ( stripos($fileName, 'thumb_')!==false )
-                {
-                    $fileCopied = JFile::copy($tempDirName . '/' . $fileName, $targetDirFullName.'/'.$fileName);
-                }
-                else
-                {
+                if (stripos($fileName, 'thumb_') !== false) {
+                    $fileCopied = JFile::copy($tempDirName . '/' . $fileName, $targetDirFullName . '/' . $fileName);
+                } else {
                     $fileCopied = JFile::copy($tempDirName . '/' . $fileName, $targetDirFullOriginalIMG . '/' . $fileName);
                 }
 
-                if (!$fileCopied)
-                {
+                if (!$fileCopied) {
                     $this->showErrorOnPagesMultiupload(JText::sprintf('COM_HTML5FLIPPINGBOOK_BE_PAGES_CANNOT_COPY_FILE_TO_TARGET_DIR', $fileName));
                     return;
                 }
@@ -277,18 +266,18 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
         // Updating database.
         $pagesInfoCreated = $this->registerPagesInDB($fileNames, $publicationId, $pagesTitle, $htmlFilesContent, NULL, $outputFileName);
 
-        if (!$pagesInfoCreated)
-        {
+        if (!$pagesInfoCreated) {
             $this->showErrorOnPagesMultiupload(JText::_('COM_HTML5FLIPPINGBOOK_BE_PAGES_CANNOT_WRITE_TO_DB'), $tempDirName);
             return;
         }
 
         // Redirecting.
         $app = JFactory::getApplication();
-        $app->setUserState(COMPONENT_OPTION.'.pages.filter.publication_id', $publicationId);
+        $app->setUserState(COMPONENT_OPTION . '.pages.filter.publication_id', $publicationId);
 
-        JFactory::getApplication()->redirect('index.php?option='.COMPONENT_OPTION.'&view=pages', JText::_('COM_HTML5FLIPPINGBOOK_BE_PAGES_CREATED'));
+        JFactory::getApplication()->redirect('index.php?option=' . COMPONENT_OPTION . '&view=pages', JText::_('COM_HTML5FLIPPINGBOOK_BE_PAGES_CREATED'));
     }
+
     //----------------------------------------------------------------------------------------------------
     private function multiuploadPagesFromDirectory($publicationId, $pagesTitle)
     {
@@ -316,15 +305,13 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
         // Defining target directory for big image
         $targetDirFullOriginalIMG = JPATH_SITE . '/media/' . COMPONENT_OPTION . '/images' . ($publication->c_imgsubfolder == '' ? '' : '/' . $publication->c_imgsubfolder) . '/original';
 
-        if (!JFolder::create($targetDirFullOriginalIMG, 0757))
-        {
+        if (!JFolder::create($targetDirFullOriginalIMG, 0757)) {
             $this->showErrorOnPagesMultiupload(JText::sprintf('COM_HTML5FLIPPINGBOOK_BE_PAGES_CANNOT_CREATE_DIR_BIG_IMG', $targetDirFullOriginalIMG), null);
             return;
         }
 
         // Checking source directory.
-        if (!is_dir($sourceDirFullName))
-        {
+        if (!is_dir($sourceDirFullName)) {
             $this->showErrorOnPagesMultiupload(JText::sprintf('COM_HTML5FLIPPINGBOOK_BE_PAGES_NO_SERVER_DIR', $sourceDirFullName), null);
             return;
         }
@@ -344,8 +331,7 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
 
         $fileNames = JFolder::files($sourceDirFullName, $extensions, false);
 
-        if (!$fileNames || count($fileNames) == 0)
-        {
+        if (!$fileNames || count($fileNames) == 0) {
             $this->showErrorOnPagesMultiupload(JText::sprintf('COM_HTML5FLIPPINGBOOK_BE_PAGES_NO_CORRECT_IMAGES_IN_DIR', $sourceDirFullName));
             return;
         }
@@ -354,11 +340,9 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
         $fileNames = array_values($fileNames);
 
         // Creating thumbnails.
-        try
-        {
+        try {
             //Create thumb for first page
-            if (isset($fileNames[0]))
-            {
+            if (isset($fileNames[0])) {
                 $outputFileName = 'thumb_' . $fileNames[0] . "-" . 0 . ".jpg";
                 $outputFilePath = JPATH_SITE . '/media/' . COMPONENT_OPTION . '/thumbs/' . $outputFileName;
 
@@ -370,9 +354,7 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
             }
 
             $this->_resize($fileNames, $sourceDirFullName, $publicationId);
-        }
-        catch (Exception $ex)
-        {
+        } catch (Exception $ex) {
             $this->showErrorOnPagesMultiupload(JText::sprintf('COM_HTML5FLIPPINGBOOK_BE_PAGES_CANNOT_RESIZE_IMAGES', $ex->getMessage()));
             return;
         }
@@ -381,26 +363,18 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
         $fileNamesToCopy = JFolder::files($sourceDirFullName, $extensions, false);
         $htmlFilesContent = array();
 
-        foreach ($fileNamesToCopy as $fileName)
-        {
-            if ( in_array(JFile::getExt($fileName), $allowedHtmlFiles) )
-            {
-                $htmlFilesContent[ basename($fileName) ] = $this->_getStrippedHTML($sourceDirFullName.'/'.$fileName);
-            }
-            else
-            {
+        foreach ($fileNamesToCopy as $fileName) {
+            if (in_array(JFile::getExt($fileName), $allowedHtmlFiles)) {
+                $htmlFilesContent[basename($fileName)] = $this->_getStrippedHTML($sourceDirFullName . '/' . $fileName);
+            } else {
                 $fileCopied = false;
-                if ( stripos($fileName, 'thumb_')!==false )
-                {
-                    $fileCopied = JFile::copy($sourceDirFullName.'/'.$fileName, $targetDirFullName.'/'.$fileName);
-                }
-                else
-                {
+                if (stripos($fileName, 'thumb_') !== false) {
+                    $fileCopied = JFile::copy($sourceDirFullName . '/' . $fileName, $targetDirFullName . '/' . $fileName);
+                } else {
                     $fileCopied = JFile::copy($sourceDirFullName . '/' . $fileName, $targetDirFullOriginalIMG . '/' . $fileName);
                 }
 
-                if (!$fileCopied)
-                {
+                if (!$fileCopied) {
                     $this->showErrorOnPagesMultiupload(JText::sprintf('COM_HTML5FLIPPINGBOOK_BE_PAGES_CANNOT_COPY_FILE_TO_TARGET_DIR', $fileName));
                     return;
                 }
@@ -411,8 +385,7 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
 
         $pagesInfoCreated = $this->registerPagesInDB($fileNames, $publicationId, $pagesTitle, $htmlFilesContent, NULL, $outputFileName);
 
-        if (!$pagesInfoCreated)
-        {
+        if (!$pagesInfoCreated) {
             $this->showErrorOnPagesMultiupload(JText::_('COM_HTML5FLIPPINGBOOK_BE_PAGES_CANNOT_WRITE_TO_DB'));
             return;
         }
@@ -420,9 +393,9 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
         // Redirecting.
 
         $app = JFactory::getApplication();
-        $app->setUserState(COMPONENT_OPTION.'.pages.filter.publication_id', $publicationId);
+        $app->setUserState(COMPONENT_OPTION . '.pages.filter.publication_id', $publicationId);
 
-        JFactory::getApplication()->redirect('index.php?option='.COMPONENT_OPTION.'&view=pages', JText::_('COM_HTML5FLIPPINGBOOK_BE_PAGES_CREATED'));
+        JFactory::getApplication()->redirect('index.php?option=' . COMPONENT_OPTION . '&view=pages', JText::_('COM_HTML5FLIPPINGBOOK_BE_PAGES_CREATED'));
     }
 
     // Make a function for convenience
@@ -431,31 +404,30 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
         $stream = fopen($document, "r");
         $content = fread($stream, filesize($document));
 
-        if(!$stream || !$content)
+        if (!$stream || !$content)
             return 0;
 
         $firstValue = 0;
         $secondValue = 0;
-        if(preg_match("/\/N\s+(\d+)/", $content, $matches))
-        {
+        if (preg_match("/\/N\s+(\d+)/", $content, $matches)) {
             $firstValue = $matches[1];
         }
 
-        if(preg_match_all("/\/Count\s+(\d+)/s", $content, $matches))
-        {
+        if (preg_match_all("/\/Count\s+(\d+)/s", $content, $matches)) {
             $secondValue = max($matches[1]);
         }
 
         return (($secondValue != 0) ? $secondValue : max($firstValue, $secondValue));
     }
 
-    public function takefile() {
+    public function takefile()
+    {
 
-        require_once(JPATH_COMPONENT_ADMINISTRATOR.'/libs/MethodsForStrings.php');
+        require_once(JPATH_COMPONENT_ADMINISTRATOR . '/libs/MethodsForStrings.php');
 
-        $publicationId  = $this->input->get('publication_id', '', 'INT');
-        $pagesTitle     = $this->input->get('general_pages_title', '', 'WORD');
-        $quality        = $this->input->get('image_quality', 100, 'INT');
+        $publicationId = $this->input->get('publication_id', '', 'INT');
+        $pagesTitle = $this->input->get('general_pages_title', '', 'WORD');
+        $quality = $this->input->get('image_quality', 100, 'INT');
 
         jimport('joomla.filesystem.file');
         jimport('joomla.filesystem.folder');
@@ -488,18 +460,16 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
 //        }
 
         // Downloading and checking archive.
-        if ($pdfFile['name'] == '' || $pdfFile['error'] == 1)
-        {
+        if ($pdfFile['name'] == '' || $pdfFile['error'] == 1) {
             $this->setMessage(JText::_('COM_HTML5FLIPPINGBOOK_BE_PAGES_CANNOT_UPLOAD_PDF_FILE'), 'WARNING');
-            $this->setRedirect('index.php?option='.COMPONENT_OPTION.'&view=pages&layout=convert');
+            $this->setRedirect('index.php?option=' . COMPONENT_OPTION . '&view=pages&layout=convert');
             return;
         }
 
-        if (!$pdfFile['size'])
-        {
-            $maxSize = min((int) ini_get('post_max_size'), (int) ini_get('upload_max_filesize'));
+        if (!$pdfFile['size']) {
+            $maxSize = min((int)ini_get('post_max_size'), (int)ini_get('upload_max_filesize'));
             $this->setMessage(JText::sprintf('COM_HTML5FLIPPINGBOOK_BE_PAGES_TOO_LARGE_FILE', $maxSize), 'WARNING');
-            $this->setRedirect('index.php?option='.COMPONENT_OPTION.'&view=pages&layout=convert');
+            $this->setRedirect('index.php?option=' . COMPONENT_OPTION . '&view=pages&layout=convert');
             return;
         }
 
@@ -517,10 +487,9 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
             'application/force-download'
         );
 
-        if (!in_array($fileMimeType, $allowedMimeTypes))
-        {
+        if (!in_array($fileMimeType, $allowedMimeTypes)) {
             $this->setMessage(JText::sprintf('COM_HTML5FLIPPINGBOOK_BE_PAGES_WRONG_PDF_TYPE', $fileMimeType), 'WARNING');
-            $this->setRedirect('index.php?option='.COMPONENT_OPTION.'&view=pages&layout=convert');
+            $this->setRedirect('index.php?option=' . COMPONENT_OPTION . '&view=pages&layout=convert');
             return;
         }
 
@@ -530,10 +499,9 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
         $PDFFileFullName = $pdfDirName . '/' . $pdfFileName;
 //        $tempPDFFileFullName = $tempDirName . '/' . $pdfFileName;
 
-        if (!JFile::move($pdfFile['tmp_name'], $PDFFileFullName) || !JPath::setPermissions($PDFFileFullName))
-        {
+        if (!JFile::move($pdfFile['tmp_name'], $PDFFileFullName) || !JPath::setPermissions($PDFFileFullName)) {
             $this->setMessage(JText::sprintf('COM_HTML5FLIPPINGBOOK_BE_PAGES_CANNOT_MOVE_PDF', $pdfFileName, $pdfDirName), 'WARNING');
-            $this->setRedirect('index.php?option='.COMPONENT_OPTION.'&view=pages&layout=convert');
+            $this->setRedirect('index.php?option=' . COMPONENT_OPTION . '&view=pages&layout=convert');
             return;
         }
 
@@ -549,34 +517,37 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
             $img = new Imagick();
             $img->readImage($PDFFileFullName);
             $count = $img->getNumberImages();
+        } elseif (!class_exists('Imagick') && function_exists('exec')) {
+            // Determine num of pages
+            $count = (int)$this->_getPDFPages($PDFFileFullName);
         }
         $imgName = MethodsForStrings::GenerateRandomString(5, 'lower');
         $dir = base64_encode($PDFFileFullName);
-        $this->setRedirect('index.php?'.
-            'option='.COMPONENT_OPTION.
-            '&view=pages'.
-            '&layout=progressbar'.
-            '&fName='.$pdfFileName.
-            '&imgName='.$imgName.
-            '&publication_id='.$publicationId.
-            '&general_pages_title='.$pagesTitle.
-            '&image_quality='.$quality.
-            '&count='.$count
+        $this->setRedirect('index.php?' .
+            'option=' . COMPONENT_OPTION .
+            '&view=pages' .
+            '&layout=progressbar' .
+            '&fName=' . $pdfFileName .
+            '&imgName=' . $imgName .
+            '&publication_id=' . $publicationId .
+            '&general_pages_title=' . $pagesTitle .
+            '&image_quality=' . $quality .
+            '&count=' . $count
         );
     }
 
     public function convert()
     {
-        $publicationId  = $this->input->get('publication_id', '', 'INT');
-        $pagesTitle     = $this->input->get('general_pages_title', '', 'WORD');
-        $quality        = $this->input->get('image_quality', 100, 'INT');
+        $publicationId = $this->input->get('publication_id', '', 'INT');
+        $pagesTitle = $this->input->get('general_pages_title', '', 'WORD');
+        $quality = $this->input->get('image_quality', 100, 'INT');
 
         jimport('joomla.filesystem.file');
         jimport('joomla.filesystem.folder');
 
         $pdfFile = $this->input->files->get('pdf_file');
 
-        require_once(JPATH_COMPONENT_ADMINISTRATOR.'/libs/MethodsForStrings.php');
+        require_once(JPATH_COMPONENT_ADMINISTRATOR . '/libs/MethodsForStrings.php');
 
         $publicationId = $this->input->get('publication_id', '', 'INT');
         $islast = $this->input->get('islast', '', 'INT');
@@ -601,7 +572,7 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
             ->select('*')
             ->from('`#__html5fb_resolutions`')
             ->where('`id` = ' . $publication->c_resolution_id);
-        $db->setQuery( $query );
+        $db->setQuery($query);
         $data_res = $db->loadAssoc();
 
         // Defining target directory
@@ -610,29 +581,28 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
         // Defining target directory for big image
         $targetDirFullOriginalIMG = JPATH_SITE . '/media/' . COMPONENT_OPTION . '/images' . ($publication->c_imgsubfolder == '' ? '' : '/' . $publication->c_imgsubfolder) . '/original';
 
-        if (!JFolder::create($targetDirFullOriginalIMG, 0757))
-        {
+        if (!JFolder::create($targetDirFullOriginalIMG, 0757)) {
             $this->setMessage(JText::sprintf('COM_HTML5FLIPPINGBOOK_BE_PAGES_CANNOT_CREATE_DIR_BIG_IMG', $targetDirFullOriginalIMG), 'WARNING');
-            $this->setRedirect('index.php?option='.COMPONENT_OPTION.'&view=pages&layout=convert');
+            $this->setRedirect('index.php?option=' . COMPONENT_OPTION . '&view=pages&layout=convert');
             return;
         }
 
-        if ((int) ini_get('memory_limit') < 128) ini_set('memory_limit', '128M');
-        if ((int) ini_get('max_execution_time') < 300) ini_set('max_execution_time', '300');
+        if ((int)ini_get('memory_limit') < 128) ini_set('memory_limit', '128M');
+        if ((int)ini_get('max_execution_time') < 300) ini_set('max_execution_time', '300');
 
         $app = JFactory::getApplication();
-        $app->setUserState(COMPONENT_OPTION.'.pages.filter.publication_id', $publicationId);
+        $app->setUserState(COMPONENT_OPTION . '.pages.filter.publication_id', $publicationId);
 
         jimport('joomla.filesystem.file');
         jimport('joomla.filesystem.folder');
 
         set_time_limit(0);
 
-        putenv('TMPDIR='. JPATH_SITE .'/'.trim(JFactory::getApplication()->getCfg('tmp_path','tmp'),'/\\').'/');
-        putenv('MAGICK_TMPDIR='. JPATH_SITE .'/'.trim(JFactory::getApplication()->getCfg('tmp_path','tmp'),'/\\').'/');
-        putenv('MAGICK_TEMPORARY_PATH='. JPATH_SITE .'/'.trim(JFactory::getApplication()->getCfg('tmp_path','tmp'),'/\\').'/');
+        putenv('TMPDIR=' . JPATH_SITE . '/' . trim(JFactory::getApplication()->getCfg('tmp_path', 'tmp'), '/\\') . '/');
+        putenv('MAGICK_TMPDIR=' . JPATH_SITE . '/' . trim(JFactory::getApplication()->getCfg('tmp_path', 'tmp'), '/\\') . '/');
+        putenv('MAGICK_TEMPORARY_PATH=' . JPATH_SITE . '/' . trim(JFactory::getApplication()->getCfg('tmp_path', 'tmp'), '/\\') . '/');
 
-        $params = JComponentHelper::getParams( 'com_html5flippingbook' );
+        $params = JComponentHelper::getParams('com_html5flippingbook');
 
         // multiplier from bytes to mbytes
         $mbytes = 1024 * 1024;
@@ -641,16 +611,16 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
         $density = (int)$params->get('density', 300);
         $limit_area = (int)$params->get('limit_area', 30) * $mbytes;
         $limit_memory = (int)$params->get('limit_memory', 30) * $mbytes;
+        $page_number = $this->input->get('pageNumb', '', 'INT') - 1;
 
-        if (class_exists('Imagick'))
-        {
+        if (class_exists('Imagick')) {
             // ** setting width and height causes "Invalid IHDR data" with density(192 or 300)
             // Assume that everage user monitor is 1920x1080 so setting up max image sizes
             //Set max image width of 960 (1960/2)
             //Imagick::setResourceLimit(9, (int)$params->get('max_width', 960) * 2);
             //Set max image height of 1080
             //Imagick::setResourceLimit(10, (int)$params->get('max_height', 1080) * 2);
-            if(!$params->get('reach_out_of_limits',0)){
+            if (!$params->get('reach_out_of_limits', 0)) {
                 Imagick::setResourceLimit(Imagick::RESOURCETYPE_AREA, $limit_area);
                 Imagick::setResourceLimit(Imagick::RESOURCETYPE_MEMORY, $limit_memory);
             }
@@ -658,13 +628,12 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
             //Imagick::setResourceLimit(Imagick::RESOURCETYPE_DISK, 10*$mbytes);
 
             // Convert PDF document page
-            $page_number = $this->input->get('pageNumb', '', 'INT')-1;
 
             $img = new Imagick();
 
             $img->setResolution($density, $density);
             try {
-                $img->readImage($PDFFileFullName."[$page_number]");
+                $img->readImage($PDFFileFullName . "[$page_number]");
             } catch (Exception $e) {
                 die();
             }
@@ -680,7 +649,7 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
             $img->setImageFormat('jpeg');
 
             //Remove opacity
-//                $img->setImageAlpha(1.0);
+//              $img->setImageAlpha(1.0);
 
             $img->setImageCompression(Imagick::COMPRESSION_JPEG);
 
@@ -691,8 +660,7 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
             $cls_v = $img->getversion();
             preg_match('/ImageMagick ([0-9]+\.[0-9]+\.[0-9]+)/', $cls_v['versionString'], $cls_v);
 
-            if (version_compare($cls_v[1], '6.8.9') == 1)
-            {
+            if (version_compare($cls_v[1], '6.8.9') == 1) {
                 $img->setImageAlphaChannel(Imagick::ALPHACHANNEL_DEACTIVATE);
             }
 
@@ -709,8 +677,7 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
             $img->writeImage($output_thumb);
 
             //Create thumb for first page
-            if ($page_number == 0)
-            {
+            if ($page_number == 0) {
                 $outputFileName = 'thumb_' . $imgName . "-" . $page_number . ".jpg";
                 $outputFilePath = JPATH_SITE . '/media/' . COMPONENT_OPTION . '/thumbs/' . $outputFileName;
 
@@ -722,99 +689,46 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
             }
 
             $img->destroy();
-            $pagesInfoCreated = $this->registerPagesInDB([$imgName . "-" . $page_number . ".jpg"], $publicationId, $pagesTitle, $htmlFilesContent, $fName, $outputFileName);
-            if ($islast) {
-                echo 1;
-                die();
+        } elseif (!class_exists('Imagick') && function_exists('exec')) {
+            // Determine num of pages
+//            $num_pages = (int)$this->_getPDFPages($PDFFileFullName);
+
+            // Convert PDF pages to images
+            $size = "-resize " . $data_res['width'] . "x" . $data_res['height'] . "!";
+            $quality = "-quality " . $quality;
+
+            $input = $PDFFileFullName . "[$page_number]";
+            $output = $targetDirFullOriginalIMG . "/" . $imgName . "-" . $page_number . ".jpg";
+            $output_thumb = $targetDirFullName . "/th_" . $imgName . "-" . $page_number . ".jpg";
+
+            //ImageMagic console command for convert pdf page into image file
+            exec("convert -limit area $limit_area -limit memory $limit_memory -density $density -colorspace sRGB " . $input . " " . $quality . " -background white -alpha remove " . $output);
+            exec("convert -limit area $limit_area -limit memory $limit_memory -density $density -colorspace sRGB " . $input . " " . $size . " " . $quality . " -background white -alpha remove " . $output_thumb, $b);
+
+            //Create thumb for first page
+            if ($page_number == 0 && $b == 0) {
+                $outputFileName = 'thumb_' . $imgName . "-" . $page_number . ".jpg";
+                $outputFilePath = JPATH_SITE . '/media/' . COMPONENT_OPTION . '/thumbs/' . $outputFileName;
+
+                $image = new JImage();
+                $image->loadFile($output_thumb);
+                $image->resize(240, 340, FALSE);
+                $image->toFile($outputFilePath, IMAGETYPE_JPEG, array('quality' => 95));
+                $image->destroy();
             }
         }
-//        elseif (!class_exists('Imagick') && function_exists('exec'))
-//        {
-//            // Determine num of pages
-//            $num_pages = (int)$this->_getPDFPages($PDFFileFullName);
-//
-//            // Convert PDF pages to images
-//            $size    = "-resize " . $data_res['width'] . "x" . $data_res['height'];
-//            $quality = "-quality " . $quality;
-//
-//            for($i = 0; $i < $num_pages; $i++)
-//            {
-//                $input  = $PDFFileFullName . "[$i]";
-////                $output = $tempDirName . "/" . $fName . "-" . $i . ".jpg";
-////                $output_thumb = $tempDirName . "/th_" . $fName . "-" . $i . ".jpg";
-//
-//                //ImageMagic console command for convert pdf page into image file
-//                exec("convert -limit area $limit_area -limit memory $limit_memory -density $density -colorspace sRGB " . $input . " " . $quality . " -background white -alpha remove " . $output);
-//                exec("convert -limit area $limit_area -limit memory $limit_memory -density $density -colorspace sRGB " . $input . " " . $size . " " . $quality . " -background white -alpha remove " . $output_thumb, $a, $b);
-//
-//                //Create thumb for first page
-//                if ($i == 0 && $b == 0)
-//                {
-//                    $outputFileName = 'thumb_' . $fName . "-" . $i . ".jpg";
-//                    $outputFilePath = JPATH_SITE . '/media/' . COMPONENT_OPTION . '/thumbs/' . $outputFileName;
-//
-//                    $image = new JImage();
-//                    $image->loadFile($output_thumb);
-//                    $image->resize(240, 340, FALSE);
-//                    $image->toFile($outputFilePath, IMAGETYPE_JPEG, array('quality' => 95));
-//                    $image->destroy();
-//                }
-//            }
-//        }
+        $pagesInfoCreated = $this->registerPagesInDB([$imgName . "-" . $page_number . ".jpg"], $publicationId, $pagesTitle, $htmlFilesContent, $fName, $outputFileName);
 
-//        $extensions = '\.(' .
-//            '(j|J)(p|P)(g|G)' .
-//            '|(j|J)(p|P)(e|E)(g|G)' .
-//            '|(p|P)(n|N)(g|G)' .
-//            '|(g|G)(i|I)(f|F)' .
-//            ')$';
-
-//        $fileNames = JFolder::files($tempDirName, $extensions, false);
-
-//        if (!$fileNames || count($fileNames) == 0)
-//        {
-//            $this->setMessage(JText::_('COM_HTML5FLIPPINGBOOK_BE_PAGES_NO_CORRECT_IMAGES_IN_TEMP_DIR'), 'WARNING');
-//            $this->setRedirect('index.php?option='.COMPONENT_OPTION.'&view=pages&layout=convert');
-//            return;
-//        }
-
-//        uasort($fileNames, 'strnatcmp');
-//        $fileNames = array_values($fileNames);
-
-
-        // Copying files to target directory and deleting temporary directory. Existing files will be overridden.
-//        foreach ($fileNames as $fileName)
-//        {
-//            $fileCopied = FALSE;
-//            if (strpos($fileName, 'th_') !== FALSE)
-//            {
-//                $fileCopied = JFile::copy($tempDirName . '/' . $fileName, $targetDirFullName . '/' . $fileName);
-//                $bookFiles[] = $fileName;
-//            }
-//            else
-//            {
-//                $fileCopied = JFile::copy($tempDirName . '/' . $fileName, $targetDirFullOriginalIMG . '/' . $fileName);
-//            }
-//
-//            if (!$fileCopied)
-//            {
-//                $this->setMessage(JText::sprintf('COM_HTML5FLIPPINGBOOK_BE_PAGES_CANNOT_COPY_FILE_TO_TARGET_DIR', $fileName), 'WARNING');
-//                $this->setRedirect('index.php?option='.COMPONENT_OPTION.'&view=pages&layout=convert');
-//                return;
-//            }
-//        }
-
-//        @JFolder::delete($tempDirName);
-
-        // Updating database.
-//        $pagesInfoCreated = $this->registerPagesInDB($bookFiles, $publicationId, $pagesTitle, $htmlFilesContent, $pdfFileName, $outputFileName);
-
-        if (!$pagesInfoCreated)
-        {
+        if (!$pagesInfoCreated) {
             $this->setMessage(JText::_('COM_HTML5FLIPPINGBOOK_BE_PAGES_CANNOT_WRITE_TO_DB'), 'WARNING');
-            $this->setRedirect('index.php?option='.COMPONENT_OPTION.'&view=pages&layout=convert');
+            $this->setRedirect('index.php?option=' . COMPONENT_OPTION . '&view=pages&layout=convert');
             return;
         }
+
+        if ($islast) {
+            echo 1;
+        }
+        die();
     }
 
     //----------------------------------------------------------------------------------------------------
@@ -826,8 +740,9 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
 
         $publicationId = $jinput->get('publication_id');
 
-        JFactory::getApplication()->redirect('index.php?option='.COMPONENT_OPTION.'&view=pages&layout=multiupload&pubId='.$publicationId, $error, 'error');
+        JFactory::getApplication()->redirect('index.php?option=' . COMPONENT_OPTION . '&view=pages&layout=multiupload&pubId=' . $publicationId, $error, 'error');
     }
+
     //----------------------------------------------------------------------------------------------------
     private function registerPagesInDB($fileNames, $publicationId, $pagesTitle, $htmlFilesContent = array(), $pdfFile = NULL, $firstPageThumb = NULL)
     {
@@ -840,16 +755,14 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
         $maxOrderingIndex = $db->loadResult();
 
         // Writing to database.
-        for ($i = 0; $i < count($fileNames); $i++)
-        {
+        for ($i = 0; $i < count($fileNames); $i++) {
             $fileName = $fileNames[$i];
 
             $pageTitle = $pagesTitle . " " . ($maxOrderingIndex + 1 + $i);
             $orderingIndex = $maxOrderingIndex + 1 + $i;
 
 
-            if ( empty($htmlFilesContent[$fileName]) )
-            {
+            if (empty($htmlFilesContent[$fileName])) {
                 $query = $db->getQuery(true)
                     ->insert('`#__html5fb_pages`')
                     ->columns(
@@ -861,9 +774,7 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
                     ->values($db->quote($publicationId) . ', ' . $db->quote($pageTitle) . ', ' . $db->quote((is_null($pdfFile) ? "thumb_" . $fileName : $fileName)) . ', ' . $orderingIndex . ', 1');
                 $db->setQuery($query);
                 $db->execute();
-            }
-            else
-            {
+            } else {
                 $query = $db->getQuery(true)
                     ->insert('`#__html5fb_pages`')
                     ->columns(
@@ -872,14 +783,13 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
                             $db->quoteName('ordering'), $db->quoteName('c_enable_text'), $db->quoteName('c_enable_image')
                         )
                     )
-                    ->values($db->quote($publicationId) . ', ' . $db->quote($pageTitle) . ', ' . $db->quote( $htmlFilesContent[$fileName] ) . ', ' . $orderingIndex . ', 1, 0');
+                    ->values($db->quote($publicationId) . ', ' . $db->quote($pageTitle) . ', ' . $db->quote($htmlFilesContent[$fileName]) . ', ' . $orderingIndex . ', 1, 0');
                 $db->setQuery($query);
                 $db->execute();
             }
         }
         //Assign PDF file to publication
-        if (!is_null($pdfFile))
-        {
+        if (!is_null($pdfFile)) {
             $query = $db->getQuery(true)
                 ->update('`#__html5fb_publication`')
                 ->set('`c_enable_pdf` = 1')
@@ -889,15 +799,14 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
             $db->execute();
         }
         //Set publication thumbnail
-        if (!is_null($firstPageThumb))
-        {
+        if (!is_null($firstPageThumb)) {
             $query = $db->getQuery(true)
                 ->select('c_thumb')
                 ->from('#__html5fb_publication')
                 ->where('`c_id` = ' . $publicationId);
             $db->setQuery($query);
             $thumb = $db->loadResult();
-            if(!$thumb){
+            if (!$thumb) {
                 $query = $db->getQuery(true)
                     ->update('`#__html5fb_publication`')
                     ->set('`c_thumb` = "' . $firstPageThumb . '"')
@@ -909,6 +818,7 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
 
         return true;
     }
+
     //----------------------------------------------------------------------------------------------------
     private function _getStrippedHTML($file)
     {
@@ -918,6 +828,7 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
         );
         return preg_replace($search, '', file_get_contents($file));
     }
+
     //----------------------------------------------------------------------------------------------------
     private function _resize($fileNames, $base_Dir, $pub_id, $replace = false)
     {
@@ -932,18 +843,16 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
         $query = "SELECT *" .
             " FROM `#__html5fb_resolutions`" .
             " WHERE `id` = '" . $res_id . "'";
-        $database->setQuery( $query );
+        $database->setQuery($query);
         $data_res = $database->loadAssoc();
 
         $width = $data_res['width'];
         $height = $data_res['height'];
 
-        foreach ($fileNames as $fileName)
-        {
-            if ( preg_match('/(\.[jpg|jpeg|gif|png])/is', $fileName) )
-            {
-                $inputFilePath = $base_Dir.'/'.$fileName;
-                $outputFilePath = $base_Dir.'/thumb_'.$fileName;
+        foreach ($fileNames as $fileName) {
+            if (preg_match('/(\.[jpg|jpeg|gif|png])/is', $fileName)) {
+                $inputFilePath = $base_Dir . '/' . $fileName;
+                $outputFilePath = $base_Dir . '/thumb_' . $fileName;
 
                 $image = new JImage();
                 $image->loadFile($inputFilePath);
@@ -957,17 +866,17 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
     public function set_contents()
     {
         $db = JFactory::getDbo();
-        $cid = (int)end( JFactory::getApplication()->input->get('cid', array(), 'array') );
+        $cid = (int)end(JFactory::getApplication()->input->get('cid', array(), 'array'));
 
-        $db->setQuery("SELECT publication_id FROM #__html5fb_pages WHERE id = ".$cid);
+        $db->setQuery("SELECT publication_id FROM #__html5fb_pages WHERE id = " . $cid);
         $pubID = $db->loadResult();
 
-        $db->setQuery("UPDATE `#__html5fb_pages` SET `is_contents` = 0 WHERE `publication_id` = ".(int) $pubID );
+        $db->setQuery("UPDATE `#__html5fb_pages` SET `is_contents` = 0 WHERE `publication_id` = " . (int)$pubID);
         $db->execute();
 
-        $db->setQuery("UPDATE `#__html5fb_pages` SET `is_contents` = 1 WHERE `id` = ".$cid );
+        $db->setQuery("UPDATE `#__html5fb_pages` SET `is_contents` = 1 WHERE `id` = " . $cid);
         $db->execute();
 
-        JFactory::getApplication()->redirect('index.php?option='.COMPONENT_OPTION.'&view=pages');
+        JFactory::getApplication()->redirect('index.php?option=' . COMPONENT_OPTION . '&view=pages');
     }
 }
