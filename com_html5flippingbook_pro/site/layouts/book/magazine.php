@@ -642,6 +642,18 @@ foreach($template_css as $rule => $style){
             elem.mozRequestFullScreen();
         } else if (elem.webkitRequestFullscreen) {
             elem.webkitRequestFullscreen();
+        } else {
+            jQuery(elem)
+                .css('position','fixed')
+                .css('left','0px')
+                .css('top','0px')
+                .css('background','#FFF')
+                .width(jQuery('html').width())
+                .height(jQuery('html').height())
+                .css('z-index','1010');
+            var size = flipbook.module.resize();
+            flipbook.turn('size', size.width, size.height);
+            jQuery(elem).append(jQuery('<div/>').html('Close').attr('onclick','alert("Please reload the page.")'));
         }
     }
 
@@ -1026,6 +1038,7 @@ foreach($template_css as $rule => $style){
                 flipbook.closest('.flipbook-viewport').animate({"opacity": "1"}, 800);
             }
         };
+        flipbook.module = module;
 
         function loadApp() {
             // Check if the CSS was already loaded
