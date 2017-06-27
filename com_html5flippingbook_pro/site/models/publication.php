@@ -156,6 +156,11 @@ class HTML5FlippingBookModelPublication extends JModelItem
 
             if(!$this->_item->template->doublepages){
                 if($count%2==1){
+                    if (!$this->_item->template->hard_cover) {
+                        $query = "SELECT * FROM #__html5fb_pages WHERE publication_id = " . (int)$id . " ORDER BY `ordering` DESC LIMIT 0, 2";
+                        $this->_db->setQuery($query);
+                        $result = array_merge($result,array_reverse($this->_db->loadAssocList()));
+                    }
                     $result[] = array('c_text'=>'<div class="page"></div>');
                     $count++;
                 }elseif($count > 16){
@@ -170,8 +175,9 @@ class HTML5FlippingBookModelPublication extends JModelItem
             }elseif($count > 16){
                 $query = "SELECT * FROM #__html5fb_pages WHERE publication_id = ".(int)$id." ORDER BY `ordering` DESC LIMIT 0, 1";
                 $this->_db->setQuery($query);
-                $result[] = $this->_db->loadAssoc();
+                $result = array_merge($result,array_reverse($this->_db->loadAssocList()));
             }
+
             return array($count,$result);
         }
         else

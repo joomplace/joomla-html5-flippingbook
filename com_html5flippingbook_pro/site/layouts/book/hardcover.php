@@ -503,7 +503,7 @@ foreach($template_css as $rule => $style){
                             <?php } ?>
                             <?php
                             if($double_page){
-                                $item->pages_count -= 4;
+                                $item->pages_count -= 2;
                                 if(!end($pages)["id"]){
                                     array_pop($pages);
                                 }
@@ -1021,6 +1021,7 @@ foreach($template_css as $rule => $style){
                         },
 
                         missing: function (e, pages) {
+                            console.log(pages);
                             for (var i = 0; i < pages.length; i++) {
                                 addPage(pages[i], $(this),<?php echo $pages_count_adjust; ?>);
                             }
