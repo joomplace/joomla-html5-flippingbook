@@ -78,7 +78,7 @@ function HTML5FlippingBookParseRoute($segments)
 			$vars['view'] = $segments[0];
 			if ($numSegments > 2) $vars['id'] = $segments[2];
 			
-			if(!$vars['Itemid']){
+			if(!array_key_exists('Itemid', $vars) || !$vars['Itemid']){
 				$lang = JFactory::getLanguage();
 				$db = JFactory::getDbo();
 				$query = $db->getQuery(true);
