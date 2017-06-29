@@ -33,7 +33,7 @@ if($this->item->template->hard_cover){
 
 // TODO: refactor layouts
 
-if($hard_html){
+if(isset($hard_html) && $hard_html){
     echo $hard_html;
 }else{
     echo JLayoutHelper::render('book.magazine', $data);
