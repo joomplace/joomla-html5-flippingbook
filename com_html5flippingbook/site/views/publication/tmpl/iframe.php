@@ -22,9 +22,9 @@ $pages = $item->pages;
 $data = array(
     'item'=>$item,
     'pages'=>$pages,
-    'config'=>$this->config,
-    'emaillayout'=>$this->emaillayout,
-    'emaillayoutData'=>$this->emaillayoutData
+    'config'=>(property_exists($this, 'config') && $this->config) ? $this->config : false,
+    'emaillayout'=>(property_exists($this, 'emaillayout') && $this->emaillayout) ? $this->emaillayout : false,
+    'emaillayoutData'=>(property_exists($this, 'emaillayoutData') && $this->emaillayoutData) ? $this->emaillayoutData : false
 );
 
 if($this->item->template->hard_cover){
