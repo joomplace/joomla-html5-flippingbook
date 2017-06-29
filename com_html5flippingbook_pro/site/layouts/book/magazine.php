@@ -622,7 +622,7 @@ foreach($template_css as $rule => $style){
                             <?php } ?>
                         </div>
                         <div class="span12">
-                            <?php echo JHtml::_('content.prepare', $item->fulltext); ?>
+                            <?php echo JHtml::_('content.prepare', property_exists($item, 'fulltext') ? $item->fulltext : false); ?>
                         </div>
                     </div>
                 </div>
@@ -653,7 +653,7 @@ foreach($template_css as $rule => $style){
         });
     }
 
-    <?php if($item->c_audio) { ?>
+    <?php if(property_exists($item, 'c_audio') && $item->c_audio) { ?>
     jQuery('.previous-button, .next-button').click(function() {
         var audio = new Audio();
         audio.src = '<?php  echo COMPONENT_MEDIA_URL . "audio/" . $item->c_audio; ?>';
