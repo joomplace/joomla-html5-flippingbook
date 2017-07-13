@@ -91,6 +91,10 @@ class HTML5FlippingBookModelPublication extends JModelItem
                     list ($this->_item->introtext, $this->_item->fulltext) = preg_split($pattern, $this->_item->c_pub_descr, 2);
                 }
 
+                if ( $this->_item->template->slider_thumbs ){
+                    $this->generatePreview($this->_item);
+                }
+
             }
             else if ($error = $table->getError())
             {
@@ -98,6 +102,7 @@ class HTML5FlippingBookModelPublication extends JModelItem
 
                 return null;
             }
+            $this->generatePreview($this->_item);
         }
         return $this->_item;
     }
@@ -124,7 +129,7 @@ class HTML5FlippingBookModelPublication extends JModelItem
         return $resolution;
     }
 
-    public function getPages()
+    public function getPages($force = false)
     {
         if (empty($id))
         {
@@ -141,7 +146,7 @@ class HTML5FlippingBookModelPublication extends JModelItem
         {
             $this->_db->setQuery("SELECT COUNT(*) FROM #__html5fb_pages WHERE publication_id = ".(int)$id."");
             $count = $this->_db->loadResult();
-            if( $count > 16){
+            if( $count > 16 && !$force){
                 $query = array();
                 $query = "SELECT * FROM #__html5fb_pages WHERE publication_id = ".(int)$id." ORDER BY `ordering` ASC LIMIT 0, 7";
                 //$query[1] = "(SELECT * FROM #__html5fb_pages WHERE publication_id = ".(int)$id." ORDER BY `ordering` DESC LIMIT 0, 4)";
@@ -163,7 +168,7 @@ class HTML5FlippingBookModelPublication extends JModelItem
                     }
                     $result[] = array('c_text'=>'<div class="page"></div>');
                     $count++;
-                }elseif($count > 16){
+                }elseif($count > 16 && !$force){
                     if ($this->_item->template->hard_cover) {
                         $query = "SELECT * FROM #__html5fb_pages WHERE publication_id = ".(int)$id." ORDER BY `ordering` DESC LIMIT 0, 1";
                     }else {
@@ -172,7 +177,7 @@ class HTML5FlippingBookModelPublication extends JModelItem
                     $this->_db->setQuery($query);
                     $result = array_merge($result,array_reverse($this->_db->loadAssocList()));
                 }
-            }elseif($count > 16){
+            }elseif($count > 16 && !$force){
                 $query = "SELECT * FROM #__html5fb_pages WHERE publication_id = ".(int)$id." ORDER BY `ordering` DESC LIMIT 0, 1";
                 $this->_db->setQuery($query);
                 $result = array_merge($result,array_reverse($this->_db->loadAssocList()));
@@ -180,8 +185,9 @@ class HTML5FlippingBookModelPublication extends JModelItem
 
             return array($count,$result);
         }
-        else
+        else{
             return array(0,false);
+        }
     }
 
     public function getPageFromPub($pub, $num)
@@ -254,7 +260,9 @@ class HTML5FlippingBookModelPublication extends JModelItem
 
                 return $handle;
             }
-            catch (Exception $e ) { var_dump($e); exit; }
+            catch (Exception $e ) {
+                JFactory::getApplication()->enqueueMessage($e->getMessage());
+            }
         }
 
         function textImgCreate( $page_num )
@@ -305,9 +313,9 @@ class HTML5FlippingBookModelPublication extends JModelItem
         {
             $images = array();
 
-            $countPages = count($item->pages);
             $k = 1;
-            foreach ($item->pages as $page_num => $page)
+            list($countPages, $pages) = $this->getPages(true);
+            foreach ($pages as $page_num => $page)
             {
                 if ( $page['c_enable_image'] )
                 {
