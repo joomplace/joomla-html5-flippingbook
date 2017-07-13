@@ -575,43 +575,10 @@ foreach($template_css as $rule => $style){
                                         $page_number  = (($item->navi_settings)?($i+1):'');
                                 }
 
-                                if(!$item->template->hard_cover){
-                                    $page_content = ($page['page_image'])?'<div class="paddifier"><img src="'.str_replace("\\", "/", JHtml::_('thumbler.generate', $page['page_image'], json_encode(array('width' => $item->resolutions->width, 'height'=> $item->resolutions->height)), false)).'" /></div>':'<div class="paddifier"><div class="html-content"><div>'.$page['c_text'].((1)?'<span class="page-number">'.$page_number.'</span></div></div>':'').'</div>';
-                                }else{
-                                    switch($i){
-                                        /* content of cover */
-                                        case 0:
-                                        case 1:
-                                        case $bc+1:
-                                        case $bc+2:
-                                            if($page['page_image']){
-                                                $page_class .='" style="background: url(\''.str_replace("\\", "/", JHtml::_('thumbler.generate', $page['page_image'], json_encode(array('width' => $item->resolutions->width, 'height'=> $item->resolutions->height)), false)).'\'); background-size: 100% 100%;';
-                                                $page_content = '';
-                                            }else{
-                                                $page_class .='" style="background: #FFF; background-size: 100% 100%;';
-                                                if($page['c_text']){
-                                                    $page_content = '<div class="paddifier"><div class="html-content"><div>'.$page['c_text'].'</div>';
-                                                    /* $page['c_text'].((1)?'<span class="page-number">'.(($item->navi_settings)?$i:$i-1).'</span></div></div>':'') */
-                                                }
-                                            }
-                                            $page_content = '<div class="coverer-html-wrap" style="width:100%;height:100%;">'.$page_content.'</div>';
-                                            break;
-
-                                        /* content of pages */
-                                        case $bc:
-                                            $page_number = $pages_count-2;
-                                            $page_number = (($item->navi_settings)?$page_number-1:$page_number-2);
-                                        default:
-                                            if(!$page_number){
-                                                $page_number  = (($item->navi_settings)?($i?$i:''):(($i>1)?$i-1:''));
-                                            }
-                                            $page_content = ($page['page_image'])?'<div class="paddifier"><img src="'.str_replace("\\", "/", JHtml::_('thumbler.generate', $page['page_image'], json_encode(array('width' => $item->resolutions->width, 'height'=> $item->resolutions->height)), false)).'" /></div>':'<div class="paddifier"><div class="html-content"><div>'.$page['c_text'].((1)?'<span class="page-number">'.$page_number.'</span></div></div>':'').'</div>';
-                                            $page_number = 0;
-                                    }
-                                }
+                                $page_content = ($page['page_image'])?'<div class="paddifier"><img src="'.str_replace("\\", "/", JHtml::_('thumbler.generate', $page['page_image'], json_encode(array('width' => $item->resolutions->width*(($double_page && ($i != 0 && $i != $bc+2))?2:1), 'height'=> $item->resolutions->height)), false)).'" /></div>':'<div class="paddifier"><div class="html-content"><div>'.$page['c_text'].((1)?'<span class="page-number">'.$page_number.'</span></div></div>':'').'</div>';
                                 if($page['page_image'] && strpos($page_class,'double')!==false){
                                     ?>
-                                    <div class="<?php echo $page_class; ?>" data-id="<?php echo $page['id']; ?>" style="background-image:url('<?php echo str_replace("\\", "/", JHtml::_('thumbler.generate', $page['page_image'], json_encode(array('width' => $item->resolutions->width, 'height'=> $item->resolutions->height)), false)); ?>')"></div>
+                                    <div class="<?php echo $page_class; ?>" data-id="<?php echo $page['id']; ?>" style="background-image:url('<?php echo str_replace("\\", "/", JHtml::_('thumbler.generate', $page['page_image'], json_encode(array('width' => $item->resolutions->width*($double_page?2:1), 'height'=> $item->resolutions->height)), false)); ?>')"></div>
                                     <?php
                                 }else{
                                     ?>
