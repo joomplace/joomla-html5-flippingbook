@@ -6,7 +6,7 @@
  * @copyright Copyright (C) JoomPlace, www.joomplace.com
  * @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
  */
- 
+
 defined('_JEXEC') or die('Restricted access');
 
 $document = JFactory::getDocument();
@@ -447,7 +447,7 @@ foreach($template_css as $rule => $style){
                         <?php } ?>
                         <?php if($item->template->display_topicons){ ?>
                             <div class="tb_social" style="float: right; margin-left: 0px;">
-                                <i class="fa fa-step-backward fa-lg" aria-hidden="true" title="First page"></i>
+                                <i class="fa fa-step-backward fa-lg" aria-hidden="true" title="<?= JText::_( 'COM_HTML5FLIPPINGBOOK_FIRST_PAGE' );?>"></i>
                                 <?php if ($config->social_email_use):?>
                                     <a href="#emailModal" data-toggle="modal"><i class="fa fa-envelope fa-lg" title="<?php echo JText::_('COM_HTML5FLIPPINGBOOK_FE_TOOLBAR_EMAIL');?>"></i></a>
                                 <?php endif;?>
@@ -455,9 +455,9 @@ foreach($template_css as $rule => $style){
                                     <i class="fa fa-list fa-lg" title="Table of contents" rel="<?php echo $item->contents_page; ?>"></i>
                                 <?php } ?>
                                 <?php if(JFactory::getApplication()->input->get('tmpl','')!='component'){ ?>
-                                    <i class="fa fa-expand fa-lg" id="fullscreen" onclick="fullscreenIt('flipbook');" title="Fullscreen"></i>
+                                    <i class="fa fa-expand fa-lg" id="fullscreen" onclick="fullscreenIt('flipbook');" title="<?= JText::_( 'COM_HTML5FLIPPINGBOOK_FULLSCREEN' );?>"></i>
                                 <?php } ?>
-                                <i class="fa fa-search-plus fa-lg" title="Zoom in"></i>
+                                <i class="fa fa-search-plus fa-lg" title="<?= JText::_( 'COM_HTML5FLIPPINGBOOK_ZOOM_IN' );?>"></i>
                                 <?php if ($config->social_facebook_use == 1) { ?>
                                     <a style="color: #47639E;" target="_blank" href="https://www.facebook.com/sharer.php?src=sp&u=<?php echo urlencode(JUri::current());?>&utm_source=share2">
                                         <i class="fa fa-facebook fa-lg" title="Share on facebook"></i>
@@ -608,8 +608,8 @@ foreach($template_css as $rule => $style){
                         <div class="span4 text-center">
                             <?php if($item->template->display_pagebox){ ?>
                                 <div ignore="1" id="page-bar">
-                                    <label>Go to</label>
-                                    <input type="text" id="goto_page_input" value="" autocomplete="" placeholder="page">
+                                    <label><?= JText::_( 'COM_HTML5FLIPPINGBOOK_GO_TO' );?></label>
+                                    <input type="text" id="goto_page_input" value="" autocomplete="" placeholder="<?= JText::_( 'COM_HTML5FLIPPINGBOOK_PAGE' );?>">
                                     <span id="goto_page_input_button"><i class="fa fa-share"></i></span>
                                 </div>
                             <?php } ?>
@@ -869,7 +869,7 @@ foreach($template_css as $rule => $style){
                     var input = $(this).parent().find('#goto_page_input');
                     var val = parseInt(input.val(),10) + <?php echo ($item->navi_settings)?0:1; ?>;
                     flipbook.turn('page', val);
-                    input.val('').prop('placeholder',(val-<?php echo ($item->navi_settings)?0:1; ?>)+' page is opened');
+                    input.val('').prop('placeholder',(val-<?php echo ($item->navi_settings)?0:1; ?>)+' <?= JText::_( 'COM_HTML5FLIPPINGBOOK_PAGE_IS_OPENED' );?>');
                     return false;
                 });
 
@@ -923,7 +923,7 @@ foreach($template_css as $rule => $style){
 
                             slider.slider('value', getViewNumber(book, page));
 
-                            book.parent().next().find('#goto_page_input').prop('placeholder',(page-<?php echo ($item->navi_settings)?0:1; ?>)+' page is opened');
+                            book.parent().next().find('#goto_page_input').prop('placeholder',(page-<?php echo ($item->navi_settings)?0:1; ?>)+' <?= JText::_( 'COM_HTML5FLIPPINGBOOK_PAGE_IS_OPENED' );?>');
 
                             updateDepth(book, page+1);
                             if (page>1){
