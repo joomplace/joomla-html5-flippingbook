@@ -102,7 +102,6 @@ class HTML5FlippingBookModelPublication extends JModelItem
 
                 return null;
             }
-            $this->generatePreview($this->_item);
         }
         return $this->_item;
     }
