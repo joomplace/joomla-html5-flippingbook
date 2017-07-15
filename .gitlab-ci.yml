@@ -39,7 +39,7 @@ build:regular:
     - pkg_html5flippingbook.xml
     name: "pkg_html5flippingbook_${CI_BUILD_REF_NAME}"
     when: on_success
-    expire_in: 10 minutes
+    expire_in: 1 day
 
 build:pro:
   stage: build
@@ -79,4 +79,4 @@ build:pro:
     - pkg_html5flippingbook_pro.xml
     name: "pkg_html5flippingbook_pro_${CI_BUILD_REF_NAME}"
     when: on_success
-    expire_in: 10 minutes
+    expire_in: 1 day
