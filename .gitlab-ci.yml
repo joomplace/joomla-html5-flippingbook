@@ -85,7 +85,7 @@ build:pro:
     when: on_success
     expire_in: 1 day
 
-build:regular:
+release:regular:
   only:
     - tags
   stage: build
@@ -126,7 +126,7 @@ build:regular:
     name: "pkg_html5flippingbook_${CI_BUILD_REF_NAME}"
     when: on_success
 
-build:pro:
+release:pro:
   only:
     - tags
   stage: build
