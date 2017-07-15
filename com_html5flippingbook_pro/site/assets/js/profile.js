@@ -176,27 +176,24 @@
         });
 
         $('#read-publ').on('click', function () {
-            var activeTab = jQuery('#viewTabs > li.active > a').attr('href');
-            var $that = jQuery(this);
+            var activeTab = $('#viewTabs > li.active > a').attr('href');
+            var $that = $(this);
+
+            $('#' + activeTab.split('_')[1] + '-alert').hide();
+            $('ul#' + activeTab.split('_')[1] + '-list > li').toggle().toggleClass('hide-publ');
+
+            if (!$('ul#' + activeTab.split('_')[1] + '-list > li:not(.hide-publ)').length) {
+                $('#' + activeTab.split('_')[1] + '-alert').show();
+            }
 
             if ($that.hasClass('active')) {
                 $that.removeClass('active');
-                $(activeTab + ' .hide-publ').hide();
-
-                if (!$('ul#' + activeTab.split('_')[1] + '-list > li:not(.hide-publ)').length) {
-                    $('#' + activeTab.split('_')[1] + '-alert').show();
-                }
 
                 $that.attr('data-original-title', Joomla.JText._('COM_HTML5FLIPPINGBOOK_FE_DISPLAY_READ_PUBL'));
                 $that.find('i.fa-eye').removeClass('fa-eye').addClass('fa-eye-slash');
             }
             else {
                 $that.addClass('active');
-                $(activeTab + ' .hide-publ').show();
-
-                if (!jQuery('ul#' + activeTab.split('_')[1] + '-list > li:not(.hide-publ)').length) {
-                    jQuery('#' + activeTab.split('_')[1] + '-alert').hide();
-                }
 
                 $that.attr('data-original-title', Joomla.JText._('COM_HTML5FLIPPINGBOOK_FE_DISPLAY_UNREAD_PUBL'));
                 $that.find('i.fa-eye-slash').removeClass('fa-eye-slash').addClass('fa-eye');
@@ -337,7 +334,7 @@ function userPublAction(publID, action, buttonPosition) {
                             jQuery('#read_' + publID + ' > #text_' + publID).text(Joomla.JText._('COM_HTML5FLIPPINGBOOK_FE_ACTION_REMOVE_READ'))
                         }
                         else if (action == 'read_remove') {
-                            $pubEl.removeClass('hide-publ');
+                            $pubEl.addClass('hide-publ').hide();
 
                             readEl = jQuery('a#read_' + publID);
                             for (i = 0; i < readEl.length; i++) {
