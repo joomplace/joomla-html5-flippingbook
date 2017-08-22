@@ -2,18 +2,19 @@
 <extension type="package" version="3.x" method="upgrade">
   <name>HTML5 Flipping Book Standart Package</name>
   <author>Joomplace Team</author>
-  <creationDate>June 2017</creationDate>
+  <creationDate>July 2017</creationDate>
   <packagename>html5flippingbook</packagename>
   <authorEmail>support@joomplace.com</authorEmail>
   <authorUrl>www.joomplace.com</authorUrl>
   <copyright>Copyright (C) 2005 - 2017 JoomPlace, www.joomplace.com. All rights reserved.</copyright>
   <license>GNU/GPL http://www.gnu.org/copyleft/gpl.html</license>
-  <version>2.1.2</version>
+  <version>2.2.0-rc1</version>
   <files folder="packages">
     <file type="component" id="com_html5flippingbook">com_html5flippingbook.zip</file>
     <file type="plugin" id="html5flippingbook_content" group="content">plg_html5flippingbook_content.zip</file>
     <file type="plugin" id="html5flippingbook_search" group="search">plg_html5flippingbook_search.zip</file>
     <file type="plugin" id="html5flippingbook_button" group="editors-xtd">plg_html5flippingbook_button.zip</file>
+    <file type="plugin" src="https://github.com/joomplace/thumbler/archive/master.zip" id="thumbler" group="system">plg_thumbler.zip</file>
   </files>
   <updateservers>
     <server type="collection" priority="1" name="Joomplace Update Site">http://www.joomplace.com/updates/collections.xml</server>

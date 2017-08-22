@@ -6,7 +6,7 @@
  * @copyright Copyright (C) JoomPlace, www.joomplace.com
  * @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
  */
- 
+
 defined('_JEXEC') or die('Restricted access');
 
 $document = JFactory::getDocument();
@@ -447,7 +447,7 @@ foreach($template_css as $rule => $style){
                         <?php } ?>
                         <?php if($item->template->display_topicons){ ?>
                             <div class="tb_social" style="float: right; margin-left: 0px;">
-                                <i class="fa fa-step-backward fa-lg" aria-hidden="true" title="First page"></i>
+                                <i class="fa fa-step-backward fa-lg" aria-hidden="true" title="<?= JText::_( 'COM_HTML5FLIPPINGBOOK_FIRST_PAGE' );?>"></i>
                                 <?php if ($config->social_email_use):?>
                                     <a href="#emailModal" data-toggle="modal"><i class="fa fa-envelope fa-lg" title="<?php echo JText::_('COM_HTML5FLIPPINGBOOK_FE_TOOLBAR_EMAIL');?>"></i></a>
                                 <?php endif;?>
@@ -455,9 +455,9 @@ foreach($template_css as $rule => $style){
                                     <i class="fa fa-list fa-lg" title="Table of contents" rel="<?php echo $item->contents_page; ?>"></i>
                                 <?php } ?>
                                 <?php if(JFactory::getApplication()->input->get('tmpl','')!='component'){ ?>
-                                    <i class="fa fa-expand fa-lg" id="fullscreen" onclick="fullscreenIt('flipbook');" title="Fullscreen"></i>
+                                    <i class="fa fa-expand fa-lg" id="fullscreen" onclick="fullscreenIt('flipbook');" title="<?= JText::_( 'COM_HTML5FLIPPINGBOOK_FULLSCREEN' );?>"></i>
                                 <?php } ?>
-                                <i class="fa fa-search-plus fa-lg" title="Zoom in"></i>
+                                <i class="fa fa-search-plus fa-lg" title="<?= JText::_( 'COM_HTML5FLIPPINGBOOK_ZOOM_IN' );?>"></i>
                                 <?php if ($config->social_facebook_use == 1) { ?>
                                     <a style="color: #47639E;" target="_blank" href="https://www.facebook.com/sharer.php?src=sp&u=<?php echo urlencode(JUri::current());?>&utm_source=share2">
                                         <i class="fa fa-facebook fa-lg" title="Share on facebook"></i>
@@ -497,7 +497,7 @@ foreach($template_css as $rule => $style){
                                          * we don't support page loading and double page in same time for now
                                          */
                                         if($double_page){
-
+                                            $page_class .= ' p1';
                                         }else{
                                             $page_class .= ' p1';
                                         }
@@ -530,7 +530,7 @@ foreach($template_css as $rule => $style){
                                     case $bc+2 :
                                         $page_class .= ' cover-back';
                                         if($double_page){
-
+                                            $page_class .= ' p'.($pages_count*2-2);
                                         }else{
                                             $page_class .= ' p'.($pages_count);
                                         }
@@ -557,43 +557,10 @@ foreach($template_css as $rule => $style){
                                         $page_number  = (($item->navi_settings)?($i+1):'');
                                 }
 
-                                if(!$item->template->hard_cover){
-                                    $page_content = ($page['page_image'])?'<div class="paddifier"><img src="'.$page['page_image'].'" /></div>':'<div class="paddifier"><div class="html-content"><div>'.$page['c_text'].((1)?'<span class="page-number">'.$page_number.'</span></div></div>':'').'</div>';
-                                }else{
-                                    switch($i){
-                                        /* content of cover */
-                                        case 0:
-                                        case 1:
-                                        case $bc+1:
-                                        case $bc+2:
-                                            if($page['page_image']){
-                                                $page_class .='" style="background: url(\''.$page['page_image'].'\'); background-size: 100% 100%;';
-                                                $page_content = '';
-                                            }else{
-                                                $page_class .='" style="background: #FFF; background-size: 100% 100%;';
-                                                if($page['c_text']){
-                                                    $page_content = '<div class="paddifier"><div class="html-content"><div>'.$page['c_text'].'</div>';
-                                                    /* $page['c_text'].((1)?'<span class="page-number">'.(($item->navi_settings)?$i:$i-1).'</span></div></div>':'') */
-                                                }
-                                            }
-                                            $page_content = '<div class="coverer-html-wrap" style="width:100%;height:100%;">'.$page_content.'</div>';
-                                            break;
-
-                                        /* content of pages */
-                                        case $bc:
-                                            $page_number = $pages_count-2;
-                                            $page_number = (($item->navi_settings)?$page_number-1:$page_number-2);
-                                        default:
-                                            if(!$page_number){
-                                                $page_number  = (($item->navi_settings)?($i?$i:''):(($i>1)?$i-1:''));
-                                            }
-                                            $page_content = ($page['page_image'])?'<div class="paddifier"><img src="'.$page['page_image'].'" /></div>':'<div class="paddifier"><div class="html-content"><div>'.$page['c_text'].((1)?'<span class="page-number">'.$page_number.'</span></div></div>':'').'</div>';
-                                            $page_number = 0;
-                                    }
-                                }
+                                $page_content = ($page['page_image'])?'<div class="paddifier"><img src="'.str_replace("\\", "/", JHtml::_('thumbler.generate', $page['page_image'], json_encode(array('width' => $item->resolutions->width*(($double_page && ($i != 0 && $i != $bc+2))?2:1), 'height'=> $item->resolutions->height)), false)).'" /></div>':'<div class="paddifier"><div class="html-content"><div>'.$page['c_text'].((1)?'<span class="page-number">'.$page_number.'</span></div></div>':'').'</div>';
                                 if($page['page_image'] && strpos($page_class,'double')!==false){
                                     ?>
-                                    <div class="<?php echo $page_class; ?>" data-id="<?php echo $page['id']; ?>" style="background-image:url('<?php echo $page['page_image']; ?>')"></div>
+                                    <div class="<?php echo $page_class; ?>" data-id="<?php echo $page['id']; ?>" style="background-image:url('<?php echo str_replace("\\", "/", JHtml::_('thumbler.generate', $page['page_image'], json_encode(array('width' => $item->resolutions->width*($double_page?2:1), 'height'=> $item->resolutions->height)), false)); ?>')"></div>
                                     <?php
                                 }else{
                                     ?>
@@ -608,8 +575,8 @@ foreach($template_css as $rule => $style){
                         <div class="span4 text-center">
                             <?php if($item->template->display_pagebox){ ?>
                                 <div ignore="1" id="page-bar">
-                                    <label><?php echo JText::_('COM_QUIZ_NEXT_PREV_MESSAGE'); ?></label>
-                                    <input type="text" id="goto_page_input" value="" autocomplete="" placeholder="<?php echo JText::_('COM_QUIZ_NEXT_PREV_PLACEHOLDER'); ?>">
+                                    <label><?= JText::_( 'COM_HTML5FLIPPINGBOOK_GO_TO' );?></label>
+                                    <input type="text" id="goto_page_input" value="" autocomplete="" placeholder="<?= JText::_( 'COM_HTML5FLIPPINGBOOK_PAGE' );?>">
                                     <span id="goto_page_input_button"><i class="fa fa-share"></i></span>
                                 </div>
                             <?php } ?>
@@ -622,7 +589,7 @@ foreach($template_css as $rule => $style){
                             <?php } ?>
                         </div>
                         <div class="span12">
-                            <?php echo JHtml::_('content.prepare', $item->fulltext); ?>
+                            <?php echo JHtml::_('content.prepare', property_exists($item, 'fulltext') ? $item->fulltext : false); ?>
                         </div>
                     </div>
                 </div>
@@ -647,19 +614,12 @@ foreach($template_css as $rule => $style){
 
     function loadPage(page,adj) {
         <?php $addPageRoute = JRoute::_('index.php?option=com_html5flippingbook&publication='.$item->c_id.'&task=publication.loadSpecPage'); ?>
-        jQuery.ajax({url: "<?php echo $addPageRoute.(strpos($addPageRoute,'?')?'&':'?') ?>number="+ (page-(adj-1))}).
+        jQuery.ajax({url: "<?php echo $addPageRoute.(strpos($addPageRoute,'?')?'&':'?') ?>number="+ (page-(adj-1)) + "&doublepages="+ <?php echo $double_page?"1":"0" ?>}).
         done(function(pageHtml) {
             jQuery('.flipbook .p' + page).html(pageHtml);
         });
     }
 
-    <?php if($item->c_audio) { ?>
-    jQuery('.previous-button, .next-button').click(function() {
-        var audio = new Audio();
-        audio.src = '<?php  echo COMPONENT_MEDIA_URL . "audio/" . $item->c_audio; ?>';
-        audio.autoplay = true;
-    });
-    <?php } ?>
     var flipbook = jQuery('.flipbook');
 
     (function ($) {
@@ -869,7 +829,7 @@ foreach($template_css as $rule => $style){
                     var input = $(this).parent().find('#goto_page_input');
                     var val = parseInt(input.val(),10) + <?php echo ($item->navi_settings)?0:1; ?>;
                     flipbook.turn('page', val);
-                    input.val('').prop('placeholder',(val-<?php echo ($item->navi_settings)?0:1; ?>)+' <?php echo JText::_('COM_QUIZ_NEXT_PREV_PLACEHOLDER2'); ?>');
+                    input.val('').prop('placeholder',(val-<?php echo ($item->navi_settings)?0:1; ?>)+' <?= JText::_( 'COM_HTML5FLIPPINGBOOK_PAGE_IS_OPENED' );?>');
                     return false;
                 });
 
@@ -886,7 +846,7 @@ foreach($template_css as $rule => $style){
                     autoCenter: true,
                     gradients: true,
                     duration: 1000,
-                    pages: <?php echo $pages_count; ?>,
+                    pages: <?php echo ($double_page)?($pages_count*2-2):($pages_count); ?>,
                     when: {
                         turning: function(e, page, view) {
 
@@ -923,7 +883,7 @@ foreach($template_css as $rule => $style){
 
                             slider.slider('value', getViewNumber(book, page));
 
-                            book.parent().next().find('#goto_page_input').prop('placeholder',(page-<?php echo ($item->navi_settings)?0:1; ?>)+' <?php echo JText::_('COM_QUIZ_NEXT_PREV_PLACEHOLDER2'); ?>');
+                            book.parent().next().find('#goto_page_input').prop('placeholder',(page-<?php echo ($item->navi_settings)?0:1; ?>)+' <?= JText::_( 'COM_HTML5FLIPPINGBOOK_PAGE_IS_OPENED' );?>');
 
                             updateDepth(book, page+1);
                             if (page>1){

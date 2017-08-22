@@ -542,13 +542,13 @@ class HTML5FlippingBookController extends JControllerLegacy
 		 */
 		unset ($headers, $fields);
 
-		$email           = $app->input->post->getString('recipient', '');
-		$sender          = $app->input->post->getString('sender', '');
-		$from            = $app->input->post->getString('from', '');
+		$email           = $app->input->getString('recipient', '');
+		$sender          = $app->input->getString('sender', '');
+		$from            = $app->input->getString('from', '');
 		$subject_default = JText::sprintf('COM_HTML5FLIPPINGBOOK_FE_SENT_BY', $sender);
-		$subject         = $app->input->post->getString('subject', $subject_default);
-		$publID          = $app->input->post->getInt('publID', 0);
-		$url			 = $app->input->post->getString('url', 0);
+		$subject         = $app->input->getString('subject', $subject_default);
+		$publID          = $app->input->getInt('publID', 0);
+		$url			 = $app->input->getString('url', 0);
 
 		$SiteName       = $app->get('sitename');
 
