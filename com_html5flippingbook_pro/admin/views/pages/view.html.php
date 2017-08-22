@@ -155,7 +155,7 @@ class HTML5FlippingBookViewPages extends JViewLegacy
 			{
 				HtmlHelper::showTitle(JText::_('COM_HTML5FLIPPINGBOOK_BE_PAGES_CONVERT'), '');
 
-				JToolbarHelper::custom('pages.convert', 'images', 'images', 'COM_HTML5FLIPPINGBOOK_BE_PAGES_CONVERT_PDF_START', false);
+				JToolbarHelper::custom('pages.takefile', 'images', 'images', 'COM_HTML5FLIPPINGBOOK_BE_PAGES_CONVERT_PDF_START', false);
 				JToolBarHelper::cancel('page.cancel', 'JTOOLBAR_CANCEL');
 
 				break;

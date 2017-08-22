@@ -75,8 +75,9 @@ class HTML5FlippingBookModelPublication extends JModelItem
 
 // echo "<pre>"; print_r($this->_item); die;
 
-				if ( $this->_item->template->slider_thumbs )
-					$this->generatePreview($this->_item);
+				if ( $this->_item->template->slider_thumbs ){
+                    $this->generatePreview($this->_item);
+                }
 
 				if ( !empty($this->_item->custom_metatags) )
 					$this->_item->custom_metatags = unserialize( $this->_item->custom_metatags );
@@ -116,7 +117,7 @@ class HTML5FlippingBookModelPublication extends JModelItem
 		return $resolution;
 	}
 
-	public function getPages()
+	public function getPages($force = false)
 	{
 		if (empty($id))
 		{
@@ -134,8 +135,9 @@ class HTML5FlippingBookModelPublication extends JModelItem
 			$this->_db->setQuery("SELECT * FROM #__html5fb_pages WHERE publication_id = ".(int)$id." ORDER BY `ordering`");
 			return $this->_db->loadAssocList();
 		}
-		else
-			return false;
+		else{
+            return false;
+        }
 	}
 
 	private function generatePreview( $item )
@@ -194,7 +196,9 @@ class HTML5FlippingBookModelPublication extends JModelItem
 
 				return $handle;
 			}
-			catch (Exception $e ) { var_dump($e); exit; }
+			catch (Exception $e ) {
+                JFactory::getApplication()->enqueueMessage($e->getMessage());
+            }
 		}
 
 		function textImgCreate( $page_num )
