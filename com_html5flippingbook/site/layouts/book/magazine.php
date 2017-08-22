@@ -853,6 +853,11 @@ foreach($template_css as $rule => $style){
                             var book = $(this),
                                 currentPage = book.turn('page'),
                                 pages = book.turn('pages');
+                            <?php if(property_exists($item, 'c_audio') && $item->c_audio) { ?>
+                            var audio = new Audio();
+                            audio.src = '<?php  echo COMPONENT_MEDIA_URL . "audio/" . $item->c_audio; ?>';
+                            audio.autoplay = true;
+                            <?php } ?>
                             /*
                              if (currentPage>3 && currentPage<pages-3) {
 
