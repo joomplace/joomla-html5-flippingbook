@@ -64,7 +64,7 @@ class HTML5FlippingBookModelPublications extends JModelList
 		if (!empty($search))
 		{
 			$search = $db->Quote('%'.$db->escape($search, true).'%');
-			$query->where('m`.c_title` LIKE '.$search);
+			$query->where('`m`.`c_title` LIKE '.$search);
 		}
 		
 		// Filter by published state
