@@ -67,11 +67,11 @@ $doc->addStyleDeclaration("
             }
             jQuery.ajax({
                 type: "POST",
-                url: "/administrator/index.php",
+                url: "<?php echo JURI::base().'index.php'; ?>",
                 data: params,
                 success: function (data) {
                     if (data == 1) {
-                        window.location.href = "index.php?option=com_html5flippingbook&view=pages";
+                        window.location.href = "<?php echo JURI::base().'index.php?option=com_html5flippingbook&view=pages'; ?>";
                     }
                     jQuery(".progress-bar").css("width", 100*(i/count) + "%");
                     i++;
