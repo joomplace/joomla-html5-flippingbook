@@ -8,7 +8,7 @@ defined('_JEXEC') or die('Restricted access');
 * @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
 */
 $document = JFactory::getDocument();
-JHtml::_('jquery.framework');
+JHtml::_('jquery.framework', true, null, true);
 JHtml::_('jquery.ui');
 $document->addScript(JUri::root(true).'/components/com_html5flippingbook/assets/extras/jquery-ui-1.8.20.custom.min.js');
 $document->addScript(JUri::root(true).'/components/com_html5flippingbook/assets/extras/modernizr.2.5.3.min.js');

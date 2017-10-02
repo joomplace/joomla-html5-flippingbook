@@ -587,7 +587,8 @@ $FlipHeight = $this->resolutions->height;
     $doc->addCustomTag('<meta name="apple-mobile-web-app-capable" content="yes" />');
     $doc->addCustomTag('<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />');
 
-JHtml::_('jquery.framework', false);
+JHtml::_('jquery.framework', true, null, true);
+JHtml::_('jquery.ui');
 
 // addd viewpoint tag for mobile
 JFactory::getDocument()->addCustomTag('<meta name="viewport" content="width = 1050, user-scalable = no" />');
