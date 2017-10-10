@@ -14,7 +14,7 @@ extract($displayData);
 
 foreach($pages as &$page){
     if($page['page_image']){
-        $page['page_image'] = COMPONENT_MEDIA_URL. 'images/'. ( $item->c_imgsub ? $item->c_imgsubfolder.'/' : '') . 'original/'.str_replace(array('th_', 'thumb_'), '', $page['page_image']);
+        $page['page_image'] = COMPONENT_MEDIA_PATH. '/images/'. ( $item->c_imgsub ? $item->c_imgsubfolder.'/' : '') . 'original/'.str_replace(array('th_', 'thumb_'), '', $page['page_image']);
     }
 }
 
