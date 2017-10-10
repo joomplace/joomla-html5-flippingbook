@@ -783,7 +783,7 @@ foreach($template_css as $rule => $style){
 
                 // Slider
 
-                slider.slider({
+                slider.prop('slide', null).slider({
                     min: 1,
                     max: 100,
 
