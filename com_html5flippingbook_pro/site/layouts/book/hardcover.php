@@ -550,12 +550,12 @@ foreach($template_css as $rule => $style){
                                     case $bc :
                                         $page_class = 'bc page';
                                         $page_class .= ' p'.(($item->template->hard_cover?$pages_count+($double_page?$item->pages_count:0)-2:$pages_count));
-                                        $page_number  = (($item->navi_settings)?($pages_count-2):'');
+                                        $page_number  = (int)$item->navi_settings ? ($pages_count-2) : ($pages_count-4);
                                         break;
                                     case 2:
                                         $page_class = 'page';
                                         $page_class .= ' p'.($i+1);
-                                        $page_number  = (($item->navi_settings)?($i+1):'');
+                                        $page_number  = (int)$item->navi_settings ? ($i+1) : 1;
                                         break;
                                     default:
                                         $page_class = 'page';
@@ -588,8 +588,8 @@ foreach($template_css as $rule => $style){
 
                                     /* content of pages */
                                     case $bc:
-                                        $page_number = $pages_count-2;
-                                        $page_number = (($item->navi_settings)?$page_number-1:$page_number-2);
+                                        //$page_number = $pages_count-2;
+                                        //$page_number = (($item->navi_settings)?$page_number-1:$page_number-2);
                                     default:
                                         if(!$page_number){
                                             $page_number  = (($item->navi_settings)?($i?$i:''):(($i>1)?$i-1:''));
@@ -654,7 +654,7 @@ foreach($template_css as $rule => $style){
 
     function loadPage(page,adj) {
         <?php $addPageRoute = JRoute::_('index.php?option=com_html5flippingbook&publication='.$item->c_id.'&task=publication.loadSpecPage', false); ?>
-        jQuery.ajax({url: "<?php echo $addPageRoute.(strpos($addPageRoute,'?')?'&':'?') ?>number="+ (page-(adj-1)) + "&doublepages="+ <?php echo $double_page?"1":"0" ?>}).
+        jQuery.ajax({url: "<?php echo $addPageRoute.(strpos($addPageRoute,'?')?'&':'?') ?>number="+ (parseInt(page)-(parseInt(adj)/2)-1) + "&doublepages="+ <?php echo $double_page?"1":"0" ?>}).
         done(function(pageHtml) {
 //		jQuery('.flipbook .p' + page).addClass('double').html(pageHtml).scissor();
             jQuery('.flipbook .p' + page).html(pageHtml);

@@ -35,9 +35,16 @@ class HTML5FlippingBookControllerPublication extends JControllerLegacy
                 $page->page_image = COMPONENT_MEDIA_URL. 'images/'. ( $pub->c_imgsub ? $pub->c_imgsubfolder.'/' : '') . 'original/'.str_replace(array('th_', 'thumb_'), '', $page->page_image);
 
             if($pub->template->hard_cover){
-                $number+=2;
+                $number+=3;
             }
-            $page_number  = (($pub->navi_settings)?$number:$number-1);
+            else{
+                $number+=1;
+            }
+            $page_number = $number;
+            if (!(int)$pub->navi_settings) {
+                $page_number = (int)$pub->template->hard_cover ? $number - 2 : $number - 1;
+            }
+
             if (!$pub->template->doublepages) {
                 $page_content = ($page->page_image)?'<div class="paddifier dd"><img src="'.JHtml::_('thumbler.generate', $page->page_image, json_encode(array('width' => $resolutions->width, 'height'=> $resolutions->height)), false).'" /></div>':'<div class="paddifier"><div class="html-content"><div>'.$page->c_text.((1)?'<span class="page-number">'.$page_number.'</span></div></div>':'').'</div>';
 
