@@ -706,6 +706,10 @@ foreach($template_css as $rule => $style){
                     height = padded;
                     width = Math.round(height * this.ratio);
                 }
+                if (width > document.documentElement.clientWidth) {
+                    width = document.documentElement.clientWidth;
+                    height = Math.round(width / this.ratio);
+                }
 
                 if (fullscreen) {
                     if (height > screenHeight) {
