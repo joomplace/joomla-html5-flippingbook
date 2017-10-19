@@ -189,7 +189,7 @@ foreach($template_css as $rule => $style){
       max-width: 1200px;
     }*/
     html body .flipbook-viewport {
-        display: table;
+        display: block;
         width: 100%;
         height: 100%;
     }
@@ -223,6 +223,7 @@ foreach($template_css as $rule => $style){
         background-repeat: no-repeat;
         background-position: 100%;
     }
+
     html body .flipbook .double img{
         max-width: 200%;
         max-height: 100%;
@@ -413,6 +414,7 @@ foreach($template_css as $rule => $style){
     html body .next-button:hover {
         background-color: rgba(0, 0, 0, 0.4);
     }
+
     <?php if($isMobile){ ?>
     #search-inp{
         display:none!important;
@@ -464,14 +466,14 @@ foreach($template_css as $rule => $style){
                                     </a>
                                 <?php } ?>
                                 <?php if ($config->social_twitter_use == 1) { ?>
-                                <a style="color: #41ABE1;" target="_blank" href="https://twitter.com/intent/tweet?status=<?php echo urlencode($item->c_title);?>%20<?php echo urlencode(JUri::current());?>&utm_source=share2">
-                                    <i class="fa fa-twitter fa-lg" title="Share on Twitter"></i>
-                                </a>
+                                    <a style="color: #41ABE1;" target="_blank" href="https://twitter.com/intent/tweet?status=<?php echo urlencode($item->c_title);?>%20<?php echo urlencode(JUri::current());?>&utm_source=share2">
+                                        <i class="fa fa-twitter fa-lg" title="Share on Twitter"></i>
+                                    </a>
                                 <?php } ?>
                                 <?php if ($config->social_google_plus_use == 1) { ?>
-                                <a style="color: #ED5448;"target="_blank" href="https://plus.google.com/share?url=<?php echo urlencode(JUri::current());?>&utm_source=share2">
-                                    <i class="fa fa-google-plus fa-lg" title="Share on G+"></i>
-                                </a>
+                                    <a style="color: #ED5448;"target="_blank" href="https://plus.google.com/share?url=<?php echo urlencode(JUri::current());?>&utm_source=share2">
+                                        <i class="fa fa-google-plus fa-lg" title="Share on G+"></i>
+                                    </a>
                                 <?php } ?>
                             </div>
                         <?php } ?>
@@ -589,7 +591,7 @@ foreach($template_css as $rule => $style){
                             <?php } ?>
                         </div>
                         <div class="span12">
-                            <?php echo JHtml::_('content.prepare', $item->fulltext); ?>
+                            <?php echo JHtml::_('content.prepare', property_exists($item, 'fulltext') ? $item->fulltext : $item->text); ?>
                         </div>
                     </div>
                 </div>
@@ -620,7 +622,7 @@ foreach($template_css as $rule => $style){
         });
     }
 
-    <?php if($item->c_audio) { ?>
+    <?php if (isset($item->c_audio) && ($item->c_audio)) { ?>
     jQuery('.previous-button, .next-button').click(function() {
         var audio = new Audio();
         audio.src = '<?php  echo COMPONENT_MEDIA_URL . "audio/" . $item->c_audio; ?>';
@@ -860,6 +862,11 @@ foreach($template_css as $rule => $style){
                             var book = $(this),
                                 currentPage = book.turn('page'),
                                 pages = book.turn('pages');
+                            <?php if (isset($item->c_audio) && ($item->c_audio)) { ?>
+                            var audio = new Audio();
+                            audio.src = '<?php  echo COMPONENT_MEDIA_URL . "audio/" . $item->c_audio; ?>';
+                            audio.autoplay = true;
+                            <?php } ?>
                             /*
                              if (currentPage>3 && currentPage<pages-3) {
 
