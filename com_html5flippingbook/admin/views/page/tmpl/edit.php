@@ -205,7 +205,16 @@ JHtml::_('behavior.modal');
 				</div>
 
 				<div class="control-group">
-					<?php
+                    <div class="control-label">
+                        <?php echo $this->form->getLabel('page_hard'); ?>
+                    </div>
+                    <div class="controls">
+                        <?php echo $this->form->getInput('page_hard'); ?>
+                    </div>
+                </div>
+                <div class="control-group">
+
+                <?php
 					$input = $this->form->getField('page_type');
 					?>
 					<div class="control-label">
@@ -244,9 +253,7 @@ JHtml::_('behavior.modal');
                                     <a rel="{handler: 'iframe', size: {x: 370, y: 215}}" id="additonInsertMusic" onclick="IeCursorFix(); return false;" href="<?='index.php?option='.COMPONENT_OPTION.'&tmpl=component&view=upload_file_dialog&type=audio&e_name=jform_c_text';?>" class="btn modal"><i class="icon-music"></i> <?php echo JText::_('COM_HTML5FLIPPINGBOOK_BE_INSERT_BUTTON_AUDIO'); ?></a>
                                     <a rel="{handler: 'iframe', size: {x: 370, y: 215}}" id="additonInsertVideo" onclick="IeCursorFix(); return false;" href="<?='index.php?option='.COMPONENT_OPTION.'&tmpl=component&view=upload_file_dialog&type=video&e_name=jform_c_text';?>" class="btn modal btn-inverse"><i class="icon-play"></i> <?php echo JText::_('COM_HTML5FLIPPINGBOOK_BE_INSERT_BUTTON_VIDEO'); ?></a>
 									<span onclick="return YoutubeInsert();" href="" title="YouTube Video" class="btn modal btn-danger"><i class="icon-play"></i> YouTube</span>
-                                    <span onclick="return VimeoInsert();" href="" title="vimeo Video" class="btn modal btn-info"><i class="icon-play"></i> VIMEO</span>                                   
-									<a class="btn modal" title="Изображение" href="/administrator/index.php?option=com_media&view=images&tmpl=component&e_name=jform_c_text&asset=com_html5flippingbook&author=" rel="{handler: 'iframe', size: {x: 800, y: 500}}">
-									<i class="icon-picture"></i> Изображение	</a>
+                                    <span onclick="return VimeoInsert();" href="" title="vimeo Video" class="btn modal btn-info"><i class="icon-play"></i> VIMEO</span>
                                 </div>
                             </div>
 						</div>
