@@ -204,7 +204,7 @@ JHtml::_('behavior.modal');
 					</div>
 				</div>
 
-				<div class="control-group">
+                <div class="control-group">
                     <div class="control-label">
                         <?php echo $this->form->getLabel('page_hard'); ?>
                     </div>
