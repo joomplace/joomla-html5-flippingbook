@@ -36,7 +36,18 @@
 			<option value="text">COM_HTML5FLIPPINGBOOK_BE_PAGES_TYPE_TEXT</option>
 		</field>
 
-		<field name="page_image"
+        <field name="page_hard"
+            type="radio"
+            default="0"
+            class="btn-group"
+            label="COM_HTML5FLIPPINGBOOK_BE_PAGES_HARDPAGE"
+            description="COM_HTML5FLIPPINGBOOK_BE_PAGES_HARDPAGE_DESC">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+
+
+        <field name="page_image"
 			type="_upload_image"
 			dir=""
 			pubid=""
