@@ -283,7 +283,7 @@ for ($i = 0; $i < count($this->items);)
 		{
 			$date = new JDate($item->c_created_time);
 			$date = $date->toUnix();
-			$dateString = gmdate("Y-m-d", $date);
+			$dateString = gmdate(JText::_('DATE_FORMAT_LC4'), $date);
 			
 			$html[] = 	'<div class="html5fb-date">' . $dateString . '</div>';
 		}
