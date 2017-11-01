@@ -48,15 +48,15 @@
 
 
         <field name="page_image"
-			type="_upload_image"
-			dir=""
-			pubid=""
-			fileExtensions="png,jpg,gif"
-			uploadTask="publications.show_upload"
-			class="html5fb_upload_image"
-			previewImgClass="html5fb_page_preview_img"
-			label="COM_HTML5FLIPPINGBOOK_BE_PAGES_PAGE_IMAGE"
-			description="COM_HTML5FLIPPINGBOOK_BE_PAGES_PAGE_IMAGE_DESC" />
+            type="_upload_image"
+            dir=""
+            pubid=""
+            fileExtensions="png,jpg,gif"
+            uploadTask="publications.show_upload"
+            class="html5fb_upload_image"
+            previewImgClass="html5fb_page_preview_img"
+            label="COM_HTML5FLIPPINGBOOK_BE_PAGES_PAGE_IMAGE"
+            description="COM_HTML5FLIPPINGBOOK_BE_PAGES_PAGE_IMAGE_DESC" />
 
 		<field name="c_text"
 			type="editor"
