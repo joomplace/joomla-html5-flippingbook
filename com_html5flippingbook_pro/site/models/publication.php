@@ -102,7 +102,6 @@ class HTML5FlippingBookModelPublication extends JModelItem
 
                 return null;
             }
-            $this->generatePreview($this->_item);
         }
         return $this->_item;
     }
@@ -319,7 +318,11 @@ class HTML5FlippingBookModelPublication extends JModelItem
             {
                 if ( $page['c_enable_image'] )
                 {
-                    $imagedata = imgCreate(COMPONENT_MEDIA_PATH. '/images/'. ( $item->c_imgsub ? $item->c_imgsubfolder.'/' : ''). $page['page_image']);
+                    if(is_file(COMPONENT_MEDIA_PATH. '/images/'. ( $item->c_imgsub ? $item->c_imgsubfolder.'/' : ''). $page['page_image'])){
+                        $imagedata = imgCreate(COMPONENT_MEDIA_PATH. '/images/'. ( $item->c_imgsub ? $item->c_imgsubfolder.'/' : ''). $page['page_image']);
+                    }else{
+                        $imagedata = imgCreate(COMPONENT_MEDIA_PATH. '/images/'. ( $item->c_imgsub ? $item->c_imgsubfolder.'/' : '').'th_'. $page['page_image']);
+                    }
 
                     if ($item->navi_settings == 0 && !in_array($page_num, array(0, 1, ($countPages - 1), $countPages)))
                     {

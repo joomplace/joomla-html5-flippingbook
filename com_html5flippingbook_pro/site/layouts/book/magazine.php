@@ -14,7 +14,7 @@ extract($displayData);
 
 foreach($pages as &$page){
     if($page['page_image'])
-        $page['page_image'] = COMPONENT_MEDIA_URL. 'images/'. ( $item->c_imgsub ? $item->c_imgsubfolder.'/' : '') . 'original/'.str_replace(array('th_', 'thumb_'), '', $page['page_image']);
+        $page['page_image'] = COMPONENT_MEDIA_PATH. '/images/'. ( $item->c_imgsub ? $item->c_imgsubfolder.'/' : '') . 'original/'.str_replace(array('th_', 'thumb_'), '', $page['page_image']);
 }
 
 /* need to be in model, or view.html */
@@ -543,7 +543,7 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
                                             $page_class .= ' p2';
                                         }
                                         /* TODO: refactor and move $item->navi_settings out */
-                                        $page_number  = (($item->navi_settings)?(2):'');
+                                        $page_number  = (($item->navi_settings)?(2):1);
                                         break;
                                     case $bc+1 :
                                         $page_class .= ' back-side';
@@ -557,7 +557,7 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
                                         }else{
                                             $page_class .= ' p'.($pages_count-1);
                                         }
-                                        $page_number  = (($item->navi_settings)?($pages_count-1):'');
+                                        $page_number  = (int)$item->navi_settings ? ($pages_count-1) : ($pages_count-2);
                                         break;
                                     case $bc+2 :
                                         $page_class .= ' cover-back';
@@ -566,7 +566,7 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
                                         }else{
                                             $page_class .= ' p'.($pages_count);
                                         }
-                                        $page_number  = (($item->navi_settings)?($pages_count):'');
+                                        $page_number  = '';
                                         break;
 
                                     /* pages styles-classes */
@@ -577,7 +577,7 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
                                         }else{
                                             $page_class .= ' p'.($pages_count-2);
                                         }
-                                        $page_number  = (($item->navi_settings)?($pages_count-2):'');
+                                        $page_number  = (int)$item->navi_settings ? ($pages_count-2) : ($pages_count-3);
                                         break;
                                     default:
                                         $page_class = 'page';
@@ -586,7 +586,7 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
                                         }else{
                                             $page_class .= ' p'.($i+1);
                                         }
-                                        $page_number  = (($item->navi_settings)?($i+1):'');
+                                        $page_number  = (int)$item->navi_settings ? ($i+1) : $i;
                                 }
 
                                 $page_content = ($page['page_image'])?'<div class="paddifier"><img src="'.str_replace("\\", "/", JHtml::_('thumbler.generate', $page['page_image'], json_encode(array('width' => $item->resolutions->width*(($double_page && ($i != 0 && $i != $bc+2))?2:1), 'height'=> $item->resolutions->height)), false)).'" /></div>':'<div class="paddifier"><div class="html-content"><div>'.$page['c_text'].((1)?'<span class="page-number">'.$page_number.'</span></div></div>':'').'</div>';
@@ -621,7 +621,7 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
                             <?php } ?>
                         </div>
                         <div class="span12">
-                            <?php echo JHtml::_('content.prepare', $item->fulltext); ?>
+                            <?php echo JHtml::_('content.prepare', property_exists($item, 'fulltext') ? $item->fulltext : false); ?>
                         </div>
                     </div>
                 </div>
@@ -646,13 +646,19 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
 
     function loadPage(page,adj) {
         <?php $addPageRoute = JRoute::_('index.php?option=com_html5flippingbook&publication='.$item->c_id.'&task=publication.loadSpecPage'); ?>
-        jQuery.ajax({url: "<?php echo $addPageRoute.(strpos($addPageRoute,'?')?'&':'?') ?>number="+ (page-(adj-1)) + "&doublepages="+ <?php echo $double_page?"1":"0" ?>}).
+        jQuery.ajax({url: "<?php echo $addPageRoute.(strpos($addPageRoute,'?')?'&':'?') ?>number="+ (page-1) + "&doublepages="+ <?php echo $double_page?"1":"0" ?>}).
         done(function(pageHtml) {
             jQuery('.flipbook .p' + page).html(pageHtml);
         });
     }
 
-
+    <?php if(property_exists($item, 'c_audio') && $item->c_audio) { ?>
+    jQuery('.previous-button, .next-button').click(function() {
+        var audio = new Audio();
+        audio.src = '<?php  echo COMPONENT_MEDIA_URL . "audio/" . $item->c_audio; ?>';
+        audio.autoplay = true;
+    });
+    <?php } ?>
     var flipbook = jQuery('.flipbook');
 
     (function ($) {
@@ -732,6 +738,10 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
                     height = padded;
                     width = Math.round(height * this.ratio);
                 }
+                if (width > document.documentElement.clientWidth) {
+                    width = document.documentElement.clientWidth;
+                    height = Math.round(width / this.ratio);
+                }
 
                 if (fullscreen) {
                     if (height > screenHeight) {
@@ -809,7 +819,7 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
 
                 // Slider
 
-                slider.slider({
+                slider.prop('slide', null).slider({
                     min: 1,
                     max: 100,
 

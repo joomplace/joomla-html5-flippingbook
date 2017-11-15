@@ -617,20 +617,20 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
             // ** setting width and height causes "Invalid IHDR data" with density(192 or 300)
             // Assume that everage user monitor is 1920x1080 so setting up max image sizes
             //Set max image width of 960 (1960/2)
-            //Imagick::setResourceLimit(9, (int)$params->get('max_width', 960) * 2);
+//            Imagick::setResourceLimit(9, (int)$params->get('max_width', 960) * 2);
             //Set max image height of 1080
-            //Imagick::setResourceLimit(10, (int)$params->get('max_height', 1080) * 2);
+//            Imagick::setResourceLimit(10, (int)$params->get('max_height', 1080) * 2);
             if (!$params->get('reach_out_of_limits', 0)) {
                 Imagick::setResourceLimit(Imagick::RESOURCETYPE_AREA, $limit_area);
                 Imagick::setResourceLimit(Imagick::RESOURCETYPE_MEMORY, $limit_memory);
             }
+
             // commented as causes errors on some systems "Too many IDAT's found"
-            //Imagick::setResourceLimit(Imagick::RESOURCETYPE_DISK, 10*$mbytes);
+//            Imagick::setResourceLimit(Imagick::RESOURCETYPE_DISK, 10*$mbytes);
 
             // Convert PDF document page
 
             $img = new Imagick();
-
             $img->setResolution($density, $density);
             try {
                 $img->readImage($PDFFileFullName . "[$page_number]");
@@ -639,6 +639,7 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
             }
 
             $img->setColorspace(Imagick::COLORSPACE_SRGB);
+            $img->scaleImage($params->get('max_width', 960),$params->get('max_height', 1080), true);
             $output_big = $targetDirFullOriginalIMG . "/" . $imgName . "-" . $page_number . ".jpg";
             $output_thumb = $targetDirFullName . "/th_" . $imgName . "-" . $page_number . ".jpg";
 
@@ -649,7 +650,11 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
             $img->setImageFormat('jpeg');
 
             //Remove opacity
-//              $img->setImageAlpha(1.0);
+            if(method_exists($img,'setImageAlpha')){
+                $img->setImageAlpha(1.0);
+            }elseif(method_exists($img,'setOpacity')){
+                $img->setOpacity(1.0);
+            }
 
             $img->setImageCompression(Imagick::COMPRESSION_JPEG);
 

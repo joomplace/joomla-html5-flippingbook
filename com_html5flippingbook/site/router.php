@@ -90,7 +90,7 @@ function HTML5FlippingBookParseRoute($segments)
 					$vars['tmpl'] = 'component';
 			if(!$vars['tmpl']) unset($vars['tmpl']);
 			
-			if(!$vars['Itemid']){
+			if(!array_key_exists('Itemid', $vars) || !$vars['Itemid']){
 				$lang = JFactory::getLanguage();
 				$db = JFactory::getDbo();
 				$query = $db->getQuery(true);
