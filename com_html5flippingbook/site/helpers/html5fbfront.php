@@ -312,6 +312,46 @@ abstract class HTML5FlippingBookFrontHelper
 		return false;
 	}
 
+    public static function generateDownloadLinks($id)
+    {
+        $uri = JUri::getInstance();
+
+        $db = JFactory::getDbo();
+        $query = $db->getQuery(true)
+            ->select('`c_enable_pdf`, `c_background_pdf`, `convert`, `convert_formats`, `cloudconvert`, `cloudconvert_formats`')
+            ->from('`#__html5fb_publication`')
+            ->where('`c_id` = ' . $id);
+        $db->setQuery($query);
+        $download = $db->loadObject();
+        $return = array();
+        if ($download->convert || $download->cloudconvert || $download->c_enable_pdf)
+        {
+            $formats = ($download->convert ? explode(',', $download->convert_formats) : ($download->cloudconvert ? explode(',', $download->cloudconvert_formats) : ''));
+            if($download->c_enable_pdf || $formats){
+                if($download->c_enable_pdf){
+                    $return[] = array(
+                        JRoute::_('index.php?option='.COMPONENT_OPTION .'&task=convert.getpdf' . '&id='.$id .'&filename='.preg_replace('/[<>:"\/\\\|\?\*]/is', '', $download->c_background_pdf) .'&id=' . $id, FALSE, $uri->isSSL()),
+                        'fa fa-file-text-o',
+                        JText::_('COM_HTML5FLIPPINGBOOK_BE_DOWNLOAD_PDF')
+                    );
+                }
+                if ($formats)
+                {
+                    foreach($formats as $i=> $format)
+                    {
+                        $return[] = array(
+                            JRoute::_('index.php?option=com_html5flippingbook&task=convert.get'.strtolower($formats[$i]).''.($download->cloudconvert ? '&target=cloud' : '').'&id=' . $id, FALSE, $uri->isSSL()),
+                            'fa fa-file-text-o',
+                            JText::sprintf('COM_HTML5FLIPPINGBOOK_FE_DOWNLOAD_OPTION_FORMATS', strtoupper($formats[$i]))
+                        );
+                    }
+                }
+            }
+        }
+
+        return $return;
+    }
+
 	/**
 	 * Method to create publication list
 	 *
