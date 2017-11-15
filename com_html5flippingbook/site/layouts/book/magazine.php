@@ -425,6 +425,15 @@ foreach($template_css as $rule => $style){
     }
     <?php } ?>
 </style>
+<?php
+$user = JFactory::getUser();
+$downloadOptionAccess = $user->authorise('core.download', COMPONENT_OPTION);
+$downloadOptionAccessGranted = $user->authorise('core.download', COMPONENT_OPTION . '.publication.' . $item->c_id);
+$downloadList = '';
+if ($downloadOptionAccess && $downloadOptionAccessGranted) {
+    $downloadList = HTML5FlippingBookFrontHelper::generateDownloadLinks($item->c_id);
+}
+?>
 <div class="html5flippingbook">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <?php if(file_exists(JPATH_SITE.JUri::root(true).'/components/com_html5flippingbook/assets/css/'.$item->c_id.'-publication.css')){ ?>
@@ -459,6 +468,11 @@ foreach($template_css as $rule => $style){
                                 <?php if(JFactory::getApplication()->input->get('tmpl','')!='component'){ ?>
                                     <i class="fa fa-expand fa-lg" id="fullscreen" onclick="fullscreenIt('flipbook');" title="<?= JText::_( 'COM_HTML5FLIPPINGBOOK_FULLSCREEN' );?>"></i>
                                 <?php } ?>
+                                <?php
+                                array_map(function($link){
+                                    echo "<a class='$link[1] fa-lg' title='$link[2]' href='$link[0]' target='_blank'></a>";
+                                },$downloadList);
+                                ?>
                                 <i class="fa fa-search-plus fa-lg" title="<?= JText::_( 'COM_HTML5FLIPPINGBOOK_ZOOM_IN' );?>"></i>
                                 <?php if ($config->social_facebook_use == 1) { ?>
                                     <a style="color: #47639E;" target="_blank" href="https://www.facebook.com/sharer.php?src=sp&u=<?php echo urlencode(JUri::current());?>&utm_source=share2">
