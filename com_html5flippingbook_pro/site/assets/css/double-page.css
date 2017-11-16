@@ -65,7 +65,6 @@
 
 .flipbook .html-content{
     font-size: 1em!important;
-    line-height: 1.5em!important;
 }
 
 .flipbook .html-content h1{
@@ -84,18 +83,20 @@
     color:#586078;
     margin:10px 0;
     font-style:italic;
+    font-size: 1em!important;
+    line-height: normal;
 }
 
 .flipbook .html-content blockquote:before{
     content: "\201C";
     color:#333D53;
-    font-size:20px;
+    font-size:1em;
 }
 
 .flipbook .html-content blockquote:after{
     content: "\201D";
     color:#333D53;
-    font-size:20px;
+    font-size:1em;
 }
 
 .flipbook .html-content cite{
