@@ -48,6 +48,17 @@ function HTML5FlippingBookBuildRoute(&$query)
 				$segments[] = $publicationId;
 				unset($query['id']);
 
+				if (isset($query['tmpl']))
+				{
+                    $segments[] = $query['tmpl'];
+					unset($query['tmpl']);
+				}
+			}
+
+			if (isset($query['layout']))
+			{
+				$segments[] = 'mobile';
+				unset($query['layout']);
 			}
 		}
 	}
@@ -77,7 +88,19 @@ function HTML5FlippingBookParseRoute($segments)
 			$numSegments = count($segments);
 			$vars['view'] = $segments[0];
 			if ($numSegments > 2) $vars['id'] = $segments[2];
-			
+
+            if ($numSegments > 4){
+                $vars['tmpl'] = $segments[3];
+                $vars['layout'] = $segments[4];
+            }
+            else if ($numSegments > 3){
+                if($segments[3] == 'component'){
+                    $vars['tmpl'] = $segments[3];
+                } else {
+                    $vars['layout'] = $segments[3];
+                }
+            }
+
 			if(!$vars['Itemid']){
 				$lang = JFactory::getLanguage();
 				$db = JFactory::getDbo();
