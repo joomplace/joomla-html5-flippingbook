@@ -41,9 +41,7 @@ function HTML5FlippingBookBuildRoute(&$query)
 
 				if (isset($query['tmpl']))
 				{
-					if ( $query['tmpl'] != 'component' )
-						$segments[] = $query['tmpl'];
-
+					$segments[] = $query['tmpl'];
 					unset($query['tmpl']);
 				}
 			}
@@ -82,13 +80,19 @@ function HTML5FlippingBookParseRoute($segments)
 			
 			$vars['view'] = $segments[0];
 			$data = explode(":", $segments[1]);
-
 			$vars['id'] = $data[0];
-			if ($numSegments > 2) $vars['layout'] = $segments[2];
-			if ($numSegments > 3) $vars['tmpl'] = ( empty($segments[3]) ? 'component' : ($segments[3]=='direct')?'':$segments[3]);
-				else
-					$vars['tmpl'] = 'component';
-			if(!$vars['tmpl']) unset($vars['tmpl']);
+
+            if ($numSegments > 3){
+                $vars['tmpl'] = $segments[2];
+                $vars['layout'] = $segments[3];
+            }
+            else if ($numSegments > 2){
+                if($segments[2] == 'component'){
+                    $vars['tmpl'] = $segments[2];
+                } else {
+                    $vars['layout'] = $segments[2];
+                }
+            }
 			
 			if(!$vars['Itemid']){
 				$lang = JFactory::getLanguage();
