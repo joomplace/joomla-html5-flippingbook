@@ -189,7 +189,7 @@ foreach($template_css as $rule => $style){
       max-width: 1200px;
     }*/
     html body .flipbook-viewport {
-        display: block;
+        display: table;
         width: 100%;
         height: 100%;
     }
