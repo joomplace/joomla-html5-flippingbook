@@ -101,7 +101,7 @@ if($item->template->background_color)
 if($item->template->p_margin)
     $template_css['html body .flipbook p'][] = 'margin-bottom: '.$item->template->p_margin.';';
 if($item->template->p_lineheight)
-    $template_css['html body .flipbook p'][] = 'line-height: '.$item->template->p_lineheight.';';
+    $template_css['html body .flipbook p'][] = 'line-height: normal;';
 if($item->template->page_background_color)
     $template_css['html body .flipbook .page'][] = 'background-color: '.$item->template->page_background_color.';';
 
