@@ -593,3 +593,67 @@ select.html5fb_upload_file + div {
 #system-message-container{
 	float: none !important;
 }
+
+.a_comptitle
+
+{
+
+	font-size:16px;
+
+	font-weight: normal;
+
+}
+
+.accordion-inner
+{
+    margin: 0px !important;
+    padding: 0 !important;
+}
+
+.about_table
+
+{
+
+	background-color: #F7F8F9;
+
+	border: 1px solid #d5d5d5;
+
+	width: 100%;
+
+	padding: 10px;
+
+	border-collapse: collapse;
+
+}
+
+
+
+.about_table td
+
+{
+
+	background-color:#fff;
+
+	padding: 4px;
+
+}
+
+.about_table,  .about_table td, .about_table th, .about_table tr
+
+{
+
+	border: 1px solid #d5d5d5;
+
+}
+
+#j-main-container
+{
+    background-color: white !important;
+    border: 0px solid transparent !important;
+}
+
+#collapseTwo:hover
+{
+    padding-bottom: 46px !important;
+}
+
