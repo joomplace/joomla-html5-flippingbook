@@ -38,7 +38,7 @@
 		
 
 		<field name="page_hard"
-			type="radio"
+			type="hidden"
 			default="0"
 			class="btn-group"
 			label="COM_HTML5FLIPPINGBOOK_BE_PAGES_HARDPAGE"
