@@ -16,6 +16,19 @@ $document->addScript(JUri::root(true).'/components/com_html5flippingbook/assets/
 $document->addScript(JUri::root(true).'/components/com_html5flippingbook/assets/lib/hash.js');
 $document->addScript(JUri::root(true).'/components/com_html5flippingbook/assets/lib/turn.min.js');
 
+require_once (COMPONENT_LIBS_PATH . 'Mobile_Detect.php');
+$detectMobile = new Mobile_Detect_HTML5FB();
+$isMobile = FALSE;
+$isTablet = FALSE;
+if ($detectMobile->isMobile() && !$detectMobile->isTablet())
+{
+    $isMobile = TRUE;
+}
+elseif ($detectMobile->isTablet())
+{
+    $isTablet = TRUE;
+}
+
 $item = $this->item;
 $pages = $item->pages;
 
@@ -24,7 +37,9 @@ $data = array(
     'pages'=>$pages,
     'config'=>(property_exists($this, 'config') && $this->config) ? $this->config : false,
     'emaillayout'=>(property_exists($this, 'emaillayout') && $this->emaillayout) ? $this->emaillayout : false,
-    'emaillayoutData'=>(property_exists($this, 'emaillayoutData') && $this->emaillayoutData) ? $this->emaillayoutData : false
+    'mailLayoutData'=>(property_exists($this, 'mailLayoutData') && $this->mailLayoutData) ? $this->mailLayoutData : false,
+    'isMobile' => $isMobile,
+    'isTablet' => $isTablet
 );
 
 if($this->item->template->hard_cover){

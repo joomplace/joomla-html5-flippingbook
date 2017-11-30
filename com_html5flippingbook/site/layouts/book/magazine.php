@@ -429,7 +429,7 @@ foreach($template_css as $rule => $style){
 $user = JFactory::getUser();
 $downloadOptionAccess = $user->authorise('core.download', COMPONENT_OPTION);
 $downloadOptionAccessGranted = $user->authorise('core.download', COMPONENT_OPTION . '.publication.' . $item->c_id);
-$downloadList = '';
+$downloadList = array();
 if ($downloadOptionAccess && $downloadOptionAccessGranted) {
     $downloadList = HTML5FlippingBookFrontHelper::generateDownloadLinks($item->c_id);
 }
@@ -440,7 +440,7 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
         <link rel="stylesheet" href="<?php echo JUri::root(true).'/components/com_html5flippingbook/assets/css/'.$item->c_id.'-publication.css'; ?>">
     <?php } ?>
     <div class="rel">
-        <?php if ($config->social_email_use){
+        <?php if ($config->social_email_use && $emaillayout && $mailLayoutData){
             echo $emaillayout->render($mailLayoutData);
         }
         ?>
@@ -605,7 +605,7 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
                             <?php } ?>
                         </div>
                         <div class="span12">
-                            <?php echo JHtml::_('content.prepare', property_exists($item, 'fulltext') ? $item->fulltext : $item->text); ?>
+                            <?php echo JHtml::_('content.prepare', property_exists($item, 'fulltext') ? $item->fulltext : (property_exists($item, 'text') ? $item->text : '')); ?>
                         </div>
                     </div>
                 </div>
