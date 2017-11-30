@@ -205,14 +205,9 @@ JHtml::_('behavior.modal');
 					</div>
 				</div>
 
-				<div class="control-group">
-					<div class="control-label">
-						<?php echo $this->form->getLabel('page_hard'); ?>
-					</div>
-					<div class="controls">
-						<?php echo $this->form->getInput('page_hard'); ?>
-					</div>
-				</div>
+                <?php echo $this->form->getLabel('page_hard'); ?>
+                <?php echo $this->form->getInput('page_hard'); ?>
+
 				<div class="control-group">
 					<?php
 					$input = $this->form->getField('page_type');
