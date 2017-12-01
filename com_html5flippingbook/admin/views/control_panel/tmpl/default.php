@@ -182,7 +182,7 @@ JHtml::_('behavior.modal');
             <div class="accordion-group">
                 <div class="accordion-heading">
                     <a style="text-decoration: underline !important;" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-                        About Joomla Quiz Deluxe
+                        <?php echo "About " . JText::_('COM_HTML5FLIPPINGBOOK'); ?>
                     </a>
                 </div>
                 <div id="collapseOne" class="accordion-body collapse in">
