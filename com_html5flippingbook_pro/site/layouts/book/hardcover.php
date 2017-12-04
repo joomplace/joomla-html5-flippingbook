@@ -1084,6 +1084,7 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
                 flipbook.closest('.flipbook-viewport').animate({"opacity": "1"}, 800);
             }
         };
+        flipbook.module = module;
 
         function loadApp() {
             // Check if the CSS was already loaded
