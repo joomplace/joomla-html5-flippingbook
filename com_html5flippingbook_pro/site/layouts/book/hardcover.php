@@ -655,7 +655,7 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
 <script type="text/javascript">
     function fullscreenIt(id){
         var elem = jQuery('#'+id).parent()[0];
-        if (elem.requestFullscreen) {
+        if (elem.requestFullscreen) {               // W3C
             elem.requestFullscreen();
         } else if (elem.msRequestFullscreen) {
             elem.msRequestFullscreen();
@@ -663,8 +663,39 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
             elem.mozRequestFullScreen();
         } else if (elem.webkitRequestFullscreen) {
             elem.webkitRequestFullscreen();
+        } else if (elem.webkitRequestFullScreen) {  //old webkit
+            elem.webkitRequestFullScreen();
+        } else if (elem.webkitEnterFullscreen) {    //iOS
+            elem.webkitEnterFullscreen();
+        } else {
+            jQuery(elem)
+                .css('position','fixed')
+                .css('left','0px')
+                .css('top','0px')
+                .css('background','#FFF')
+                .width(jQuery('html').width())
+                .height(jQuery('html').height())
+                .css('z-index','1010');
+            var size = flipbook.module.resize();
+            flipbook.turn('size', size.width, size.height);
+            jQuery(elem).append(jQuery('<div/>').html('Close').attr('onclick','alert("Please reload the page.")'));
         }
     }
+    jQuery('body').on('keyup', function(e) {
+        if (e.keyCode == 27) { // escape
+            if (document.fullscreenElement || document.mozFullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement){
+                if (document.cancelFullScreen) {
+                    document.cancelFullScreen();
+                } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                } else if (document.webkitCancelFullScreen) {
+                    document.webkitCancelFullScreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+            }
+        }
+    });
 
     function loadPage(page,adj) {
         <?php $addPageRoute = JRoute::_('index.php?option=com_html5flippingbook&publication='.$item->c_id.'&task=publication.loadSpecPage', false); ?>
@@ -710,8 +741,8 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
             var fullscreenElement =
                 document.fullscreenElement ||
                 document.mozFullscreenElement ||
-                document.webkitFullscreenElement;
-
+                document.webkitFullscreenElement ||
+                document.msFullscreenElement;
             return fullscreenElement;
         };
 
