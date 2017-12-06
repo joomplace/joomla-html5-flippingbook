@@ -526,6 +526,7 @@ class com_html5flippingbookInstallerScript
 		$columns = array(
 			(object) array("name" => "p_margin",		"sql" => "ALTER TABLE `#__html5fb_templates` ADD `p_margin` VARCHAR(10) NOT NULL DEFAULT ''"),
 			(object) array("name" => "hard_cover",		"sql" => "ALTER TABLE `#__html5fb_templates` ADD `hard_cover` TINYINT(1) NOT NULL DEFAULT '0'"),
+            (object) array("name" => "doublepages",		"sql" => "ALTER TABLE `#__html5fb_templates` ADD `doublepages` BOOLEAN NOT NULL DEFAULT '0'"),
 			(object) array("name" => "p_lineheight",	"sql" => "ALTER TABLE `#__html5fb_templates` ADD `p_lineheight` VARCHAR(10) NOT NULL DEFAULT ''"),
 			(object) array("name" => "slider_thumbs",	"sql" => "ALTER TABLE `#__html5fb_templates` ADD `slider_thumbs` TINYINT(1) NOT NULL DEFAULT 1"),
 			(object) array("name" => "show_shadow",	    "sql" => "ALTER TABLE `#__html5fb_templates` ADD `show_shadow` TINYINT(1) NOT NULL DEFAULT 1"),
