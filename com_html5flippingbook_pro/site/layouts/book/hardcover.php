@@ -446,7 +446,7 @@ foreach($template_css as $rule => $style){
 $user = JFactory::getUser();
 $downloadOptionAccess = $user->authorise('core.download', COMPONENT_OPTION);
 $downloadOptionAccessGranted = $user->authorise('core.download', COMPONENT_OPTION . '.publication.' . $item->c_id);
-$downloadList = '';
+$downloadList = array();
 if ($downloadOptionAccess && $downloadOptionAccessGranted) {
     $downloadList = HTML5FlippingBookFrontHelper::generateDownloadLinks($item->c_id);
 }
@@ -457,7 +457,7 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
         <link rel="stylesheet" href="<?php echo JUri::root(true).'/components/com_html5flippingbook/assets/css/'.$item->c_id.'-publication.css'; ?>">
     <?php } ?>
     <div class="rel">
-        <?php if ($config->social_email_use){
+        <?php if ($config->social_email_use && $emaillayout && $mailLayoutData){
             echo $emaillayout->render($mailLayoutData);
         }
         ?>
@@ -944,7 +944,7 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
                                 currentPage = book.turn('page'),
                                 pages = book.turn('pages');
 
-                            <?php if($item->c_audio) { ?>
+                            <?php if(property_exists($item, 'c_audio') && $item->c_audio) { ?>
                             var audio = new Audio();
                             audio.src = '<?php  echo COMPONENT_MEDIA_URL . "audio/" . $item->c_audio; ?>';
                             audio.autoplay = true;

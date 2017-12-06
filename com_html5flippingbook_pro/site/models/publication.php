@@ -366,7 +366,7 @@ class HTML5FlippingBookModelPublication extends JModelItem
             @chmod(COMPONENT_MEDIA_PATH.'/thumbs', 0757);
             imagegif($dest, COMPONENT_MEDIA_PATH.'/thumbs/preview_'.$item->c_id.'.gif');
         }
-        foreach($item->pages as $page){
+        foreach($item->pages as $page_num => $page){
             //c_enable_text is "table of content"
             if(!$page['page_image'] && $page['c_text']){
                 $page_num += 1;
