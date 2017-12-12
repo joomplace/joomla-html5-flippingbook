@@ -203,6 +203,9 @@ abstract class HTML5FlippingBookFrontHelper
 	public static function createBookShelf($list = 'reading', $shelf = array(), $isMobile = FALSE, $isTablet = FALSE, $shelfN = 1, $config)
 	{
 		$str = '';
+        if(!is_array($shelf) || empty($shelf)){
+            return $str;
+        }
 		$rowCount = count($shelf);
 		foreach ($shelf as $i => $item)
 		{
