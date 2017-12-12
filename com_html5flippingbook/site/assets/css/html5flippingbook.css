@@ -719,7 +719,7 @@ html > /**/ body #html5flippingbook .html5fb-descr {
 }
 
 #html5flippingbook .html5fb-pict .thumbnail {
-    z-index: 100;
+    z-index: 98;
     position: relative;
     background: #fff;
 }
