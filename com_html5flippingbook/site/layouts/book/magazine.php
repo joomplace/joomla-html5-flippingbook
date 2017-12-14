@@ -699,7 +699,8 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
 
         function zoomHandle(book) {
             if(book.turn('zoom')!=1){
-                zoomOut(book);
+                //zoomOut(book);
+                return false;
             }else{
                 zoomIn(book);
             }
@@ -876,7 +877,7 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
                     return false;
                 });
                 $('.fa-search-plus').on('click',function(e){
-                    zoomIn(flipbook);
+                    zoomHandle(flipbook);
                     return false;
                 });
                 $('.fa-list').on('click',function(e){
