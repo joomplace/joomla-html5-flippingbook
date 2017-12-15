@@ -208,6 +208,9 @@ foreach($template_css as $rule => $style){
         -ms-user-select: none;
         user-select: none;
     }
+    html body .flipbook {
+        padding: 0;
+    }
     html body .flipbook .even .double{
         background-size: 200% 100%;
         background-position: 0px;
@@ -607,7 +610,7 @@ foreach($template_css as $rule => $style){
                             <?php } ?>
                         </div>
                         <div class="span12">
-                            <?php echo JHtml::_('content.prepare', property_exists($item, 'fulltext') ? $item->fulltext : false); ?>
+                            <?php echo JHtml::_('content.prepare', $item->fulltext); ?>
                         </div>
                     </div>
                 </div>
@@ -638,13 +641,7 @@ foreach($template_css as $rule => $style){
         });
     }
 
-    <?php if(property_exists($item, 'c_audio') && $item->c_audio) { ?>
-    jQuery('.previous-button, .next-button').click(function() {
-        var audio = new Audio();
-        audio.src = '<?php  echo COMPONENT_MEDIA_URL . "audio/" . $item->c_audio; ?>';
-        audio.autoplay = true;
-    });
-    <?php } ?>
+
     var flipbook = jQuery('.flipbook');
 
     (function ($) {

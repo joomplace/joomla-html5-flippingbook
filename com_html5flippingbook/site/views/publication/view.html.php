@@ -31,6 +31,7 @@ class HTML5FlippingBookViewPublication extends JViewLegacy
 		$item = $this->get('Item');
 		$item->resolutions = $this->get('Resolutions');
 		$doc = JFactory::getDocument();
+		$doc->addStyleSheet($this->baseurl . '/media/jui/css/bootstrap.min.css');
 
 		$this->item = $item;
 

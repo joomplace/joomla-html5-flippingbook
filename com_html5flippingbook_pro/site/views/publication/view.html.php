@@ -35,7 +35,8 @@ class HTML5FlippingBookViewPublication extends JViewLegacy
         $this->config = $configurationModel->GetConfig();
 
 		$doc = JFactory::getDocument();
-		
+		$doc->addStyleSheet($this->baseurl . '/media/jui/css/bootstrap.min.css');
+
 		$this->item = $item;
 
 		$doc->setMetaData( 'og:url', JURI::current() );
