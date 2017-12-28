@@ -29,6 +29,16 @@ class HTML5FlippingBookViewPublication extends JViewLegacy
 	function display($tpl = null){
 		
 		$item = $this->get('Item');
+
+        $app        = JFactory::getApplication();
+        $this->user = JFactory::getUser();
+        $viewAccessGranted = $this->user->authorise('core.view', COMPONENT_OPTION . '.publication.' . $item->c_id);
+        if(!$viewAccessGranted){
+            $app->enqueueMessage(JText::_('JERROR_LAYOUT_YOU_HAVE_NO_ACCESS_TO_THIS_PAGE'), 'error');
+            $app->setHeader('status', 403, true);
+            return;
+        }
+
 		$item->resolutions = $this->get('Resolutions');
         require_once(JPATH_COMPONENT_ADMINISTRATOR.'/models/configuration.php');
         $configurationModel = JModelLegacy::getInstance('Configuration', COMPONENT_MODEL_PREFIX);
