@@ -164,3 +164,18 @@
     background-image:-o-linear-gradient(right, rgba(0,0,0,0) 95%, rgba(0,0,0,0.15) 100%);
     background-image:linear-gradient(right, rgba(0,0,0,0) 95%, rgba(0,0,0,0.15) 100%);
 }
+
+@media (max-width: 767px) {
+    .flipbook .html-content h1{
+        margin: 1em 0;
+    }
+    .flipbook .html-content h2{
+        margin: 0.75em 0;
+    }
+    .flipbook .html-content cite{
+        font-size: 1.5em;
+    }
+    .flipbook .html-content p{
+        margin: 0.25rem 0 0.25rem;
+    }
+}

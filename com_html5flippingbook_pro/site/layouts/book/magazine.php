@@ -486,7 +486,9 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
                                 <?php } ?>
                                 <?php
                                 array_map(function($link){
-                                    echo "<a class='$link[1] fa-lg' title='$link[2]' href='$link[0]' target='_blank'></a>";
+                                    if(strpos($link[0], 'pdf')) {
+                                        echo "<a class='$link[1] fa-lg' title='$link[2]' href='$link[0]' target='_blank'></a>";
+                                    }
                                 },$downloadList);
                                 ?>
                                 <i class="fa fa-search-plus fa-lg" title="<?= JText::_( 'COM_HTML5FLIPPINGBOOK_ZOOM_IN' );?>"></i>
@@ -695,6 +697,7 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
     (function ($) {
         function zoomIn(book){
             $('.tbicon.zoom-out').show();
+            $('.fa-search-plus').hide();
             book.turn('zoom',2);
             $(book).css({"font-size": 0.016*Math.pow($(book).turn('size').width,1.0145) + "px"});
             //book.turn('disable', true);
@@ -706,6 +709,7 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
         }
         function zoomOut(book){
             $('.tbicon.zoom-out').hide();
+            $('.fa-search-plus').show();
             book.turn('zoom',1);
             var size = module.resize();
             book.turn('size',size.width,size.height);
@@ -744,6 +748,12 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
                     $(me.el).css({"font-size": 0.016*Math.pow($(me.el).turn('size').width,1.0145) + "px"});
                     // on window resize, update the plugin size
                     window.addEventListener('resize', function (e) {
+                        var isMobile = <?php echo $isMobile ? 1 : 0; ?>,
+                            isTablet = <?php echo $isTablet ? 1 : 0; ?>;
+                        if((isMobile*1 == 1 || isTablet*1 == 1) &&
+                            (document.fullscreenElement || document.mozFullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement)){
+                            return false;
+                        }
                         var size = me.resize();
                         zoomOut($(me.el));
                         $(me.el).turn('size',size.width,size.height);
