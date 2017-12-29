@@ -10,7 +10,6 @@
 JHtml::_('behavior.tooltip');
 JHtml::_('behavior.modal');
 ?>
-
 <script type="text/javascript">
 	
 	jQuery(document).ready(function ()
@@ -21,9 +20,9 @@ JHtml::_('behavior.modal');
 	function onBtnCheckLatestVersionClick(sender, event)
 	{
 		var resultDiv = document.getElementById('html5fbLatestVersion');
-		
-		resultDiv.innerHTML = '<img src="<?php echo COMPONENT_IMAGES_URL.'ajax_loader_16x11.gif'; ?>" />';
-		
+        if(resultDiv) {
+            resultDiv.innerHTML = '<img src="<?php echo COMPONENT_IMAGES_URL . 'ajax_loader_16x11.gif'; ?>" />';
+        }
 		var url = '<?php echo JURI::root().'administrator/index.php?option='.COMPONENT_OPTION.'&task=general.get_latest_component_version'; ?>';
 		var xmlData = "";
 		var syncObject = {};
@@ -50,36 +49,34 @@ JHtml::_('behavior.modal');
 		var link = MethodsForXml.getNodeValue(rootNode.childNodes[4]);
 		
 		// Handling data.
-		
-		if (error == "" && status == 200)
-		{
-			if (version == "<?php echo $this->config->component_version; ?>")
-			{
-				resultDiv.innerHTML = '<font color="green">' + version + '</font>';
-			}
-			else
-			{
-				jQuery('#body').html('<h3>Version: ' + version + '</h3>' +
-					changelog +
-					'<br/><hr/>If you want to see full list of component changes, please follow this link: ' + '<a href="' + link + '" target="_blank">Component changelog</a>');
-				jQuery('#changelogModal').modal('show');
+        if(resultDiv) {
+            if (error == "" && status == 200) {
+                if (version == "<?php echo $this->config->component_version; ?>") {
+                    resultDiv.innerHTML = '<font color="green">' + version + '</font>';
+                }
+                else {
+                    jQuery('#body').html('<h3>Version: ' + version + '</h3>' +
+                        changelog +
+                        '<br/><hr/>If you want to see full list of component changes, please follow this link: ' + '<a href="' + link + '" target="_blank">Component changelog</a>');
+                    jQuery('#changelogModal').modal('show');
 
-				resultDiv.innerHTML = '<button class="btn btn-small" onclick="onBtnCheckLatestVersionClick(this, event);"><i class="icon-health"></i>Check now</button>';
-			}
-		}
-		else
-		{
-			resultDiv.innerHTML = '<font color="red">' + '<?php echo JText::_('COM_HTML5FLIPPINGBOOK_BE_CONTROL_PANEL_CONNECTION_FAILED'); ?>: ' + error + (error == '' ? '' : ', ') +
-				(status == -100 ? '<?php echo JText::_('COM_HTML5FLIPPINGBOOK_BE_CONTROL_PANEL_TIMEOUT'); ?>' : status) + '</font>';
-		}
+                    resultDiv.innerHTML = '<button class="btn btn-small" onclick="onBtnCheckLatestVersionClick(this, event);"><i class="icon-health"></i>Check now</button>';
+                }
+            }
+            else {
+                resultDiv.innerHTML = '<font color="red">' + '<?php echo JText::_('COM_HTML5FLIPPINGBOOK_BE_CONTROL_PANEL_CONNECTION_FAILED'); ?>: ' + error + (error == '' ? '' : ', ') +
+                    (status == -100 ? '<?php echo JText::_('COM_HTML5FLIPPINGBOOK_BE_CONTROL_PANEL_TIMEOUT'); ?>' : status) + '</font>';
+            }
+        }
 	}
 	
 	function onGetLatestVersionTimeout(request, syncObject)
 	{
 		var resultDiv = document.getElementById('html5fbLatestVersion');
-		
-		resultDiv.innerHTML = '<font color="red">' + '<?php echo JText::_('COM_HTML5FLIPPINGBOOK_BE_CONTROL_PANEL_CONNECTION_FAILED'); ?>: ' +
-			'<?php echo JText::_('COM_HTML5FLIPPINGBOOK_BE_CONTROL_PANEL_TIMEOUT'); ?>' + '</font>';
+        if(resultDiv) {
+            resultDiv.innerHTML = '<font color="red">' + '<?php echo JText::_('COM_HTML5FLIPPINGBOOK_BE_CONTROL_PANEL_CONNECTION_FAILED'); ?>: ' +
+                '<?php echo JText::_('COM_HTML5FLIPPINGBOOK_BE_CONTROL_PANEL_TIMEOUT'); ?>' + '</font>';
+        }
 	}
 	
 	function getLatestNews()
@@ -108,24 +105,24 @@ JHtml::_('behavior.modal');
 		var content = MethodsForXml.getNodeValue(rootNode.childNodes[2]);
 		
 		// Handling data.
-		
-		if (error == "" && status == 200)
-		{
-			resultDiv.innerHTML = content;
-		}
-		else
-		{
-			resultDiv.innerHTML = '<font color="red">' + '<?php echo JText::_('COM_HTML5FLIPPINGBOOK_BE_CONTROL_PANEL_CONNECTION_FAILED'); ?>: ' +
-				'<?php echo JText::_('COM_HTML5FLIPPINGBOOK_BE_CONTROL_PANEL_TIMEOUT'); ?>' + '</font>';
-		}
+        if(resultDiv) {
+            if (error == "" && status == 200) {
+                resultDiv.innerHTML = content;
+            }
+            else {
+                resultDiv.innerHTML = '<font color="red">' + '<?php echo JText::_('COM_HTML5FLIPPINGBOOK_BE_CONTROL_PANEL_CONNECTION_FAILED'); ?>: ' +
+                    '<?php echo JText::_('COM_HTML5FLIPPINGBOOK_BE_CONTROL_PANEL_TIMEOUT'); ?>' + '</font>';
+            }
+        }
 	}
 	
 	function onGetLatestNewsTimeout(request, syncObject)
 	{
 		var resultDiv = document.getElementById('html5fbLatestNews');
-		
-		resultDiv.innerHTML = '<font color="red">' + '<?php echo JText::_('COM_HTML5FLIPPINGBOOK_BE_CONTROL_PANEL_CONNECTION_FAILED'); ?>: ' +
-			'<?php echo JText::_('COM_HTML5FLIPPINGBOOK_BE_CONTROL_PANEL_TIMEOUT'); ?>' + '</font>';
+        if(resultDiv) {
+            resultDiv.innerHTML = '<font color="red">' + '<?php echo JText::_('COM_HTML5FLIPPINGBOOK_BE_CONTROL_PANEL_CONNECTION_FAILED'); ?>: ' +
+                '<?php echo JText::_('COM_HTML5FLIPPINGBOOK_BE_CONTROL_PANEL_TIMEOUT'); ?>' + '</font>';
+        }
 	}
 	
 	function onBtnShowChangelogClick(sender, event)
@@ -191,7 +188,7 @@ JHtml::_('behavior.modal');
                             <tr>
                                 <th colspan="2" class="a_comptitle">
                                     <strong><?php echo JText::_('COM_HTML5FLIPPINGBOOK'); ?></strong> component for Joomla! 3.0 Developed by
-                                    <a href="http://www.JoomPlace.com">JoomPlace</a>.
+                                    <a href="http://www.JoomPlace.com" target="_blank" rel="noopener noreferrer">JoomPlace</a>.
                                 </th>
                             </tr>
                             <tr>
@@ -205,11 +202,11 @@ JHtml::_('behavior.modal');
                             </tr>
                             <tr>
                                 <td align="left">Community Forum:</td>
-                                <td align="left"><a target="_blank" href="http://www.joomplace.com/forum/joomla-components/joomlaquiz-deluxe.html">http://www.joomplace.com/forum/joomla-components/joomlaquiz-deluxe.html</a></td>
+                                <td align="left"><a target="_blank" rel="noopener noreferrer" href="https://www.joomplace.com/forum/joomla-components/html5-flipping-book.html">https://www.joomplace.com/forum/joomla-components/html5-flipping-book.html</a></td>
                             </tr>
                             <tr>
                                 <td align="left">Support Helpdesk:</td>
-                                <td align="left"><a target="_blank" href="http://www.joomplace.com/support/helpdesk/post-purchase-questions/ticket/create">http://www.joomplace.com/support/helpdesk/post-purchase-questions/ticket/create</a></td>
+                                <td align="left"><a target="_blank" rel="noopener noreferrer" href="https://www.joomplace.com/support/helpdesk/post-purchase-questions/ticket/create.html">https://www.joomplace.com/support/helpdesk/post-purchase-questions/ticket/create.html</a></td>
                             </tr>
                         </table>
                     </div>
@@ -250,11 +247,11 @@ JHtml::_('behavior.modal');
                     <div class="accordion-inner">
                         <div class="thank_fdiv" style="font-size:12px;margin-left: 4px;">
                             <?php echo JText::_("COM_HTML5FLIPPINGBOOK_BE_CONTROL_PANEL_SAY_THANKS_1"); ?>
-                            <a href="http://extensions.joomla.org/extensions/vertical-markets/education-a-culture/quiz/11302" target="_blank">http://extensions.joomla.org/</a>
+                            <a href="https://extensions.joomla.org/extensions/extension/directory-a-documentation/portfolio/html5-flipping-book/" target="_blank" rel="noopener noreferrer">http://extensions.joomla.org/</a>
                             <?php echo JText::_("COM_HTML5FLIPPINGBOOK_BE_CONTROL_PANEL_SAY_THANKS_2"); ?>
                         </div>
                         <div style="float:right; margin:3px 5px 5px 5px;">
-                            <a href="http://extensions.joomla.org/extensions/vertical-markets/education-a-culture/quiz/11302" target="_blank">
+                            <a href="https://extensions.joomla.org/extensions/extension/directory-a-documentation/portfolio/html5-flipping-book/" target="_blank" rel="noopener noreferrer">
                                 <img src="http://www.joomplace.com/components/com_jparea/assets/images/rate-2.png" />
                             </a>
                         </div>
