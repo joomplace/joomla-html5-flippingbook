@@ -292,7 +292,7 @@ abstract class HTML5FlippingBookFrontHelper
 			{
 				for ($i = 0; $i < $n; $i++)
 				{
-					$content .= '
+				    $content .= '
 							<li>
 								<a href="' . JRoute::_('index.php?option=com_html5flippingbook&task=convert.get'.strtolower($formats[$i]).''.($download->cloudconvert ? '&target=cloud' : '').'&id=' . $id, FALSE, $uri->isSSL()) . '">
 									<i class="fa fa-file-text-o"></i> ' . JText::sprintf('COM_HTML5FLIPPINGBOOK_FE_DOWNLOAD_OPTION_FORMATS', strtoupper($formats[$i])) . '
