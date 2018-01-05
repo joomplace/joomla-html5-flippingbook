@@ -734,8 +734,7 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
                     window.addEventListener('resize', function (e) {
                         var isMobile = <?php echo $isMobile ? 1 : 0; ?>,
                             isTablet = <?php echo $isTablet ? 1 : 0; ?>;
-                        if((isMobile*1 == 1 || isTablet*1 == 1) &&
-                            (document.fullscreenElement || document.mozFullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement)){
+                        if((isMobile*1 == 1 || isTablet*1 == 1) && ($(me.el).turn('zoom') == 2)){
                             return false;
                         }
                         var size = me.resize();
