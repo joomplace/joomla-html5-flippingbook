@@ -4,10 +4,10 @@
     <author>JoomPlace Team</author>
     <authorEmail>support@joomplace.com</authorEmail>
     <authorUrl>www.joomplace.com</authorUrl>
-    <copyright>Copyright (C) 2005 - 2017 JoomPlace, www.joomplace.com. All rights reserved.</copyright>
+    <copyright>Copyright (C) 2005 - 2018 JoomPlace, www.joomplace.com. All rights reserved.</copyright>
     <license>GNU/GPL http://www.gnu.org/copyleft/gpl.html</license>
-    <version>2.2.2</version>
-    <creationDate>August 2017</creationDate>
+    <version>2.2.3</version>
+    <creationDate>January 2018</creationDate>
     <description>Displays a button to make it possible to insert HTML5 Flipping Book links into articles.</description>
 
     <languages folder="language/en-GB">
