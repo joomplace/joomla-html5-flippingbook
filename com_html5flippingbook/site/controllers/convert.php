@@ -497,16 +497,16 @@ class HTML5FlippingBookControllerConvert extends JControllerLegacy
 			{
 				if ($page->c_enable_image == 1)
 				{
-					$html[] = '<p style="text-align: center;"><img src="' . COMPONENT_MEDIA_URL. 'images/' . ($publication->c_imgsub ? $publication->c_imgsubfolder . '/' : '') . $page->page_image . '" /></p>';
-					if ($i == 0)
+                    $html[] = '<p style="text-align: center;"><img src="' . COMPONENT_MEDIA_PATH. '/images/' . ($publication->c_imgsub ? $publication->c_imgsubfolder . '/' : '') . 'original/'.str_replace(array('th_', 'thumb_'), '', $page['page_image']) . '" /></p>';
+                    if ($i == 0)
 					{
 						$html[] = '<pagebreak />';
 					}
 				}
 				elseif ($page->c_enable_text == 1)
 				{
-					$page->c_text = str_replace('src="media/', 'src="' . JUri::root() . 'media/', $page->c_text);
-					$page->c_text = str_replace('src="images/', 'src="' . JUri::root() . 'images/', $page->c_text);
+                    $page->c_text = str_replace('src="media/', 'src="' . JPATH_SITE . '/media/', $page->c_text);
+                    $page->c_text = str_replace('src="images/', 'src="' . JPATH_SITE . '/images/', $page->c_text);
 					$html[] = $page->c_text;
 					if ($i == 0)
 					{
