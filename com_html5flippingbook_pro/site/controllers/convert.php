@@ -496,7 +496,7 @@ class HTML5FlippingBookControllerConvert extends JControllerLegacy
 			{
 				if ($page->c_enable_image == 1)
 				{
-                    $html[] = '<p style="text-align: center;"><img src="' . COMPONENT_MEDIA_PATH. '/images/' . ($publication->c_imgsub ? $publication->c_imgsubfolder . '/' : '') . 'original/'.str_replace(array('th_', 'thumb_'), '', $page['page_image']) . '" /></p>';
+                    $html[] = '<p style="text-align: center;"><img src="' . COMPONENT_MEDIA_PATH. '/images/' . ($publication->c_imgsub ? $publication->c_imgsubfolder . '/' : '') . 'original/'.str_replace(array('th_', 'thumb_'), '', $page->page_image) . '" /></p>';
                     if ($i == 0)
 					{
 						$html[] = '<pagebreak />';
