@@ -693,6 +693,8 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
     });
     <?php } ?>
     var flipbook = jQuery('.flipbook');
+    var publicationID = <?php echo $item->c_id;?>;
+    var user = <?php echo $user->get('id', 'INT'); ?>;
 
     (function ($) {
         function zoomIn(book){
@@ -1010,6 +1012,15 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
 
                             book.turn('center');
 
+                            /*Update last open page*/
+                            if (user) {
+                                $.ajax({
+                                    type: "POST",
+                                    url: "index.php?option=com_html5flippingbook&task=userPublAction&tmpl=component",
+                                    data: 'pubID=' + publicationID + '&action=updatePage&page=' + page,
+                                    dataType: 'JSON',
+                                });
+                            }
                         },
 
                         zooming: function(e, newFactor, current) {
