@@ -237,6 +237,7 @@ class com_html5flippingbookInstallerScript
 			  `c_author` varchar(255) NOT NULL DEFAULT '',
 			  `c_imgsub` tinyint(1) NOT NULL DEFAULT '0',
 			  `c_imgsubfolder` varchar(50) DEFAULT '',
+			  `page_count_modifier` INT(2) DEFAULT '0',
 			  `c_template_id` int(11) unsigned NOT NULL DEFAULT '0',
 			  `navi_settings` tinyint(1) NOT NULL DEFAULT '1',
 			  `c_resolution_id` int(11) unsigned NOT NULL DEFAULT '0',
