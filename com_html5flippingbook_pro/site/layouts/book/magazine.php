@@ -594,7 +594,7 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
                                 }
 
                                 $page_content = ($page['page_image'])?'<div class="paddifier"><img src="'.str_replace
-                                    ("\\", "/", JHtml::_('thumbler.generate', $page['page_image'], json_encode(array('width' => $item->resolutions->width*(($double_page && ($i != 0 && $i != $bc+2))?2:1), 'height'=> $item->resolutions->height)), false)).'" /></div>':'<div class="paddifier"><div class="html-content"><div>'.$page['c_text'].((1)?'<span class="page-number">'.$page_number+$pageCountModifier.'</span></div></div>':'').'</div>';
+                                    ("\\", "/", JHtml::_('thumbler.generate', $page['page_image'], json_encode(array('width' => $item->resolutions->width*(($double_page && ($i != 0 && $i != $bc+2))?2:1), 'height'=> $item->resolutions->height)), false)).'" /></div>':'<div class="paddifier"><div class="html-content"><div>'.$page['c_text'].((1)?'<span class="page-number">'.$page_number+($pageCountModifier?$pageCountModifier:'').'</span></div></div>':'').'</div>';
                                 if($page['page_image'] && strpos($page_class,'double')!==false){
                                     ?>
                                     <div class="<?php echo $page_class; ?>" data-id="<?php echo $page['id']; ?>" style="background-image:url('<?php echo str_replace("\\", "/", JHtml::_('thumbler.generate', $page['page_image'], json_encode(array('width' => $item->resolutions->width*($double_page?2:1), 'height'=> $item->resolutions->height)), false)); ?>')"></div>
