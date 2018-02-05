@@ -12,7 +12,7 @@ defined('_JEXEC') or die('Restricted access');
 $document = JFactory::getDocument();
 extract($displayData);
 
-$pageCountModifier = 0;
+$pageCountModifier = $item->page_count_modifier;
 
 foreach($pages as &$page){
     if($page['page_image']){

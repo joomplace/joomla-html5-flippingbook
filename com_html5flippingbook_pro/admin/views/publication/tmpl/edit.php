@@ -303,6 +303,14 @@ if ($this->item->c_imgsub == 1 && $this->item->c_imgsubfolder != '')
 				</div>
 				<div class="control-group">
 					<div class="control-label">
+						<?php echo $this->form->getLabel('page_count_modifier'); ?>
+					</div>
+					<div class="controls">
+						<?php echo $this->form->getInput('page_count_modifier'); ?>
+					</div>
+				</div>
+				<div class="control-group">
+					<div class="control-label">
 						<?php echo $this->form->getLabel('c_imgsubfolder'); ?>
 					</div>
 					<div class="controls">
