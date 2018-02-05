@@ -12,6 +12,8 @@ defined('_JEXEC') or die('Restricted access');
 $document = JFactory::getDocument();
 extract($displayData);
 
+$pageCountModifier = 0;
+
 foreach($pages as &$page){
     if($page['page_image'])
         $page['page_image'] = COMPONENT_MEDIA_PATH. '/images/'. ( $item->c_imgsub ? $item->c_imgsubfolder.'/' : '') . 'original/'.str_replace(array('th_', 'thumb_'), '', $page['page_image']);
@@ -591,7 +593,8 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
                                         $page_number  = (int)$item->navi_settings ? ($i+1) : $i;
                                 }
 
-                                $page_content = ($page['page_image'])?'<div class="paddifier"><img src="'.str_replace("\\", "/", JHtml::_('thumbler.generate', $page['page_image'], json_encode(array('width' => $item->resolutions->width*(($double_page && ($i != 0 && $i != $bc+2))?2:1), 'height'=> $item->resolutions->height)), false)).'" /></div>':'<div class="paddifier"><div class="html-content"><div>'.$page['c_text'].((1)?'<span class="page-number">'.$page_number.'</span></div></div>':'').'</div>';
+                                $page_content = ($page['page_image'])?'<div class="paddifier"><img src="'.str_replace
+                                    ("\\", "/", JHtml::_('thumbler.generate', $page['page_image'], json_encode(array('width' => $item->resolutions->width*(($double_page && ($i != 0 && $i != $bc+2))?2:1), 'height'=> $item->resolutions->height)), false)).'" /></div>':'<div class="paddifier"><div class="html-content"><div>'.$page['c_text'].((1)?'<span class="page-number">'.$page_number+$pageCountModifier.'</span></div></div>':'').'</div>';
                                 if($page['page_image'] && strpos($page_class,'double')!==false){
                                     ?>
                                     <div class="<?php echo $page_class; ?>" data-id="<?php echo $page['id']; ?>" style="background-image:url('<?php echo str_replace("\\", "/", JHtml::_('thumbler.generate', $page['page_image'], json_encode(array('width' => $item->resolutions->width*($double_page?2:1), 'height'=> $item->resolutions->height)), false)); ?>')"></div>
@@ -633,6 +636,7 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
     </div>
 </div>
 <script type="text/javascript">
+    var page_count_modifier = 0;
     function fullscreenIt(id){
         var elem = jQuery('#'+id).parent()[0];
         if (elem.requestFullscreen) {               // W3C
@@ -827,7 +831,7 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
                         var page = parts[1];
                         if (page!==undefined) {
                             if (flipbook.turn('is'))
-                                flipbook.turn('page', page);
+                                flipbook.turn('page', parseInt(page)-parseInt(page_count_modifier));
                         }
                     },
                     nop: function(path) {
@@ -912,7 +916,7 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
                 $('#goto_page_input_button').on('click',function(e){
                     var input = $(this).parent().find('#goto_page_input');
                     var val = parseInt(input.val(),10) + <?php echo ($item->navi_settings)?0:1; ?>;
-                    flipbook.turn('page', val);
+                    flipbook.turn('page', val-parseInt(page_count_modifier));
                     input.val('').prop('placeholder',(val-<?php echo ($item->navi_settings)?0:1; ?>)+' <?= JText::_( 'COM_HTML5FLIPPINGBOOK_PAGE_IS_OPENED' );?>');
                     return false;
                 });
@@ -972,7 +976,9 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
 
                             slider.slider('value', getViewNumber(book, page));
 
-                            book.parent().next().find('#goto_page_input').prop('placeholder',(page-<?php echo ($item->navi_settings)?0:1; ?>)+' <?= JText::_( 'COM_HTML5FLIPPINGBOOK_PAGE_IS_OPENED' );?>');
+                            book.parent().next().find('#goto_page_input').prop('placeholder',(page-<?php echo
+                            ($item->navi_settings)?0:1; ?>+parseInt(page_count_modifier))+' <?= JText::_( 'COM_HTML5FLIPPINGBOOK_PAGE_IS_OPENED'
+                            );?>');
 
                             updateDepth(book, page+1);
                             if (page>1){
@@ -991,7 +997,7 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
                                 book.find('.p'+(pages-1)).removeClass('fixed');
                             }
 
-                            Hash.go('page/'+page).update();
+                            Hash.go('page/'+(parseInt(page)+parseInt(page_count_modifier))).update();
 
 
                         },
