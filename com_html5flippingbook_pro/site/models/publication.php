@@ -264,7 +264,7 @@ class HTML5FlippingBookModelPublication extends JModelItem
             }
         }
 
-        function textImgCreate( $page_num )
+        function textImgCreate( $page_num, $modifier = 0 )
         {
             if ( $page_num%2==0 )	// is right
             {
@@ -278,6 +278,8 @@ class HTML5FlippingBookModelPublication extends JModelItem
             }
 
             $handle = imgCreate($file);
+
+            $page_num += $modifier;
 
             switch ( strlen($page_num) )
             {
@@ -342,7 +344,7 @@ class HTML5FlippingBookModelPublication extends JModelItem
                         $k++;
                     }
 
-                    $imagedata = textImgCreate( $page_num );
+                    $imagedata = textImgCreate( $page_num, $item->page_count_modifier );
                 }
 
                 if ( $imagedata )
@@ -380,7 +382,7 @@ class HTML5FlippingBookModelPublication extends JModelItem
                     $k++;
                 }
 
-                $imagedata = textImgCreate( $page_num );
+                $imagedata = textImgCreate( $page_num, $item->page_count_modifier  );
 
             }
         }
