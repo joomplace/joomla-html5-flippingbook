@@ -636,7 +636,7 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
     </div>
 </div>
 <script type="text/javascript">
-    var page_count_modifier = <?= $pageCountModifier ?>;
+    var page_count_modifier = <?= (int)$pageCountModifier ?>;
     function fullscreenIt(id){
         var elem = jQuery('#'+id).parent()[0];
         if (elem.requestFullscreen) {               // W3C
