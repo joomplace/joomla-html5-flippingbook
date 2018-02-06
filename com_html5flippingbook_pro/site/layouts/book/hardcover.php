@@ -612,7 +612,7 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
                                         if(!$page_number){
                                             $page_number  = (($item->navi_settings)?($i?$i:''):(($i>1)?$i-1:''));
                                         }
-                                        $page_content = ($page['page_image'])?'<div class="paddifier"><img src="'.str_replace("\\", "/", JHtml::_('thumbler.generate', $page['page_image'], json_encode(array('width' => $item->resolutions->width*($double_page&&($i!=2 && $i!=$bc)?2:1), 'height'=> $item->resolutions->height)), false)).'" /></div>':'<div class="paddifier"><div class="html-content"><div>'.$page['c_text'].((1)?'<span class="page-number">'.$page_number+($pageCountModifier?$pageCountModifier:'').'</span></div></div>':'').'</div>';
+                                        $page_content = ($page['page_image'])?'<div class="paddifier"><img src="'.str_replace("\\", "/", JHtml::_('thumbler.generate', $page['page_image'], json_encode(array('width' => $item->resolutions->width*($double_page&&($i!=2 && $i!=$bc)?2:1), 'height'=> $item->resolutions->height)), false)).'" /></div>':'<div class="paddifier"><div class="html-content"><div>'.$page['c_text'].((1)?'<span class="page-number">'.($page_number?($page_number+($pageCountModifier?$pageCountModifier:'')):'').'</span></div></div>':'').'</div>';
                                         $page_number = 0;
                                 }
 
@@ -657,7 +657,7 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
     </div>
 </div>
 <script type="text/javascript">
-    var page_count_modifier = 0;
+    var page_count_modifier = <?= $pageCountModifier ?>;
     function fullscreenIt(id){
         var elem = jQuery('#'+id).parent()[0];
         if (elem.requestFullscreen) {               // W3C
