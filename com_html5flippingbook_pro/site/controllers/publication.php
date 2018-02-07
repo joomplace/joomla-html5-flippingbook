@@ -32,7 +32,7 @@ class HTML5FlippingBookControllerPublication extends JControllerLegacy
             $model->setState('publication.id', $publication);
             $resolutions = $model->getResolutions();
             if($page->page_image)
-                $page->page_image = COMPONENT_MEDIA_URL. 'images/'. ( $pub->c_imgsub ? $pub->c_imgsubfolder.'/' : '') . 'original/'.str_replace(array('th_', 'thumb_'), '', $page->page_image);
+                $page->page_image = COMPONENT_MEDIA_PATH. '/images/'. ( $pub->c_imgsub ? $pub->c_imgsubfolder.'/' : '') . 'original/'.str_replace(array('th_', 'thumb_'), '', $page->page_image);
 
             if($pub->template->hard_cover){
                 $number+=3;
