@@ -538,21 +538,16 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
 
     public function convert()
     {
-        $publicationId = $this->input->get('publication_id', '', 'INT');
-        $pagesTitle = $this->input->get('general_pages_title', '', 'WORD');
-        $quality = $this->input->get('image_quality', 100, 'INT');
 
         jimport('joomla.filesystem.file');
         jimport('joomla.filesystem.folder');
-
-        $pdfFile = $this->input->files->get('pdf_file');
 
         require_once(JPATH_COMPONENT_ADMINISTRATOR . '/libs/MethodsForStrings.php');
 
         $publicationId = $this->input->get('publication_id', '', 'INT');
         $islast = $this->input->get('islast', '', 'INT');
         $pagesTitle = $this->input->get('general_pages_title', '', 'WORD');
-        $fName = $this->input->get('fName');
+        $fName = $this->input->getString('fName');
         $imgName = $this->input->get('imgName');
         $quality = $this->input->get('image_quality', 100, 'INT');
 
@@ -592,9 +587,6 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
 
         $app = JFactory::getApplication();
         $app->setUserState(COMPONENT_OPTION . '.pages.filter.publication_id', $publicationId);
-
-        jimport('joomla.filesystem.file');
-        jimport('joomla.filesystem.folder');
 
         set_time_limit(0);
 
