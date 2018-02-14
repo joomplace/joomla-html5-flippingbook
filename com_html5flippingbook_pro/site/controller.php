@@ -217,6 +217,7 @@ class HTML5FlippingBookController extends JControllerLegacy
 					break;
 				case 'updatePage':
 					$query->set('`page` = ' . $page);
+                    $query->set('`lastopen` = ' . time());
 					break;
 				case 'read':
 					$query->set('`read` = 1');
