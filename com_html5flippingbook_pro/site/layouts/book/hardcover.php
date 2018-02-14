@@ -27,12 +27,12 @@ if($item->template->hard_wrapp){
     if($item->contents_page){
         $item->contents_page+=2;
     }
-    $wrap_up['before'][]['page_image']=JUri::root(true).'/components/com_html5flippingbook/assets/images/front-side.jpg';
+    $wrap_up['before'][]['page_image'] = JPATH_SITE.'/components/com_html5flippingbook/assets/images/front-side.jpg';
     if($item->template->hard_wrapp_blanked){
-        $wrap_up['before'][]['page_image']=JUri::root(true).'/components/com_html5flippingbook/assets/images/front-in.jpg';
-        $wrap_up['after'][]['page_image']=JUri::root(true).'/components/com_html5flippingbook/assets/images/back-in.jpg';
+        $wrap_up['before'][]['page_image'] = JPATH_SITE.'/components/com_html5flippingbook/assets/images/front-in.jpg';
+        $wrap_up['after'][]['page_image'] = JPATH_SITE.'/components/com_html5flippingbook/assets/images/back-in.jpg';
     }
-    $wrap_up['after'][]['page_image']=JUri::root(true).'/components/com_html5flippingbook/assets/images/back-side.jpg';
+    $wrap_up['after'][]['page_image'] = JPATH_SITE.'/components/com_html5flippingbook/assets/images/back-side.jpg';
 
     $pages_count = count($wrap_up['before']) + $item->pages_count + count($wrap_up['after']);
     $pages_count_adjust = count($wrap_up['before']) + count($wrap_up['after']);
