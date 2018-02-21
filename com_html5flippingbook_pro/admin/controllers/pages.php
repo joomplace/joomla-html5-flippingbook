@@ -538,21 +538,16 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
 
     public function convert()
     {
-        $publicationId = $this->input->get('publication_id', '', 'INT');
-        $pagesTitle = $this->input->get('general_pages_title', '', 'WORD');
-        $quality = $this->input->get('image_quality', 100, 'INT');
 
         jimport('joomla.filesystem.file');
         jimport('joomla.filesystem.folder');
-
-        $pdfFile = $this->input->files->get('pdf_file');
 
         require_once(JPATH_COMPONENT_ADMINISTRATOR . '/libs/MethodsForStrings.php');
 
         $publicationId = $this->input->get('publication_id', '', 'INT');
         $islast = $this->input->get('islast', '', 'INT');
         $pagesTitle = $this->input->get('general_pages_title', '', 'WORD');
-        $fName = $this->input->get('fName');
+        $fName = $this->input->getString('fName');
         $imgName = $this->input->get('imgName');
         $quality = $this->input->get('image_quality', 100, 'INT');
 
@@ -592,9 +587,6 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
 
         $app = JFactory::getApplication();
         $app->setUserState(COMPONENT_OPTION . '.pages.filter.publication_id', $publicationId);
-
-        jimport('joomla.filesystem.file');
-        jimport('joomla.filesystem.folder');
 
         set_time_limit(0);
 
@@ -639,7 +631,6 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
             }
 
             $img->setColorspace(Imagick::COLORSPACE_SRGB);
-            $img->scaleImage($params->get('max_width', 960),$params->get('max_height', 1080), true);
             $output_big = $targetDirFullOriginalIMG . "/" . $imgName . "-" . $page_number . ".jpg";
             $output_thumb = $targetDirFullName . "/th_" . $imgName . "-" . $page_number . ".jpg";
 
@@ -661,16 +652,32 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
             // Compress Image Quality
             $img->setImageCompressionQuality(100);
 
-            //Remove alpha channel
             $cls_v = $img->getversion();
+            /*
+               <pre>Array
+                (
+                    [versionNumber] => 1684
+                    [versionString] => ImageMagick 6.9.4-10 Q16 x86_64 2017-11-14 http://www.imagemagick.org
+                )
+                </pre>
+             */
             preg_match('/ImageMagick ([0-9]+\.[0-9]+\.[0-9]+)/', $cls_v['versionString'], $cls_v);
 
-            if (version_compare($cls_v[1], '6.8.9') == 1) {
+            //Remove alpha channel
+            if (version_compare($cls_v[1], '6.3.8', '>=')) {
                 $img->setImageAlphaChannel(Imagick::ALPHACHANNEL_DEACTIVATE);
             }
 
             // Prevents black background on objects with transparency
             $img->setImageBackgroundColor('white');
+
+            /*if (version_compare($cls_v[1], '6.3.7', '>=')) {
+                $img->mergeImageLayers(Imagick::LAYERMETHOD_FLATTEN);
+            } else {
+                $img->flattenImages();
+            } */
+
+            $img->scaleImage($params->get('max_width', 960),$params->get('max_height', 1200), true);
 
             // Write big images to the temp 'upload' folder
             $img->writeImage($output_big);
