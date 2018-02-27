@@ -198,3 +198,9 @@
 #emailModal.in{
     display: block !important;
 }
+
+/* FB in Joomla modal window */
+.shadow iframe {
+    max-height: 100%;
+    max-width: 100%;
+}
