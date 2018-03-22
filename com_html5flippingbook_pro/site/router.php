@@ -93,7 +93,7 @@ function HTML5FlippingBookParseRoute($segments)
                 }
             }
 
-            if (!$vars['Itemid']) {
+            if (!isset($vars['Itemid']) || !$vars['Itemid']) {
                 $lang = JFactory::getLanguage();
                 $db = JFactory::getDbo();
                 $query = $db->getQuery(true);
