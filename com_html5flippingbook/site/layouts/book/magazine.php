@@ -662,12 +662,18 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
     });
 
     function loadPage(page,adj) {
-        <?php $addPageRoute = JRoute::_('index.php?option=com_html5flippingbook&publication='.$item->c_id.'&task=publication.loadSpecPage'); ?>
-        jQuery.ajax({url: "<?php echo $addPageRoute.(strpos($addPageRoute,'?')?'&':'?') ?>number="+ (page-1) + "&doublepages="+ <?php echo $double_page?"1":"0" ?>}).
+        <?php 
+        
+            $addPageRoute = JRoute::_('index.php?option=com_html5flippingbook&publication='.$item->c_id.'&task=publication.loadSpecPage', false);
+            $url = $addPageRoute.(strpos($addPageRoute,'?')?'&':'?').'number="+(page-1) +"&doublepages='.($double_page?"1":"0");
+            
+        ?>
+        jQuery.ajax({url: "<?php echo $url;?>"}).
         done(function(pageHtml) {
             jQuery('.flipbook .p' + page).html(pageHtml);
         });
     }
+
 
     <?php if (isset($item->c_audio) && ($item->c_audio)) { ?>
     jQuery('.previous-button, .next-button').click(function() {
