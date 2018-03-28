@@ -2,12 +2,12 @@
 <extension version="3.x" type="plugin" group="finder">
 	<name>Smart search - flipping books</name>
 	<author>JoomPlace Team</author>
-	<creationDate>January 2018</creationDate>
+	<creationDate>March 2018</creationDate>
 	<copyright>Copyright (C) 2005 - 2018 JoomPlace, www.joomplace.com. All rights reserved.</copyright>
 	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
 	<authorEmail>support@jomplace.com</authorEmail>
 	<authorUrl>www.jomplace.com</authorUrl>
-	<version>2.2.4</version>
+	<version>2.2.5</version>
 	<description>Plugin for index flipping books in smart search</description>
 
 	<files>
