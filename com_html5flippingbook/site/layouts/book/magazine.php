@@ -1086,6 +1086,13 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
         });
     }(jQuery));
 
+    <?php if(JFactory::getApplication()->input->get('tmpl') == 'component'){ ?>
+    jQuery(function($){
+        if($('#sbox-window', window.top.document).length){
+            $('#sbox-window', window.top.document).find('iframe').css({'max-height':'100%','max-width':'100%'});
+        }
+    });
+    <?php } ?>
 </script>
 <?php
 if($item->template->hard_wrapp){
