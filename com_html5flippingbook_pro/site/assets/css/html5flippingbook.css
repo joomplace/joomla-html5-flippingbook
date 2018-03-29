@@ -1885,3 +1885,9 @@ input::-webkit-inner-spin-button {
 .notvisible {
     visibility: hidden;
 }
+
+/* FB in Joomla modal window */
+.shadow iframe {
+    max-height: 100%;
+    max-width: 100%;
+}
