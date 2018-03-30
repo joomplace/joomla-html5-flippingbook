@@ -34,7 +34,7 @@ class HTML5FlippingBookTablePublications extends JTable
 		{
 			$this->convert_formats = implode(',', $this->convert_formats);
 		}
-		else
+		elseif($jinput->get('layout', 0))
 		{
 			$this->convert_formats = '';
 		}
