@@ -16,6 +16,25 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
         return parent::getModel($name, $prefix, array('ignore_request' => true));
     }
 
+    public function delete()
+    {
+        if( parent::delete() )
+        {
+            //delete the corresponding SVG && preview files of the page
+            $cid = $this->input->get('cid', array(), 'array');
+            $cid = ArrayHelper::toInteger($cid);
+            $model = $this->getModel();
+            foreach($cid as $id){
+                $page = $model->getItem((int)$id);
+                Html5flippingbookImagehandlerHelper::deleteFile( Html5flippingbookImagehandlerHelper::$path_folder_svg.'/'.(int)$page->publication_id.'/'.(int)$id.'.svg');
+                Html5flippingbookImagehandlerHelper::deleteFile(Html5flippingbookImagehandlerHelper::$path_folder_preview.'/'.(int)$page->publication_id.'/'.(int)$id.'.jpg');
+            }
+            //delete preview.gif of publication
+            Html5flippingbookImagehandlerHelper::deleteFile(Html5flippingbookImagehandlerHelper::$path_folder_preview.'/'.(int)$page->publication_id.'/preview_'.(int)$page->publication_id.'.gif');
+        }
+        return true;
+    }
+
     //----------------------------------------------------------------------------------------------------
     public function save_order_ajax()
     {

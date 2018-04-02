@@ -9,20 +9,40 @@
 
 class HTML5FlippingBookControllerPages extends JControllerAdmin
 {
-	//----------------------------------------------------------------------------------------------------
-	public function getModel($name = 'Page', $prefix = COMPONENT_MODEL_PREFIX, $config = array()) 
-	{
-		return parent::getModel($name, $prefix, array('ignore_request' => true));
-	}
-	//----------------------------------------------------------------------------------------------------
-	public function save_order_ajax()
-	{
-		@ob_clean();
-		header('Expires: Thu, 01 Jan 1970 00:00:01 GMT');
-		header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
-		header('Cache-Control: no-cache, must-revalidate');
-		header('Pragma: no-cache');
-		header('Content-Type: text/plain; charset=utf-8');
+    //----------------------------------------------------------------------------------------------------
+    public function getModel($name = 'Page', $prefix = COMPONENT_MODEL_PREFIX, $config = array())
+    {
+        return parent::getModel($name, $prefix, array('ignore_request' => true));
+    }
+
+    public function delete()
+    {
+        if( parent::delete() )
+        {
+            //delete the corresponding SVG && preview files of the page
+            $cid = $this->input->get('cid', array(), 'array');
+            $cid = ArrayHelper::toInteger($cid);
+            $model = $this->getModel();
+            foreach($cid as $id){
+                $page = $model->getItem((int)$id);
+                Html5flippingbookImagehandlerHelper::deleteFile( Html5flippingbookImagehandlerHelper::$path_folder_svg.'/'.(int)$page->publication_id.'/'.(int)$id.'.svg');
+                Html5flippingbookImagehandlerHelper::deleteFile(Html5flippingbookImagehandlerHelper::$path_folder_preview.'/'.(int)$page->publication_id.'/'.(int)$id.'.jpg');
+            }
+            //delete preview.gif of publication
+            Html5flippingbookImagehandlerHelper::deleteFile(Html5flippingbookImagehandlerHelper::$path_folder_preview.'/'.(int)$page->publication_id.'/preview_'.(int)$page->publication_id.'.gif');
+        }
+        return true;
+    }
+
+    //----------------------------------------------------------------------------------------------------
+    public function save_order_ajax()
+    {
+        @ob_clean();
+        header('Expires: Thu, 01 Jan 1970 00:00:01 GMT');
+        header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+        header('Cache-Control: no-cache, must-revalidate');
+        header('Pragma: no-cache');
+        header('Content-Type: text/plain; charset=utf-8');
 
 		$pks = $this->input->post->get('cid', array(), 'array');
 		$order = $this->input->post->get('order', array(), 'array');

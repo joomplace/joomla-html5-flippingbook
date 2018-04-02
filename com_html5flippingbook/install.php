@@ -413,7 +413,8 @@ class com_html5flippingbookInstallerScript
 
 		$columns = array(
 			(object) array("name" => "is_contents",			    "sql" => "ALTER TABLE `#__html5fb_pages` ADD `is_contents` TINYINT( 1 ) NOT NULL DEFAULT '0'"),
-		);
+            (object) array("name" => "enable_svg",			    "sql" => "ALTER TABLE `#__html5fb_pages` ADD `enable_svg` TINYINT( 3 ) NOT NULL DEFAULT '0'"),
+        );
 
 		foreach ($columns as $column)
 		{

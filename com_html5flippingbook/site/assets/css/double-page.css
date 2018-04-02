@@ -199,6 +199,15 @@
     display: block !important;
 }
 
+.svg-content{
+    background-repeat: no-repeat !important;
+    background-size: contain !important;
+    height: 98%;
+    width: 90%;
+    margin: 2% auto 0%;
+    padding: 0 !important;
+}
+
 /* FB in Joomla modal window */
 .shadow iframe {
     max-height: 100%;

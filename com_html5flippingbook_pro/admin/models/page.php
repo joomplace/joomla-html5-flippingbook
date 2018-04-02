@@ -83,8 +83,21 @@ class HTML5FlippingBookModelPage extends JModelAdmin
 		}
 
 	    $data['c_text'] = $_POST['jform']['c_text'];    // TODO: just for work
+        $data['canvas'] = isset($_POST['jform']['canvas']) ? $_POST['jform']['canvas'] : '';
 
-		return parent::save($data);
+        if(parent::save($data)){
+            //save html-page as svg-file
+            if($data['page_type'] == 'text' && (int)$data['enable_svg']) {
+                Html5flippingbookImagehandlerHelper::saveHtmlPageToSvgFile($data);
+            }
+            //delete svg-file if it exists
+            else {
+                Html5flippingbookImagehandlerHelper::deleteFile(COMPONENT_MEDIA_PATH.'/svg/'.(int)$data['publication_id'].'/'.(int)$data['id'].'.svg');
+            }
+            Html5flippingbookImagehandlerHelper::savePagePreview($data);
+        }
+
+		return true;
 	}
 	//----------------------------------------------------------------------------------------------------
 	public function delete(&$pks)

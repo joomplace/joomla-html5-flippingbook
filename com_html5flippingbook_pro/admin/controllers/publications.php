@@ -14,8 +14,22 @@ class HTML5FlippingBookControllerPublications extends JControllerAdmin
 	{
 		return parent::getModel($name, $prefix, array('ignore_request' => true));
 	}
-	//----------------------------------------------------------------------------------------------------
-	public function save_order_ajax() 
+
+    public function delete()
+    {
+        if( parent::delete() ){
+            //delete the corresponding folder for svg-files of pages this publication && preview-folder
+            $cid = $this->input->get('cid', array(), 'array');
+            $cid = ArrayHelper::toInteger($cid);
+            foreach($cid as $id){
+                Html5flippingbookImagehandlerHelper::deleteFolder( Html5flippingbookImagehandlerHelper::$path_folder_svg.'/'.(int)$id);
+                Html5flippingbookImagehandlerHelper::deleteFolder( Html5flippingbookImagehandlerHelper::$path_folder_preview.'/'.(int)$id);
+            }
+        }
+        return true;
+    }
+
+    public function save_order_ajax()
 	{
 		@ob_clean();
 		header('Expires: Thu, 01 Jan 1970 00:00:01 GMT');

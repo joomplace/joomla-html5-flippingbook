@@ -35,16 +35,27 @@
 			<option value="image">COM_HTML5FLIPPINGBOOK_BE_PAGES_TYPE_IMAGE</option>
 			<option value="text">COM_HTML5FLIPPINGBOOK_BE_PAGES_TYPE_TEXT</option>
 		</field>
-		
+
+		<field name="enable_svg"
+			type="radio"
+			class="btn-group"
+			label="COM_HTML5FLIPPINGBOOK_BE_PAGES_ENABLE_SVG_LABEL"
+			description="COM_HTML5FLIPPINGBOOK_BE_PAGES_ENABLE_SVG_DESC"
+			labelclass="control-label"
+			default="0"
+			showon="page_type:text">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
 
 		<field name="page_hard"
-			type="hidden"
-			default="0"
-			class="btn-group"
-			label="COM_HTML5FLIPPINGBOOK_BE_PAGES_HARDPAGE"
-			description="COM_HTML5FLIPPINGBOOK_BE_PAGES_HARDPAGE_DESC">
-            <option value="1">JYES</option>
-            <option value="0">JNO</option>
+			   type="hidden"
+			   default="0"
+			   class="btn-group"
+			   label="COM_HTML5FLIPPINGBOOK_BE_PAGES_HARDPAGE"
+			   description="COM_HTML5FLIPPINGBOOK_BE_PAGES_HARDPAGE_DESC">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 
 		<field name="page_image"

@@ -71,6 +71,7 @@
         <files folder="admin">
             <folder>assets</folder>
             <folder>controllers</folder>
+            <folder>helpers</folder>
             <folder>models</folder>
             <folder>tables</folder>
             <folder>views</folder>

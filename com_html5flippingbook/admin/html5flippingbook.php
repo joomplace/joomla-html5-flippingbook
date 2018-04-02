@@ -23,6 +23,8 @@ define('COMPONENT_FIELDS_PATH', JPATH_COMPONENT_ADMINISTRATOR.'/models/fields');
 $lang = JFactory::getLanguage();
 $lang->load(COMPONENT_OPTION, JPATH_ADMINISTRATOR);
 
+JLoader::register('Html5flippingbookImagehandlerHelper', JPATH_COMPONENT_ADMINISTRATOR.'/helpers/imagehandler.php');
+
 $controller = JControllerLegacy::getInstance('HTML5FlippingBook');
 $controller->execute(JFactory::getApplication()->input->get('task'));
 $controller->redirect();

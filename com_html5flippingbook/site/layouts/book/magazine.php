@@ -12,9 +12,18 @@ defined('_JEXEC') or die('Restricted access');
 $document = JFactory::getDocument();
 extract($displayData);
 
+jimport('joomla.filesystem.file');
+
 foreach($pages as &$page){
-    if($page['page_image'])
+    if($page['page_image']){
         $page['page_image'] = COMPONENT_MEDIA_PATH. '/images/'. ( $item->c_imgsub ? $item->c_imgsubfolder.'/' : '') . 'original/'.str_replace(array('th_', 'thumb_'), '', $page['page_image']);
+    }
+    else if($page['c_enable_text'] == 1){
+        $page['svg'] = '';
+        if(JFile::exists(COMPONENT_MEDIA_PATH. '/svg/'. $page['publication_id'] .'/'. $page['id'] .'.svg')){
+            $page['svg'] = COMPONENT_MEDIA_PATH. '/svg/'. $page['publication_id'] .'/'. $page['id'] .'.svg';
+        }
+    }
 }
 
 /* need to be in model, or view.html */
@@ -575,7 +584,27 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
                                         $page_number  = (int)$item->navi_settings ? ($i+1) : $i;
                                 }
 
-                                $page_content = ($page['page_image'])?'<div class="paddifier"><img src="'.str_replace("\\", "/", JHtml::_('thumbler.generate', $page['page_image'], $page['id'].'_', json_encode(array('width' => $item->resolutions->width*(($double_page && ($i != 0 && $i != $bc+2))?2:1), 'height'=> $item->resolutions->height)), false)).'" /></div>':'<div class="paddifier"><div class="html-content"><div>'.$page['c_text'].((1)?'<span class="page-number">'.$page_number.'</span></div></div>':'').'</div>';
+                                if($page['page_image']) {
+                                    $page_content = '<div class="paddifier"><img src="' . str_replace("\\", "/",
+                                            JHtml::_('thumbler.generate', $page['page_image'], $page['id'].'_',
+                                                json_encode(array(
+                                                    'width' => $item->resolutions->width * (($double_page && ($i != 0 && $i != $bc+2))?2:1),
+                                                    'height' => $item->resolutions->height
+                                                )),
+                                                false)) . '" /></div>';
+                                } else {
+                                    if($page['svg'] && $page['enable_svg']){
+                                        $svg_content = file_get_contents($page['svg']);
+                                        if($svg_content !== false) {
+                                            $page_content = '<div class="paddifier"><div class="html-content svg-content"><div>' .$svg_content. ((1) ? '<span class="page-number">' . $page_number . '</span></div></div>' : '') . '</div>';
+                                        } else {
+                                            $page_content = '<div class="paddifier"><div class="html-content"><div>' . $page['c_text'] . ((1) ? '<span class="page-number">' . $page_number . '</span></div></div>' : '') . '</div>';
+                                        }
+                                    } else {
+                                        $page_content = '<div class="paddifier"><div class="html-content"><div>' . $page['c_text'] . ((1) ? '<span class="page-number">' . $page_number . '</span></div></div>' : '') . '</div>';
+                                    }
+                                }
+
                                 if($page['page_image'] && strpos($page_class,'double')!==false){
                                     ?>
                                     <div class="<?php echo $page_class; ?>" data-id="<?php echo $page['id']; ?>" style="background-image:url('<?php echo str_replace("\\", "/", JHtml::_('thumbler.generate', $page['page_image'], $page['id'].'_', json_encode(array('width' => $item->resolutions->width*($double_page?2:1), 'height'=> $item->resolutions->height)), false)); ?>')"></div>
@@ -809,7 +838,7 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
             plugins: function () {
                 var me = this;
                 var slider = flipbook.parent().next().find('.turnjs-slider #slider');
-                var thumb_file = '<?php echo ($item->template->slider_thumbs)?COMPONENT_MEDIA_URL.'/thumbs/preview_'.$item->c_id.'.gif':''; ?>';
+                var thumb_file = '<?php echo ($item->template->slider_thumbs)?COMPONENT_MEDIA_URL.'/preview/'.(int)$item->c_id.'/preview_'.$item->c_id.'.gif':''; ?>';
 
                 // URIs
                 Hash.on('^page\/([0-9]*)$', {

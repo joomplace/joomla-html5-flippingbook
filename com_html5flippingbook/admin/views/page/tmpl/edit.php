@@ -8,11 +8,14 @@
 */
 
 JHtml::_('behavior.tooltip');
-JHtml::_('behavior.formvalidation');
+JHtml::_('behavior.formvalidator');
 JHtml::_('behavior.multiselect');
 JHtml::_('dropdown.init');
 JHtml::_('formbehavior.chosen', 'select');
 JHtml::_('behavior.modal');
+
+$doc = JFactory::getDocument();
+$doc->addScript('/administrator/components/com_html5flippingbook/assets/js/html2canvas.min.js');
 ?>
 
 <script type="text/javascript">
@@ -27,12 +30,9 @@ JHtml::_('behavior.modal');
 		);
 	?>
 	
-	jQuery(document).ready(function ()
-	{
+	jQuery(document).ready(function() {
 	    jQuery('#viewTabs a:first').tab('show');
-		
 		form = getFormControls();
-		
 		refreshPageTypeControls();
 	});
 
@@ -56,8 +56,7 @@ JHtml::_('behavior.modal');
 		
 		var allTypesControls = [imageTypeControls, textTypeControls];
 		
-		for (var i = 0; i < allTypesControls.length; i++)
-		{
+		for (var i = 0; i < allTypesControls.length; i++) {
 			allTypesControls[i].style.display = 'none';
 		}
 		
@@ -67,11 +66,10 @@ JHtml::_('behavior.modal');
 			case 'text': textTypeControls.style.display = 'block'; break;
 		}
 	}
-	
+
 	Joomla.submitbutton = function(task)
 	{
-		if (task == 'page.cancel')
-		{
+		if (task == 'page.cancel') {
 			Joomla.submitform(task, document.adminForm);
 			return;
 		}
@@ -79,29 +77,59 @@ JHtml::_('behavior.modal');
 		Joomla.removeMessages();
 		BootstrapFormValidator.restoreControlsDefaultState([form.pageImageSelect]);
 		
-		if (!document.formvalidator.isValid(document.adminForm))
-		{
+		if (!document.formvalidator.isValid(document.adminForm)) {
 			alert('<?php echo $this->escape(JText::_('JGLOBAL_VALIDATION_FORM_FAILED')); ?>');
 			return;
 		}
 		
 		var error = false;
-		
 		var pageType = BootstrapFormHelper.getRadioGroupValue('jform_page_type');
 		
-		switch (pageType)
-		{
-			case 'image':
-			{
+		switch (pageType) {
+			case 'image': {
 				error = BootstrapFormValidator.checkSelectControlsEmptyValues([form.pageImageSelect], '<?php echo JText::_('COM_HTML5FLIPPINGBOOK_BE_UNDEFINED_VALUE'); ?>');
 				if (error) return;
 				break;
 			}
-
 		}
-		
-		Joomla.submitform(task, document.adminForm);
+
+		// Sending data to the server to create a preview of the HTML page
+        if ( (task == 'page.apply' || task == 'page.save' || task == 'page.saveandnew')
+                && document.getElementById('jform_page_type1').checked  //type == html
+                    && !!document.createElement('canvas').getContext
+        ){
+            htmlPageToCanvas(task);
+        }
+        else {
+            Joomla.submitform(task, document.adminForm);
+        }
+
 	}
+
+    // Sending data to the server to create a preview of the HTML page
+	function htmlPageToCanvas(task){
+        html2canvas(document.getElementById('jform_c_text_ifr')).then(function (canvas) {
+            //Take 80% of the editor's height, so that in the preview there was no empty space on bottom.
+            var ifr = document.getElementById('jform_c_text_ifr'),
+                ifrSizes = ifr.getBoundingClientRect(),
+                ifrStyles = getComputedStyle(ifr.contentWindow.document.body),
+                cropper = document.createElement('canvas').getContext('2d');
+            cropper.canvas.width = parseInt(ifrSizes.width);
+            cropper.canvas.height = parseInt(ifrSizes.height) * 0.8;
+            cropper.drawImage(canvas,
+                -(parseInt(ifrStyles.marginLeft) + parseInt(ifrStyles.paddingLeft)),
+                -(parseInt(ifrStyles.marginTop) + parseInt(ifrStyles.paddingTop)) );
+            //document.body.appendChild(cropper.canvas);
+
+            var inputCanvas = document.createElement('input');
+            inputCanvas.type = 'hidden';
+            inputCanvas.name = 'jform[canvas]';
+            inputCanvas.value = cropper.canvas.toDataURL('image/jpeg');
+            document.forms.adminForm.appendChild(inputCanvas);
+        }).then(function(){
+            Joomla.submitform(task, document.adminForm);
+        });
+    }
 
 	function YoutubeInsert()
 	{
@@ -219,6 +247,7 @@ JHtml::_('behavior.modal');
 						<?php echo $input->getInput(); ?>
 					</div>
 				</div>
+                <?php echo $this->form->renderField('enable_svg'); ?>
 				<div id="image_type_controls" style="display:none;">
 					<div class="control-group">
 						<?php

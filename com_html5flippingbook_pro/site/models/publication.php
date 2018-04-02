@@ -6,6 +6,9 @@
  * @copyright Copyright (C) JoomPlace, www.joomplace.com
  * @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
  */
+
+JLoader::register('Html5flippingbookImagehandlerHelper', JPATH_COMPONENT_ADMINISTRATOR.'/helpers/imagehandler.php');
+
 class HTML5FlippingBookModelPublication extends JModelItem
 {
     //----------------------------------------------------------------------------------------------------
@@ -60,19 +63,12 @@ class HTML5FlippingBookModelPublication extends JModelItem
                 $this->_item->template = $row;
                 list($this->_item->pages_count, $this->_item->pages) = $this->getPages();
 
-//				if ( $this->_item->template->slider_thumbs )
-//					$this->generatePreview($this->_item);
-
-                if ( !empty($this->_item->custom_metatags) )
-                    $this->_item->custom_metatags = unserialize( $this->_item->custom_metatags );
-
-
-
+                if ( !empty($this->_item->custom_metatags) ) {
+                    $this->_item->custom_metatags = unserialize($this->_item->custom_metatags);
+                }
 
                 /* seems not needed */
-
                 $this->_item->justImages = 1;
-
                 $this->_item->contents_page = 0;
 
                 foreach ( $this->_item->pages as $kp => $page )
@@ -143,7 +139,7 @@ class HTML5FlippingBookModelPublication extends JModelItem
 
         if ( $id )
         {
-            $this->_db->setQuery("SELECT COUNT(*) FROM #__html5fb_pages WHERE publication_id = ".(int)$id."");
+            $this->_db->setQuery("SELECT COUNT(*) FROM `#__html5fb_pages` WHERE `publication_id` = '".(int)$id."'");
             $count = $this->_db->loadResult();
             if( $count > 16 && !$force){
                 $query = array();
@@ -207,108 +203,25 @@ class HTML5FlippingBookModelPublication extends JModelItem
 
     private function generatePreview( $item )
     {
-        jimport('joomla.image.image');
         jimport('joomla.filesystem.file');
 
-        function imgCreate($file,$cropWidth = 57, $cropHeight = 73)
+        function textImgCreate($page_num)
         {
-
-            try
-            {
-                $image = new JImage();
-                $image->loadFile($file);
-
-                // in joomla 3.0 cropResize doesn't exists
-                if ( method_exists($image, 'cropResize') )
-                {
-                    $image->cropResize($cropWidth, $cropHeight, false);
-                }
-                else
-                {
-                    $rx = ($cropWidth > 0) ? ($image->getWidth() / $cropWidth) : 0;
-                    $ry = ($cropHeight > 0) ? ($image->getHeight() / $cropHeight) : 0;
-
-                    $ratio = ($rx > $ry) ? $ry : $rx;
-
-                    $nheight = (int)round($image->getWidth() / $ratio);
-                    $nwidth = (int)round($image->getHeight() / $ratio);
-
-                    if ( ($image->getWidth() / $cropWidth) > ($image->getHeight() / $cropHeight))
-                    {
-                        $image->resize($cropWidth, $nheight, false);
-                    }
-                    else
-                    {
-                        $image->resize($nwidth, $cropHeight, false);
-                    }
-
-                    $image->crop($cropWidth, $cropHeight, null, null);
-                }
-
-                $image->toFile($file.'tmp', IMAGETYPE_JPEG, array('quality' => 95));
-
-                // in joomla 3.0 destroy doesn't exists
-                if ( method_exists($image, 'destroy'))
-                {
-                    $image->destroy();
-                }
-
-                $handle = imagecreatefromjpeg($file.'tmp');
-                if ( !is_resource($handle) )    return false;
-                unlink($file.'tmp');
-
-                return $handle;
-            }
-            catch (Exception $e ) {
-                JFactory::getApplication()->enqueueMessage($e->getMessage());
-            }
-        }
-
-        function textImgCreate( $page_num )
-        {
-            if ( $page_num%2==0 )	// is right
-            {
+            if ( $page_num%2==0 ){	// is right
                 $file = COMPONENT_MEDIA_PATH . '/textpage_right.jpg';
                 JFile::copy(JPATH_BASE . '/components/'.COMPONENT_OPTION.'/assets/images/textpage_right.jpg', $file);
             }
-            else
-            {
+            else {
                 $file = COMPONENT_MEDIA_PATH . '/textpage_left.jpg';
                 JFile::copy(JPATH_BASE . '/components/'.COMPONENT_OPTION.'/assets/images/textpage_left.jpg', $file);
             }
-
-            $handle = imgCreate($file);
-
-            switch ( strlen($page_num) )
-            {
-                case 1:
-                    $fontsize = 20;
-                    $x = 20;
-                    $y = 45;
-                    break;
-                case 2:
-                    $fontsize = 20;
-                    $x = 13;
-                    $y = 45;
-                    break;
-                case 3:
-                    $fontsize = 18;
-                    $x = 7;
-                    $y = 45;
-                    break;
-                case 4:
-                    $fontsize = 15;
-                    $x = 4;
-                    $y = 45;
-                    break;
-            }
-
-            imagettftext($handle, $fontsize, 0, $x, $y, imagecolorallocate($handle, 0, 0, 0) , JPATH_BASE . '/components/'.COMPONENT_OPTION.'/assets/fonts/verdana.ttf', ($page_num == 0 ? '' : $page_num));
-
+            $handle = Html5flippingbookImagehandlerHelper::imgCreate($file);
             return $handle;
         }
 
-        if ( !file_exists(COMPONENT_MEDIA_PATH.'/thumbs/preview_'.$item->c_id.'.gif') || filesize(COMPONENT_MEDIA_PATH.'/thumbs/preview_'.$item->c_id.'.gif') < 200 )
+        $path_folder_preview_publication = Html5flippingbookImagehandlerHelper::$path_folder_preview.'/'.(int)$item->c_id;
+        if ( !file_exists($path_folder_preview_publication.'/preview_'.(int)$item->c_id.'.gif')
+                || filesize($path_folder_preview_publication.'/preview_'.(int)$item->c_id.'.gif') < 200 )
         {
             $images = array();
 
@@ -316,37 +229,40 @@ class HTML5FlippingBookModelPublication extends JModelItem
             list($countPages, $pages) = $this->getPages(true);
             foreach ($pages as $page_num => $page)
             {
-                if ( $page['c_enable_image'] )
-                {
-                    if(is_file(COMPONENT_MEDIA_PATH. '/images/'. ( $item->c_imgsub ? $item->c_imgsubfolder.'/' : ''). $page['page_image'])){
-                        $imagedata = imgCreate(COMPONENT_MEDIA_PATH. '/images/'. ( $item->c_imgsub ? $item->c_imgsubfolder.'/' : ''). $page['page_image']);
-                    }else{
-                        $imagedata = imgCreate(COMPONENT_MEDIA_PATH. '/images/'. ( $item->c_imgsub ? $item->c_imgsubfolder.'/' : '').'th_'. $page['page_image']);
-                    }
+                if(file_exists($path_folder_preview_publication.'/'.(int)$page['id'].'.jpg')){
+                    $imagedata = imagecreatefromjpeg($path_folder_preview_publication.'/'.(int)$page['id'].'.jpg');
+                }
+                else {
+                    if ($page['c_enable_image']) {
+                        if (is_file(COMPONENT_MEDIA_PATH . '/images/' . ($item->c_imgsub ? $item->c_imgsubfolder . '/' : '') . $page['page_image'])) {
+                            $imagedata = Html5flippingbookImagehandlerHelper::imgCreate(COMPONENT_MEDIA_PATH . '/images/' . ($item->c_imgsub ? $item->c_imgsubfolder . '/' : '') . $page['page_image']);
+                        } else {
+                            $imagedata = Html5flippingbookImagehandlerHelper::imgCreate(COMPONENT_MEDIA_PATH . '/images/' . ($item->c_imgsub ? $item->c_imgsubfolder . '/' : '') . 'th_' . $page['page_image']);
+                        }
 
-                    if ($item->navi_settings == 0 && !in_array($page_num, array(0, 1, ($countPages - 1), $countPages)))
-                    {
-                        $k++;
+                        if ($item->navi_settings == 0 && !in_array($page_num, array(0, 1, ($countPages - 1), $countPages))) {
+                            $k++;
+                        }
+                    } else {
+                        $page_num += 1;
+                        if ($item->navi_settings == 0 && ($page_num <= 2 || $page_num == $countPages || $page_num == ($countPages - 1))) {
+                            $page_num = 0;
+                        } elseif ($item->navi_settings == 0) {
+                            $page_num = $k;
+                            $k++;
+                        }
+                        $imagedata = textImgCreate($page_num);
+
+                        //ToDo:
+                        //When will a "real" svg-page (not svg-wrapper), split into:
+                        //- if there is a svg, Html5flippingbookImagehandlerHelper::imagecreatefromsvg ;
+                        //- if there is no svg, textImgCreate($page_num)
                     }
                 }
-                else
-                {
-                    $page_num += 1;
-                    if ($item->navi_settings == 0 && ($page_num <= 2 || $page_num == $countPages || $page_num == ($countPages - 1)))
-                    {
-                        $page_num = 0;
-                    }
-                    elseif ($item->navi_settings == 0)
-                    {
-                        $page_num = $k;
-                        $k++;
-                    }
 
-                    $imagedata = textImgCreate( $page_num );
-                }
-
-                if ( $imagedata )
+                if ( $imagedata ) {
                     $images[] = $imagedata;
+                }
             }
             $firstImage = $images[0];
             unset($images[0]);
@@ -359,68 +275,14 @@ class HTML5FlippingBookModelPublication extends JModelItem
             foreach ( array_chunk($images,2) as $key => $image )
             {
                 imagecopy($dest, $image[0], 0, (73*($key+1)), 0, 0, imagesx($image[0]), imagesy($image[0]));
-                if ( @$image[1] )
-                    imagecopy($dest, $image[1], 58, (73*($key+1)), 0, 0, imagesx($image[1]), imagesy($image[1]));
+                if ( @$image[1] ) {
+                    imagecopy($dest, $image[1], 58, (73 * ($key + 1)), 0, 0, imagesx($image[1]), imagesy($image[1]));
+                }
             }
 
-            @chmod(COMPONENT_MEDIA_PATH.'/thumbs', 0757);
-            imagegif($dest, COMPONENT_MEDIA_PATH.'/thumbs/preview_'.$item->c_id.'.gif');
-        }
-        foreach($item->pages as $page_num => $page){
-            //c_enable_text is "table of content"
-            if(!$page['page_image'] && $page['c_text']){
-                $page_num += 1;
-                if ($item->navi_settings == 0 && ($page_num <= 2 || $page_num == $countPages || $page_num == ($countPages - 1)))
-                {
-                    $page_num = 0;
-                }
-                elseif ($item->navi_settings == 0)
-                {
-                    $page_num = $k;
-                    $k++;
-                }
-
-                $imagedata = textImgCreate( $page_num );
-
-            }
+            @chmod($path_folder_preview_publication, 0757);
+            imagegif($dest, $path_folder_preview_publication.'/preview_'.(int)$item->c_id.'.gif');
         }
     }
 
-    static function sanitizeWidth($width, $height, $imageObject)
-    {
-        // If no width was given we will assume it is a square and use the height.
-        $width = ($width === null) ? $height : $width;
-
-        // If we were given a percentage, calculate the integer value.
-        if (preg_match('/^[0-9]+(\.[0-9]+)?\%$/', $width))
-        {
-            $width = (int) round($imageObject->getWidth() * (float) str_replace('%', '', $width) / 100);
-        }
-        // Else do some rounding so we come out with a sane integer value.
-        else
-        {
-            $width = (int) round((float) $width);
-        }
-
-        return $width;
-    }
-
-    static function sanitizeHeight($height, $width, $imageObject)
-    {
-        // If no height was given we will assume it is a square and use the width.
-        $height = ($height === null) ? $width : $height;
-
-        // If we were given a percentage, calculate the integer value.
-        if (preg_match('/^[0-9]+(\.[0-9]+)?\%$/', $height))
-        {
-            $height = (int) round($imageObject->getHeight() * (float) str_replace('%', '', $height) / 100);
-        }
-        // Else do some rounding so we come out with a sane integer value.
-        else
-        {
-            $height = (int) round((float) $height);
-        }
-
-        return $height;
-    }
 }
