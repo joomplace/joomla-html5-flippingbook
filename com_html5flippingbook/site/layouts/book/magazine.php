@@ -26,12 +26,24 @@ if($item->template->hard_wrapp){
     if($item->contents_page){
         $item->contents_page+=2;
     }
-    $wrap_up['before'][]['page_image'] = JPATH_SITE.'/components/com_html5flippingbook/assets/images/front-side.jpg';
+    $wrap_up['before'][] = array(
+        'page_image' => JPATH_SITE.'/components/com_html5flippingbook/assets/images/front-side.jpg',
+        'id' => 'frontside_' . $pages[0]['publication_id']
+    );
     if($item->template->hard_wrapp_blanked){
-        $wrap_up['before'][]['page_image'] = JPATH_SITE.'/components/com_html5flippingbook/assets/images/front-in.jpg';
-        $wrap_up['after'][]['page_image'] = JPATH_SITE.'/components/com_html5flippingbook/assets/images/back-in.jpg';
+        $wrap_up['before'][] = array(
+            'page_image' => JPATH_SITE.'/components/com_html5flippingbook/assets/images/front-in.jpg',
+            'id' => 'frontin_' . $pages[0]['publication_id']
+        );
+        $wrap_up['after'][] = array(
+            'page_image' => JPATH_SITE.'/components/com_html5flippingbook/assets/images/back-in.jpg',
+            'id' => 'backin_' . $pages[0]['publication_id']
+        );
     }
-    $wrap_up['after'][]['page_image'] = JPATH_SITE.'/components/com_html5flippingbook/assets/images/back-side.jpg';
+    $wrap_up['after'][] = array(
+        'page_image' => JPATH_SITE.'/components/com_html5flippingbook/assets/images/back-side.jpg',
+        'id' => 'backside_' . $pages[0]['publication_id']
+    );
 
     $pages_count = count($wrap_up['before']) + $item->pages_count + count($wrap_up['after']);
     $pages_count_adjust = count($wrap_up['before']) + count($wrap_up['after']);
