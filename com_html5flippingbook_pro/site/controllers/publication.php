@@ -50,7 +50,7 @@ class HTML5FlippingBookControllerPublication extends JControllerLegacy
                 $page_content = ($page->page_image)?'<div class="paddifier dd"><img src="'.JHtml::_('thumbler.generate', $page->page_image, $page->id.'_', json_encode(array('width' => $resolutions->width, 'height'=> $resolutions->height)), false).'" /></div>':'<div class="paddifier"><div class="html-content"><div>'.$page->c_text.((1)?'<span class="page-number">'.$page_number.'</span></div></div>':'').'</div>';
 
             } else {
-                $page_content = ($page->page_image)?'<div class="double" style="background-image:url('.str_replace("\\", "/", JHtml::_('thumbler.generate', $page->page_image, $page->id.'_', json_encode(array('width' => $resolutions->width*($pub->template->doublepages?2:1), 'height'=> $resolutions->height)), false)).')"></div>':'';
+                $page_content = ($page->page_image)?'<div class="paddifier dd"><img src="'.JHtml::_('thumbler.generate', $page->page_image, $page->id.'_', json_encode(array('width' => $resolutions->width, 'height'=> $resolutions->height)), false).'" /></div>':'<div class="paddifier"><div class="html-content"><div>'.$page->c_text.((1)?'<span class="page-number">'.($page_number?($page_number+$pub->page_count_modifier):'').'</span></div></div>':'').'</div>';
             }
             echo str_replace(array('="image','="media'),array('="/image','="/media'),$page_content);
         }

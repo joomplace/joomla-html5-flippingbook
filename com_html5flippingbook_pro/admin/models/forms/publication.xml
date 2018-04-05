@@ -116,7 +116,14 @@
 			size="20"
 			label="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_SUBFOLDER"
 			description="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_SUBFOLDER_DESC" />
-		
+
+		<field name="page_count_modifier"
+			   type="number"
+			   class="inputbox"
+			   size="20"
+			   label="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_PAGE_COUNT_MODIFIER"
+			   description="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_PAGE_COUNT_MODIFIER_DESC" />
+
 		<field name="right_to_left"
 			type="radio"
 			default="0"

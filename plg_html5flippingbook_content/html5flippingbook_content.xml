@@ -6,7 +6,7 @@
 	<authorUrl>www.joomplace.com</authorUrl>
 	<copyright>Copyright (C) 2005 - 2018 JoomPlace, www.joomplace.com. All rights reserved.</copyright>
 	<license>GNU/GPL http://www.gnu.org/copyleft/gpl.html</license>
-	<version>2.2.5</version>
+	<version>2.3.0</version>
 	<creationDate>March 2018</creationDate>
 	<description>Replaces {html5fb id=[pub_id] link=[link]} tag in an article with a publication.</description>
 
