@@ -604,6 +604,7 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
         $limit_area = (int)$params->get('limit_area', 30) * $mbytes;
         $limit_memory = (int)$params->get('limit_memory', 30) * $mbytes;
         $page_number = $this->input->get('pageNumb', '', 'INT') - 1;
+        $outputFileName = 'thumb_' . $imgName . "-0.jpg";
 
         if (class_exists('Imagick')) {
             // ** setting width and height causes "Invalid IHDR data" with density(192 or 300)
@@ -665,7 +666,14 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
 
             //Remove alpha channel
             if (version_compare($cls_v[1], '6.3.8', '>=')) {
-                $img->setImageAlphaChannel(Imagick::ALPHACHANNEL_DEACTIVATE);
+                if ($img->getImageAlphaChannel() !== 0) {
+                    $alphaChannel = 11;
+                    if (defined("Imagick::ALPHACHANNEL_REMOVE")) {
+                        $alphaChannel = Imagick::ALPHACHANNEL_REMOVE;
+                    }
+                    $img->setImageAlphaChannel($alphaChannel);
+                    //$img->setImageAlphaChannel(Imagick::ALPHACHANNEL_DEACTIVATE);
+                }
             }
 
             // Prevents black background on objects with transparency
@@ -690,9 +698,7 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
 
             //Create thumb for first page
             if ($page_number == 0) {
-                $outputFileName = 'thumb_' . $imgName . "-" . $page_number . ".jpg";
                 $outputFilePath = JPATH_SITE . '/media/' . COMPONENT_OPTION . '/thumbs/' . $outputFileName;
-
                 $image = new JImage();
                 $image->loadFile($output_thumb);
                 $image->resize(240, 340, FALSE);
@@ -719,9 +725,7 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
 
             //Create thumb for first page
             if ($page_number == 0 && $b == 0) {
-                $outputFileName = 'thumb_' . $imgName . "-" . $page_number . ".jpg";
                 $outputFilePath = JPATH_SITE . '/media/' . COMPONENT_OPTION . '/thumbs/' . $outputFileName;
-
                 $image = new JImage();
                 $image->loadFile($output_thumb);
                 $image->resize(240, 340, FALSE);
@@ -729,7 +733,7 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
                 $image->destroy();
             }
         }
-        $pagesInfoCreated = $this->registerPagesInDB([$imgName . "-" . $page_number . ".jpg"], $publicationId, $pagesTitle, $htmlFilesContent, $fName, $outputFileName);
+        $pagesInfoCreated = $this->registerPagesInDB([$imgName . "-" . $page_number . ".jpg"], $publicationId, $pagesTitle, array(), $fName, $outputFileName);
 
         if (!$pagesInfoCreated) {
             $this->setMessage(JText::_('COM_HTML5FLIPPINGBOOK_BE_PAGES_CANNOT_WRITE_TO_DB'), 'WARNING');
