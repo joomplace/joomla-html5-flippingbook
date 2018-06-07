@@ -77,7 +77,7 @@ class HTML5FlippingBookModelPublication extends JModelItem
 
                 foreach ( $this->_item->pages as $kp => $page )
                 {
-                    if ( $page['is_contents'] ) {
+                    if ( isset($page['is_contents']) && $page['is_contents'] ) {
                         $this->_item->contents_page = ($kp+1);
                     }
                 }
@@ -165,7 +165,7 @@ class HTML5FlippingBookModelPublication extends JModelItem
                         $this->_db->setQuery($query);
                         $result = array_merge($result,array_reverse($this->_db->loadAssocList()));
                     }
-                    $result[] = array('c_text'=>'<div class="page"></div>');
+                    $result[] = array('c_text'=>'<div class="page"></div>', 'page_image'=>'');
                     $count++;
                 }elseif($count > 16 && !$force){
                     if ($this->_item->template->hard_cover) {
