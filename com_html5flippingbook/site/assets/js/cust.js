@@ -7,14 +7,23 @@ function updateDepth(book, newPage) {
 		depthC = 0,
 		depthM = (pages>48)?16:(pages/3),
 		selectorLeft = book.find('.depth-left'),
-		selectorRight = book.find('.depth-right');
-		
-	if(!selectorLeft.length){
-		book.append('<div class="depth depth-left"></div>');
-	}
-	if(!selectorRight.length){
-		book.prepend('<div class="depth depth-right"></div>');
-	}
+		selectorRight = book.find('.depth-right'),
+		isRtl = book.attr('direction') == 'rtl' ? 1 : 0;
+
+    if(!selectorLeft.length){
+        if(isRtl) {
+            book.append('<div class="depth depth-left" style="width:0px;"></div>');
+        } else {
+            book.append('<div class="depth depth-left"></div>');
+        }
+    }
+    if(!selectorRight.length){
+        if(isRtl) {
+            book.prepend('<div class="depth depth-right" style="width:0px;"></div>');
+        } else {
+            book.prepend('<div class="depth depth-right"></div>');
+        }
+    }
 	
 	if(pages>5)
 		depthC = Math.min((page-3)/(pages-5));

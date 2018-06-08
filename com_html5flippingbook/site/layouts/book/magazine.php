@@ -495,10 +495,10 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
                         <?php } ?>
                     </div>
                     <div style="width: 100%; height: 100%;">
-                        <div id="flipbook" class="flipbook">
+                        <div id="flipbook" class="flipbook" <?php if((int)$item->right_to_left) echo 'dir="rtl" direction="rtl"'; ?> >
                             <?php if($item->template->display_nextprev){ ?>
-                                <div ignore="1" class="previous-button" style="display:none;"></div>
-                                <div ignore="1" class="next-button"></div>
+                                <div ignore="1" class="previous-button" <?php if(!(int)$item->right_to_left) echo 'style="display:none;"'; ?> ></div>
+                                <div ignore="1" class="next-button" <?php if((int)$item->right_to_left) echo 'style="display:none;"'; ?> ></div>
                             <?php } ?>
                             <?php
                             $pages = array_merge($wrap_up['before'],$pages,$wrap_up['after']);
@@ -838,12 +838,21 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
                     }
                 });
                 flipbook.find(".next-button,.previous-button").on('click',function(e){
+                    var isRtl = flipbook.attr('direction') == 'rtl' ? 1 : 0;
                     switch ($(this).attr('class')) {
                         case 'previous-button':
-                            flipbook.turn('previous');
+                            if(isRtl){
+                                flipbook.turn('next');
+                            } else {
+                                flipbook.turn('previous');
+                            }
                             break;
                         case 'next-button':
-                            flipbook.turn('next');
+                            if(isRtl){
+                                flipbook.turn('previous');
+                            } else {
+                                flipbook.turn('next');
+                            }
                             break;
                     }
                 });
@@ -855,31 +864,26 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
                     max: 100,
 
                     start: function(event, ui) {
-
                         if (!window._thumbPreview) {
                             _thumbPreview = $('<div />', {'class': 'thumbnail'}).html('<div></div>');
                             setPreview(ui.value, thumb_file);
                             _thumbPreview.appendTo($(ui.handle));
-                        } else
+                        } else {
                             setPreview(ui.value, thumb_file);
-
+                        }
                         moveBar(false);
-
                     },
 
                     slide: function(event, ui) {
-
                         setPreview(ui.value, thumb_file);
-
                     },
 
                     stop: function() {
-                        console.log(_thumbPreview);
-                        if (window._thumbPreview)
+                        //console.log(_thumbPreview);
+                        if (window._thumbPreview) {
                             _thumbPreview.removeClass('show');
-
+                        }
                         flipbook.turn('page', Math.max(1, $(this).slider('value')*2 - 2));
-
                     }
                 });
 
@@ -1031,21 +1035,31 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
                         },
 
                         last: function(e) {
-
-                            var book = $(this);
-                            book.find('.next-button').hide();
-                            book.find('.previous-button').show();
+                            var book = $(this),
+                                isRtl = book.attr('direction') == 'rtl' ? 1 : 0;
+                            if(!isRtl) {
+                                book.find('.next-button').hide();
+                                book.find('.previous-button').show();
+                            } else {
+                                book.find('.next-button').show();
+                                book.find('.previous-button').hide();
+                                book.find('.depth-right').eq(0).css({'width':'0'});
+                            }
                             zoomOut(book);
-
                         },
 
                         first: function(e) {
-
-                            var book = $(this);
-                            book.find('.previous-button').hide();
-                            book.find('.next-button').show();
+                            var book = $(this),
+                                isRtl = book.attr('direction') == 'rtl' ? 1 : 0;
+                            if(!isRtl) {
+                                book.find('.previous-button').hide();
+                                book.find('.next-button').show();
+                            } else {
+                                book.find('.previous-button').show();
+                                book.find('.next-button').hide();
+                                book.find('.depth-left').eq(0).css({'width':'0'});
+                            }
                             zoomOut(book);
-
                         },
 
                         missing: function (e, pages) {
