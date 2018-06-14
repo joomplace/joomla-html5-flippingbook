@@ -258,7 +258,7 @@ class HtmlHelper
 				skin : "default",
 				elements : "{$elements}",
 				document_base_url : "{$jUriroot}",
-				plugins : "advlink, advimage",
+				plugins : "advlink, advimage,autolink,lists,pagebreak,style,layer,table,save,advhr,emotions,iespell,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,inlinepopups,autosave", 				
 				relative_urls : false,
 				convert_fonts_to_spans : false,
 				remove_script_host : false,
@@ -293,7 +293,17 @@ class HtmlHelper
 				extended_valid_elements : "a[name|href|target|title|onclick],img[style|class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],video[src|controls|width|height],audio[src|controls|width|height],iframe[width|height|src|frameborder|allowfullscreen]",
 				setup : function(ed) {
 					ed.onPostProcess.add(function(ed, o) { onTinyMcePostProcess(ed, o); });
-				}
+				},
+        
+                // Theme options
+                theme_advanced_buttons1 : "save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,fontselect,fontsizeselect",
+                theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
+                theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,print,|,ltr,rtl,|,fullscreen",
+                theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,pagebreak,restoredraft",
+                theme_advanced_toolbar_location : "top",
+                theme_advanced_toolbar_align : "left",
+                theme_advanced_statusbar_location : "bottom",
+                theme_advanced_resizing : true,
 			});
 		}
 
