@@ -45,6 +45,10 @@ class HTML5FlippingBookModelPublication extends JModelItem
 
             if ($table->load($id))
             {
+                if((int)$table->published == 0){
+                    return null;
+                }
+
                 $properties = $table->getProperties(1);
                 $this->_item = JArrayHelper::toObject($properties, 'JObject');
 
