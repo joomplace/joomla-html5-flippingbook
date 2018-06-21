@@ -668,8 +668,8 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
             if (version_compare($cls_v[1], '6.3.8', '>=')) {
                 if ($img->getImageAlphaChannel() !== 0) {
                     $alphaChannel = 11;
-                    if (defined("Imagick::ALPHACHANNEL_REMOVE")) {
-                        $alphaChannel = Imagick::ALPHACHANNEL_REMOVE;
+                    if (defined("Imagick::ALPHACHANNEL_RESET")) {
+                        $alphaChannel= Imagick::ALPHACHANNEL_RESET;
                     }
                     $img->setImageAlphaChannel($alphaChannel);
                     //$img->setImageAlphaChannel(Imagick::ALPHACHANNEL_DEACTIVATE);
