@@ -511,7 +511,8 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
                         <?php } ?>
                     </div>
                     <div style="width: 100%; height: 100%;">
-                        <div id="flipbook" class="flipbook" <?php if((int)$item->right_to_left) echo 'dir="rtl" direction="rtl"'; ?> >
+                        <div id="flipbook" class="flipbook<?php echo ((int)$item->right_to_left ? ' rtl' : ' ltr'); ?>"
+                                <?php if((int)$item->right_to_left) echo 'dir="rtl" direction="rtl"'; ?> >
                             <?php if($item->template->display_nextprev){ ?>
                                 <div ignore="1" class="previous-button" <?php if(!(int)$item->right_to_left) echo 'style="display:none;"'; ?> ></div>
                                 <div ignore="1" class="next-button" <?php if((int)$item->right_to_left) echo 'style="display:none;"'; ?> ></div>
@@ -880,6 +881,12 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
                 slider.prop('slide', null).slider({
                     min: 1,
                     max: 100,
+                    <?php
+                    // http://keith-wood.name/rtlsliders.html
+                    if((int)$item->right_to_left){
+                        echo 'isRTL: true,';
+                    }
+                    ?>
 
                     start: function(event, ui) {
                         if (!window._thumbPreview) {
@@ -897,7 +904,6 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
                     },
 
                     stop: function() {
-                        //console.log(_thumbPreview);
                         if (window._thumbPreview) {
                             _thumbPreview.removeClass('show');
                         }

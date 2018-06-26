@@ -11,18 +11,10 @@ function updateDepth(book, newPage) {
 		isRtl = book.attr('direction') == 'rtl' ? 1 : 0;
 
     if(!selectorLeft.length){
-        if(isRtl) {
-            book.append('<div class="depth depth-left" style="width:0px;"></div>');
-        } else {
-            book.append('<div class="depth depth-left"></div>');
-        }
+        book.append('<div class="depth depth-left"></div>');
     }
     if(!selectorRight.length){
-        if(isRtl) {
-            book.prepend('<div class="depth depth-right" style="width:0px;"></div>');
-        } else {
-            book.prepend('<div class="depth depth-right"></div>');
-        }
+        book.prepend('<div class="depth depth-right"></div>');
     }
 	
 	if(pages>5)

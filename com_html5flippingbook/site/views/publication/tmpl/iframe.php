@@ -16,6 +16,11 @@ $document->addScript(JUri::root(true).'/components/com_html5flippingbook/assets/
 $document->addScript(JUri::root(true).'/components/com_html5flippingbook/assets/lib/hash.js');
 $document->addScript(JUri::root(true).'/components/com_html5flippingbook/assets/lib/turn.min.js');
 
+if((int)$this->item->right_to_left){
+    $document->addStyleSheet(JUri::root(true).'/components/com_html5flippingbook/assets/extras/jquery.ui.slider-rtl.css');
+    $document->addScript(JUri::root(true).'/components/com_html5flippingbook/assets/extras/jquery.ui.slider-rtl.min.js');
+}
+
 require_once (COMPONENT_LIBS_PATH . 'Mobile_Detect.php');
 $detectMobile = new Mobile_Detect_HTML5FB();
 $isMobile = FALSE;
