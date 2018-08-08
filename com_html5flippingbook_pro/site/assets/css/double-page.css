@@ -53,9 +53,14 @@
     background-position: 100% 0px;
 }
 .depth-right {
-    width: 0px;
     right: 100%;
     background-position: 0% 0px;
+}
+.flipbook.ltr .depth-right {
+    width: 0px;
+}
+.flipbook.rtl .depth-left {
+    width: 0px;
 }
 
 .flipbook{
