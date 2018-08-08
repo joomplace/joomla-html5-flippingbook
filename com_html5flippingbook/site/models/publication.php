@@ -68,7 +68,7 @@ class HTML5FlippingBookModelPublication extends JModelItem
 
 				foreach ( $this->_item->pages as $kp => $page )
 				{
-					if ( $page['is_contents'] ) {
+					if ( isset($page['is_contents']) && $page['is_contents'] ) {
 						$this->_item->contents_page = ($kp + 1);
 					}
 				}
@@ -133,7 +133,11 @@ class HTML5FlippingBookModelPublication extends JModelItem
 		if ( $id )
 		{
 			$this->_db->setQuery("SELECT * FROM #__html5fb_pages WHERE publication_id = ".(int)$id." ORDER BY `ordering`");
-			return $this->_db->loadAssocList();
+			$result = $this->_db->loadAssocList();
+            if(count($result)%2==1){
+                $result[] = array('c_text'=>'<div class="page"></div>', 'page_image'=>'');
+            }
+			return $result;
 		}
 		else{
             return false;
