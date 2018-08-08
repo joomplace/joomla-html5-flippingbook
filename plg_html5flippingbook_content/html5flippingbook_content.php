@@ -93,7 +93,12 @@ class plgContentHtml5flippingbook_Content extends JPlugin
 		}
 		else
 		{
-			$link = str_replace('[thumbnail]', '<img src='.JUri::root().'media/com_html5flippingbook/thumbs/'.$row->c_thumb.'>', $link);
+            
+            if(!empty($row->c_thumb)) {
+                $link = str_replace('[thumbnail]', '<img src='.JUri::root().'media/com_html5flippingbook/thumbs/'.$row->c_thumb.'>', $link);
+            } else {
+                $link = str_replace('[thumbnail]', $row->c_title, $link);
+            }
 			
 			if ( empty($link) )
 				$link = $row->c_title;
