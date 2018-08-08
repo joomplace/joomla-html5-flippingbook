@@ -30,6 +30,10 @@ class HTML5FlippingBookViewPublication extends JViewLegacy
 
 		$item = $this->get('Item');
 
+        if(!$item){
+            throw new \Exception(\JText::_('COM_HTML5FLIPPINGBOOK_FE_PUBLICATION_NOT_FOUND'), 404);
+        }
+
         $app        = JFactory::getApplication();
         $this->user = JFactory::getUser();
         $viewAccessGranted = $this->user->authorise('core.view', COMPONENT_OPTION . '.publication.' . $item->c_id);
