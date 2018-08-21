@@ -312,12 +312,13 @@ class HTML5FlippingBookModelPublication extends JModelItem
             return $handle;
         }
 
+        $k = 1;
+        list($countPages, $pages) = $this->getPages(true);
+
         if ( !file_exists(COMPONENT_MEDIA_PATH.'/thumbs/preview_'.$item->c_id.'.gif') || filesize(COMPONENT_MEDIA_PATH.'/thumbs/preview_'.$item->c_id.'.gif') < 200 )
         {
             $images = array();
 
-            $k = 1;
-            list($countPages, $pages) = $this->getPages(true);
             foreach ($pages as $page_num => $page)
             {
                 if ( $page['c_enable_image'] )
