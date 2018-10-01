@@ -80,7 +80,7 @@ class JFormField_Fontfamily extends JFormFieldList
 	{
 		$selected = array();
 		
-		if ( !sizeof($this->value) )
+		if ( empty($this->value) )
 		{
 			$id = JFactory::getApplication()->input->get('id', 0);
 			
