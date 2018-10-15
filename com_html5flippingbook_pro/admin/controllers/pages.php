@@ -223,7 +223,7 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
         try {
             //Create thumb for first page
             if (isset($fileNames[0])) {
-                $outputFileName = 'thumb_' . $fileNames[0] . "-" . 0 . ".jpg";
+                $outputFileName = "thumb_{$publicationId}" . $fileNames[0] . "-" . 0 . ".jpg";
                 $outputFilePath = JPATH_SITE . '/media/' . COMPONENT_OPTION . '/thumbs/' . $outputFileName;
 
                 $image = new JImage();
@@ -251,7 +251,7 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
                 if (stripos($fileName, 'thumb_') !== false) {
                     $fileCopied = JFile::copy($tempDirName . '/' . $fileName, $targetDirFullName . '/' . $fileName);
                 } else {
-                    $fileCopied = JFile::copy($tempDirName . '/' . $fileName, $targetDirFullOriginalIMG . '/' . $fileName);
+                    $fileCopied = JFile::copy($tempDirName . '/' . $fileName, $targetDirFullOriginalIMG . '/' . $publicationId . $fileName);
                 }
 
                 if (!$fileCopied) {
@@ -787,7 +787,7 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
                             $db->quoteName('ordering'), $db->quoteName('c_enable_image')
                         )
                     )
-                    ->values($db->quote($publicationId) . ', ' . $db->quote($pageTitle) . ', ' . $db->quote((is_null($pdfFile) ? "thumb_" . $fileName : $fileName)) . ', ' . $orderingIndex . ', 1');
+                    ->values($db->quote($publicationId) . ', ' . $db->quote($pageTitle) . ', ' . $db->quote((is_null($pdfFile) ? "thumb_{$publicationId}" . $fileName : $fileName)) . ', ' . $orderingIndex . ', 1');
                 $db->setQuery($query);
                 $db->execute();
             } else {
@@ -868,7 +868,7 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
         foreach ($fileNames as $fileName) {
             if (preg_match('/(\.[jpg|jpeg|gif|png])/is', $fileName)) {
                 $inputFilePath = $base_Dir . '/' . $fileName;
-                $outputFilePath = $base_Dir . '/thumb_' . $fileName;
+                $outputFilePath = $base_Dir . "/thumb_{$pub_id}" . $fileName;
 
                 $image = new JImage();
                 $image->loadFile($inputFilePath);
