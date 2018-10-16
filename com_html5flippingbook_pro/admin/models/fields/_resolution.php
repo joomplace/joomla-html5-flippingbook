@@ -85,7 +85,7 @@ class JFormField_Resolution extends JFormFieldList
 	{
 		$selected = array();
 		
-		if (sizeof($this->value) > 0)
+		if (!empty($this->value))
 		{
 			$selected[] = $this->value;
 		}
