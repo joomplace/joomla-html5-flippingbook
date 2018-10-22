@@ -237,4 +237,53 @@ class HTML5FlippingBookModelPage extends JModelAdmin
 			$db->execute();
 		}
 	}
+
+    public function saveorderinp($pks, $order, $publ_id)
+    {
+
+        $db = $this->getDbo();
+
+        foreach ($pks as $key => $v) {
+
+            $query = $db->getQuery(true);
+            $query->select($db->qn('c.*'))
+                ->from($db->qn('#__html5fb_pages', 'c'))
+                ->where($db->qn('c.publication_id').'='.$publ_id)
+                ->where($db->qn('c.id').'='.$v);
+            $db->setQuery($query);
+            $old_row = $db->loadObject();
+
+            if ($old_row->ordering !== $order[$key] && $old_row->id === $v) {
+                $new_row = new \stdClass();
+                $new_row->id = $old_row->id;
+                $new_row->publication_id = $old_row->publication_id;
+                $new_row->page_title = $old_row->page_title;
+                $new_row->ordering = $order[$key];
+                $new_row->c_enable_image = $old_row->c_enable_image;
+                $new_row->page_image = $old_row->page_image;
+                $new_row->c_enable_text = $old_row->c_enable_text;
+                $new_row->c_text = $old_row->c_text;
+                $new_row->is_contents = $old_row->is_contents;
+
+                $result = $db->updateObject('#__html5fb_pages', $new_row, 'id');
+
+                if ($result !== false) {
+                    unset($new_row);
+                    unset($old_row);
+                } else {
+                    $error[] = 'Error upload' . ' ' . $new_row->id;
+                }
+            } else {
+                continue;
+            }
+
+        }
+
+        if (!empty($error)) {
+            return false;
+        } else {
+            return true;
+        }
+
+    }
 }

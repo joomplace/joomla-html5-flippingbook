@@ -38,6 +38,35 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
 
 		jexit();
 	}
+
+    public function save_order_input()
+    {
+        \JSession::checkToken() or jexit(\JText::_('JINVALID_TOKEN'));
+
+        $pks = $this->input->post->get('cid', array(), 'array');
+        $order = $this->input->post->get('order', array(), 'array');
+        $publ_id = $this->input->post->get('filter_publication_id', 1, 'INT');
+
+        $model = $this->getModel();
+        $rezult = $model->saveorderinp($pks, $order, $publ_id);
+
+        if ($rezult === false)
+        {
+            // Reorder failed
+            $message = \JText::sprintf('JLIB_APPLICATION_ERROR_REORDER_FAILED', $model->getError());
+            $this->setRedirect(\JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_list, false), $message, 'error');
+
+            return false;
+        }
+        else
+        {
+            // Reorder succeeded.
+            $this->setMessage(\JText::_('JLIB_APPLICATION_SUCCESS_ORDERING_SAVED'));
+            $this->setRedirect(\JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_list, false));
+
+            return true;
+        }
+    }
 	//----------------------------------------------------------------------------------------------------
 	public function redirect_from_publications()
 	{

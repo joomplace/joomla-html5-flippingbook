@@ -143,7 +143,7 @@ if ($sortedByOrder)
 					<th width="10%">
 						<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_ORDERING', 'p.ordering', $listDirn, $listOrder); ?>
 						<?php if ($listOrder == 'p.ordering') :?>
-							<?php echo JHtml::_('grid.order', $this->items, 'filesave.png', 'pages.saveorder'); ?>
+							<?php echo JHtml::_('grid.order', $this->items, 'filesave.png', 'pages.save_order_input'); ?>
 						<?php endif; ?>
 					</th>
                     <?php } ?>

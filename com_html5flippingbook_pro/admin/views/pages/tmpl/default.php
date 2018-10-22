@@ -143,7 +143,7 @@ if ($sortedByOrder)
 					<th width="10%">
 						<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_ORDERING', 'p.ordering', $listDirn, $listOrder); ?>
 						<?php if ($listOrder == 'p.ordering') :?>
-							<?php echo JHtml::_('grid.order', $this->items, 'filesave.png', 'pages.saveorder'); ?>
+							<?php echo JHtml::_('grid.order', $this->items, 'filesave.png', 'pages.save_order_input'); ?>
 						<?php endif; ?>
 					</th>
                     <?php } ?>
@@ -190,7 +190,6 @@ if ($sortedByOrder)
 								<span class="sortable-handler hasTooltip <?php echo $disabledClassName; ?>" title="<?php echo $disabledLabel; ?>">
 									<i class="icon-menu"></i>
 								</span>
-								<input type="text" style="display:none" name="order[]" size="5" value="<?php echo $item->ordering; ?>" class="width-20 text-area-order " />
 							</td>
 							<td>
 								<?php echo JHtml::_('grid.id', $i, $item->id); ?>
