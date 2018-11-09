@@ -209,7 +209,7 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
 			//Create thumb for first page
 			if (isset($fileNames[0]))
 			{
-				$outputFileName = 'thumb_' . $fileNames[0] . "-" . 0 . ".jpg";
+                $outputFileName = "thumb_{$publicationId}" . $fileNames[0] . "-" . 0 . ".jpg";
 				$outputFilePath = JPATH_SITE . '/media/' . COMPONENT_OPTION . '/thumbs/' . $outputFileName;
 
 				$image = new JImage();
@@ -246,7 +246,7 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
 	            }
 	            else
 	            {
-		            $fileCopied = JFile::copy($tempDirName . '/' . $fileName, $targetDirFullOriginalIMG . '/' . $fileName);
+                    $fileCopied = JFile::copy($tempDirName . '/' . $fileName, $targetDirFullOriginalIMG . '/' . $publicationId . $fileName);
 	            }
 
                 if (!$fileCopied)
@@ -454,7 +454,7 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
                     " VALUES (" .
                     $db->quote($publicationId) . ", " .
                     $db->quote($pageTitle) . ", " .
-                    $db->quote("thumb_" . $fileName) . ", " .
+                    $db->quote("thumb_{$publicationId}" . $fileName) . ", " .
                     $orderingIndex . ", ".
                     "1" . ")";
 
@@ -532,7 +532,7 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
 			if ( preg_match('/(\.[jpg|jpeg|gif|png])/is', $fileName) )
 			{
 				$inputFilePath = $base_Dir.'/'.$fileName;
-				$outputFilePath = $base_Dir.'/thumb_'.$fileName;
+                $outputFilePath = $base_Dir . "/thumb_{$pub_id}" . $fileName;
 
                 $image = new JImage();
                 $image->loadFile($inputFilePath);
