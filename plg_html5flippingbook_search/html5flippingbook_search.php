@@ -157,32 +157,33 @@ class plgSearchhtml5flippingbook_search extends JPlugin
 				$query = $db->getQuery(true);
 				$query->clear();
 
-				$query->select('`pub`.`c_id` AS `pub_id`, `pg`.`id` AS `page_id`, CONCAT("Book - ", `pub`.`c_title`, ": ", `pg`.`page_title`) AS `title`')
-					->select('`pg`.`c_text` AS `text`, `pub`.`c_created_time` AS `created`, `tmpl`.`hard_cover`')
-					->select('`pub`.`c_metakey` AS `metakey`, `pub`.`c_metadesc` AS `metadesc`')
-					->select('"1" AS `browsernav`, "HTML5 Flipping Book" AS `section`, "1" AS `page`')
-					->from('`#__html5fb_publication` AS `pub`')
-					->innerJoin('`#__html5fb_category` AS `cat` ON `cat`.`c_id` = `pub`.`c_category_id`')
-					->innerJoin('`#__html5fb_pages` AS `pg` ON `pg`.`publication_id` = `pub`.`c_id`')
-					->innerJoin('`#__html5fb_templates` AS `tmpl` ON `tmpl`.`id` = `pub`.`c_template_id`')
-					->where('(' . $where . ') AND `pub`.`published` = 1')
-					->order($order);
-				$db->setQuery($query, 0, $limit);
-				$list = $db->loadObjectList();
+                $query->select('`pub`.`c_id` AS `pub_id`, `pg`.`id` AS `page_id`, CONCAT("Book - ", `pub`.`c_title`, ": ", `pg`.`page_title`) AS `title`')
+                    ->select('`pg`.`c_text` AS `text`, `pub`.`c_created_time` AS `created`, `tmpl`.`hard_cover`, `pg`.`ordering` AS `ord`')
+                    ->select('`pub`.`c_metakey` AS `metakey`, `pub`.`c_metadesc` AS `metadesc`')
+                    ->select('"1" AS `browsernav`, "HTML5 Flipping Book" AS `section`, "1" AS `page`')
+                    ->from('`#__html5fb_publication` AS `pub`')
+                    ->innerJoin('`#__html5fb_category` AS `cat` ON `cat`.`c_id` = `pub`.`c_category_id`')
+                    ->innerJoin('`#__html5fb_pages` AS `pg` ON `pg`.`publication_id` = `pub`.`c_id`')
+                    ->innerJoin('`#__html5fb_templates` AS `tmpl` ON `tmpl`.`id` = `pub`.`c_template_id`')
+                    ->where('(' . $where . ') AND `pub`.`published` = 1')
+                    ->order($order);
+                $db->setQuery($query, 0, $limit);
+                $list = $db->loadObjectList();
 
 				if (isset($list))
 				{
 					foreach ($list as $key => $item)
 					{
 						$query = $db->getQuery(true)
-							->select('`id`')
+							->select('`ordering`')
 							->from('`#__html5fb_pages`')
-							->where('`publication_id` = ' . $item->pub_id);
+							->where('`publication_id` = ' . $item->pub_id)
+                            ->order('`ordering`');
 						$db->setQuery($query);
 						$pages = $db->loadColumn();
 
-						$indx = array_search($item->page_id, $pages);
-						$pageN = $indx + ($item->hard_cover ? 4 : 0);
+                        $indx = array_search($item->ord, $pages);
+                        $pageN = $indx + ($item->hard_cover ? 3 : 1);
 
 						$list[$key]->href = JRoute::_('index.php?option=com_html5flippingbook&view=publication&id=' . $item->pub_id . '&keyword=' . $text . '&Itemid=' . $Itemid . '#page/' . $pageN, false, $uri->isSSL());
 					}
