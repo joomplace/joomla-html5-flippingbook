@@ -59,8 +59,11 @@
 			description="COM_HTML5FLIPPINGBOOK_BE_PAGES_PAGE_IMAGE_DESC" />
 
 		<field name="c_text"
-               type="textarea"
-               class="jform_c_text"
+			type="editor"
+			filter="raw"
+			buttons="true"
+			hide="module,menu,contact,article,readmore,pagebreak"
+			editor="tinymce"
 			label="COM_HTML5FLIPPINGBOOK_BE_PAGES_PAGE_TEXT"
 			description="COM_HTML5FLIPPINGBOOK_BE_PAGES_PAGE_TEXT_DESC" />
 
