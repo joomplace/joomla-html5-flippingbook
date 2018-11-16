@@ -202,4 +202,111 @@ class HtmlHelper
 		@fclose($handle);
 	}
 
+	public static function tinyMCE_js( $width, $height, $content_css, $elements )
+	{
+		$COMPONENT_ASSETS_URL = COMPONENT_ASSETS_URL;
+		$jUriroot = JUri::root();
+
+		return <<<HTML
+
+		function isBrowserIE()
+		{
+			return navigator.appName=="Microsoft Internet Explorer";
+		}
+
+		function jInsertEditorText( text, editor )
+		{
+			if (isBrowserIE())
+			{
+				if (window.parent.tinyMCE)
+				{
+					window.parent.tinyMCE.selectedInstance.selection.moveToBookmark(window.parent.global_ie_bookmark);
+				}
+			}
+			tinyMCE.execInstanceCommand(editor, 'mceInsertContent',false,text);
+		}
+
+		function jReplaceSelectedContents( text, editor )
+		{
+			tinyMCE.execInstanceCommand(editor, 'mceReplaceContent',false,text);
+		}
+
+		var global_ie_bookmark = false;
+
+		function IeCursorFix()
+		{
+			if (isBrowserIE())
+			{
+				tinyMCE.execCommand('mceInsertContent', false, '');
+				global_ie_bookmark = tinyMCE.activeEditor.selection.getBookmark(false);
+			}
+			return true;
+		}
+
+		function getFormControls()
+		{
+			return { pageImageSelect : document.getElementById('jform_page_image') };
+		}
+
+		GeneralHelper.addLibrary('{$COMPONENT_ASSETS_URL}tinymce/jscripts/tiny_mce/tiny_mce.js', 'tinyMCE', onTinyMceDefined);
+
+		function onTinyMceDefined()
+		{
+			tinyMCE.init({
+				theme : "advanced",
+				mode : "exact",
+				skin : "default",
+				elements : "{$elements}",
+				document_base_url : "{$jUriroot}",
+				plugins : "advlink, advimage",
+				relative_urls : false,
+				convert_fonts_to_spans : false,
+				remove_script_host : false,
+				invalid_elements : "script,applet",
+				directionality: "ltr",
+				force_br_newlines : "false",
+				force_p_newlines : "true",
+				debug : false,
+				safari_warning : false,
+				paste_use_dialog : false,
+				paste_auto_cleanup_on_paste : true,
+				paste_convert_headers_to_strong : false,
+				paste_strip_class_attributes : "all",
+				paste_remove_spans : true,
+				paste_remove_styles : true,
+
+				plugin_insertdate_dateFormat : "%Y-%m-%d",
+				plugin_insertdate_timeFormat : "%H:%M:%S",
+				plugin_preview_width : "750",
+				plugin_preview_height : "550",
+
+				width: "{$width}",
+				height: "{$height}",
+
+				content_css: '{$content_css}',
+
+				verify_html: false,
+				cleanup_on_startup: false,
+				trim_span_elements: false,
+				cleanup: false,
+
+				extended_valid_elements : "a[name|href|target|title|onclick],img[style|class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],video[src|controls|width|height],audio[src|controls|width|height],iframe[width|height|src|frameborder|allowfullscreen]",
+				setup : function(ed) {
+					ed.onPostProcess.add(function(ed, o) { onTinyMcePostProcess(ed, o); });
+				}
+			});
+		}
+
+		function onTinyMcePostProcess(editor, obj)
+		{
+			var baseUrl = editor.settings['document_base_url'];
+
+			obj.content = obj.content.replace(new RegExp('href *= *"' + baseUrl, 'gi'), 'href="');
+			obj.content = obj.content.replace(new RegExp('src *= *"' + baseUrl, 'gi'), 'src="');
+			obj.content = obj.content.replace(new RegExp('mce_real_src *= *"\s*"', 'gi'), '');
+			obj.content = obj.content.replace(new RegExp('mce_real_href *= *"\s*"', 'gi'), '');
+		}
+HTML;
+
+	}
 }
