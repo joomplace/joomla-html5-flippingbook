@@ -100,6 +100,10 @@ input[type="text"].invalid:focus {
 .html5fb_textarea_tinymce {
 	/* Doesn't affect real editor */
 }
+.com_html5flippingbook.view-publication .controls.editor{
+	width: 640px;
+}
+
 .html5fb_tip {
 	background-color: #FCF8E3;
 	border: 1px solid #FBEED5;
