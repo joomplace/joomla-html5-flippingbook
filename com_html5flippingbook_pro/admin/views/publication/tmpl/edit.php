@@ -31,6 +31,14 @@ if ($this->item->c_imgsub == 1 && $this->item->c_imgsubfolder != '')
 	
 	var form = null;
 
+	<?php echo HtmlHelper::tinyMCE_js(
+		'640',
+		'300',
+		 '',
+		 'jform_c_description,jform_c_author_description'
+		);
+	?>
+
 	jQuery(document).ready(function ()
 	{
 	    jQuery('#viewTabs a:first').tab('show');
@@ -371,7 +379,7 @@ if ($this->item->c_imgsub == 1 && $this->item->c_imgsubfolder != '')
 					<div class="control-label">
 						<?php echo $this->form->getLabel('c_pub_descr'); ?>
 					</div>
-					<div class="controls editor">
+					<div class="controls">
 						<?php echo $this->form->getInput('c_pub_descr'); ?>
 					</div>
 				</div>

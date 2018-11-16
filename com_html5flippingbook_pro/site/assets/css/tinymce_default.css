@@ -1,0 +1,4 @@
+body, td, pre { color:#000; font-family: "Times New Roman", Times, serif; font-size:16px; margin:0px;}
+body {background:#FFF; padding: 40px; }
+body.mceForceColors {background:#FFF; color:#000;}
+body.mceBrowserDefaults {background:transparent; color:inherit; font-size:inherit; font-family:inherit;}
