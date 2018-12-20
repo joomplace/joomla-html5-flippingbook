@@ -629,11 +629,11 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
 
                                 if($page['page_image'] && strpos($page_class,'double')!==false){
                                     ?>
-                                    <div class="<?php echo $page_class; ?>" data-id="<?php echo $page['id']; ?>" style="background-image:url('<?php echo str_replace("\\", "/", JHtml::_('thumbler.generate', $page['page_image'], (isset($page['id']) ? $page['id'].'_' : '_'), json_encode(array('width' => $item->resolutions->width*($double_page?2:1), 'height'=> $item->resolutions->height)), false)); ?>')"></div>
+                                    <div class="<?php echo $page_class; ?>" data-id="<?php echo (empty($page['id']))?'':$page['id']; ?>" style="background-image:url('<?php echo str_replace("\\", "/", JHtml::_('thumbler.generate', $page['page_image'], (isset($page['id']) ? $page['id'].'_' : '_'), json_encode(array('width' => $item->resolutions->width*($double_page?2:1), 'height'=> $item->resolutions->height)), false)); ?>')"></div>
                                     <?php
                                 }else{
                                     ?>
-                                    <div class="<?php echo $page_class; ?>" data-id="<?php echo isset($page['id']) ? $page['id'] : ''; ?>"><?php echo $page_content; ?></div>
+                                    <div class="<?php echo $page_class; ?>" data-id="<?php echo (empty($page['id']))?'':$page['id']; ?>"><?php echo $page_content; ?></div>
                                     <?php
                                 }
                             }
