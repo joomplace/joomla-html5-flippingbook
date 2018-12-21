@@ -57,7 +57,7 @@
 			type="calendar"
 			class="inputbox"
 			size="22"
-			format="%Y-%m-%d %H:%M:%S"
+			format="%Y-%m-%d"
 			filter="user_utc"
 			label="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_CREATION_TIME"
 			description="COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_CREATION_TIME_DESC" />
