@@ -357,6 +357,7 @@ if ($this->item->c_imgsub == 1 && $this->item->c_imgsubfolder != '')
 						<?php echo $this->form->getInput('c_created_time'); ?>
 					</div>
 				</div>
+                <?php echo $this->form->renderField('c_show_cdate'); ?>
 				<div class="control-group">
 					<div class="control-label">
 						<?php echo $this->form->getLabel('c_thumb'); ?>

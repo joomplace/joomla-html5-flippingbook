@@ -281,11 +281,11 @@ for ($i = 0; $i < count($this->items);)
 		
 		if ($item->c_show_cdate)
 		{
-			$date = new JDate($item->c_created_time);
-			$date = $date->toUnix();
-			$dateString = gmdate("Y-m-d", $date);
-			
-			$html[] = 	'<div class="html5fb-date">' . $dateString . '</div>';
+			//$date = new JDate($item->c_created_time);
+			//$date = $date->toUnix();
+			//$dateString = gmdate("Y-m-d", $date);
+			//$html[] = '<div class="html5fb-date">' . $dateString . '</div>';
+            $html[] = '<div class="html5fb-date">' . JHtml::_('date', $item->c_created_time, JText::_('DATE_FORMAT_LC4')) . '</div>';
 		}
 
 	    if ($viewAccessGranted)
