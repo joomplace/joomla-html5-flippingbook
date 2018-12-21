@@ -190,8 +190,10 @@ if ($sortedByOrder)
 								<span class="sortable-handler hasTooltip <?php echo $disabledClassName; ?>" title="<?php echo $disabledLabel; ?>">
 									<i class="icon-menu"></i>
 								</span>
-								<input type="text" style="display:none" name="order[]" size="5" value="<?php echo $item->ordering; ?>" class="width-20 text-area-order " />
-							</td>
+                                <?php if ( JFactory::getApplication()->getUserState(COMPONENT_OPTION.'.pages.filter.publication_id', 0) == 0 ) { ?>
+								    <input type="text" style="display:none" name="order[]" size="5" value="<?php echo $item->ordering; ?>" class="width-20 text-area-order " />
+                                <?php } ?>
+                            </td>
 							<td>
 								<?php echo JHtml::_('grid.id', $i, $item->id); ?>
 							</td>
