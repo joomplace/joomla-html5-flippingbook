@@ -316,14 +316,13 @@ for ($i = 0; $i < count($this->items);)
 				
 				if ($this->config->social_twitter_use == 1)
 				{
-					$html[] = '<div class="html5fb-social-btn">' .
-							'<a href="http://twitter.com/share" class="twitter-share-button"' .
-							' data-url="' . $pageLink . '"'.
-							' data-size="' . $this->config->social_twitter_size . '"' .
-							' data-count="' . $this->config->social_twitter_annotation . '"' .
-							' data-lang="' . $this->config->social_twitter_language . '"' .
-							'>Tweet</a>' .
-						'</div>';
+                    $html[] = '<div class="html5fb-social-btn">' .
+                        '<a href="https://twitter.com/intent/tweet?text='.str_replace(array('?', '&', '&amp;'), '', $item->c_title) .'%20'.urlencode(JUri::root().substr($pageLink, 1)).'" ' .
+                        ' class="twitter-share-button" ' .
+                        ' data-url="' . urlencode(JUri::root().substr($pageLink, 1)) . '"' .
+                        ' data-size="' . $this->config->social_twitter_size . '"' .
+                        '>Tweet</a>' .
+                        '</div>';
 				}
 				
 				if ($this->config->social_linkedin_use == 1)
@@ -342,7 +341,7 @@ for ($i = 0; $i < count($this->items);)
 							'<div class="fb-like" data-show-faces="false" data-width="50" data-colorscheme="light" data-share="false" ' .
 							' data-action="' . $this->config->social_facebook_verb . '"' .
 							' data-layout="' . $this->config->social_facebook_layout . '"' .
-							' data-href="' . $pageLink . '"' .
+                            ' data-href="' . urlencode(JUri::root().substr($pageLink, 1)) . '"' .
 							'></div>' .
 						'</div>';
 				}
