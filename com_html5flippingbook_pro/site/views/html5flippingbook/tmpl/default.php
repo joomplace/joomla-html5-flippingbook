@@ -302,7 +302,7 @@ for ($i = 0; $i < count($this->items);)
 						'<div class="g-plusone" data-width="70"' .
 						' data-size="' . $this->config->social_google_plus_size . '"' .
 						' data-annotation="' . $this->config->social_google_plus_annotation . '"' .
-						' href="' . JUri::root().$pageLink . '"' .
+						' href="' . urlencode(JUri::root().substr($pageLink, 1)) . '"' .
 						'></div>' .
 						'</div>';
 				}
@@ -320,7 +320,7 @@ for ($i = 0; $i < count($this->items);)
 				if ($this->config->social_linkedin_use == 1) {
 					$html[] = '<div class="html5fb-social-btn">' .
 						'<script type="IN/Share"' .
-						' data-url="' . JUri::root().$pageLink . '"' .
+						' data-url="' . urlencode(JUri::root().substr($pageLink, 1)) . '"' .
 						' data-counter="' . $this->config->social_linkedin_annotation . '"' .
 						'></script>' .
 						'</div>';
