@@ -100,15 +100,22 @@ $tag = str_replace("-", "_", $tag);
 
 <?php if ($this->config->social_facebook_use == 1) {?>
 
-	<div id="fb-root"></div>
+<!--	<div id="fb-root"></div>
 	<script>(function(d, s, id) {
 			var js, fjs = d.getElementsByTagName(s)[0];
 			if (d.getElementById(id)) return;
 			js = d.createElement(s); js.id = id;
-			js.src = "//connect.facebook.net/<?php echo $tag;?>/all.js#xfbml=1";
+			js.src = "//connect.facebook.net/<?php /*echo $tag;*/?>/all.js#xfbml=1";
 			fjs.parentNode.insertBefore(js, fjs);
-		}(document, 'script', 'facebook-jssdk'));</script>
-
+		}(document, 'script', 'facebook-jssdk'));</script>-->
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/<?php echo $tag;?>/sdk.js#xfbml=1&version=v3.0";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk-joomplace'));</script>
 <?php  }
 
 JFactory::getDocument()->addScriptDeclaration('ht5popupWindow = function (a, b, c, d, f) { window.open(a, b, "height=" + d + ",width=" + c + ",top=" + (screen.height - d) / 2 + ",left=" + (screen.width - c) / 2 + ",scrollbars=" + f + ",resizable").window.focus() };');
@@ -309,7 +316,7 @@ for ($i = 0; $i < count($this->items);)
 							'<div class="g-plusone" data-width="70"' .
 							' data-size="' . $this->config->social_google_plus_size . '"' .
 							' data-annotation="' . $this->config->social_google_plus_annotation . '"' .
-							' href="' . $pageLink . '"' .
+							' href="' . urlencode(JUri::root().substr($pageLink, 1)) . '"' .
 							'></div>' .
 						'</div>';
 				}
@@ -329,7 +336,7 @@ for ($i = 0; $i < count($this->items);)
 				{
 					$html[] = '<div class="html5fb-social-btn">' .
 							'<script type="IN/Share"' .
-							' data-url="' . $pageLink . '"' .
+							' data-url="' . urlencode(JUri::root().substr($pageLink, 1)) . '"' .
 							' data-counter="' . $this->config->social_linkedin_annotation . '"' .
 							'></script>' .
 						'</div>';
@@ -413,6 +420,6 @@ echo implode("\r\n", $html);
 
 <?php if ($this->config->social_linkedin_use == 1) { ?>
 	
-	<script type="text/javascript" src="//platform.linkedin.com/in.js"></script>
+	<script type="text/javascript" src="//platform.linkedin.com/in.js">lang:<?php echo $tag?></script>
 	
 <?php } ?>
