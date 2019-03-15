@@ -4,6 +4,7 @@
         <action name="core.manage" title="JACTION_MANAGE" description="JACTION_MANAGE_COMPONENT_DESC" />
 		<action name="core.view" title="COM_HTML5FLIPPINGBOOK_BE_JACTION_VIEW" description="COM_HTML5FLIPPINGBOOK_BE_JACTION_VIEW_DESC" />
 		<action name="core.preview" title="COM_HTML5FLIPPINGBOOK_BE_JACTION_PREVIEW" description="COM_HTML5FLIPPINGBOOK_BE_JACTION_PREVIEW_DESC" />
+        <action name="core.download" title="COM_HTML5FLIPPINGBOOK_BE_JACTION_DOWNLOAD" description="COM_HTML5FLIPPINGBOOK_BE_JACTION_DOWNLOAD_DESC" />
         <action name="core.create" title="COM_HTML5FLIPPINGBOOK_BE_CATEGORIES_ACCESS_CREATE" description="COM_HTML5FLIPPINGBOOK_BE_CATEGORIES_ACCESS_CREATE_DESC" />
         <action name="core.delete" title="COM_HTML5FLIPPINGBOOK_BE_CATEGORIES_ACCESS_DELETE" description="COM_HTML5FLIPPINGBOOK_BE_CATEGORIES_ACCESS_DELETE_DESC" />
         <action name="core.edit" title="COM_HTML5FLIPPINGBOOK_BE_CATEGORIES_ACCESS_EDIT" description="COM_HTML5FLIPPINGBOOK_BE_CATEGORIES_ACCESS_EDIT_DESC" />
@@ -12,6 +13,7 @@
 	<section name="publication">
 		<action name="core.view" title="COM_HTML5FLIPPINGBOOK_BE_JACTION_VIEW" description="COM_HTML5FLIPPINGBOOK_BE_JACTION_VIEW_DESC" />
 		<action name="core.preview" title="COM_HTML5FLIPPINGBOOK_BE_JACTION_PREVIEW" description="COM_HTML5FLIPPINGBOOK_BE_JACTION_PREVIEW_DESC" />
+        <action name="core.download" title="COM_HTML5FLIPPINGBOOK_BE_JACTION_DOWNLOAD" description="COM_HTML5FLIPPINGBOOK_BE_JACTION_DOWNLOAD_DESC" />
 	</section>
     <section name="category">
         <action name="core.create" title="JACTION_CREATE" description="COM_HTML5FLIPPINGBOOK_BE_CATEGORIES_ACCESS_CREATE_DESC" />
