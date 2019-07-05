@@ -631,7 +631,22 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
                 die();
             }
 
-            $img->setColorspace(Imagick::COLORSPACE_SRGB);
+            $cls_v = $img->getversion();
+            /*
+			// Example of the array "version":
+               <pre>Array
+                (
+                    [versionNumber] => 1684
+                    [versionString] => ImageMagick 6.9.4-10 Q16 x86_64 2017-11-14 http://www.imagemagick.org
+                )
+                </pre>
+             */
+            preg_match('/ImageMagick ([0-9]+\.[0-9]+\.[0-9]+)/', $cls_v['versionString'], $cls_v);
+            
+            if (version_compare($cls_v[1], '6.5.7', '>=')) {
+                $img->setColorspace(Imagick::COLORSPACE_SRGB);
+            }
+            
             $output_big = $targetDirFullOriginalIMG . "/" . $imgName . "-" . $page_number . ".jpg";
             $output_thumb = $targetDirFullName . "/th_" . $imgName . "-" . $page_number . ".jpg";
 
@@ -652,17 +667,6 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
 
             // Compress Image Quality
             $img->setImageCompressionQuality(100);
-
-            $cls_v = $img->getversion();
-            /*
-               <pre>Array
-                (
-                    [versionNumber] => 1684
-                    [versionString] => ImageMagick 6.9.4-10 Q16 x86_64 2017-11-14 http://www.imagemagick.org
-                )
-                </pre>
-             */
-            preg_match('/ImageMagick ([0-9]+\.[0-9]+\.[0-9]+)/', $cls_v['versionString'], $cls_v);
 
             //Remove alpha channel
             if (version_compare($cls_v[1], '6.3.8', '>=')) {
