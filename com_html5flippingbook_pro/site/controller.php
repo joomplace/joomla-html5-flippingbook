@@ -32,7 +32,7 @@ class HTML5FlippingBookController extends JControllerLegacy
 		if ($view == 'profile' && !$user->get('id'))
 		{
 			$this->setMessage(JText::_('COM_HTML5FLIPPINGBOOK_FE_ERROR_NO_USER'), 'NOTICE');
-			$this->setRedirect(JRoute::_('index.php?option=com_html5flippingbook&view=html5flippingbook', FALSE, $uri->isSSL()));
+			$this->setRedirect(JRoute::_('index.php?option=com_html5flippingbook&view=html5flippingbook', FALSE, (int)$uri->isSSL()));
 			return false;
 		}
 
@@ -500,10 +500,10 @@ class HTML5FlippingBookController extends JControllerLegacy
 		$uri  = JUri::getInstance();
 		$app  = JFactory::$application;
 
-		$link = JRoute::_('index.php?option=com_html5flippingbook&view=html5flippingbook', FALSE, $uri->isSSL());
+		$link = JRoute::_('index.php?option=com_html5flippingbook&view=html5flippingbook', FALSE, (int)$uri->isSSL());
 		if ($user->get('id'))
 		{
-			$link = JRoute::_('index.php?option=com_html5flippingbook&view=profile', FALSE, $uri->isSSL());
+			$link = JRoute::_('index.php?option=com_html5flippingbook&view=profile', FALSE, (int)$uri->isSSL());
 		}
 
 		// An array of email headers we do not want to allow as input

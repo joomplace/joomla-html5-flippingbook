@@ -146,7 +146,7 @@ class plgSearchhtml5flippingbook_search extends JPlugin
 				{
 					foreach ($list as $key => $item)
 					{
-						$list[$key]->href = JRoute::_('index.php?option=com_html5flippingbook&view=publication&id=' . $item->pub_id . '&keyword=' . $text . '&Itemid=' . $Itemid, false, $uri->isSSL());
+						$list[$key]->href = JRoute::_('index.php?option=com_html5flippingbook&view=publication&id=' . $item->pub_id . '&keyword=' . $text . '&Itemid=' . $Itemid, false, (int)$uri->isSSL());
 					}
 				}
 				$rows[] = $list;
@@ -185,7 +185,7 @@ class plgSearchhtml5flippingbook_search extends JPlugin
                         $indx = array_search($item->ord, $pages);
                         $pageN = $indx + ($item->hard_cover ? 3 : 1);
 
-						$list[$key]->href = JRoute::_('index.php?option=com_html5flippingbook&view=publication&id=' . $item->pub_id . '&keyword=' . $text . '&Itemid=' . $Itemid . '#page/' . $pageN, false, $uri->isSSL());
+						$list[$key]->href = JRoute::_('index.php?option=com_html5flippingbook&view=publication&id=' . $item->pub_id . '&keyword=' . $text . '&Itemid=' . $Itemid . '#page/' . $pageN, false, (int)$uri->isSSL());
 					}
 				}
 				$rows[] = $list;

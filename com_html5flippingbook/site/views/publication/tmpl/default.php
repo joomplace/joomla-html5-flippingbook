@@ -16,7 +16,7 @@ $detectMobile = new Mobile_Detect_HTML5FB();
 // Exclude tablets.
 if ($detectMobile->isMobile() && !$detectMobile->isTablet())
 {
-    JFactory::getApplication()->redirect(JRoute::_('index.php?option='.COMPONENT_OPTION.'&view=publication&id='.$this->item->c_id.'&layout=mobile&tmpl=component', false, $uri->isSSL()));
+    JFactory::getApplication()->redirect(JRoute::_('index.php?option='.COMPONENT_OPTION.'&view=publication&id='.$this->item->c_id.'&layout=mobile&tmpl=component', false, (int)$uri->isSSL()));
     return true;
 }
 
@@ -532,7 +532,7 @@ $FlipHeight = $this->resolutions->height;
 	{
 		require_once(JPATH_COMPONENT_ADMINISTRATOR.'/libs/MethodsForXml.php');
 
-		$pageLink = JUri::base().JRoute::_('index.php?option='.COMPONENT_OPTION.'&view=publication&id='.$this->item->c_id, false, $uri->isSSL());
+		$pageLink = JUri::base().JRoute::_('index.php?option='.COMPONENT_OPTION.'&view=publication&id='.$this->item->c_id, false, (int)$uri->isSSL());
 
 		$opengraphTitle = ($this->item->opengraph_title != '' ? $this->item->opengraph_title : $this->item->c_title);
 		$opengraphAuthor = ($this->item->opengraph_author != '' ? $this->item->opengraph_author : $this->item->c_author);

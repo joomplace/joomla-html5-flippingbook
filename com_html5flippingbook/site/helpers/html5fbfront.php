@@ -30,7 +30,7 @@ abstract class HTML5FlippingBookFrontHelper
 		if ($link)
 		{
 			$data->rawPublicationLink= 'index.php?option='.COMPONENT_OPTION.'&view=publication&id='.$item;
-			$data->publicationLink = JRoute::_($data->rawPublicationLink.'&tmpl=component', FALSE, $uri->isSSL());
+			$data->publicationLink = JRoute::_($data->rawPublicationLink.'&tmpl=component', FALSE, (int)$uri->isSSL());
 			return $data;
 		}
 
@@ -42,37 +42,37 @@ abstract class HTML5FlippingBookFrontHelper
 
 		if ($mobile)
 		{
-			$data->publicationLink = JRoute::_($data->rawPublicationLink.'&layout=mobile&tmpl=component', FALSE, $uri->isSSL());
+			$data->publicationLink = JRoute::_($data->rawPublicationLink.'&layout=mobile&tmpl=component', FALSE, (int)$uri->isSSL());
 			$data->viewPublicationLink= '<a href="'.$data->publicationLink.'" target="_blank">';
 			$data->viewPublicationLinkWithTitle = '<a class="thumbnail" href="'.$data->publicationLink.'" target="_blank" title="'.$linkTitle .'">';
 		}
 		elseif ($tablet)
 		{
-			$data->publicationLink = JRoute::_($data->rawPublicationLink.'&tmpl=component', FALSE, $uri->isSSL());
+			$data->publicationLink = JRoute::_($data->rawPublicationLink.'&tmpl=component', FALSE, (int)$uri->isSSL());
 			$data->viewPublicationLink= '<a href="'.$data->publicationLink.'" target="_blank">';
 			$data->viewPublicationLinkWithTitle = '<a class="thumbnail" href="'.$data->publicationLink.'" target="_blank" title="'.$linkTitle .'">';
 		}
 		elseif($item->c_popup == PublicationDisplayMode::DirectLink)
 		{
-			$data->publicationLink = JRoute::_($data->rawPublicationLink.'&tmpl=component' . ($item->uid == $user->get('id') && ($item->page) ? '#page/' . $item->page : ''), FALSE, $uri->isSSL());
+			$data->publicationLink = JRoute::_($data->rawPublicationLink.'&tmpl=component' . ($item->uid == $user->get('id') && ($item->page) ? '#page/' . $item->page : ''), FALSE, (int)$uri->isSSL());
 			$data->viewPublicationLink= '<a href="'.$data->publicationLink.'" target="_blank" target="_self">';
 			$data->viewPublicationLinkWithTitle = '<a class="thumbnail" href="'.$data->publicationLink.'" target="_blank" target="_self" title="'.$linkTitle .'">';
 		}
 		else if ($item->c_popup == PublicationDisplayMode::DirectLinkNoTmpl)
 		{
-			$data->publicationLink = JRoute::_($data->rawPublicationLink.'&tmpl=component' . ($item->uid == $user->get('id') && isset($item->page) ? '#page/' . $item->page : ''), FALSE, $uri->isSSL());
+			$data->publicationLink = JRoute::_($data->rawPublicationLink.'&tmpl=component' . ($item->uid == $user->get('id') && isset($item->page) ? '#page/' . $item->page : ''), FALSE, (int)$uri->isSSL());
 			$data->viewPublicationLink= '<a href="'.$data->publicationLink.'" target="_blank">';
 			$data->viewPublicationLinkWithTitle = '<a class="thumbnail" href="'.$data->publicationLink.'" target="_blank" title="'.$linkTitle .'">';
 		}
 		else if ($item->c_popup == PublicationDisplayMode::PopupWindow)
 		{
-			$data->publicationLink = JRoute::_($data->rawPublicationLink.'&tmpl=component' . ($item->uid == $user->get('id') && isset($item->page) ? '#page/' . $item->page : ''), FALSE, $uri->isSSL());
+			$data->publicationLink = JRoute::_($data->rawPublicationLink.'&tmpl=component' . ($item->uid == $user->get('id') && isset($item->page) ? '#page/' . $item->page : ''), FALSE, (int)$uri->isSSL());
 			$data->viewPublicationLink= '<a href="javascript: ht5popupWindow(\''.$data->publicationLink.'\', \'fm_'.$item->c_id.'\', '.$popupWidth.', '.$popupHeight.', \'no\');">';
 			$data->viewPublicationLinkWithTitle = '<a class="thumbnail" href="javascript: ht5popupWindow(\''.$data->publicationLink.'\', \''.$item->c_id.'\', '.$popupWidth.', '.$popupHeight.', \'no\');" title="'.$linkTitle .'">';
 		}
 		else if ($item->c_popup == PublicationDisplayMode::ModalWindow)
 		{
-			$data->publicationLink = JRoute::_($data->rawPublicationLink."&tmpl=component" . ($item->uid == $user->get('id') && isset($item->page) ? '#page/' . $item->page : ''), FALSE, $uri->isSSL());
+			$data->publicationLink = JRoute::_($data->rawPublicationLink."&tmpl=component" . ($item->uid == $user->get('id') && isset($item->page) ? '#page/' . $item->page : ''), FALSE, (int)$uri->isSSL());
 			$data->viewPublicationLink= '<a class="html5-modal" rel="{handler: \'iframe\', size: {x: '.$popupWidth.', y:'.$popupHeight.'}}" href="'.$data->publicationLink.'">';
 			$data->viewPublicationLinkWithTitle = '<a class="thumbnail html5-modal" rel="{handler: \'iframe\', size: {x: '.$popupWidth.', y:'.$popupHeight.'}}" href="'.$data->publicationLink.'" title="'.$linkTitle .'">';
 		}
@@ -294,7 +294,7 @@ abstract class HTML5FlippingBookFrontHelper
 				{
 				    $content .= '
 							<li>
-								<a href="' . JRoute::_('index.php?option=com_html5flippingbook&task=convert.get'.strtolower($formats[$i]).''.($download->cloudconvert ? '&target=cloud' : '').'&id=' . $id, FALSE, $uri->isSSL()) . '">
+								<a href="' . JRoute::_('index.php?option=com_html5flippingbook&task=convert.get'.strtolower($formats[$i]).''.($download->cloudconvert ? '&target=cloud' : '').'&id=' . $id, FALSE, (int)$uri->isSSL()) . '">
 									<i class="fa fa-file-text-o"></i> ' . JText::sprintf('COM_HTML5FLIPPINGBOOK_FE_DOWNLOAD_OPTION_FORMATS', strtoupper($formats[$i])) . '
 								</a>
 							</li>';
@@ -333,7 +333,7 @@ abstract class HTML5FlippingBookFrontHelper
             if($download->c_enable_pdf || $formats){
                 if($download->c_enable_pdf){
                     $return[] = array(
-                        JRoute::_('index.php?option='.COMPONENT_OPTION .'&task=convert.getpdf' . '&id='.$id .'&filename='.preg_replace('/[<>:"\/\\\|\?\*]/is', '', $download->c_background_pdf) .'&id=' . $id, FALSE, $uri->isSSL()),
+                        JRoute::_('index.php?option='.COMPONENT_OPTION .'&task=convert.getpdf' . '&id='.$id .'&filename='.preg_replace('/[<>:"\/\\\|\?\*]/is', '', $download->c_background_pdf) .'&id=' . $id, FALSE, (int)$uri->isSSL()),
                         'fa fa-file-text-o',
                         JText::_('COM_HTML5FLIPPINGBOOK_BE_DOWNLOAD_PDF')
                     );
@@ -343,7 +343,7 @@ abstract class HTML5FlippingBookFrontHelper
                     foreach($formats as $i=> $format)
                     {
                         $return[] = array(
-                            JRoute::_('index.php?option=com_html5flippingbook&task=convert.get'.strtolower($formats[$i]).''.($download->cloudconvert ? '&target=cloud' : '').'&id=' . $id, FALSE, $uri->isSSL()),
+                            JRoute::_('index.php?option=com_html5flippingbook&task=convert.get'.strtolower($formats[$i]).''.($download->cloudconvert ? '&target=cloud' : '').'&id=' . $id, FALSE, (int)$uri->isSSL()),
                             'fa fa-file-text-o',
                             JText::sprintf('COM_HTML5FLIPPINGBOOK_FE_DOWNLOAD_OPTION_FORMATS', strtoupper($formats[$i]))
                         );
