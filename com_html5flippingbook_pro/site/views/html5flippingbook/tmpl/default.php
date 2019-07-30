@@ -35,7 +35,7 @@ if ( @$this->item->opengraph_use )
 {
 	require_once(JPATH_COMPONENT_ADMINISTRATOR.'/libs/MethodsForXml.php');
 
-	$pageLink = JRoute::_('index.php?option='.COMPONENT_OPTION.'&view=publication&id='.$this->item->c_id, FALSE, $uri->isSSL());
+	$pageLink = JRoute::_('index.php?option='.COMPONENT_OPTION.'&view=publication&id='.$this->item->c_id, FALSE, (int)$uri->isSSL());
 
 	$opengraphTitle = ($this->item->opengraph_title != '' ? $this->item->opengraph_title : $this->item->c_category);
 	$opengraphAuthor = ($this->item->opengraph_author != '' ? $this->item->opengraph_author : '');
@@ -127,14 +127,14 @@ $doc->addScript(COMPONENT_JS_URL . 'category.min.js');
 //$doc->addScriptDeclaration("jQuery(document).ready(function() {jQuery('#html5flippingbook .modal').attr('rel', \"{handler: 'iframe', size: {x: jQuery(window).width(), y: jQuery(window).height()}}\");});");
 
 $html = array();
-$html[] = '<form action="' . JRoute::_('index.php?option=com_html5flippingbook&view=html5flippingbook', FALSE, $uri->isSSL()) . '" id="adminForm" name="adminForm">';
+$html[] = '<form action="' . JRoute::_('index.php?option=com_html5flippingbook&view=html5flippingbook', FALSE, (int)$uri->isSSL()) . '" id="adminForm" name="adminForm">';
 $html[] = '<div id="html5flippingbook">';
 
 if ($this->showListTitle)
 {
 	$html[] = '<div class="blog">';
 	$html[] = 	'<h1 class="pull-left">' . (empty($this->listTitle) ? JText::_('COM_HTML5FLIPPINGBOOK_FE_PUBLICATIONS_LIST') : $this->listTitle) . '</h1>';
-	$html[] =   ($user->get('id') ? '<a href="' . JRoute::_('index.php?option=com_html5flippingbook&view=profile', FALSE, $uri->isSSL()) . '" class="pull-right profile-link hasTooltip" title="'.JText::_('COM_HTML5FLIPPINGBOOK_FE_PROFILE_LINK').'"><span class="fa fa-user fa-2x"></span></a>' : '');
+	$html[] =   ($user->get('id') ? '<a href="' . JRoute::_('index.php?option=com_html5flippingbook&view=profile', FALSE, (int)$uri->isSSL()) . '" class="pull-right profile-link hasTooltip" title="'.JText::_('COM_HTML5FLIPPINGBOOK_FE_PROFILE_LINK').'"><span class="fa fa-user fa-2x"></span></a>' : '');
 	$html[] = '</div>';
 
 	$html[] = '<br clear="all"/>';
@@ -256,7 +256,7 @@ for ($i = 0; $i < count($this->items);)
 				$returnUrl = $_SERVER["REQUEST_URI"];
 
 				$html[] = JText::_('COM_HTML5FLIPPINGBOOK_FE_SHOULD_LOGIN') . '.' . '&nbsp;';
-				$html[] = '<a href="' . JRoute::_('index.php?option=com_users&view=login&Itemid=' . COMPONENT_ITEM_ID . '&return=' . base64_encode($returnUrl), FALSE, $uri->isSSL()) . '">';
+				$html[] = '<a href="' . JRoute::_('index.php?option=com_users&view=login&Itemid=' . COMPONENT_ITEM_ID . '&return=' . base64_encode($returnUrl), FALSE, (int)$uri->isSSL()) . '">';
 				$html[] = JText::_('COM_HTML5FLIPPINGBOOK_FE_LOGIN_NOW');
 				$html[] = '</a>';
 			} else {
@@ -295,7 +295,7 @@ for ($i = 0; $i < count($this->items);)
 			) {
 				$html[] = '<div class="html5fb-social">';
 
-				$pageLink = JRoute::_('index.php?option=' . COMPONENT_OPTION . '&view=publication&id=' . $item->c_id . '&Itemid=' . COMPONENT_ITEM_ID, FALSE, $uri->isSSL());
+				$pageLink = JRoute::_('index.php?option=' . COMPONENT_OPTION . '&view=publication&id=' . $item->c_id . '&Itemid=' . COMPONENT_ITEM_ID, FALSE, (int)$uri->isSSL());
 
 				if ($this->config->social_google_plus_use == 1) {
 					$html[] = '<div class="html5fb-social-btn">' .

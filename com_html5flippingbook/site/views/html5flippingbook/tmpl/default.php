@@ -44,7 +44,7 @@ if ( @$this->item->opengraph_use )
 {
 	require_once(JPATH_COMPONENT_ADMINISTRATOR.'/libs/MethodsForXml.php');
 
-	$pageLink = JUri::base().JRoute::_('index.php?option='.COMPONENT_OPTION.'&view=publication&id='.$this->item->c_id, false, $uri->isSSL());
+	$pageLink = JUri::base().JRoute::_('index.php?option='.COMPONENT_OPTION.'&view=publication&id='.$this->item->c_id, false, (int)$uri->isSSL());
 
 	$opengraphTitle = ($this->item->opengraph_title != '' ? $this->item->opengraph_title : $this->item->c_category);
 	$opengraphAuthor = ($this->item->opengraph_author != '' ? $this->item->opengraph_author : '');
@@ -122,7 +122,7 @@ JFactory::getDocument()->addScriptDeclaration('ht5popupWindow = function (a, b, 
 
 $html = array();
 
-$html[] = '<form action="' . JRoute::_('index.php?option=com_html5flippingbook&view=html5flippingbook', false, $uri->isSSL()) . '" id="adminForm" name="adminForm">';
+$html[] = '<form action="' . JRoute::_('index.php?option=com_html5flippingbook&view=html5flippingbook', false, (int)$uri->isSSL()) . '" id="adminForm" name="adminForm">';
 $html[] = '<div id="html5flippingbook">';
 
 if ($this->showListTitle)
@@ -164,38 +164,38 @@ for ($i = 0; $i < count($this->items);)
 
 		if ($isMobile)
 		{
-			$publicationLink = JRoute::_($rawPublicationLink.'&layout=mobile&tmpl=component', false, $uri->isSSL());
+			$publicationLink = JRoute::_($rawPublicationLink.'&layout=mobile&tmpl=component', false, (int)$uri->isSSL());
 			$viewPublicationLink= '<a href="'.$publicationLink.'" target="_blank" target="_self">';
 			$viewPublicationLinkWithTitle = '<a href="'.$publicationLink.'" target="_blank" target="_self" title="'.$linkTitle .'">';
 		}
 		elseif ($isTablet)
 		{
-			$publicationLink = JRoute::_($rawPublicationLink.'&tmpl=component', false, $uri->isSSL());
+			$publicationLink = JRoute::_($rawPublicationLink.'&tmpl=component', false, (int)$uri->isSSL());
 			$viewPublicationLink= '<a href="'.$publicationLink.'" target="_blank">';
 			$viewPublicationLinkWithTitle = '<a class="thumbnail" href="'.$publicationLink.'" target="_blank" title="'.$linkTitle .'">';
 		}
 		elseif ($item->c_popup == PublicationDisplayMode::DirectLink)
 		{
 			//$publicationLink = JRoute::_($rawPublicationLink, false, -1);
-	        $publicationLink = JRoute::_($rawPublicationLink, false, $uri->isSSL());
+	        $publicationLink = JRoute::_($rawPublicationLink, false, (int)$uri->isSSL());
 			$viewPublicationLink= '<a href="'.$publicationLink.'" target="_blank" target="_self">';
 			$viewPublicationLinkWithTitle = '<a href="'.$publicationLink.'" target="_blank" target="_self" title="'.$linkTitle .'">';
 		}
 		else if ($item->c_popup == PublicationDisplayMode::DirectLinkNoTmpl)
 		{
-			$publicationLink = JRoute::_($rawPublicationLink.'&tmpl=component', false, $uri->isSSL());
+			$publicationLink = JRoute::_($rawPublicationLink.'&tmpl=component', false, (int)$uri->isSSL());
 			$viewPublicationLink= '<a href="'.$publicationLink.'" target="_blank">';
 			$viewPublicationLinkWithTitle = '<a href="'.$publicationLink.'" target="_blank" title="'.$linkTitle .'">';
 		}
 		else if ($item->c_popup == PublicationDisplayMode::PopupWindow)
 		{
-			$publicationLink = JRoute::_($rawPublicationLink.'&tmpl=component', false, $uri->isSSL());
+			$publicationLink = JRoute::_($rawPublicationLink.'&tmpl=component', false, (int)$uri->isSSL());
 			$viewPublicationLink= '<a href="javascript: ht5popupWindow(\''.$publicationLink.'\', \'fm_'.$item->c_id.'\', '.$popupWidth.', '.$popupHeight.', \'no\');">';
 			$viewPublicationLinkWithTitle = '<a href="javascript: ht5popupWindow(\''.$publicationLink.'\', \''.$item->c_id.'\', '.$popupWidth.', '.$popupHeight.', \'no\');" title="'.$linkTitle .'">';
 		}
 		else if ($item->c_popup == PublicationDisplayMode::ModalWindow)
 		{
-			$publicationLink = JRoute::_($rawPublicationLink."&tmpl=component", false, $uri->isSSL());
+			$publicationLink = JRoute::_($rawPublicationLink."&tmpl=component", false, (int)$uri->isSSL());
 			$viewPublicationLink= '<a class="html5-modal" rel="{handler: \'iframe\', size: {x: '.$popupWidth.', y:'.$popupHeight.'}}" href="'.$publicationLink.'">';
 			$viewPublicationLinkWithTitle = '<a class="html5-modal" rel="{handler: \'iframe\', size: {x: '.$popupWidth.', y:'.$popupHeight.'}}" href="'.$publicationLink.'" title="'.$linkTitle .'">';
 		}
@@ -263,7 +263,7 @@ for ($i = 0; $i < count($this->items);)
 				$returnUrl = $_SERVER["REQUEST_URI"];
 				
 				$html[] = 	JText::_('COM_HTML5FLIPPINGBOOK_FE_SHOULD_LOGIN') . '.' . '&nbsp;';
-				$html[] = 	'<a href="' . JRoute::_('index.php?option=com_users&view=login&Itemid='.COMPONENT_ITEM_ID.'&return=' . base64_encode($returnUrl), false, $uri->isSSL()) . '">';
+				$html[] = 	'<a href="' . JRoute::_('index.php?option=com_users&view=login&Itemid='.COMPONENT_ITEM_ID.'&return=' . base64_encode($returnUrl), false, (int)$uri->isSSL()) . '">';
 				$html[] = 		JText::_('COM_HTML5FLIPPINGBOOK_FE_LOGIN_NOW');
 				$html[] = 	'</a>';
 			}
@@ -308,7 +308,7 @@ for ($i = 0; $i < count($this->items);)
 			{
 				$html[] = '<div class="html5fb-social">';
 				
-				$pageLink = JUri::base().JRoute::_('index.php?option='.COMPONENT_OPTION.'&view=publication&id='.$item->c_id.'&Itemid='.COMPONENT_ITEM_ID, false, $uri->isSSL());
+				$pageLink = JUri::base().JRoute::_('index.php?option='.COMPONENT_OPTION.'&view=publication&id='.$item->c_id.'&Itemid='.COMPONENT_ITEM_ID, false, (int)$uri->isSSL());
 
 				if ($this->config->social_google_plus_use == 1)
 				{

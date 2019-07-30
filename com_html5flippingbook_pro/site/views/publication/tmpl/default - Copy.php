@@ -14,7 +14,7 @@ $uri = JUri::getInstance();
 // Exclude tablets.
 if ($detectMobile->isMobile() && !$detectMobile->isTablet())
 {
-	JFactory::getApplication()->redirect(JRoute::_('index.php?option='.COMPONENT_OPTION.'&view=publication&id='.$this->item->c_id.'&layout=mobile&tmpl=component', FALSE, $uri->isSSL()));
+	JFactory::getApplication()->redirect(JRoute::_('index.php?option='.COMPONENT_OPTION.'&view=publication&id='.$this->item->c_id.'&layout=mobile&tmpl=component', FALSE, (int)$uri->isSSL()));
 	return true;
 }
 
@@ -684,7 +684,7 @@ if ( $this->item->opengraph_use )
 {
 	require_once(JPATH_COMPONENT_ADMINISTRATOR.'/libs/MethodsForXml.php');
 
-	$pageLink = JRoute::_('index.php?option='.COMPONENT_OPTION.'&view=publication&id='.$this->item->c_id, FALSE, $uri->isSSL());
+	$pageLink = JRoute::_('index.php?option='.COMPONENT_OPTION.'&view=publication&id='.$this->item->c_id, FALSE, (int)$uri->isSSL());
 
 	$opengraphTitle = ($this->item->opengraph_title != '' ? $this->item->opengraph_title : $this->item->c_title);
 	$opengraphAuthor = ($this->item->opengraph_author != '' ? $this->item->opengraph_author : $this->item->c_author);

@@ -15,7 +15,7 @@ if ( $this->item->opengraph_use )
 {
 	require_once(JPATH_COMPONENT_ADMINISTRATOR.'/libs/MethodsForXml.php');
 
-	$pageLink = JRoute::_('index.php?option='.COMPONENT_OPTION.'&view=publication&id='.$this->item->c_id, false, $uri->isSSL());
+	$pageLink = JRoute::_('index.php?option='.COMPONENT_OPTION.'&view=publication&id='.$this->item->c_id, false, (int)$uri->isSSL());
 
 	$opengraphTitle = ($this->item->opengraph_title != '' ? $this->item->opengraph_title : $this->item->c_title);
 	$opengraphAuthor = ($this->item->opengraph_author != '' ? $this->item->opengraph_author : $this->item->c_author);
@@ -125,7 +125,7 @@ if ($this->tmplIsComponent)
 	<body>
 		<div data-role="page" id="page-container" data-theme="a">
 			<div data-role="header" id="page-header" data-theme="a" data-position="fixed" data-fullscreen="true" data-disable-page-zoom="false">
-				<a class="ui-btn-left ui-btn-corner-all ui-btn ui-icon-home ui-btn-icon-notext ui-shadow" title=" <?php echo JText::_('COM_HTML5FLIPPINGBOOK_FE_BUTTON_HOME');?> " target="_self" href="<?php echo JRoute::_($targetLink, false, $uri->isSSL());?>" data-form="ui-icon" data-role="button" role="button"> <?php echo JText::_('COM_HTML5FLIPPINGBOOK_FE_BUTTON_HOME');?> </a>
+				<a class="ui-btn-left ui-btn-corner-all ui-btn ui-icon-home ui-btn-icon-notext ui-shadow" title=" <?php echo JText::_('COM_HTML5FLIPPINGBOOK_FE_BUTTON_HOME');?> " target="_self" href="<?php echo JRoute::_($targetLink, false, (int)$uri->isSSL());?>" data-form="ui-icon" data-role="button" role="button"> <?php echo JText::_('COM_HTML5FLIPPINGBOOK_FE_BUTTON_HOME');?> </a>
 				<h1 id="book-title"></h1>
 				<div id="book-author"></div>
 				<a class="ui-btn-right ui-btn-corner-all ui-btn ui-icon-gear ui-btn-icon-notext ui-shadow" id="book-settings" href="#settings" data-rel="dialog" data-transition="flip" title=" <?php echo JText::_('COM_HTML5FLIPPINGBOOK_FE_BUTTON_SETT');?> " data-form="ui-icon" data-role="button" role="button"> <?php echo JText::_('COM_HTML5FLIPPINGBOOK_FE_BUTTON_SETT');?> </a>

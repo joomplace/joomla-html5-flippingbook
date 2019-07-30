@@ -63,7 +63,7 @@ class HTML5FlippingBookControllerConvert extends JControllerLegacy
 		if (!$publicationId)
 		{
 			$this->setMessage(JText::_('Publication not found!'), 'WARNING');
-			$this->setRedirect(JRoute::_('index.php?option=com_html5flippingbook&view=html5flippingbook', FALSE, $uri->isSSL()));
+			$this->setRedirect(JRoute::_('index.php?option=com_html5flippingbook&view=html5flippingbook', FALSE, (int)$uri->isSSL()));
 			return true;
 		}
 
@@ -125,7 +125,7 @@ class HTML5FlippingBookControllerConvert extends JControllerLegacy
 		else
 		{
 			$this->setMessage(JText::_('Content type is not allowed here!'), 'WARNING');
-			$this->setRedirect(JRoute::_('index.php?option=com_html5flippingbook&view=html5flippingbook', FALSE, $uri->isSSL()));
+			$this->setRedirect(JRoute::_('index.php?option=com_html5flippingbook&view=html5flippingbook', FALSE, (int)$uri->isSSL()));
 			return false;
 		}
 
@@ -271,14 +271,14 @@ class HTML5FlippingBookControllerConvert extends JControllerLegacy
 			if (false !== strpos(ini_get("disable_functions"), "exec"))
 			{
 				$app->enqueueMessage(JText::_('COM_HTML5FLIPPINGBOOK_FE_DOWNLOAD_OPTION_ERROR_EXEC_FUNC'), 'WARNING');
-				$app->redirect(JRoute::_('index.php?option=com_html5flippingbook&view=html5flippingbook', FALSE, $uri->isSSL()));
+				$app->redirect(JRoute::_('index.php?option=com_html5flippingbook&view=html5flippingbook', FALSE, (int)$uri->isSSL()));
 				return false;
 			}
 
 			if (false !== strpos(ini_get("disable_functions"), "chmod"))
 			{
 				$app->enqueueMessage(JText::_('COM_HTML5FLIPPINGBOOK_FE_DOWNLOAD_OPTION_ERROR_CHMOD_FUNC'), 'WARNING');
-				$app->redirect(JRoute::_('index.php?option=com_html5flippingbook&view=html5flippingbook', FALSE, $uri->isSSL()));
+				$app->redirect(JRoute::_('index.php?option=com_html5flippingbook&view=html5flippingbook', FALSE, (int)$uri->isSSL()));
 				return false;
 			}
 			else
@@ -377,11 +377,11 @@ class HTML5FlippingBookControllerConvert extends JControllerLegacy
 			$book = new EPub();
 
 			$book->setTitle($publication->c_title);
-			$book->setIdentifier(JRoute::_('index.php?option=com_html5flippingbook&view=publication&id=' . $publication->c_id, FALSE, $uri->isSSL()), EPub::IDENTIFIER_URI); // Could also be the ISBN number, prefered for published books, or a UUID.
+			$book->setIdentifier(JRoute::_('index.php?option=com_html5flippingbook&view=publication&id=' . $publication->c_id, FALSE, (int)$uri->isSSL()), EPub::IDENTIFIER_URI); // Could also be the ISBN number, prefered for published books, or a UUID.
 			$book->setDescription($publication->c_pub_descr);
 			$book->setAuthor($publication->c_author, "");
 			$book->setPublisher($config->get('sitename'), JUri::root());
-			$book->setSourceURL(JRoute::_('index.php?option=com_html5flippingbook&view=publication&id=' . $publication->c_id, FALSE, $uri->isSSL()));
+			$book->setSourceURL(JRoute::_('index.php?option=com_html5flippingbook&view=publication&id=' . $publication->c_id, FALSE, (int)$uri->isSSL()));
 
 			$cssData = "body {\n  margin-left: .5em;\n  margin-right: .5em;\n  text-align: justify;\n}\n\np {\n  font-family: serif;\n  font-size: 10pt;\n  text-align: justify;\n  text-indent: 1em;\n  margin-top: 0px;\n  margin-bottom: 1ex;\n}\n\nh1, h2 {\n  font-family: sans-serif;\n  font-style: italic;\n  text-align: center;\n  background-color: #6b879c;\n  color: white;\n  width: 100%;\n}\n\nh1 {\n    margin-bottom: 2px;\n}\n\nh2 {\n    margin-top: -2px;\n    margin-bottom: 2px;\n}\n";
 			$book->addCSSFile("Styles/styles.css", "css1", $cssData);
@@ -548,7 +548,7 @@ class HTML5FlippingBookControllerConvert extends JControllerLegacy
 		if (!$publicationId)
 		{
 			$this->setMessage(JText::_('Publication not found!'), 'WARNING');
-			$this->setRedirect(JRoute::_('index.php?option=com_html5flippingbook&view=html5flippingbook', FALSE, $uri->isSSL()));
+			$this->setRedirect(JRoute::_('index.php?option=com_html5flippingbook&view=html5flippingbook', FALSE, (int)$uri->isSSL()));
 			return true;
 		}
 

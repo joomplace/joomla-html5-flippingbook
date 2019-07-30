@@ -115,25 +115,25 @@ class plgContentHtml5flippingbook_Content extends JPlugin
 				
 				if ($row->c_popup == 0) // Direct link.
 				{
-					$lnk = JRoute::_($publicationRawLink, false, $uri->isSSL());
+					$lnk = JRoute::_($publicationRawLink, false, (int)$uri->isSSL());
 					$linkContent = '<a class="readmore" href="' . $lnk . '">';
 				}
 				else if ($row->c_popup == 1) // Popup window.
 				{
 					JFactory::getDocument()->addScriptDeclaration('function ht5popupWindow(a, b, c, d, f) { window.open(a, b, "height=" + d + ",width=" + c + ",top=" + (screen.height - d) / 2 + ",left=" + (screen.width - c) / 2 + ",scrollbars=" + f + ",resizable").window.focus() };');
-					$lnk = JRoute::_($publicationRawLink.'&tmpl=component', false, $uri->isSSL());
+					$lnk = JRoute::_($publicationRawLink.'&tmpl=component', false, (int)$uri->isSSL());
 					$linkContent='<a class="readmore" href="javascript: ht5popupWindow(\'' . $lnk . '\', \'' . $row->c_id . '\', \'' . $popupWidth . '\', \'' . $popupHeight .
 						'\', \'no\');">';
 				}
 				else if ($row->c_popup == 2) // Direct link without template.
 				{
-					$lnk = JRoute::_($publicationRawLink.'&tmpl=component', false, $uri->isSSL());
+					$lnk = JRoute::_($publicationRawLink.'&tmpl=component', false, (int)$uri->isSSL());
 					$linkContent = '<a class="readmore" href="' . $lnk . '">';
 				}
 				else if ($row->c_popup == 3) // Modal window.
 				{	
 					JHTML::_('behavior.modal', 'a.flip-modal');
-					$lnk = JRoute::_($publicationRawLink.'&tmpl=component', false, $uri->isSSL());
+					$lnk = JRoute::_($publicationRawLink.'&tmpl=component', false, (int)$uri->isSSL());
 					$linkContent ='<a class="flip-modal readmore" rel="{handler: \'iframe\', size: {x: ' . $popupWidth . ', y:' . $popupHeight . '}}" href="' . $lnk . '">';
 				}
 				
