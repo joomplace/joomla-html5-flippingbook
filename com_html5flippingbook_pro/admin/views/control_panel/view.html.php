@@ -24,6 +24,8 @@ class HTML5FlippingBookViewControl_Panel extends JViewLegacy
 		$configurationModel = JModelLegacy::getInstance('Configuration', COMPONENT_MODEL_PREFIX);
 		$this->config = $configurationModel->getConfig();
 
+        $this->errors = $this->get('Errors');
+
 		$this->addToolbar();
 		parent::display($tpl);
 	}

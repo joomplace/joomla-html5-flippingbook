@@ -212,7 +212,7 @@ JHtml::_('behavior.modal');
                     </div>
                 </div>
             </div>
-            <?php if($this->errors){ ?>
+            <?php if(!empty($this->errors)){ ?>
                 <div class="accordion-group">
                     <div class="accordion-heading" style="background: #DC0000;border-radius: 4px;">
                         <a style="color: #FFF;font-weight: bold;text-decoration: none!important;" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseErrors">

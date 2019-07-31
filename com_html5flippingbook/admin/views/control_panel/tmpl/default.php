@@ -47,7 +47,7 @@ JHtml::_('behavior.modal');
 		var version = MethodsForXml.getNodeValue(rootNode.childNodes[2]);
 		var changelog = MethodsForXml.getNodeValue(rootNode.childNodes[3]);
 		var link = MethodsForXml.getNodeValue(rootNode.childNodes[4]);
-		
+
 		// Handling data.
         if(resultDiv) {
             if (error == "" && status == 200) {
@@ -59,7 +59,6 @@ JHtml::_('behavior.modal');
                         changelog +
                         '<br/><hr/>If you want to see full list of component changes, please follow this link: ' + '<a href="' + link + '" target="_blank">Component changelog</a>');
                     jQuery('#changelogModal').modal('show');
-
                     resultDiv.innerHTML = '<button class="btn btn-small" onclick="onBtnCheckLatestVersionClick(this, event);"><i class="icon-health"></i>Check now</button>';
                 }
             }
