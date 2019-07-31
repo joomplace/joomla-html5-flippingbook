@@ -155,6 +155,7 @@ class com_html5flippingbookInstallerScript
 		}
 
 		$rows = array(
+            (object) array("setting_name" => "orderby_category",			"setting_value" => "order"),
 			(object) array("setting_name" => "social_google_plus_use",			"setting_value" => "0"),
 			(object) array("setting_name" => "social_google_plus_size",			"setting_value" => "medium"),
 			(object) array("setting_name" => "social_google_plus_annotation",	"setting_value" => "bubble"),

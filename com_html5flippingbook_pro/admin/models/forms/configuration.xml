@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
 	<fieldset>
-		
+
+		<field
+			name="orderby_category"
+			type="list"
+			label="COM_HTML5FLIPPINGBOOK_BE_CONFIG_CATEGORY_ORDER_LABEL"
+			description="COM_HTML5FLIPPINGBOOK_BE_CONFIG_CATEGORY_ORDER_DESC"
+			default="rdate" >
+			  <option value="rdate">JGLOBAL_MOST_RECENT_FIRST</option>
+			  <option value="date">JGLOBAL_OLDEST_FIRST</option>
+			  <option value="alpha">JGLOBAL_TITLE_ALPHABETICAL</option>
+			  <option value="ralpha">JGLOBAL_TITLE_REVERSE_ALPHABETICAL</option>
+			  <option value="author">JGLOBAL_AUTHOR_ALPHABETICAL</option>
+			  <option value="rauthor">JGLOBAL_AUTHOR_REVERSE_ALPHABETICAL</option>
+			  <option value="order">JGLOBAL_ARTICLE_MANAGER_ORDER</option>
+			  <option value="rorder">JGLOBAL_ARTICLE_MANAGER_REVERSE_ORDER</option>
+		</field>
+
 		<field name="social_google_plus_use"
 			type="radio"
 			class="btn-group"

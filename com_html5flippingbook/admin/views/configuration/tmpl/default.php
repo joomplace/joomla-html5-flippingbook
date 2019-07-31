@@ -167,12 +167,17 @@ JHtml::_('formbehavior.chosen', 'select');
 	<div id="j-main-container" class="span12 form-horizontal">
 		
 		<ul class="nav nav-tabs" id="viewTabs">
+            <li><a href="#tab_category" data-toggle="tab"><?php echo  JText::_("COM_HTML5FLIPPINGBOOK_BE_CONFIG_CATEGORY_TAB");?></a></li>
 			<li><a href="#tab_social" data-toggle="tab"><?php echo  JText::_("COM_HTML5FLIPPINGBOOK_BE_CONFIG_SOCIAL_TAB");?></a></li>
 			<li><a href="#tab_global_permissions" data-toggle="tab"><?php echo  JText::_("COM_HTML5FLIPPINGBOOK_BE_CONFIG_PERMISSIONS_TAB");?></a></li>
 		</ul>
 		
 		<div class="tab-content">
-			
+
+            <div class="tab-pane" id="tab_category">
+                <?php echo $this->form->renderField('orderby_category'); ?>
+            </div>
+
 			<div class="tab-pane" id="tab_social">
 				
 				<ul class="nav nav-tabs" id="socialTabs">
