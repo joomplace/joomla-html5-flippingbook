@@ -141,6 +141,10 @@ for ($i = 0; $i < count($this->items);)
 	$html[] = '<div class="row-fluid">';
 
 	for ($j = $i; $j - $i < $colNumb; $j++) {
+
+	    if(empty($this->items[$j])){
+            continue;
+        }
 		$item = $this->items[$j];
 		if (empty($item->c_id)) continue;
 		
