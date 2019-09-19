@@ -743,6 +743,12 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
             $('.fa-search-plus').show();
             book.turn('zoom',1);
             var size = module.resize();
+            <?php
+            //vertical scroll in the window due to paddings
+            if(in_array($item->c_popup, array(1,3))){ ?>
+            size.height = size.height - 30;
+            size.width = Math.round(size.height * <?php echo $item->resolutions->width*2/$item->resolutions->height; ?>);
+            <?php } ?>
             book.turn('size',size.width,size.height);
             $(book).css({"font-size": 0.016*Math.pow($(book).turn('size').width,1.0145) + "px"});
             //book.turn('disable', false);
@@ -814,6 +820,13 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
                     width = document.documentElement.clientWidth;
                     height = Math.round(width / this.ratio);
                 }
+
+                <?php
+                //vertical scroll in the window due to paddings
+                if(in_array($item->c_popup, array(1,3))){ ?>
+                height = height - 70;
+                width = Math.round(height * this.ratio);
+                <?php } ?>
 
                 if (fullscreen) {
                     if (height > screenHeight) {
