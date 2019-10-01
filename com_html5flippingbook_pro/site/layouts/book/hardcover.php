@@ -13,7 +13,7 @@ $document = JFactory::getDocument();
 extract($displayData);
 
 foreach($pages as &$page){
-    if($page['page_image']){
+    if(!empty($page['page_image'])) {
         $page['page_image'] = COMPONENT_MEDIA_PATH. '/images/'. ( $item->c_imgsub ? $item->c_imgsubfolder.'/' : '') . 'original/'.str_replace(array('th_', 'thumb_'), '', $page['page_image']);
     }
 }
@@ -602,10 +602,10 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
                                     case 1:
                                     case $bc+1:
                                     case $bc+2:
-                                        if($page['page_image']){
+                                        if(!empty($page['page_image'])) {
                                             $page_class .='" style="background: url(\''.str_replace("\\", "/", JHtml::_('thumbler.generate', $page['page_image'], (isset($page['id']) ? $page['id'].'_' : '_'), json_encode(array('width' => $item->resolutions->width, 'height'=> $item->resolutions->height)), false)).'\'); background-size: 100% 100%;';
                                             $page_content = '';
-                                        }else{
+                                        } else {
                                             $page_class .='" style="background: #FFF; background-size: 100% 100%;';
                                             if($page['c_text']){
                                                 $page_content = '<div class="paddifier"><div class="html-content"><div>'.$page['c_text'].'</div>';
@@ -623,11 +623,11 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
                                         if(!$page_number){
                                             $page_number  = (($item->navi_settings)?($i?$i:''):(($i>1)?$i-1:''));
                                         }
-                                        $page_content = ($page['page_image'])?'<div class="paddifier"><img src="'.str_replace("\\", "/", JHtml::_('thumbler.generate', $page['page_image'], (isset($page['id']) ? $page['id'].'_' : '_'), json_encode(array('width' => $item->resolutions->width*($double_page&&($i!=2 && $i!=$bc)?2:1), 'height'=> $item->resolutions->height)), false)).'" /></div>':'<div class="paddifier"><div class="html-content"><div>'.$page['c_text'].((1)?'<span class="page-number">'.$page_number.'</span></div></div>':'').'</div>';
+                                        $page_content = !empty($page['page_image'])?'<div class="paddifier"><img src="'.str_replace("\\", "/", JHtml::_('thumbler.generate', $page['page_image'], (isset($page['id']) ? $page['id'].'_' : '_'), json_encode(array('width' => $item->resolutions->width*($double_page&&($i!=2 && $i!=$bc)?2:1), 'height'=> $item->resolutions->height)), false)).'" /></div>':'<div class="paddifier"><div class="html-content"><div>'.$page['c_text'].((1)?'<span class="page-number">'.$page_number.'</span></div></div>':'').'</div>';
                                         $page_number = 0;
                                 }
 
-                                if($page['page_image'] && strpos($page_class,'double')!==false){
+                                if(!empty($page['page_image']) && strpos($page_class,'double')!==false){
                                     ?>
                                     <div class="<?php echo $page_class; ?>" data-id="<?php echo (empty($page['id']))?'':$page['id']; ?>" style="background-image:url('<?php echo str_replace("\\", "/", JHtml::_('thumbler.generate', $page['page_image'], (isset($page['id']) ? $page['id'].'_' : '_'), json_encode(array('width' => $item->resolutions->width*($double_page?2:1), 'height'=> $item->resolutions->height)), false)); ?>')"></div>
                                     <?php
