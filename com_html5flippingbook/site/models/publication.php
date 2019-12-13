@@ -8,20 +8,15 @@
  */
 class HTML5FlippingBookModelPublication extends JModelItem
 {
-	//----------------------------------------------------------------------------------------------------
 	public function populateState()
 	{
 		$params	= JFactory::getApplication()->getParams();
-
 		$jinput = JFactory::getApplication()->input;
-
 		$id	= $jinput->get('id', 0, 'INT');
-
 		$this->setState('publication.id', $id);
-
 		$this->setState('params', $params);
 	}
-	//----------------------------------------------------------------------------------------------------
+
 	public function getItem($id = null)
 	{
 		if ($this->_item === null)
@@ -63,11 +58,8 @@ class HTML5FlippingBookModelPublication extends JModelItem
 
 				$this->_item->template = $row;
 				$this->_item->pages = $this->getPages();
-
 				$this->_item->justImages = 1;
-
 				$this->_item->contents_page = 0;
-
 				$this->_item->pages_count = count($this->_item->pages);
 
 				foreach ( $this->_item->pages as $kp => $page )
@@ -76,8 +68,6 @@ class HTML5FlippingBookModelPublication extends JModelItem
 						$this->_item->contents_page = ($kp + 1);
 					}
 				}
-
-// echo "<pre>"; print_r($this->_item); die;
 
 				if ( $this->_item->template->slider_thumbs ){
                     $this->generatePreview($this->_item);
@@ -96,7 +86,7 @@ class HTML5FlippingBookModelPublication extends JModelItem
 		}
 		return $this->_item;
 	}
-	//----------------------------------------------------------------------------------------------------
+
 	public function getResolutions()
 	{
 		$jinput = JFactory::getApplication()->input;
@@ -148,42 +138,32 @@ class HTML5FlippingBookModelPublication extends JModelItem
         }
 	}
 
-	private function generatePreview( $item )
+	private function generatePreview($item)
 	{
 		jimport('joomla.image.image');
 		jimport('joomla.filesystem.file');
 
-		function imgCreate($file)
-		{
+		function imgCreate($file) {
 			$cropWidth = 57;
 			$cropHeight = 73;
 
-			try
-			{
+			try {
 				$image = new JImage();
 				$image->loadFile($file);
 
 				// in joomla 3.0 cropResize doesn't exists
-				if ( method_exists($image, 'cropResize') )
-				{
+				if (method_exists($image, 'cropResize')) {
 					$image->cropResize($cropWidth, $cropHeight, false);
-				}
-				else
-				{
+				} else {
 					$rx = ($cropWidth > 0) ? ($image->getWidth() / $cropWidth) : 0;
 					$ry = ($cropHeight > 0) ? ($image->getHeight() / $cropHeight) : 0;
-
 					$ratio = ($rx > $ry) ? $ry : $rx;
-
 					$nheight = (int)round($image->getWidth() / $ratio);
 					$nwidth = (int)round($image->getHeight() / $ratio);
 
-					if ( ($image->getWidth() / $cropWidth) > ($image->getHeight() / $cropHeight))
-					{
+					if (($image->getWidth() / $cropWidth) > ($image->getHeight() / $cropHeight)) {
 						$image->resize($cropWidth, $nheight, false);
-					}
-					else
-					{
+					} else {
 						$image->resize($nwidth, $cropHeight, false);
 					}
 
@@ -193,39 +173,34 @@ class HTML5FlippingBookModelPublication extends JModelItem
 				$image->toFile($file.'tmp', IMAGETYPE_JPEG, array('quality' => 95));
 
 				// in joomla 3.0 destroy doesn't exists
-				if ( method_exists($image, 'destroy'))
-				{
+				if (method_exists($image, 'destroy')) {
 					$image->destroy();
 				}
 
 				$handle = imagecreatefromjpeg($file.'tmp');
-				if ( !is_resource($handle) )    return false;
+				if (!is_resource($handle)) {
+				    return false;
+                }
 				unlink($file.'tmp');
 
 				return $handle;
-			}
-			catch (Exception $e ) {
+			} catch (Exception $e) {
                 JFactory::getApplication()->enqueueMessage($e->getMessage());
             }
 		}
 
-		function textImgCreate( $page_num )
-		{
-			if ( $page_num%2==0 )	// is right
-			{
+		function textImgCreate($page_num) {
+			if ( $page_num%2==0 ) {	    // is right
 				$file = COMPONENT_MEDIA_PATH . '/textpage_right.jpg';
 				JFile::copy(JPATH_BASE . '/components/'.COMPONENT_OPTION.'/assets/images/textpage_right.jpg', $file);
-			}
-			else
-			{
+			} else {
 				$file = COMPONENT_MEDIA_PATH . '/textpage_left.jpg';
 				JFile::copy(JPATH_BASE . '/components/'.COMPONENT_OPTION.'/assets/images/textpage_left.jpg', $file);
 			}
 
 			$handle = imgCreate($file);
 
-			switch ( strlen($page_num) )
-			{
+			switch (strlen($page_num)) {
 				case 1:
 					$fontsize = 20;
 					$x = 20;
@@ -253,32 +228,28 @@ class HTML5FlippingBookModelPublication extends JModelItem
 			return $handle;
 		}
 
-		if ( !file_exists(COMPONENT_MEDIA_PATH.'/thumbs/preview_'.$item->c_id.'.gif') || filesize(COMPONENT_MEDIA_PATH.'/thumbs/preview_'.$item->c_id.'.gif') < 200 )
-		{
+		if ( !file_exists(COMPONENT_MEDIA_PATH.'/thumbs/preview_'.$item->c_id.'.gif') || filesize(COMPONENT_MEDIA_PATH.'/thumbs/preview_'.$item->c_id.'.gif') < 200 ) {
 			$images = array();
-
 			$countPages = count($item->pages);
 			$k = 1;
-			foreach ($item->pages as $page_num => $page)
-			{
-				if ( $page['c_enable_image'] )
-				{
-					$imagedata = imgCreate(COMPONENT_MEDIA_PATH. '/images/'. ( $item->c_imgsub ? $item->c_imgsubfolder.'/' : ''). $page['page_image']);
 
-					if ($item->navi_settings == 0 && !in_array($page_num, array(0, 1, ($countPages - 1), $countPages)))
+			foreach ($item->pages as $page_num => $page) {
+				if ( $page['c_enable_image'] ) {
+                    if(is_file(COMPONENT_MEDIA_PATH. '/images/'. ( $item->c_imgsub ? $item->c_imgsubfolder.'/' : ''). $page['page_image'])){
+                        $imagedata = imgCreate(COMPONENT_MEDIA_PATH. '/images/'. ( $item->c_imgsub ? $item->c_imgsubfolder.'/' : ''). $page['page_image']);
+                    }else{
+                        $imagedata = imgCreate(COMPONENT_MEDIA_PATH. '/images/'. ( $item->c_imgsub ? $item->c_imgsubfolder.'/' : '').'th_'. $page['page_image']);
+                    }
+
+                    if ($item->navi_settings == 0 && !in_array($page_num, array(0, 1, ($countPages - 1), $countPages)))
 					{
 						$k++;
 					}
-				}
-				else
-				{
+				} else {
 					$page_num += 1;
-					if ($item->navi_settings == 0 && ($page_num <= 2 || $page_num == $countPages || $page_num == ($countPages - 1)))
-					{
+					if ($item->navi_settings == 0 && ($page_num <= 2 || $page_num == $countPages || $page_num == ($countPages - 1))) {
 						$page_num = 0;
-					}
-					elseif ($item->navi_settings == 0)
-					{
+					} elseif ($item->navi_settings == 0) {
 						$page_num = $k;
 						$k++;
 					}
@@ -286,23 +257,24 @@ class HTML5FlippingBookModelPublication extends JModelItem
 					$imagedata = textImgCreate($page_num);
 				}
 
-				if ( $imagedata )
-					$images[] = $imagedata;
+				if ( $imagedata ) {
+                    $images[] = $imagedata;
+                }
 			}
 
 			$firstImage = $images[0];
 			unset($images[0]);
 
-			$sizeofForHeight = ( sizeof($images)%2 == 0 ? sizeof($images) : sizeof($images)+1);
+			$sizeofForHeight = (sizeof($images)%2 == 0 ? sizeof($images) : sizeof($images)+1);
 
 			$dest = imagecreatetruecolor( 114, ( 73 * $sizeofForHeight )/2 + 73);
 			imagecopy($dest, $firstImage, 0, 0, 0, 0, imagesx($firstImage), imagesy($firstImage));
 
-			foreach ( array_chunk($images,2) as $key => $image )
-			{
+			foreach ( array_chunk($images,2) as $key => $image ) {
 				imagecopy($dest, $image[0], 0, (73*($key+1)), 0, 0, imagesx($image[0]), imagesy($image[0]));
-				if ( @$image[1] )
-					imagecopy($dest, $image[1], 58, (73*($key+1)), 0, 0, imagesx($image[1]), imagesy($image[1]));
+				if (@$image[1]) {
+                    imagecopy($dest, $image[1], 58, (73 * ($key + 1)), 0, 0, imagesx($image[1]), imagesy($image[1]));
+                }
 			}
 
 			@chmod(COMPONENT_MEDIA_PATH.'/thumbs', 0757);
