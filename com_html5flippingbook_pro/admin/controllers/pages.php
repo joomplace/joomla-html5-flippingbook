@@ -422,7 +422,6 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
 
     public function takefile()
     {
-
         require_once(JPATH_COMPONENT_ADMINISTRATOR . '/libs/MethodsForStrings.php');
 
         $publicationId = $this->input->get('publication_id', '', 'INT');
@@ -433,17 +432,6 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
         jimport('joomla.filesystem.folder');
 
         $pdfFile = $this->input->files->get('pdf_file');
-
-        // Reading publication data.
-        $db = JFactory::getDBO();
-
-        $query = $db->getQuery(true)
-            ->select('*')
-            ->from('`#__html5fb_publication`')
-            ->where('`c_id` = ' . $publicationId);
-        $db->setQuery($query);
-        $publication = $db->loadObject();
-
 
         // Defining temporary directory
 //        $tmpFolder = MethodsForStrings::GenerateRandomString(16, 'lower');
@@ -517,12 +505,30 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
             $img = new Imagick();
             $img->readImage($PDFFileFullName);
             $count = $img->getNumberImages();
+            //https://git.joomplace.com/joomplace/html5-flippingbook/-/issues/247  - The number of pages was 4 times the real one.
+            //This seems to happen when the PDF is having multiple layers. It works correctly when there is only images inside the PDF.
+            $img->destroy();
+
+            $img = new Imagick();
+            $img->pingImage($PDFFileFullName);
+            $count_ping = $img->getNumberImages();
+            $img->destroy();
+
+            if($count > $count_ping) {
+                $count = $count_ping;
+                $wrong_count = '&wcount=1';
+            } else {
+                $wrong_count = '';
+            }
+
         } elseif (!class_exists('Imagick') && function_exists('exec')) {
             // Determine num of pages
             $count = (int)$this->_getPDFPages($PDFFileFullName);
         }
+
         $imgName = MethodsForStrings::GenerateRandomString(5, 'lower');
         $dir = base64_encode($PDFFileFullName);
+
         $this->setRedirect('index.php?' .
             'option=' . COMPONENT_OPTION .
             '&view=pages' .
@@ -532,13 +538,13 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
             '&publication_id=' . $publicationId .
             '&general_pages_title=' . $pagesTitle .
             '&image_quality=' . $quality .
-            '&count=' . $count
+            '&count=' . $count .
+            $wrong_count
         );
     }
 
     public function convert()
     {
-
         jimport('joomla.filesystem.file');
         jimport('joomla.filesystem.folder');
 
@@ -550,6 +556,7 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
         $fName = $this->input->getString('fName');
         $imgName = $this->input->get('imgName');
         $quality = $this->input->get('image_quality', 100, 'INT');
+        $wrong_count = $this->input->getInt('wcount', 0);
 
         $pdfDirName = JPATH_SITE . '/media/' . COMPONENT_OPTION . '/pdf';
         $PDFFileFullName = $pdfDirName . '/' . $fName;
@@ -606,7 +613,10 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
         $page_number = $this->input->get('pageNumb', '', 'INT') - 1;
         $outputFileName = 'thumb_' . $imgName . "-0.jpg";
 
-        if (class_exists('Imagick')) {
+        //Convert a PDF multilayer file in un single JPG file -
+        //ImageMagick delegates rasterization of PDF files to Ghostscript. Ghostscript can't process specified layers.
+
+        if (class_exists('Imagick') && !$wrong_count) {
             // ** setting width and height causes "Invalid IHDR data" with density(192 or 300)
             // Assume that everage user monitor is 1920x1080 so setting up max image sizes
             //Set max image width of 960 (1960/2)
@@ -711,7 +721,8 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
             }
 
             $img->destroy();
-        } elseif (!class_exists('Imagick') && function_exists('exec')) {
+
+        } elseif ((!class_exists('Imagick') || $wrong_count) && function_exists('exec')) {
             // Determine num of pages
 //            $num_pages = (int)$this->_getPDFPages($PDFFileFullName);
 
@@ -737,6 +748,7 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
                 $image->destroy();
             }
         }
+
         $pagesInfoCreated = $this->registerPagesInDB([$imgName . "-" . $page_number . ".jpg"], $publicationId, $pagesTitle, array(), $fName, $outputFileName);
 
         if (!$pagesInfoCreated) {
@@ -748,6 +760,7 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
         if ($islast) {
             echo 1;
         }
+
         die();
     }
 
