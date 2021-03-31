@@ -500,6 +500,7 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
 //            return;
 //        }
 
+        $wrong_count = '';
 
         if (class_exists('Imagick')) {
             $img = new Imagick();
@@ -517,8 +518,6 @@ class HTML5FlippingBookControllerPages extends JControllerAdmin
             if($count > $count_ping) {
                 $count = $count_ping;
                 $wrong_count = '&wcount=1';
-            } else {
-                $wrong_count = '';
             }
 
         } elseif (!class_exists('Imagick') && function_exists('exec')) {
