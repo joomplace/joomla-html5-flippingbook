@@ -353,12 +353,13 @@ class HTML5FlippingBookModelPublication extends JModelItem
                 if ( $imagedata )
                     $images[] = $imagedata;
             }
-            $firstImage = $images[0];
+            $firstImage = $images[0] ?? null;
             unset($images[0]);
 
             $sizeofForHeight = ( sizeof($images)%2 == 0 ? sizeof($images) : sizeof($images)+1);
 
             $dest = imagecreatetruecolor( 114, ( 73 * $sizeofForHeight )/2 + 73);
+            if (is_resource($firstImage) || $firstImage instanceof \GdImage) {
             imagecopy($dest, $firstImage, 0, 0, 0, 0, imagesx($firstImage), imagesy($firstImage));
 
             foreach ( array_chunk($images,2) as $key => $image )
@@ -370,6 +371,7 @@ class HTML5FlippingBookModelPublication extends JModelItem
 
             @chmod(COMPONENT_MEDIA_PATH.'/thumbs', 0757);
             imagegif($dest, COMPONENT_MEDIA_PATH.'/thumbs/preview_'.$item->c_id.'.gif');
+         }
         }
         foreach($item->pages as $page_num => $page){
             //c_enable_text is "table of content"

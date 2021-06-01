@@ -21,7 +21,7 @@ abstract class HTML5FlippingBookFrontHelper
 	 *
 	 * @return stdClass
 	 */
-	public static function htmlPublHelper($mobile = FALSE, $tablet = FALSE, $item, $link = FALSE, $fullPath = FALSE)
+	public static function htmlPublHelper($mobile = FALSE, $tablet = FALSE, $item='', $link = FALSE, $fullPath = FALSE)
 	{
 		$uri  = JUri::getInstance();
 		$user = JFactory::getUser();
@@ -205,7 +205,8 @@ abstract class HTML5FlippingBookFrontHelper
 	 *
 	 * @return string
 	 */
-	public static function createBookShelf($list = 'reading', $shelf = array(), $isMobile = FALSE, $isTablet = FALSE, $shelfN = 1, $config)
+	public static function createBookShelf($list = 'reading', $shelf = array(), $isMobile = FALSE, $isTablet = FALSE,
+        $shelfN = 1, $config='')
 	{
 		$str = '';
         if(!is_array($shelf) || empty($shelf)){
@@ -385,7 +386,8 @@ abstract class HTML5FlippingBookFrontHelper
 	 *
 	 * @return string
 	 */
-	public static function createPublicationList($list, $listData, $isMobile = FALSE, $isTablet = FALSE, $publbuttontext, $config)
+	public static function createPublicationList($list, $listData, $isMobile = FALSE, $isTablet = FALSE,
+        $publbuttontext='', $config='')
 	{
 		$user = JFactory::getUser();
 		$downloadOptionAccess = $user->authorise('core.download', COMPONENT_OPTION);

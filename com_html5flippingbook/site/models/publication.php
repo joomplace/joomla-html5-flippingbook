@@ -262,7 +262,7 @@ class HTML5FlippingBookModelPublication extends JModelItem
                 }
 			}
 
-			$firstImage = $images[0];
+            $firstImage = $images[0] ?? null;
 			unset($images[0]);
 
 			$sizeofForHeight = (sizeof($images)%2 == 0 ? sizeof($images) : sizeof($images)+1);
