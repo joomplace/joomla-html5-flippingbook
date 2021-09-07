@@ -262,23 +262,28 @@ class HTML5FlippingBookModelPublication extends JModelItem
                 }
 			}
 
-			$firstImage = $images[0];
-			unset($images[0]);
+            $firstImage = !empty($images[0]) ? $images[0] : null;
+            if($firstImage) {
+                unset($images[0]);
+                $sizeofForHeight = (sizeof($images) % 2 == 0 ? sizeof($images) : sizeof($images) + 1);
+                $dest = imagecreatetruecolor(114, (73 * $sizeofForHeight) / 2 + 73);
 
-			$sizeofForHeight = (sizeof($images)%2 == 0 ? sizeof($images) : sizeof($images)+1);
+                if (is_resource($firstImage)
+                    || (version_compare(PHP_VERSION, '8.0.0', '>=') && $firstImage instanceof \GdImage)
+                ) {
+                    imagecopy($dest, $firstImage, 0, 0, 0, 0, imagesx($firstImage), imagesy($firstImage));
 
-			$dest = imagecreatetruecolor( 114, ( 73 * $sizeofForHeight )/2 + 73);
-			imagecopy($dest, $firstImage, 0, 0, 0, 0, imagesx($firstImage), imagesy($firstImage));
+                    foreach (array_chunk($images, 2) as $key => $image) {
+                        imagecopy($dest, $image[0], 0, (73 * ($key + 1)), 0, 0, imagesx($image[0]), imagesy($image[0]));
+                        if (@$image[1]) {
+                            imagecopy($dest, $image[1], 58, (73 * ($key + 1)), 0, 0, imagesx($image[1]), imagesy($image[1]));
+                        }
+                    }
 
-			foreach ( array_chunk($images,2) as $key => $image ) {
-				imagecopy($dest, $image[0], 0, (73*($key+1)), 0, 0, imagesx($image[0]), imagesy($image[0]));
-				if (@$image[1]) {
-                    imagecopy($dest, $image[1], 58, (73 * ($key + 1)), 0, 0, imagesx($image[1]), imagesy($image[1]));
+                    @chmod(COMPONENT_MEDIA_PATH . '/thumbs', 0757);
+                    imagegif($dest, COMPONENT_MEDIA_PATH . '/thumbs/preview_' . $item->c_id . '.gif');
                 }
-			}
-
-			@chmod(COMPONENT_MEDIA_PATH.'/thumbs', 0757);
-			imagegif($dest, COMPONENT_MEDIA_PATH.'/thumbs/preview_'.$item->c_id . '.gif');
+            }
 		}
 	}
 
