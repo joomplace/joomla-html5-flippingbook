@@ -320,7 +320,7 @@ for ($i = 0; $i < count($this->items);)
 				}
 
 				if ($this->config->social_facebook_use == 1) {
-					$html[] = '<div class="html5fb-social-btn">' .
+					$html[] = '<div class="html5fb-social-btn html5fb-social-btn-fb">' .
 						'<div class="fb-like" data-show-faces="false" data-width="50" data-colorscheme="light" data-share="false" ' .
 						' data-action="' . $this->config->social_facebook_verb . '"' .
 						' data-layout="' . $this->config->social_facebook_layout . '"' .

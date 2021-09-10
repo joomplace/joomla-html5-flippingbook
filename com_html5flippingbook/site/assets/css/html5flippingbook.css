@@ -659,11 +659,26 @@ html > /**/ body #html5flippingbook .html5fb-descr {
 
 #html5flippingbook .html5fb-social {
     margin: 0;
-    position: absolute;
+    display: flex;
+}
+
+#html5flippingbook  .html5fb-social {
+    flex-direction: column;
+}
+#html5flippingbook  .html5fb-list-item.span12 .html5fb-social {
+    flex-direction: row;
+}
+#html5flippingbook  .html5fb-social-btn-fb {
+    margin-left: -12px;
+}
+#html5flippingbook .html5fb-social-btn-fb {
+    margin-top: 5px;
+}
+#html5flippingbook  .html5fb-list-item.span12 .html5fb-social-btn-fb {
+    margin-top: 0;
 }
 
 #html5flippingbook .html5fb-social-btn {
-    float: left;
     min-width: 70px;
 }
 
