@@ -13,8 +13,9 @@ class HtmlHelper
 	public static function addCss()  
 	{
 		$document = JFactory::getDocument();
-		
-		$document->addStyleSheet(COMPONENT_CSS_URL.'html5flippingbook.css');
+        $xml = JFactory::getXML(JPATH_COMPONENT_ADMINISTRATOR .'/html5flippingbook.xml');
+        $component_version = $xml->version;
+		$document->addStyleSheet(COMPONENT_CSS_URL.'html5flippingbook.css?v='.$component_version);
 	}
 	//----------------------------------------------------------------------------------------------------
 	public static function showTitle($viewTitle = '', $toolbarIconClass = '')  

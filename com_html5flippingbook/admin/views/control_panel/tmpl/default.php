@@ -261,92 +261,6 @@ JHtml::_('behavior.modal');
     </div>
     <br>
 
-	<!-- <table class="table"> -->
-		<!-- Hide current and latest version since integrate Joomla update system -->
-<!--		<tr>-->
-<!--			<th colspan="100%" class="html5fb_control_panel_title">-->
-<!--				--><?php //echo JText::_('COM_HTML5FLIPPINGBOOK'); ?><!--&nbsp;--><?php //echo JText::_('COM_HTML5FLIPPINGBOOK_BE_CONTROL_PANEL_COMPONENT_DESC') .
-//					" 3.x+. " . JText::_('COM_HTML5FLIPPINGBOOK_BE_CONTROL_PANEL_DEVELOPED_BY'); ?><!-- <a href="http://www.joomplace.com/" target="_blank">JoomPlace</a>.-->
-<!--			</th>-->
-<!--		</tr>-->
-<!--		<tr>-->
-<!--			<td width="120">--><?php //echo JText::_('COM_HTML5FLIPPINGBOOK_BE_CONTROL_PANEL_INSTALLED_VERSION') . ':'; ?><!--</td>-->
-<!--			<td class="html5fb_control_panel_current_version">--><?php //echo $this->config->component_version; ?><!--</td>-->
-<!--		</tr>-->
-<!--		<tr>-->
-<!--			<td>--><?php //echo JText::_('COM_HTML5FLIPPINGBOOK_BE_CONTROL_PANEL_LATEST_VERSION') . ':'; ?><!--</td>-->
-<!--			<td>-->
-<!--				<div id="html5fbLatestVersion">-->
-<!--					<button class="btn btn-small" onclick="onBtnCheckLatestVersionClick(this, event);">-->
-<!--						<i class="icon-health"></i>-->
-<!--						--><?php //echo JText::_('COM_HTML5FLIPPINGBOOK_BE_CONTROL_PANEL_CHECK_NOW'); ?>
-<!--					</button>-->
-<!--				</div>-->
-<!--			</td>-->
-<!--		 </tr>-->
-	<!--	 <tr>
-			<td><?php echo JText::_('COM_HTML5FLIPPINGBOOK_BE_CONTROL_PANEL_ABOUT') . ':'; ?></td>
-			<td>
-				<?php echo JText::_('COM_HTML5FLIPPINGBOOK_BE_CONTROL_PANEL_ABOUT_DESC'); ?>
-			</td>
-		</tr>
-		<tr>
-			<td><?php echo JText::_('COM_HTML5FLIPPINGBOOK_BE_CONTROL_PANEL_FORUM') . ':'; ?></td>
-			<td>
-				<a target="_blank" href="http://www.joomplace.com/forum/joomla-components/joomlahtml5fbazine.html"
-					>http://www.joomplace.com/forum/joomla-components/joomlahtml5ne.html</a>
-			</td>
-		</tr>
-		<tr>
-			<td><?php echo JText::_('COM_HTML5FLIPPINGBOOK_BE_CONTROL_PANEL_CHANGELOG') . ':'; ?></td>
-			<td>
-				<div class="button2-left"><div class="blank">
-					<button class="btn btn-small" onclick="onBtnShowChangelogClick(this, event);">
-						<i class="icon-file"></i>
-						<?php echo JText::_('COM_HTML5FLIPPINGBOOK_BE_CONTROL_PANEL_CHANGELOG_VIEW'); ?>
-					</button>
-				</div>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<table cellpadding="5" class="html5fb_control_panel_news_table"> -->
-					<!--<tr>
-						<td section="">
-							<img src="<?php echo COMPONENT_IMAGES_URL.'tick.png'; ?>"><?php echo JText::_('COM_HTML5FLIPPINGBOOK_BE_CONTROL_PANEL_SAY_THANKS_TITLE'); ?>
-						</td>
-					</tr>
-					<tr>
-						<td class="html5fb_control_panel_thanks_cell">
-							<div class="html5fb_control_panel_thanks">
-								<?php echo JText::_('COM_HTML5FLIPPINGBOOK_BE_CONTROL_PANEL_SAY_THANKS_1'); ?>
-								<a href="http://extensions.joomla.org/extensions/directory-a-documentation/portfolio/11307" target="_blank">http://extensions.joomla.org</a>
-								<?php echo JText::_('COM_HTML5FLIPPINGBOOK_BE_CONTROL_PANEL_SAY_THANKS_2'); ?>
-							</div>
-							<div class="html5fb_control_panel_rate_us">
-								<a href="http://extensions.joomla.org/extensions/directory-a-documentation/portfolio/11307" target="_blank">
-									<img src="<?php echo COMPONENT_IMAGES_URL.'rate_us.png'; ?>" />
-								</a>
-							</div>
-						</td>
-					</tr>-->
-				<!--	<tr>
-						<td section="">
-							<img src="<?php echo COMPONENT_IMAGES_URL.'tick.png'; ?>"><?php echo JText::_('COM_HTML5FLIPPINGBOOK_BE_CONTROL_PANEL_NEWS_TITLE'); ?>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2" class="html5fb_control_panel_news_cell" style="background-image: linear-gradient(to bottom, #FFFFFF, #EEEEEE);">
-							<div id="html5fbLatestNews" class="html5fb_control_panel_news">
-								<img src="<?php echo COMPONENT_IMAGES_URL.'ajax_loader_16x11.gif'; ?>" />
-							</div>
-						</td>
-					</tr>
-				</table> -->
-			</td>
-		</tr>
-	</table>
-	
 	<div class="modal hide fade" id="changelogModal">
 		<div class="modal-header">
 			<button type="button" role="presentation" class="close" style="z-index: 2000" data-dismiss="modal">x</button>
@@ -359,3 +273,16 @@ JHtml::_('behavior.modal');
 		</div>
 	</div>
 </div>
+
+<div class="admin_banners">
+    <div class="admin_banner admin_banner_support"><div><?php echo JText::_("COM_HTML5FLIPPINGBOOK_ADMIN_BANNER_SUPPORT"); ?><i class="icon-remove"></i></div></div>
+    <div class="admin_banner admin_banner_dev"><div><?php echo JText::_("COM_HTML5FLIPPINGBOOK_ADMIN_BANNER_DEVELOPMENT"); ?><i class="icon-remove"></i></div></div>
+    <div class="admin_banner admin_banner_donate"><div><?php echo JText::_("COM_HTML5FLIPPINGBOOK_ADMIN_BANNER_DONATE"); ?><i class="icon-remove"></i></div></div>
+</div>
+<script>
+    jQuery(function($){
+        $('.admin_banner .icon-remove').on('click', function(){
+            $(this).closest('.admin_banner').remove();
+        });
+    });
+</script>
