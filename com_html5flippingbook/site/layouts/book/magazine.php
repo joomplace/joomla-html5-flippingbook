@@ -27,23 +27,25 @@ if($item->template->hard_wrapp){
     if($item->contents_page){
         $item->contents_page+=2;
     }
+
+    $pages_0_publication_id = !empty($pages[0]) ? $pages[0]['publication_id'] : '';
     $wrap_up['before'][] = array(
         'page_image' => JPATH_SITE.'/components/com_html5flippingbook/assets/images/front-side.jpg',
-        'id' => 'frontside_' . $pages[0]['publication_id']
+        'id' => 'frontside_' . $pages_0_publication_id
     );
     if($item->template->hard_wrapp_blanked){
         $wrap_up['before'][] = array(
             'page_image' => JPATH_SITE.'/components/com_html5flippingbook/assets/images/front-in.jpg',
-            'id' => 'frontin_' . $pages[0]['publication_id']
+            'id' => 'frontin_' . $pages_0_publication_id
         );
         $wrap_up['after'][] = array(
             'page_image' => JPATH_SITE.'/components/com_html5flippingbook/assets/images/back-in.jpg',
-            'id' => 'backin_' . $pages[0]['publication_id']
+            'id' => 'backin_' . $pages_0_publication_id
         );
     }
     $wrap_up['after'][] = array(
         'page_image' => JPATH_SITE.'/components/com_html5flippingbook/assets/images/back-side.jpg',
-        'id' => 'backside_' . $pages[0]['publication_id']
+        'id' => 'backside_' . $pages_0_publication_id
     );
 
     $pages_count = count($wrap_up['before']) + $item->pages_count + count($wrap_up['after']);
