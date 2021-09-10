@@ -165,7 +165,7 @@ JHtml::_('behavior.modal');
 			<img src="<?php echo COMPONENT_IMAGES_URL.'icon_48_settings.png'; ?>">
 			<div><?php echo $this->escape(JText::_('COM_HTML5FLIPPINGBOOK_BE_MENU_CONFIGURATION')); ?></div>
 		</div>
-		<div class="btn" onclick="window.open('http://www.joomplace.com/video-tutorials-and-documentation/html5-flipping-book/index.html?description.htm', '_blank');">
+		<div class="btn" onclick="window.open('https://www.joomplace.com/video-tutorials-and-documentation/html5-flipping-book/index.html?description.htm', '_blank');">
 			<img src="<?php echo COMPONENT_IMAGES_URL.'icon_48_help.png'; ?>">
 			<div><?php echo $this->escape(JText::_('COM_HTML5FLIPPINGBOOK_BE_SUBMENU_HELP')); ?></div>
 		</div>
@@ -187,7 +187,7 @@ JHtml::_('behavior.modal');
                             <tr>
                                 <th colspan="2" class="a_comptitle">
                                     <strong><?php echo JText::_('COM_HTML5FLIPPINGBOOK'); ?></strong> component for Joomla! 3.0 Developed by
-                                    <a href="http://www.JoomPlace.com" target="_blank" rel="noopener noreferrer">JoomPlace</a>.
+                                    <a href="https://www.joomplace.com" target="_blank" rel="noopener noreferrer">JoomPlace</a>.
                                 </th>
                             </tr>
                             <tr>
@@ -198,10 +198,6 @@ JHtml::_('behavior.modal');
                             <tr>
                                 <td valign="top" align="left">About:</td>
                                 <td align="left"><?php echo JText::_('COM_HTML5FLIPPINGBOOK_ABOUT_TEXT'); ?></td>
-                            </tr>
-                            <tr>
-                                <td align="left">Community Forum:</td>
-                                <td align="left"><a target="_blank" rel="noopener noreferrer" href="https://www.joomplace.com/forum/joomla-components/html5-flipping-book.html">https://www.joomplace.com/forum/joomla-components/html5-flipping-book.html</a></td>
                             </tr>
                             <tr>
                                 <td align="left">Support Helpdesk:</td>
@@ -251,7 +247,7 @@ JHtml::_('behavior.modal');
                         </div>
                         <div style="float:right; margin:3px 5px 5px 5px;">
                             <a href="https://extensions.joomla.org/extensions/extension/directory-a-documentation/portfolio/html5-flipping-book/" target="_blank" rel="noopener noreferrer">
-                                <img src="http://www.joomplace.com/components/com_jparea/assets/images/rate-2.png" />
+                                <img src="https://www.joomplace.com/components/com_jparea/assets/images/rate-2.png" />
                             </a>
                         </div>
                     </div>
