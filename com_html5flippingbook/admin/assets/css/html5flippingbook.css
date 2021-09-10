@@ -647,17 +647,89 @@ select.html5fb_upload_file + div {
 
 #j-main-container
 {
-
         background-color: white !important;
-
         border: 0px solid transparent !important;
-
 }
 
-#collapseTwo:hover
-{
-
-        padding-bottom: 46px !important;
-
+#collapseTwo:hover {
+	padding-bottom: 46px !important;
 }
+
+/* admin banners start */
+.admin_banners {
+	clear: both;
+	display: flex;
+	margin-top: 100px;
+	position: relative;
+	top: 50px;
+}
+.admin_banner {
+	display: flex;
+	background: #fff;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	font-size: 14px;
+	line-height: 20px;
+	padding: 10px 20px;
+	box-sizing: border-box;
+	position: relative;
+	margin-right: 50px;
+	width: 400px;
+}
+.admin_banner:before, .admin_banner:after {
+	z-index: -1;
+	position: absolute;
+	content: "";
+	bottom: 18px;
+	left: 10px;
+	width: 50%;
+	top: 80%;
+	background: #777;
+	-webkit-box-shadow: 0 15px 10px #777;
+	-moz-box-shadow: 0 15px 10px #777;
+	box-shadow: 0 15px 10px #777;
+	-webkit-transform: rotate(-3deg);
+	-moz-transform: rotate(-3deg);
+	-o-transform: rotate(-3deg);
+	-ms-transform: rotate(-3deg);
+	transform: rotate(-3deg);
+}
+.admin_banner:after {
+	-webkit-transform: rotate(3deg);
+	-moz-transform: rotate(3deg);
+	-o-transform: rotate(3deg);
+	-ms-transform: rotate(3deg);
+	transform: rotate(3deg);
+	right: 10px;
+	left: auto;
+}
+.admin_banner a {
+	text-decoration: underline;
+}
+@media (max-width: 980px) {
+	.admin_banners {
+		align-items: center;
+		flex-direction: column;
+	}
+	.admin_banner {
+		width: 80%;
+		margin-bottom: 30px;
+		margin-right: 0;
+	}
+	.admin_banner:last-of-type {
+		margin-bottom: 0;
+	}
+	.admin_banner:before, .admin_banner:after {
+		top: 60%;
+	}
+}
+.admin_banner .icon-remove {
+	position: absolute;
+	font-size: 10px;
+	right: 5px;
+	top: 5px;
+	color: #cccccc;
+	cursor: pointer;
+}
+/* admin banners end */
 

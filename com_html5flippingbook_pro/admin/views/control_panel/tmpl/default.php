@@ -261,3 +261,16 @@ JHtml::_('behavior.modal');
         </div>
     </div>
 </div>
+
+<div class="admin_banners">
+    <div class="admin_banner admin_banner_support"><div><?php echo JText::_("COM_HTML5FLIPPINGBOOK_ADMIN_BANNER_SUPPORT"); ?><i class="icon-remove"></i></div></div>
+    <div class="admin_banner admin_banner_dev"><div><?php echo JText::_("COM_HTML5FLIPPINGBOOK_ADMIN_BANNER_DEVELOPMENT"); ?><i class="icon-remove"></i></div></div>
+    <div class="admin_banner admin_banner_donate"><div><?php echo JText::_("COM_HTML5FLIPPINGBOOK_ADMIN_BANNER_DONATE"); ?><i class="icon-remove"></i></div></div>
+</div>
+<script>
+    jQuery(function($){
+        $('.admin_banner .icon-remove').on('click', function(){
+            $(this).closest('.admin_banner').remove();
+        });
+    });
+</script>
