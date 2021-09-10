@@ -1686,7 +1686,7 @@ span.highlight {
 
 .tb_social .fa-envelope, .tb_social .fa-search-plus,
 .tb_social .fa-expand, .tb_social .fa-facebook,
-.tb_social .fa-google-plus, .tb_social .fa-twitter,
+.tb_social .fa-twitter,
 .tb_social .fa-times, .tb_social .fa-file-pdf-o,
 .tb_social .fa-list{
     width: 22px;
@@ -1703,7 +1703,7 @@ span.highlight {
 
 .tb_social .fa-envelope:hover, .tb_social .fa-search-plus:hover,
 .tb_social .fa-expand:hover, .tb_social .fa-facebook:hover,
-.tb_social .fa-google-plus:hover, .tb_social .fa-twitter:hover,
+.tb_social .fa-twitter:hover,
 .tb_social .fa-times:hover, .tb_social .fa-file-pdf-o:hover,
 .tb_social .fa-list:hover{
     color: black;

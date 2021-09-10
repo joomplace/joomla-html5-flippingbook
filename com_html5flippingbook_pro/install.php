@@ -155,11 +155,6 @@ class com_html5flippingbookInstallerScript
 		}
 
 		$rows = array(
-			(object) array("setting_name" => "social_google_plus_use",			"setting_value" => "0"),
-			(object) array("setting_name" => "social_google_plus_size",			"setting_value" => "medium"),
-			(object) array("setting_name" => "social_google_plus_annotation",	"setting_value" => "bubble"),
-			(object) array("setting_name" => "social_google_plus_language",		"setting_value" => "en-US"),
-			
 			(object) array("setting_name" => "social_twitter_use",				"setting_value" => "0"),
 			(object) array("setting_name" => "social_twitter_size",				"setting_value" => "standart"),
 			(object) array("setting_name" => "social_twitter_annotation",		"setting_value" => "horizontal"),

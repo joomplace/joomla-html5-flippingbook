@@ -515,11 +515,6 @@ if ($downloadOptionAccess && $downloadOptionAccessGranted) {
                                         <i class="fa fa-twitter fa-lg" title="Share on Twitter"></i>
                                     </a>
                                 <?php } ?>
-                                <?php if ($config->social_google_plus_use == 1) { ?>
-                                    <a style="color: #ED5448;"target="_blank" href="https://plus.google.com/share?url=<?php echo urlencode(JUri::current());?>&utm_source=share2">
-                                        <i class="fa fa-google-plus fa-lg" title="Share on G+"></i>
-                                    </a>
-                                <?php } ?>
                             </div>
                         <?php } ?>
                     </div>

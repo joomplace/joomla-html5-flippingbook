@@ -32,10 +32,6 @@ function navigation(where) {
                 'url=' + encodeURIComponent(rawPublicationLink) +
                 '&media=' + encodeURIComponent(rawPublicationTitle));
             break;
-        case 'fa fa-google-plus fa-lg' :
-            window.open('https://plusone.google.com/_/+1/confirm?' +
-                'url=' + encodeURIComponent(rawPublicationLink));
-            break;
     }
 }
 

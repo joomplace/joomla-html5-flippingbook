@@ -305,8 +305,7 @@ for ($i = 0; $i < count($this->items);)
 			// Social intergation.
 			//==================================================
 
-			if ($this->config->social_google_plus_use == 1 ||
-				$this->config->social_twitter_use == 1 ||
+			if ($this->config->social_twitter_use == 1 ||
 				$this->config->social_linkedin_use == 1 ||
 				$this->config->social_facebook_use == 1)
 			{
@@ -314,17 +313,6 @@ for ($i = 0; $i < count($this->items);)
 				
 				$pageLink = JUri::base().JRoute::_('index.php?option='.COMPONENT_OPTION.'&view=publication&id='.$item->c_id.'&Itemid='.COMPONENT_ITEM_ID, false, (int)$uri->isSSL());
 
-				if ($this->config->social_google_plus_use == 1)
-				{
-					$html[] = '<div class="html5fb-social-btn">' .
-							'<div class="g-plusone" data-width="70"' .
-							' data-size="' . $this->config->social_google_plus_size . '"' .
-							' data-annotation="' . $this->config->social_google_plus_annotation . '"' .
-							' href="' . urlencode(JUri::root().substr($pageLink, 1)) . '"' .
-							'></div>' .
-						'</div>';
-				}
-				
 				if ($this->config->social_twitter_use == 1)
 				{
                     $html[] = '<div class="html5fb-social-btn">' .
@@ -393,19 +381,6 @@ $html[] = '</form>';
 
 echo implode("\r\n", $html);
 ?>
-
-<?php if ($this->config->social_google_plus_use == 1) { ?>
-	
-	<script type="text/javascript">
-	window.___gcfg = {lang: '<?php echo $this->config->social_google_plus_language; ?>'};
-	(function() {
-		var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-		po.src = 'https://apis.google.com/js/plusone.js';
-		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-	})();
-	</script>
-	
-<?php } ?>
 
 <?php if ($this->config->social_twitter_use == 1) { ?>
 	
