@@ -329,10 +329,6 @@ table.html5fb_pages_table thead tr th:nth-child(6) { width: 35px; }
 }
 
 /*** Configuration ***/
-
-.html5fb_google_plus_preview {
-	float: left;
-}
 .html5fb_twitter_preview {
 	float: left;
 }

@@ -21,24 +21,12 @@ JHtml::_('formbehavior.chosen', 'select');
 	{
 	    jQuery('#viewTabs a:first').tab('show');
 	    jQuery('#socialTabs a:first').tab('show');
-		
-		updateGooglePlusPreview();
+
 		updateTwitterPreview();
 		updateLinkedinPreview();
 		updateFacebookPreview();
 	});
 
-	
-	function updateGooglePlusPreview()
-	{
-		var size = BootstrapFormHelper.getRadioGroupValue('jform_social_google_plus_size');
-		var annotation = BootstrapFormHelper.getRadioGroupValue('jform_social_google_plus_annotation');
-		
-		var previewImg = document.getElementById('social_google_plus_preview');
-		
-		previewImg.setAttribute('src', '<?php echo COMPONENT_IMAGES_URL.'social/'; ?>' + 'googleplus-' + size + '-' + annotation + '.png');
-	}
-	
 	function updateTwitterPreview()
 	{
 		var size = BootstrapFormHelper.getRadioGroupValue('jform_social_twitter_size');
@@ -81,16 +69,6 @@ JHtml::_('formbehavior.chosen', 'select');
 		previewImg.setAttribute('src', '<?php echo COMPONENT_IMAGES_URL.'social/'; ?>' + 'facebook-' + verb + '-' + layout + '.png');
 	}
 
-	function onRadioGooglePlusSizeClick(sender, event)
-	{
-		updateGooglePlusPreview();
-	}
-	
-	function onRadioGooglePlusAnnotationClick(sender, event)
-	{
-		updateGooglePlusPreview();
-	}
-	
 	function onRadioTwitterSizeClick(sender, event)
 	{
 		updateTwitterPreview();
@@ -176,7 +154,6 @@ JHtml::_('formbehavior.chosen', 'select');
 			<div class="tab-pane" id="tab_social">
 				
 				<ul class="nav nav-tabs" id="socialTabs">
-					<li><a href="#tab_social_google" data-toggle="tab"><?php echo  JText::_("COM_HTML5FLIPPINGBOOK_BE_CONFIG_GOOGLEPLUS_SUBPANEL");?></a></li>
 					<li><a href="#tab_social_twitter" data-toggle="tab"><?php echo  JText::_("COM_HTML5FLIPPINGBOOK_BE_CONFIG_TWITTER_SUBPANEL");?></a></li>
 					<li><a href="#tab_social_linkedin" data-toggle="tab"><?php echo  JText::_("COM_HTML5FLIPPINGBOOK_BE_CONFIG_LINKEDIN_SUBPANEL");?></a></li>
 					<li><a href="#tab_social_facebook" data-toggle="tab"><?php echo  JText::_("COM_HTML5FLIPPINGBOOK_BE_CONFIG_FACEBOOK_SUBPANEL");?></a></li>
@@ -185,65 +162,7 @@ JHtml::_('formbehavior.chosen', 'select');
 				</ul>
 				
 				<div class="tab-content">
-					
-					<?php
-					//==================================================
-					// Google+.
-					//==================================================
-					?>
-					
-					<div class="tab-pane" id="tab_social_google">
-						<div class="control-group">
-							<div class="control-label">
-								<?php echo $this->form->getLabel('social_google_plus_use'); ?>
-							</div>
-							<div class="controls">
-								<?php echo $this->form->getInput('social_google_plus_use'); ?>
-							</div>
-						</div>
-						<div class="control-group">
-							<div class="control-label">
-								<?php echo $this->form->getLabel('social_google_plus_size'); ?>
-							</div>
-							<div class="controls">
-								<?php echo $this->form->getInput('social_google_plus_size'); ?>
-							</div>
-						</div>
-						<div class="control-group">
-							<div class="control-label">
-								<?php echo $this->form->getLabel('social_google_plus_annotation'); ?>
-							</div>
-							<div class="controls">
-								<?php echo $this->form->getInput('social_google_plus_annotation'); ?>
-							</div>
-						</div>
-						<div class="control-group">
-							<?php
-							$input = $this->form->getField('social_google_plus_language');
-							$input->addOptions($this->googlePlusLanguageOptions);
-							?>
-							<div class="control-label">
-								<?php echo $input->getLabel(); ?>
-							</div>
-							<div class="controls">
-								<?php echo $input->getInput(); ?>
-							</div>
-						</div>
-						<div class="control-group">
-							<div class="control-label">
-								<?php
-								echo JHTML::_("tooltip", JText::_("COM_HTML5FLIPPINGBOOK_BE_CONFIG_GOOGLEPLUS_PREVIEW_DESC") . '<br/><br/>' .
-									'<span>' . "* " . JText::_("COM_HTML5FLIPPINGBOOK_BE_CONFIG_GOOGLEPLUS_PREVIEW_NOLANG") . '</span>',
-									JText::_("COM_HTML5FLIPPINGBOOK_BE_CONFIG_GOOGLEPLUS_PREVIEW"), null,
-									'<label>' . JText::_("COM_HTML5FLIPPINGBOOK_BE_CONFIG_GOOGLEPLUS_PREVIEW") . '</label>', null);
-								?>
-							</div>
-							<div class="controls">
-								<img id="social_google_plus_preview" class="html5fb_google_plus_preview" />
-							</div>
-						</div>
-					</div>
-					
+
 					<?php
 					//==================================================
 					// Twitter.

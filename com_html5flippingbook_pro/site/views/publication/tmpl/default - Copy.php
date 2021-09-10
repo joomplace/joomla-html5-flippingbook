@@ -585,10 +585,6 @@ function addFlipDiv($config, $item, $isSearch)
 										<i class="fa fa-twitter fa-lg" title="<?php echo JText::_('COM_HTML5FLIPPINGBOOK_FE_TOOLBAR_TWITTER');?>"></i>
 									<?php endif;?>
 
-									<?php if ($config->social_google_plus_use):?>
-										<i class="fa fa-google-plus fa-lg" title="<?php echo JText::_('COM_HTML5FLIPPINGBOOK_FE_TOOLBAR_GOOGLEPLUS');?>"></i>
-									<?php endif;?>
-
 									<?php if($item->c_popup || $detectMobile->isTablet()):?>
 										<i class="fa fa-times fa-lg" title="<?php echo JText::_('COM_HTML5FLIPPINGBOOK_FE_TOOLBAR_CLOSE'); ?>" onclick="<?php echo ($detectMobile->isTablet() ? 'var curTab = window.open(\'\', \'_self\'); curTab.close();' : 'window.close();');?>"></i>
 									<?php endif;?>

@@ -1,44 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
 	<fieldset>
-		
-		<field name="social_google_plus_use"
-			type="radio"
-			class="btn-group"
-			label="COM_HTML5FLIPPINGBOOK_BE_CONFIG_GOOGLEPLUS_USE"
-			description="COM_HTML5FLIPPINGBOOK_BE_CONFIG_GOOGLEPLUS_USE_DESC">
-			<option value="1">JYES</option>
-			<option value="0">JNO</option>
-		</field>
-		
-		<field name="social_google_plus_size"
-			type="_advanced_radio"
-			onclick="onRadioGooglePlusSizeClick(this, event);"
-			class="btn-group"
-			label="COM_HTML5FLIPPINGBOOK_BE_CONFIG_GOOGLEPLUS_SIZE"
-			description="COM_HTML5FLIPPINGBOOK_BE_CONFIG_GOOGLEPLUS_SIZE_DESC">
-			<option value="small">COM_HTML5FLIPPINGBOOK_BE_CONFIG_GOOGLEPLUS_SIZE_SMALL</option>
-			<option value="medium">COM_HTML5FLIPPINGBOOK_BE_CONFIG_GOOGLEPLUS_SIZE_MEDIUM</option>
-			<option value="standart">COM_HTML5FLIPPINGBOOK_BE_CONFIG_GOOGLEPLUS_SIZE_STD</option>
-			<option value="tall">COM_HTML5FLIPPINGBOOK_BE_CONFIG_GOOGLEPLUS_SIZE_TALL</option>
-		</field>
-		
-		<field name="social_google_plus_annotation"
-			type="_advanced_radio"
-			onclick="onRadioGooglePlusAnnotationClick(this, event);"
-			class="btn-group"
-			label="COM_HTML5FLIPPINGBOOK_BE_CONFIG_GOOGLEPLUS_ANNOTATION"
-			description="COM_HTML5FLIPPINGBOOK_BE_CONFIG_GOOGLEPLUS_ANNOTATION_DESC">
-			<option value="none">COM_HTML5FLIPPINGBOOK_BE_CONFIG_GOOGLEPLUS_ANNOTATION_NONE</option>
-			<option value="inline">COM_HTML5FLIPPINGBOOK_BE_CONFIG_GOOGLEPLUS_ANNOTATION_INLINE</option>
-			<option value="bubble">COM_HTML5FLIPPINGBOOK_BE_CONFIG_GOOGLEPLUS_ANNOTATION_BUBBLE</option>
-		</field>
-		
-		<field name="social_google_plus_language"
-			type="_advanced_list"
-			label="COM_HTML5FLIPPINGBOOK_BE_CONFIG_GOOGLEPLUS_LANGUAGE"
-			description="COM_HTML5FLIPPINGBOOK_BE_CONFIG_GOOGLEPLUS_LANGUAGE_DESC" />
-		
+
 		<field name="social_twitter_use"
 			type="radio"
 			class="btn-group"
