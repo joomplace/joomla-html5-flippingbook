@@ -36,6 +36,7 @@ class HTML5FlippingBookViewPublication extends JViewLegacy
 
         $app        = JFactory::getApplication();
         $this->user = JFactory::getUser();
+
         $viewAccessGranted = $this->user->authorise('core.view', COMPONENT_OPTION . '.publication.' . $item->c_id);
         if(!$viewAccessGranted){
             $app->enqueueMessage(JText::_('JERROR_LAYOUT_YOU_HAVE_NO_ACCESS_TO_THIS_PAGE'), 'error');
@@ -52,18 +53,54 @@ class HTML5FlippingBookViewPublication extends JViewLegacy
 		
 		$this->item = $item;
 
-		$doc->setMetaData( 'og:url', JURI::current() );
-		if ($this->item->opengraph_title) {
+
+        $Itemid = $app->input->getInt('Itemid', 0);
+        $menuitem = $app->getMenu()->getItem($Itemid);
+        $menuparams = $menuitem->params;
+        if(!empty($menuparams)) {
+            $menu_meta_description = $menuparams->get('menu-meta_description');
+            $menu_meta_keywords = $menuparams->get('menu-meta_keywords');
+        }
+
+        if(!empty($menu_meta_description)) {
+            $doc->setDescription($menu_meta_description);
+        } else {
+            if (!empty($this->item->c_metadesc)) {
+                $doc->setDescription($this->item->c_metadesc);
+            }
+        }
+
+        if(!empty($menu_meta_keywords)) {
+            $doc->setMetaData('keywords', $menu_meta_keywords);
+        } else {
+            if (!empty($this->item->c_metakey)) {
+                $doc->setMetaData('keywords', $this->item->c_metakey);
+            }
+        }
+
+		$doc->setMetaData('og:url', JURI::current());
+
+		if (!empty($this->item->opengraph_title)) {
 			$doc->setMetaData( 'og:title', $this->item->opengraph_title );
 		}
 
-		if ($this->item->opengraph_image) {
+		if (!empty($this->item->opengraph_image)) {
 			$doc->setMetaData( 'og:image', JURI::root().'media/com_html5flippingbook/thumbs/'.$this->item->opengraph_image );
 		}
 
-		if ($this->item->opengraph_description) {
+        if (!empty($this->item->opengraph_author)) {
+            $doc->setMetaData( 'og:author', $this->item->opengraph_author);
+        }
+
+		if (!empty($this->item->opengraph_description)) {
 			$doc->setMetaData( 'og:description', $this->item->opengraph_description );
 		}
+
+        if (!empty($this->item->custom_metatags)) {
+            foreach ( $this->item->custom_metatags as $custom_tag_name => $custom_tag_value ) {
+                $doc->setMetaData($custom_tag_name, $custom_tag_value);
+            }
+        }
 
 		$this->setLayout('iframe');
 		$this->emaillayout = new JLayoutFile('email', JPATH_COMPONENT .'/layouts');
