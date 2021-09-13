@@ -12,6 +12,7 @@
 		
 		<field name="c_category"
 			type="text"
+			id="title"
 			class="inputbox"
 			size="40"
 			required="true"

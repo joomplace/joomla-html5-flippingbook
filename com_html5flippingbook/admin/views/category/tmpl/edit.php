@@ -244,3 +244,13 @@ JHtml::_('behavior.modal');
 	</div>
 	
 </form>
+<script>
+    //Quick fix: the 'id' parameter is required in the URL for Joomla scripts to change permissions
+    window.onload = function() {
+        if (history.pushState) {
+            var oldUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + window.location.search;
+            var newUrl = oldUrl + '&id=' + getUrlParam('c_id');
+            history.pushState(null, null, newUrl);
+        }
+    };
+</script>
