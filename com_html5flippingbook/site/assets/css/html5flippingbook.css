@@ -742,7 +742,7 @@ html > /**/ body #html5flippingbook .html5fb-descr {
 #html5flippingbook .html5fb-pict .loader {
     position: absolute;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#70000000, endColorstr=#70000000);
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.4);
     width: 100%;
     height: 97%;
     z-index: 200;
