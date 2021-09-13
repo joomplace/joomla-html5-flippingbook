@@ -40,7 +40,7 @@
 			type="_upload_image"
 			dir=""
             pubid=""
-			fileExtensions="png,jpg,gif"
+			fileExtensions="png,jpg,jpeg,gif"
 			uploadTask="publications.show_upload"
 			class="html5fb_upload_image"
 			previewImgClass="html5fb_page_preview_img"

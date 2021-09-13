@@ -67,7 +67,7 @@
         <field name="opengraph_image"
                type="_upload_image"
                dir="media/com_html5flippingbook/thumbs"
-               fileExtensions="png,jpg,gif"
+               fileExtensions="png,jpg,jpeg,gif"
                uploadTask="magazines.show_upload"
                class="html5fb_upload_image"
                previewImgClass="html5fb_publication_author_preview_img"
