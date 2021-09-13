@@ -496,7 +496,7 @@ div.modal-batch {
 }
 
 #html5flippingbook .dropdown-menu > li > a:hover {
-    color: #005580;
+    background-image: linear-gradient(to bottom,#08c,#0077b3);
 }
 #html5flippingbook .btn-group .dropdown-toggle:active, #html5flippingbook .btn-group.open .dropdown-toggle {
     outline: 0;
