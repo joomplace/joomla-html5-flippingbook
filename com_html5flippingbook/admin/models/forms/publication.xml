@@ -12,6 +12,7 @@
 		
 		<field name="c_title"
 			type="text"
+			id="title"
 			class="inputbox"
 			size="40"
 			required="true"
@@ -146,7 +147,7 @@
 			<option value="0">COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_FULLSCREEN_MODE_OPTION_0</option>
 			<option value="1">COM_HTML5FLIPPINGBOOK_BE_PUBLICATIONS_FULLSCREEN_MODE_OPTION_1</option>
 		</field>
-		
+
 		<field name="c_audio"
 			   type="_upload_audio"
 			   dir="media/com_html5flippingbook/audio"
