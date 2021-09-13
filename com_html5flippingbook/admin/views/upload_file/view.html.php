@@ -82,7 +82,7 @@ class HTML5FlippingBookViewUpload_File extends JViewLegacy
 			$userFileExtension = strtolower(JFile::getExt($userFileName));
 			
 			$extensions = explode(',', $extensionsStr);
-			if (in_array($userFileExtension, array('png', 'jpg', 'gif')))
+			if (in_array($userFileExtension, array('png', 'jpg', 'jpeg', 'gif')))
 			{
 				$isImage = TRUE;
 			}

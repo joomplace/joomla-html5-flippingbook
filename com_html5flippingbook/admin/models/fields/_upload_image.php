@@ -36,7 +36,7 @@ class JFormField_Upload_Image extends JFormField_Upload_File
 		$this->tooltipTitle = ($this->element['tooltipTitle'] ? $this->element['tooltipTitle'] : 'COM_HTML5FLIPPINGBOOK_BE_FILE_UPLOAD_TOOLTIP_TITLE');
 		$this->tooltipText = ($this->element['tooltipText'] ? $this->element['tooltipText'] : 'COM_HTML5FLIPPINGBOOK_BE_FILE_UPLOAD_TOOLTIP_TEXT');
 		$this->linkedElementIds = ($this->element['linkedElementIds'] ? $this->element['linkedElementIds'] : '');
-		$this->fileExtensions = ($this->element['fileExtensions'] ? $this->element['fileExtensions'] : 'png,jpg,gif');
+		$this->fileExtensions = ($this->element['fileExtensions'] ? $this->element['fileExtensions'] : 'png,jpg,jpeg,gif');
 		
 		$this->fileExtensionsObj = $this->getFileExtensionsObject($this->fileExtensions);
 		
