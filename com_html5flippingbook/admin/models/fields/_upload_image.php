@@ -41,13 +41,13 @@ class JFormField_Upload_Image extends JFormField_Upload_File
 		$this->fileExtensionsObj = $this->getFileExtensionsObject($this->fileExtensions);
 		
 		$this->fileNames = $this->getFileNames();
-		
+
 		$selectedImageUrl = (isset($this->value) && JFile::exists($this->dir.'/'.$this->value) ? $this->dirUrl.$this->value : $this->noImageUrl);
 		
 		$html = array();
 		$attr = '';
 		$this->multiple = false;
-		
+
 		ob_start();
 		?>
 		<script type="text/javascript">
@@ -77,7 +77,16 @@ class JFormField_Upload_Image extends JFormField_Upload_File
 				{
 					if (!fileIsBeingReplaced)
 					{
-						BootstrapFormHelper.addOptionToSelectList('<?php echo $this->id; ?>', 'thumb_' + fileName, 'thumb_' + fileName, true);
+                        //Fixed display of uploaded "Thumbnail" in Publication editing.
+                        var img = new Image();
+                        img.src = '/<?php echo $this->element['dir']; ?>/thumb_' + fileName;
+                        img.onload = function(){
+                            BootstrapFormHelper.addOptionToSelectList('<?php echo $this->id; ?>', 'thumb_' + fileName, 'thumb_' + fileName, true);
+                        };
+                        img.onerror = function(){
+                            BootstrapFormHelper.addOptionToSelectList('<?php echo $this->id; ?>', fileName, fileName, true);
+                        };
+                        //BootstrapFormHelper.addOptionToSelectList('<?php //echo $this->id; ?>', 'thumb_' + fileName, 'thumb_' + fileName, true);
 					}
 					else
 					{

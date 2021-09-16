@@ -234,7 +234,7 @@ class HTML5FlippingBookModelPublication extends JModelItem
 			$k = 1;
 
 			foreach ($item->pages as $page_num => $page) {
-				if ( $page['c_enable_image'] ) {
+                if (!empty($page['c_enable_image'])) {
                     if(is_file(COMPONENT_MEDIA_PATH. '/images/'. ( $item->c_imgsub ? $item->c_imgsubfolder.'/' : ''). $page['page_image'])){
                         $imagedata = imgCreate(COMPONENT_MEDIA_PATH. '/images/'. ( $item->c_imgsub ? $item->c_imgsubfolder.'/' : ''). $page['page_image']);
                     }else{
