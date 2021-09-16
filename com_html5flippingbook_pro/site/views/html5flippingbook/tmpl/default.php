@@ -31,6 +31,27 @@ elseif ($detectMobile->isTablet())
 	$isTablet = TRUE;
 }
 
+$doc = JFactory::getDocument();
+
+if(!empty($this->menuItemParams)) {
+    $menu_meta_description = $this->menuItemParams->get('menu-meta_description');
+    $menu_meta_keywords = $this->menuItemParams->get('menu-meta_keywords');
+}
+if(!empty($menu_meta_description)) {
+    $doc->setDescription($menu_meta_description);
+} else {
+    if (!empty($this->item->c_metadesc)) {
+        $doc->setDescription($this->item->c_metadesc);
+    }
+}
+if(!empty($menu_meta_keywords)) {
+    $doc->setMetaData('keywords', $menu_meta_keywords);
+} else {
+    if (!empty($this->item->c_metakey)) {
+        $doc->setMetaData('keywords', $this->item->c_metakey);
+    }
+}
+
 if ( @$this->item->opengraph_use )
 {
 	require_once(JPATH_COMPONENT_ADMINISTRATOR.'/libs/MethodsForXml.php');
@@ -52,8 +73,6 @@ if ( @$this->item->opengraph_use )
 		$noTagsDescr = preg_replace('/<[^>]*>/', '', $this->item->c_instruction);
 		$opengraphDesc = (strlen($noTagsDescr) <= 100 ? $noTagsDescr : substr($noTagsDescr, 0, 100).'...');
 	}
-
-	$doc = JFactory::getDocument();
 
 	if ( !empty($this->config->social_facebook_og_app_id) )
 	{
