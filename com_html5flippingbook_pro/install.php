@@ -685,6 +685,12 @@ class com_html5flippingbookInstallerScript
 				JFile::delete($archiveFileFullName);
 			}
 		}
+
+        //When installing "pro", we'll delete "standard" version. So that the update server does not react to it.
+        $query = "DELETE FROM `#__extensions` WHERE `element` = 'pkg_html5flippingbook';";
+        $db->setQuery($query);
+        $db->execute();
+
 	}
 	//----------------------------------------------------------------------------------------------------
 	public function install($parent)
