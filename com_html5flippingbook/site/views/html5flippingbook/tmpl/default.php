@@ -40,6 +40,25 @@ elseif ($detectMobile->isTablet())
 	$isTablet = TRUE;
 }
 
+if(!empty($this->menuItemParams)) {
+    $menu_meta_description = $this->menuItemParams->get('menu-meta_description');
+    $menu_meta_keywords = $this->menuItemParams->get('menu-meta_keywords');
+}
+if(!empty($menu_meta_description)) {
+    $doc->setDescription($menu_meta_description);
+} else {
+    if (!empty($this->item->c_metadesc)) {
+        $doc->setDescription($this->item->c_metadesc);
+    }
+}
+if(!empty($menu_meta_keywords)) {
+    $doc->setMetaData('keywords', $menu_meta_keywords);
+} else {
+    if (!empty($this->item->c_metakey)) {
+        $doc->setMetaData('keywords', $this->item->c_metakey);
+    }
+}
+
 if ( @$this->item->opengraph_use )
 {
 	require_once(JPATH_COMPONENT_ADMINISTRATOR.'/libs/MethodsForXml.php');
