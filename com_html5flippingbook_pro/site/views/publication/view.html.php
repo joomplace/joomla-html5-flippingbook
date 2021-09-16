@@ -56,7 +56,7 @@ class HTML5FlippingBookViewPublication extends JViewLegacy
 
         $Itemid = $app->input->getInt('Itemid', 0);
         $menuitem = $app->getMenu()->getItem($Itemid);
-        $menuparams = $menuitem->params;
+        $menuparams = !empty($menuitem->params) ? $menuitem->params : null;
         if(!empty($menuparams)) {
             $menu_meta_description = $menuparams->get('menu-meta_description');
             $menu_meta_keywords = $menuparams->get('menu-meta_keywords');
