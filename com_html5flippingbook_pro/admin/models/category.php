@@ -65,18 +65,24 @@ class HTML5FlippingBookModelCategory extends JModelAdmin
 	//----------------------------------------------------------------------------------------------------
 	public function save($data)
 	{
+        $input = JFactory::getApplication()->input;
 		$custom_tags = array();
-		$custom_tags_names = JFactory::getApplication()->input->get('cm_names', array(), 'array');
-		$custom_tags_values = JFactory::getApplication()->input->get('cm_values', array(), 'array');
+		$custom_tags_names = $input->get('cm_names', array(), 'array');
+		$custom_tags_values = $input->get('cm_values', array(), 'array');
 
-		if ( !empty($custom_tags_names) )
-		{
-			foreach ( $custom_tags_names as $k => $custom_name )
-				$custom_tags[ $custom_name ] = $custom_tags_values[ $k ];
+		if (!empty($custom_tags_names)) {
+			foreach ( $custom_tags_names as $k => $custom_name ) {
+                $custom_tags[$custom_name] = $custom_tags_values[$k];
+            }
 		}
 
 		$data['custom_metatags'] = serialize($custom_tags);
 		$data['user_id'] = JFactory::getUser()->id;
+
+        $task = $input->get('task');
+        if($task == 'save2copy') {
+            $data['c_category'] = $data['c_category'] . ' (copy)';
+        }
 
 		return parent::save($data);
 	}
