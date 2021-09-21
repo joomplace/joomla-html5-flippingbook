@@ -38,21 +38,25 @@ class HTML5FlippingBookTableCategories extends JTable
 	//----------------------------------------------------------------------------------------------------
 	public function store($updateNulls = false)
 	{
-		$jform = JFactory::getApplication()->input->get('jform', array(), 'ARRAY');
+        $input = JFactory::getApplication()->input;
+		$jform = $input->get('jform', array(), 'ARRAY');
+        $task = $input->get('task');
 
 		//==================================================
 		// Access rules.
 		//==================================================
 
-		$this->c_id = JFactory::getApplication()->input->get('c_id');
-		$this->asset_id = JFactory::getApplication()->input->get('asset_id');
+		$this->c_id = $input->getInt('c_id');
+		$this->asset_id = $input->getInt('asset_id');
 
-		if (!$this->c_id)
-		{
-			if ($this->asset_id)
-			{
+        if($task == 'save2copy') {
+            $this->c_id = 0;
+        }
+
+		if (!$this->c_id) {
+			if ($this->asset_id) {
 				$rules = JAccess::getAssetRules((int) $this->asset_id);
-				$rules->title = JFactory::getApplication()->input->getString('c_title');
+				$rules->title = $input->getString('c_title');
 				$this->setRules($rules);
 			}
 		} else {
@@ -72,7 +76,6 @@ class HTML5FlippingBookTableCategories extends JTable
 					$output1[$i] = $value;
 				}
 				$output2[$key] = $output1;
-
 			}
 
 			$rules = new JAccessRules( $output2 );
@@ -83,8 +86,7 @@ class HTML5FlippingBookTableCategories extends JTable
 			$asset->title = $this->_getAssetTitle();
 			$asset->parent_id = $this->_getAssetParentId();
 
-			if (!$asset->check() || !$asset->store())
-			{
+			if (!$asset->check() || !$asset->store()) {
 				$this->setError($asset->getError());
 				return false;
 			}
