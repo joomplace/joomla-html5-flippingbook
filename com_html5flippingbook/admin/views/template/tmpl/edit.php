@@ -168,18 +168,14 @@ if (!empty($this->item->text_color))
 				<?php echo $this->form->getInput('fontfamily'); ?>
 			</div>
 		</div>
-		<div class="control-group">
+		<!--<div class="control-group">
 			<div class="control-label">
-				<?php echo $this->form->getLabel('fontsize'); ?>
+				<?php //echo $this->form->getLabel('fontsize'); ?>
 			</div>
 			<div class="controls">
-				<?php echo JHtml::_(
-					'select.genericlist', PublicationTemplateFont::FontSize(),
-					'jform[fontsize]', '', 'value', 'text',
-					$this->item->fontsize
-				); ?>
+				<?php //echo JHtml::_('select.genericlist', PublicationTemplateFont::FontSize(), 'jform[fontsize]', '', 'value', 'text', $this->item->fontsize); ?>
 			</div>
-		</div>
+		</div>-->
 		<div class="control-group">
 			<div class="control-label">
 				<?php echo $this->form->getLabel('p_margin'); ?>
@@ -192,19 +188,14 @@ if (!empty($this->item->text_color))
 				); ?>
 			</div>
 		</div>
-		<div class="control-group">
+		<!--<div class="control-group">
 			<div class="control-label">
-				<?php echo $this->form->getLabel('p_lineheight'); ?>
+				<?php //echo $this->form->getLabel('p_lineheight'); ?>
 			</div>
 			<div class="controls">
-				<?php echo JHtml::_(
-					'select.genericlist',
-					PublicationTemplateFont::P_lineheight(),
-					'jform[p_lineheight]', '', 'value', 'text',
-					$this->item->p_lineheight
-				); ?>
+				<?php //echo JHtml::_('select.genericlist', PublicationTemplateFont::P_lineheight(), 'jform[p_lineheight]', '', 'value', 'text', $this->item->p_lineheight); ?>
 			</div>
-		</div>
+		</div>-->
 		<div class="control-group">
 			<div class="control-label">
 				<?php echo $this->form->getLabel('page_background_color'); ?>
@@ -284,14 +275,14 @@ if (!empty($this->item->text_color))
 				<?php echo $this->form->getInput('display_nextprev'); ?>
 			</div>
 		</div>
-		<div class="control-group">
+		<!--<div class="control-group">
 			<div class="control-label">
-				<?php echo $this->form->getLabel('show_shadow'); ?>
+				<?php //echo $this->form->getLabel('show_shadow'); ?>
 			</div>
 			<div class="controls">
-				<?php echo $this->form->getInput('show_shadow'); ?>
+				<?php //echo $this->form->getInput('show_shadow'); ?>
 			</div>
-		</div>
+		</div>-->
 
 		<?php echo JHtml::_('bootstrap.endTab'); ?>
 
