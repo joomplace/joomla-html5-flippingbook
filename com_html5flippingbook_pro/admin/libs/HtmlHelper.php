@@ -219,12 +219,23 @@ class HtmlHelper
 					window.parent.tinyMCE.selectedInstance.selection.moveToBookmark(window.parent.global_ie_bookmark);
 				}
 			}
-			tinyMCE.execInstanceCommand(editor, 'mceInsertContent',false,text);
+			
+			var tmce_ver = window.tinyMCE.majorVersion;
+			if (tmce_ver>="4") {
+                window.tinyMCE.execCommand('mceInsertContent', false, text);
+            } else {
+                window.tinyMCE.execInstanceCommand(editor, 'mceInsertContent',false,text);
+            }
 		}
 
 		function jReplaceSelectedContents( text, editor )
 		{
-			tinyMCE.execInstanceCommand(editor, 'mceReplaceContent',false,text);
+		    var tmce_ver = window.tinyMCE.majorVersion;
+			if (tmce_ver>="4") {
+                window.tinyMCE.execCommand('mceReplaceContent', false, text);
+            } else {
+                window.tinyMCE.execInstanceCommand(editor, 'mceReplaceContent',false,text);
+            }
 		}
 
 		var global_ie_bookmark = false;
