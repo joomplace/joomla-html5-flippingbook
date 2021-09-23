@@ -63,11 +63,10 @@ class HTML5FlippingBookViewPublications extends JViewLegacy
 		JToolbarHelper::publish('publications.publish', 'JTOOLBAR_PUBLISH', true);
 		JToolbarHelper::unpublish('publications.unpublish', 'JTOOLBAR_UNPUBLISH', true);
 
-		JHtml::_('bootstrap.modal', 'collapseModal');
-		$title = JText::_('JTOOLBAR_BATCH');
-		$dhtml = "<button data-toggle=\"modal\" data-target=\"#collapseModal\" class=\"btn btn-small\">
-			<i class=\"icon-checkbox-partial\" title=\"$title\"></i>
-			$title</button>";
-		JToolBar::getInstance('toolbar')->appendButton('Custom', $dhtml, 'batch');
+        $bar = JToolbar::getInstance('toolbar');
+        $title = JText::_('JTOOLBAR_BATCH');
+        $layout = new JLayoutFile('joomla.toolbar.batch');
+        $dhtml = $layout->render(array('title' => $title));
+        $bar->appendButton('Custom', $dhtml, 'batch');
 	}
 }
