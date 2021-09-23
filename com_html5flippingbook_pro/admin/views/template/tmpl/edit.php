@@ -40,24 +40,25 @@ if ( !empty($this->item->text_color) )
 ?>
 
 <script type="text/javascript">
-	
-	jQuery(document).ready(function ()
-	{
-	    jQuery('#viewTabs a:first').tab('show');
-	});
+    jQuery(function($) {
+        $('#viewTabs a:first').tab('show');
 
-	Joomla.submitbutton = function(task)
-	{
-		if (task == 'template.cancel')
-		{
+        $('#myTabTabs a').on('click', function() {
+            if($('#dhtmlgoodies_colorPicker').length) {
+                $('#dhtmlgoodies_colorPicker').css({'display':'none'});
+            }
+        });
+    });
+
+	Joomla.submitbutton = function(task) {
+		if (task == 'template.cancel') {
 			Joomla.submitform(task, document.adminForm);
 			return;
 		}
 		
 		Joomla.removeMessages();
 
-		if (!document.formvalidator.isValid(document.adminForm))
-		{
+		if (!document.formvalidator.isValid(document.adminForm)) {
 			alert('<?php echo $this->escape(JText::_('JGLOBAL_VALIDATION_FORM_FAILED')); ?>');
 			return;
 		}

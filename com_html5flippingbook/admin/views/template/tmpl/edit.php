@@ -73,10 +73,15 @@ if (!empty($this->item->text_color))
 ?>
 
 <script type="text/javascript">
+    jQuery(function($) {
+        $('#viewTabs a:first').tab('show');
 
-	jQuery(document).ready(function () {
-		jQuery('#viewTabs a:first').tab('show');
-	});
+        $('#myTabTabs a').on('click', function() {
+            if($('#dhtmlgoodies_colorPicker').length) {
+                $('#dhtmlgoodies_colorPicker').css({'display':'none'});
+            }
+        });
+    });
 
 	Joomla.submitbutton = function (task) {
 		if (task == 'template.cancel') {
@@ -97,7 +102,6 @@ if (!empty($this->item->text_color))
 
 		Joomla.submitform(task, document.adminForm);
 	}
-
 </script>
 
 <?php echo HtmlHelper::getMenuPanel(); ?>
