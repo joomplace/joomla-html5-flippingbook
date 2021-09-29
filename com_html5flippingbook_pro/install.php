@@ -157,15 +157,15 @@ class com_html5flippingbookInstallerScript
 		$rows = array(
 			(object) array("setting_name" => "social_twitter_use",				"setting_value" => "0"),
 			(object) array("setting_name" => "social_twitter_size",				"setting_value" => "standart"),
-			(object) array("setting_name" => "social_twitter_annotation",		"setting_value" => "horizontal"),
+			//(object) array("setting_name" => "social_twitter_annotation",		"setting_value" => "horizontal"),
 			(object) array("setting_name" => "social_twitter_language",			"setting_value" => "en"),
 			
 			(object) array("setting_name" => "social_linkedin_use",				"setting_value" => "0"),
-			(object) array("setting_name" => "social_linkedin_annotation",		"setting_value" => "right"),
+			//(object) array("setting_name" => "social_linkedin_annotation",		"setting_value" => "right"),
 			
 			(object) array("setting_name" => "social_facebook_use",				"setting_value" => "0"),
 			(object) array("setting_name" => "social_facebook_verb",			"setting_value" => "like"),
-			(object) array("setting_name" => "social_facebook_layout",			"setting_value" => "button_count"),
+			//(object) array("setting_name" => "social_facebook_layout",			"setting_value" => "button_count"),
 			(object) array("setting_name" => "social_facebook_font",			"setting_value" => "arial"),
 			(object) array("setting_name" => "social_jomsocial_use",			"setting_value" => "0"),
 			(object) array("setting_name" => "social_email_use",			    "setting_value" => "0"),

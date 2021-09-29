@@ -668,9 +668,6 @@ html > /**/ body #html5flippingbook .html5fb-descr {
 #html5flippingbook  .html5fb-list-item.span12 .html5fb-social {
     flex-direction: row;
 }
-#html5flippingbook  .html5fb-social-btn-fb {
-    margin-left: -12px;
-}
 #html5flippingbook .html5fb-social-btn-fb {
     margin-top: 5px;
 }
@@ -680,6 +677,10 @@ html > /**/ body #html5flippingbook .html5fb-descr {
 
 #html5flippingbook .html5fb-social-btn {
     min-width: 70px;
+}
+#html5flippingbook .html5fb-social-btn.fb-recommend .fb_iframe_widget>span,
+#html5flippingbook .html5fb-social-btn.fb-recommend iframe {
+    width: 103px !important;
 }
 
 #html5flippingbook .html5fb-noaccess {
