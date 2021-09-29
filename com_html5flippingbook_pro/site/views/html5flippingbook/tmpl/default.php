@@ -333,16 +333,17 @@ for ($i = 0; $i < count($this->items);)
 					$html[] = '<div class="html5fb-social-btn">' .
 						'<script type="IN/Share"' .
 						' data-url="' . urlencode(JUri::root().substr($pageLink, 1)) . '"' .
-						' data-counter="' . $this->config->social_linkedin_annotation . '"' .
+						//' data-counter="' . $this->config->social_linkedin_annotation . '"' .
 						'></script>' .
 						'</div>';
 				}
 
 				if ($this->config->social_facebook_use == 1) {
-					$html[] = '<div class="html5fb-social-btn html5fb-social-btn-fb">' .
-						'<div class="fb-like" data-show-faces="false" data-width="50" data-colorscheme="light" data-share="false" ' .
+					$html[] = '<div class="html5fb-social-btn html5fb-social-btn-fb'.(!empty($this->config->social_facebook_verb) ? ' fb-'.$this->config->social_facebook_verb : '').'">' .
+						'<div class="fb-like" data-show-faces="false" data-colorscheme="light" data-share="false" ' .
 						' data-action="' . $this->config->social_facebook_verb . '"' .
-						' data-layout="' . $this->config->social_facebook_layout . '"' .
+						//' data-layout="' . $this->config->social_facebook_layout . '"' .
+                        ' data-layout="button"' .
                         ' data-href="' . urlencode(JUri::root().substr($pageLink, 1)) . '"' .
 						'></div>' .
 						'</div>';
@@ -400,6 +401,6 @@ echo implode("\r\n", $html);
 
 <?php if ($this->config->social_linkedin_use == 1) { ?>
 	
-	<script type="text/javascript" src="//platform.linkedin.com/in.js">lang:<?php echo $tag?></script>
+	<script type="text/javascript" src="//platform.linkedin.com/in.js">lang: en_US</script>
 	
 <?php } ?>

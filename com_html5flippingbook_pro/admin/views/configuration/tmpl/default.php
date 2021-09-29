@@ -30,43 +30,39 @@ JHtml::_('formbehavior.chosen', 'select');
 	function updateTwitterPreview()
 	{
 		var size = BootstrapFormHelper.getRadioGroupValue('jform_social_twitter_size');
-		var annotation = BootstrapFormHelper.getRadioGroupValue('jform_social_twitter_annotation');
+		//var annotation = BootstrapFormHelper.getRadioGroupValue('jform_social_twitter_annotation');
 		
 		var previewImg = document.getElementById('social_twitter_preview');
-		
-		previewImg.setAttribute('src', '<?php echo COMPONENT_IMAGES_URL.'social/'; ?>' + 'twitter-' + size + '-' + annotation + '.png');
+
+        //previewImg.setAttribute('src', '<?php echo COMPONENT_IMAGES_URL.'social/'; ?>' + 'twitter-' + size + '-' + annotation + '.png');
+        previewImg.setAttribute('src', '<?php echo COMPONENT_IMAGES_URL.'social/'; ?>' + 'twitter-' + size + '.png');
 		
 		// Showing notice.
 		
 		var noticeDiv = document.getElementById('social_twitter_preview_notice');
 		
-		if (size == 'large' && annotation == 'vertical')
-		{
-			noticeDiv.innerHTML = '<?php echo JText::_('COM_HTML5FLIPPINGBOOK_BE_CONFIG_TWITTER_PREVIEW_NOTICE'); ?>';
-		}
-		else
-		{
+		//if (size == 'large' && annotation == 'vertical') {
+		//	noticeDiv.innerHTML = '<?php echo JText::_('COM_HTML5FLIPPINGBOOK_BE_CONFIG_TWITTER_PREVIEW_NOTICE'); ?>';
+		//} else {
 			noticeDiv.innerHTML = '';
-		}
+		//}
 	}
 	
 	function updateLinkedinPreview()
 	{
-		var annotation = BootstrapFormHelper.getRadioGroupValue('jform_social_linkedin_annotation');
-		
+		//var annotation = BootstrapFormHelper.getRadioGroupValue('jform_social_linkedin_annotation');
 		var previewImg = document.getElementById('social_linkedin_preview');
-		
-		previewImg.setAttribute('src', '<?php echo COMPONENT_IMAGES_URL.'social/'; ?>' + 'linkedin-' + annotation + '.png');
+        //previewImg.setAttribute('src', '<?php echo COMPONENT_IMAGES_URL.'social/'; ?>' + 'linkedin-' + annotation + '.png');
+        previewImg.setAttribute('src', '<?php echo COMPONENT_IMAGES_URL.'social/'; ?>' + 'linkedin.png');
 	}
 	
 	function updateFacebookPreview()
 	{
 		var verb = BootstrapFormHelper.getRadioGroupValue('jform_social_facebook_verb');
-		var layout = BootstrapFormHelper.getRadioGroupValue('jform_social_facebook_layout');
-		
+		//var layout = BootstrapFormHelper.getRadioGroupValue('jform_social_facebook_layout');
 		var previewImg = document.getElementById('social_facebook_preview');
-		
-		previewImg.setAttribute('src', '<?php echo COMPONENT_IMAGES_URL.'social/'; ?>' + 'facebook-' + verb + '-' + layout + '.png');
+        //previewImg.setAttribute('src', '<?php echo COMPONENT_IMAGES_URL.'social/'; ?>' + 'facebook-' + verb + '-' + layout + '.png');
+        previewImg.setAttribute('src', '<?php echo COMPONENT_IMAGES_URL.'social/'; ?>' + 'facebook-' + verb + '.png');
 	}
 
 	function onRadioTwitterSizeClick(sender, event)
@@ -186,14 +182,14 @@ JHtml::_('formbehavior.chosen', 'select');
 								<?php echo $this->form->getInput('social_twitter_size'); ?>
 							</div>
 						</div>
-						<div class="control-group">
+						<!--<div class="control-group">
 							<div class="control-label">
-								<?php echo $this->form->getLabel('social_twitter_annotation'); ?>
+								<?php //echo $this->form->getLabel('social_twitter_annotation'); ?>
 							</div>
 							<div class="controls">
-								<?php echo $this->form->getInput('social_twitter_annotation'); ?>
+								<?php //echo $this->form->getInput('social_twitter_annotation'); ?>
 							</div>
-						</div>
+						</div>-->
 						<div class="control-group">
 							<?php
 							$input = $this->form->getField('social_twitter_language');
@@ -237,14 +233,14 @@ JHtml::_('formbehavior.chosen', 'select');
 								<?php echo $this->form->getInput('social_linkedin_use'); ?>
 							</div>
 						</div>
-						<div class="control-group">
+						<!--<div class="control-group">
 							<div class="control-label">
-								<?php echo $this->form->getLabel('social_linkedin_annotation'); ?>
+								<?php //echo $this->form->getLabel('social_linkedin_annotation'); ?>
 							</div>
 							<div class="controls">
-								<?php echo $this->form->getInput('social_linkedin_annotation'); ?>
+								<?php //echo $this->form->getInput('social_linkedin_annotation'); ?>
 							</div>
-						</div>
+						</div>-->
 						<div class="control-group">
 							<div class="control-label">
 								<?php
@@ -282,14 +278,14 @@ JHtml::_('formbehavior.chosen', 'select');
 								<?php echo $this->form->getInput('social_facebook_verb'); ?>
 							</div>
 						</div>
-						<div class="control-group">
+						<!--<div class="control-group">
 							<div class="control-label">
-								<?php echo $this->form->getLabel('social_facebook_layout'); ?>
+								<?php //echo $this->form->getLabel('social_facebook_layout'); ?>
 							</div>
 							<div class="controls">
-								<?php echo $this->form->getInput('social_facebook_layout'); ?>
+								<?php //echo $this->form->getInput('social_facebook_layout'); ?>
 							</div>
-						</div>
+						</div>-->
 						<div class="control-group">
 							<?php
 							$input = $this->form->getField('social_facebook_font');
