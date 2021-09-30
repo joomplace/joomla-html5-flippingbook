@@ -1,1 +1,0 @@
-ALTER TABLE `#__html5fb_templates` ADD `doublepages` BOOLEAN NOT NULL;
