@@ -4,10 +4,10 @@
     <author>JoomPlace Team</author>
     <authorEmail>support@joomplace.com</authorEmail>
     <authorUrl>www.joomplace.com</authorUrl>
-    <copyright>Copyright (C) 2005 - 2018 JoomPlace, www.joomplace.com. All rights reserved.</copyright>
+    <copyright>Copyright (C) 2005 - 2021 JoomPlace, www.joomplace.com. All rights reserved.</copyright>
     <license>GNU/GPL http://www.gnu.org/copyleft/gpl.html</license>
-    <version>2.2.5</version>
-    <creationDate>March 2018</creationDate>
+    <version>2.2.6</version>
+    <creationDate>October 2021</creationDate>
     <description>COM_HTML5FLIPPINGBOOK_SYS_DESC</description>
     <scriptfile>install.php</scriptfile>
     <update>
@@ -29,45 +29,24 @@
         <filename>metadata.xml</filename>
         <filename>router.php</filename>
     </files>
-
     <administration>
-
         <menu img="components/com_html5flippingbook/assets/images/joomplace_logo_16.png">
             COM_HTML5FLIPPINGBOOK_SYS_ADMINMENU_ROOT
         </menu>
-
         <submenu>
-            <menu link="option=com_html5flippingbook" img="components/com_html5flippingbook/assets/images/icon_48_about.png">COM_HTML5FLIPPINGBOOK_SYS_ADMINMENU_CONTROL_PANEL
-            </menu>
-
-            <menu link="option=com_html5flippingbook&amp;view=categories" img="components/com_html5flippingbook/assets/images/icon_48_categories.png">COM_HTML5FLIPPINGBOOK_SYS_ADMINMENU_CATEGORIES
-            </menu>
-
-            <menu link="option=com_html5flippingbook&amp;view=publications" img="components/com_html5flippingbook/assets/images/icon_48_publications.png">COM_HTML5FLIPPINGBOOK_SYS_ADMINMENU_PUBLICATION
-            </menu>
-
-            <menu link="option=com_html5flippingbook&amp;view=pages" img="components/com_html5flippingbook/assets/images/icon_48_pages.png">COM_HTML5FLIPPINGBOOK_SYS_ADMINMENU_PAGES
-            </menu>
-
-            <menu link="option=com_html5flippingbook&amp;view=templates" img="components/com_html5flippingbook/assets/images/icon_48_templates.png">COM_HTML5FLIPPINGBOOK_SYS_ADMINMENU_TEMPLATES
-            </menu>
-
-            <menu link="option=com_html5flippingbook&amp;view=resolutions" img="components/com_html5flippingbook/assets/images/icon_48_resolutions.png">COM_HTML5FLIPPINGBOOK_SYS_ADMINMENU_RESOLUTION
-            </menu>
-
-            <menu link="option=com_html5flippingbook&amp;view=configuration" img="components/com_html5flippingbook/assets/images/icon_48_settings.png">COM_HTML5FLIPPINGBOOK_SYS_ADMINMENU_CONFIGURATION
-            </menu>
-
-            <menu link="option=com_html5flippingbook&amp;view=help" img="components/com_html5flippingbook/assets/images/icon_48_help.png">COM_HTML5FLIPPINGBOOK_SYS_ADMINMENU_HELP
-            </menu>
-
+            <menu link="option=com_html5flippingbook" img="components/com_html5flippingbook/assets/images/icon_48_about.png">COM_HTML5FLIPPINGBOOK_SYS_ADMINMENU_CONTROL_PANEL</menu>
+            <menu link="option=com_html5flippingbook&amp;view=categories" img="components/com_html5flippingbook/assets/images/icon_48_categories.png">COM_HTML5FLIPPINGBOOK_SYS_ADMINMENU_CATEGORIES</menu>
+            <menu link="option=com_html5flippingbook&amp;view=publications" img="components/com_html5flippingbook/assets/images/icon_48_publications.png">COM_HTML5FLIPPINGBOOK_SYS_ADMINMENU_PUBLICATION</menu>
+            <menu link="option=com_html5flippingbook&amp;view=pages" img="components/com_html5flippingbook/assets/images/icon_48_pages.png">COM_HTML5FLIPPINGBOOK_SYS_ADMINMENU_PAGES</menu>
+            <menu link="option=com_html5flippingbook&amp;view=templates" img="components/com_html5flippingbook/assets/images/icon_48_templates.png">COM_HTML5FLIPPINGBOOK_SYS_ADMINMENU_TEMPLATES</menu>
+            <menu link="option=com_html5flippingbook&amp;view=resolutions" img="components/com_html5flippingbook/assets/images/icon_48_resolutions.png">COM_HTML5FLIPPINGBOOK_SYS_ADMINMENU_RESOLUTION</menu>
+            <menu link="option=com_html5flippingbook&amp;view=configuration" img="components/com_html5flippingbook/assets/images/icon_48_settings.png">COM_HTML5FLIPPINGBOOK_SYS_ADMINMENU_CONFIGURATION</menu>
+            <menu link="option=com_html5flippingbook&amp;view=help" img="components/com_html5flippingbook/assets/images/icon_48_help.png">COM_HTML5FLIPPINGBOOK_SYS_ADMINMENU_HELP</menu>
         </submenu>
-
         <languages folder="admin/language/en-GB">
             <language tag="en-GB">en-GB.com_html5flippingbook.ini</language>
             <language tag="en-GB">en-GB.com_html5flippingbook.sys.ini</language>
         </languages>
-
         <files folder="admin">
             <folder>assets</folder>
             <folder>controllers</folder>
@@ -84,9 +63,7 @@
             <filename>html5flippingbook.php</filename>
             <filename>index.html</filename>
         </files>
-
     </administration>
-
     <media folder="media" destination="com_html5flippingbook">
         <folder>audio</folder>
         <folder>authors</folder>

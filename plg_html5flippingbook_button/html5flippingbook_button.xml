@@ -4,21 +4,18 @@
     <author>JoomPlace Team</author>
     <authorEmail>support@joomplace.com</authorEmail>
     <authorUrl>www.joomplace.com</authorUrl>
-    <copyright>Copyright (C) 2005 - 2018 JoomPlace, www.joomplace.com. All rights reserved.</copyright>
+    <copyright>Copyright (C) 2005 - 2021 JoomPlace, www.joomplace.com. All rights reserved.</copyright>
     <license>GNU/GPL http://www.gnu.org/copyleft/gpl.html</license>
-    <version>2.2.5</version>
-    <creationDate>March 2018</creationDate>
+    <version>2.2.6</version>
+    <creationDate>October 2021</creationDate>
     <description>Displays a button to make it possible to insert HTML5 Flipping Book links into articles.</description>
-
     <languages folder="language/en-GB">
         <language tag="en-GB">en-GB.plg_editors-xtd_html5flippingbook_button.ini</language>
         <language tag="en-GB">en-GB.plg_editors-xtd_html5flippingbook_button.sys.ini</language>
     </languages>
-
     <files>
         <filename plugin="html5flippingbook_button">html5flippingbook_button.php</filename>
         <folder>language</folder>
         <filename>index.html</filename>
     </files>
-
 </extension>
