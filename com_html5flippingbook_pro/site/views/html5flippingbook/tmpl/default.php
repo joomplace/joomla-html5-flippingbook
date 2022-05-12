@@ -186,7 +186,7 @@ for ($i = 0; $i < count($this->items);)
 		$numPublicationDisplayed += 1;
 
 		// Preparing links and popups properties.
-		$data = HTML5FlippingBookFrontHelper::htmlPublHelper($isMobile, $isTablet, $item);
+		$data = HTML5FlippingBookFrontHelper::htmlPublHelper($item, $isMobile, $isTablet);
 
 		// Output.
 

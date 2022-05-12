@@ -63,7 +63,7 @@ $downloadOptionAccess = $user->authorise('core.download', COMPONENT_OPTION);
 				<?php if (!is_null($this->lastOpen)):?>
 					<?php
 					$downloadOptionAccessGranted = $user->authorise('core.download', COMPONENT_OPTION.'.publication.'.$this->lastOpen->c_id);
-					$data = HTML5FlippingBookFrontHelper::htmlPublHelper($isMobile, $isTablet, $this->lastOpen);
+					$data = HTML5FlippingBookFrontHelper::htmlPublHelper($this->lastOpen, $isMobile, $isTablet);
 					if ($downloadOptionAccess && $downloadOptionAccessGranted)
 					{
 						$downloadList = HTML5FlippingBookFrontHelper::generateDownloadOptions($this->lastOpen->c_id);
@@ -172,15 +172,19 @@ $downloadOptionAccess = $user->authorise('core.download', COMPONENT_OPTION);
 							<a href="javascript: void(0)" class="htmlfb5-sl-next">Next</a>
 						</div>
 
-						<?php echo HTML5FlippingBookFrontHelper::createBookShelf('reading', $this->shelf1['read'], $isMobile, $isTablet, 1, $this->config);?>
-						<?php echo HTML5FlippingBookFrontHelper::createBookShelf('reading', $this->shelf2['read'], $isMobile, $isTablet, 2, $this->config);?>
+                        <?php
+                        $shelf1_read = !empty($this->shelf1['read']) ? $this->shelf1['read'] : array();
+                        $shelf2_read = !empty($this->shelf2['read']) ? $this->shelf2['read'] : array();
+                        ?>
+						<?php echo HTML5FlippingBookFrontHelper::createBookShelf($this->config,'reading', $shelf1_read, $isMobile, $isTablet, 1);?>
+						<?php echo HTML5FlippingBookFrontHelper::createBookShelf($this->config,'reading', $shelf2_read, $isMobile, $isTablet, 2);?>
 
 					</div>
 				</div>
 
 				<ul class="html5fb-list active" id="reading-list">
 					<?php
-					$data = HTML5FlippingBookFrontHelper::createPublicationList('reading', $this->readList, $isMobile, $isTablet, $this->viewPublicationButtonText, $this->config);
+					$data = HTML5FlippingBookFrontHelper::createPublicationList('reading', $this->readList, $this->viewPublicationButtonText, $this->config, $isMobile, $isTablet);
 					$reading = $data[0];
 					print_r($data[1]);
 					?>
@@ -203,15 +207,19 @@ $downloadOptionAccess = $user->authorise('core.download', COMPONENT_OPTION);
 							<a href="javascript: void(0)" class="htmlfb5-sl-next">Next</a>
 						</div>
 
-						<?php echo HTML5FlippingBookFrontHelper::createBookShelf('favorite', $this->shelf1['fav'], $isMobile, $isTablet, 1, $this->config);?>
-						<?php echo HTML5FlippingBookFrontHelper::createBookShelf('favorite', $this->shelf2['fav'], $isMobile, $isTablet, 2, $this->config);?>
+                        <?php
+                        $shelf1_fav = !empty($this->shelf1['fav']) ? $this->shelf1['fav'] : array();
+                        $shelf2_fav = !empty($this->shelf2['fav']) ? $this->shelf2['fav'] : array();
+                        ?>
+						<?php echo HTML5FlippingBookFrontHelper::createBookShelf($this->config,'favorite', $shelf1_fav, $isMobile, $isTablet, 1);?>
+						<?php echo HTML5FlippingBookFrontHelper::createBookShelf($this->config,'favorite', $shelf2_fav, $isMobile, $isTablet, 2);?>
 
 					</div>
 				</div>
 
 				<ul class="html5fb-list active" id="favorite-list">
 					<?php
-					$data = HTML5FlippingBookFrontHelper::createPublicationList('favorite', $this->favList, $isMobile, $isTablet, $this->viewPublicationButtonText, $this->config);
+					$data = HTML5FlippingBookFrontHelper::createPublicationList('favorite', $this->favList, $this->viewPublicationButtonText, $this->config, $isMobile, $isTablet);
 					$favorite = $data[0];
 					print_r($data[1]);
 					?>
