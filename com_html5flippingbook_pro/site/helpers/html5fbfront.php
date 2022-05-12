@@ -21,7 +21,7 @@ abstract class HTML5FlippingBookFrontHelper
 	 *
 	 * @return stdClass
 	 */
-	public static function htmlPublHelper($mobile = FALSE, $tablet = FALSE, $item, $link = FALSE, $fullPath = FALSE)
+	public static function htmlPublHelper($item, $mobile = FALSE, $tablet = FALSE, $link = FALSE, $fullPath = FALSE)
 	{
 		$uri  = JUri::getInstance();
 		$user = JFactory::getUser();
@@ -30,10 +30,10 @@ abstract class HTML5FlippingBookFrontHelper
 		if ($link)
 		{
 			if ($fullPath) {
-				$data->rawPublicationLink= JUri::root().'index.php?option='.COMPONENT_OPTION.'&view=publication&id='.$item;
+				$data->rawPublicationLink= JUri::root().'index.php?option='.COMPONENT_OPTION.'&view=publication&id='.$item->c_id;
 				$data->publicationLink = JRoute::_($data->rawPublicationLink.'&tmpl=component', FALSE, (int)$uri->isSSL());
 			} else {
-				$data->rawPublicationLink= 'index.php?option='.COMPONENT_OPTION.'&view=publication&id='.$item;
+				$data->rawPublicationLink= 'index.php?option='.COMPONENT_OPTION.'&view=publication&id='.$item->c_id;
 				$data->publicationLink = JRoute::_($data->rawPublicationLink.'&tmpl=component', FALSE, (int)$uri->isSSL());
 			}
 			return $data;
@@ -205,7 +205,7 @@ abstract class HTML5FlippingBookFrontHelper
 	 *
 	 * @return string
 	 */
-	public static function createBookShelf($list = 'reading', $shelf = array(), $isMobile = FALSE, $isTablet = FALSE, $shelfN = 1, $config)
+	public static function createBookShelf($config, $list = 'reading', $shelf = array(), $isMobile = FALSE, $isTablet = FALSE, $shelfN = 1)
 	{
 		$str = '';
         if(!is_array($shelf) || empty($shelf)){
@@ -214,7 +214,7 @@ abstract class HTML5FlippingBookFrontHelper
 		$rowCount = count($shelf);
 		foreach ($shelf as $i => $item)
 		{
-			$data = self::htmlPublHelper($isMobile, $isTablet, $item);
+			$data = self::htmlPublHelper($item, $isMobile, $isTablet);
 			$tooltip = '';
 			$descr = strip_tags($item->c_pub_descr);
 			if (strlen($descr) != "")
@@ -385,7 +385,7 @@ abstract class HTML5FlippingBookFrontHelper
 	 *
 	 * @return string
 	 */
-	public static function createPublicationList($list, $listData, $isMobile = FALSE, $isTablet = FALSE, $publbuttontext, $config)
+	public static function createPublicationList($list, $listData, $publbuttontext, $config, $isMobile = FALSE, $isTablet = FALSE)
 	{
 		$user = JFactory::getUser();
 		$downloadOptionAccess = $user->authorise('core.download', COMPONENT_OPTION);
@@ -398,7 +398,7 @@ abstract class HTML5FlippingBookFrontHelper
 
 			if ($item->read != 1) $k++;
 
-			$data = self::htmlPublHelper($isMobile, $isTablet, $item);
+			$data = self::htmlPublHelper($item, $isMobile, $isTablet);
 
 			$str .= '<li class="html5fb-list-item ' . $list . '-pub-' . $item->c_id . ' ' . ($item->read ? 'hide-publ' : '') . '" ' . ($item->read ? 'style="display: none;"' : '') . '>';
 			$str .= '   <div class="html5fb-top" style="display: none" onclick="backToTop();"><span class="fa fa-arrow-up"></span></div>';

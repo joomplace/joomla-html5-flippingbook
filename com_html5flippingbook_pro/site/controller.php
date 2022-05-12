@@ -345,7 +345,7 @@ class HTML5FlippingBookController extends JControllerLegacy
 		{
 			$downloadOptionAccessGranted = $user->authorise('core.download', COMPONENT_OPTION.'.publication.'.$item->c_id);
 
-			$data = HTML5FlippingBookFrontHelper::htmlPublHelper($isMobile, $isTablet, $item);
+			$data = HTML5FlippingBookFrontHelper::htmlPublHelper($item, $isMobile, $isTablet);
 			$str .= '<li class="html5fb-list-item ' . $list . '-pub-' . $item->c_id .' '. ($item->read ? 'hide-publ' : '').'" '. ($item->read ? 'style="display: none;"' : '') .'>
 						<div class="html5fb-top" style="display: none" onclick="backToTop();"><span class="fa fa-arrow-up"></span></div>
 					    <div class="list-overlay" style="display: none;"></div>
@@ -576,9 +576,8 @@ class HTML5FlippingBookController extends JControllerLegacy
 
 		// Build the message to send
 		$msg	= JText::_('COM_HTML5FLIPPINGBOOK_FE_MAILTO_EMAIL_MSG');
-
-		$publLink = HTML5FlippingBookFrontHelper::htmlPublHelper(FALSE, FALSE, $publID, TRUE, TRUE)->publicationLink;
-		$body	= sprintf($msg, $SiteName, $sender, $from, $publLink);
+        $publLink = JRoute::_(JUri::root().'index.php?option='.COMPONENT_OPTION.'&view=publication&id='.$publID.'&tmpl=component', FALSE, (int)JUri::getInstance()->isSSL());
+        $body	= sprintf($msg, $SiteName, $sender, $from, $publLink);
 
 		// Clean the email data
 		$subject = JMailHelper::cleanSubject($subject);
