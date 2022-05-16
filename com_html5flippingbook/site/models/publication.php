@@ -178,7 +178,7 @@ class HTML5FlippingBookModelPublication extends JModelItem
 				}
 
 				$handle = imagecreatefromjpeg($file.'tmp');
-				if (!is_resource($handle)) {
+				if ($handle === false) {  // PHP8.0.0 -	On success, this function returns a GDImage instance now; previously, a resource was returned.
 				    return false;
                 }
 				unlink($file.'tmp');

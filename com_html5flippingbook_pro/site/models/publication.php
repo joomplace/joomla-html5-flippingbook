@@ -214,7 +214,7 @@ class HTML5FlippingBookModelPublication extends JModelItem
         jimport('joomla.image.image');
         jimport('joomla.filesystem.file');
 
-        function imgCreate($file,$cropWidth = 57, $cropHeight = 73)
+        function imgCreate($file, $cropWidth = 57, $cropHeight = 73)
         {
 
             try
@@ -258,7 +258,9 @@ class HTML5FlippingBookModelPublication extends JModelItem
                 }
 
                 $handle = imagecreatefromjpeg($file.'tmp');
-                if ( !is_resource($handle) )    return false;
+                if ($handle === false) {  // PHP8.0.0 -	On success, this function returns a GDImage instance now; previously, a resource was returned.
+                    return false;
+                }
                 unlink($file.'tmp');
 
                 return $handle;
