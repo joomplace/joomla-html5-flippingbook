@@ -6,8 +6,8 @@
     <authorUrl>www.joomplace.com</authorUrl>
     <copyright>Copyright (C) 2005 - 2021 JoomPlace, www.joomplace.com. All rights reserved.</copyright>
     <license>GNU/GPL http://www.gnu.org/copyleft/gpl.html</license>
-    <version>2.2.6</version>
-    <creationDate>October 2021</creationDate>
+    <version>2.2.7</version>
+    <creationDate>May 2022</creationDate>
     <description>COM_HTML5FLIPPINGBOOK_SYS_DESC</description>
     <scriptfile>install.php</scriptfile>
     <update>
