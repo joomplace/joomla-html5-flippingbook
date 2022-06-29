@@ -21,7 +21,7 @@ HTML5 is supported by all modern web browsers (Safari, Chrome, Firefox)  and mob
 - <b>Joomla sites owners</b> to make content more attractive and interactive.
 - <b>A regular person.</b> A surprising way of presenting wedding, vacations or birthdays photos.
 
-<b>FEATURES</b>
+# <b>FEATURES</b>
 
 <b>MOBILE FRIENDLY</b>
 - iPad, iPhones, iPods, Android compatibility
@@ -74,4 +74,4 @@ One of the main advantages of digital magazines and online books, created with t
 
 <b>ADDITIONAL JOOMLA PLUGINS</b>
 
-Content and button plugins enable users to insert created HTML5 eBooks and magazines into the articles, modules or any third-party extensions by providing links to them. By clicking HTML5 Flipping Book button at the bottom of HTML-editor menu, the user will be able to choose any available on the site publication and insert a link to it. The content will open in a lightbox or a popup window.
+<b>Content and button plugins</b> enable users to insert created HTML5 eBooks and magazines into the articles, modules or any third-party extensions by providing links to them. By clicking HTML5 Flipping Book button at the bottom of HTML-editor menu, the user will be able to choose any available on the site publication and insert a link to it. The content will open in a lightbox or a popup window.
