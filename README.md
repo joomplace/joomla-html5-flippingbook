@@ -21,7 +21,7 @@ HTML5 is supported by all modern web browsers (Safari, Chrome, Firefox)  and mob
 - <b>Joomla sites owners</b> to make content more attractive and interactive.
 - <b>A regular person.</b> A surprising way of presenting wedding, vacations or birthdays photos.
 
-# <b>FEATURES</b>
+<h2><b>FEATURES</b></h2>
 
 <b>MOBILE FRIENDLY</b>
 - iPad, iPhones, iPods, Android compatibility
